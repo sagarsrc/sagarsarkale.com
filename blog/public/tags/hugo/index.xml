@@ -36,27 +36,35 @@
 </span><span class="lnt">17
 </span><span class="lnt">18
 </span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># create HUGO site called &#34;blog&#34;
-</span></span><span class="line"><span class="cl"># choose format yaml
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># create HUGO site called &#34;blog&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># choose format yaml</span>
 </span></span><span class="line"><span class="cl">hugo new site blog --format yaml
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"># add theme as submodule
+</span></span><span class="line"><span class="cl"><span class="c1"># add desired theme as submodule</span>
 </span></span><span class="line"><span class="cl">git submodule add https://github.com/reorx/hugo-PaperModX.git themes/PaperModX
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"># update submodule
+</span></span><span class="line"><span class="cl"><span class="c1"># update submodule</span>
 </span></span><span class="line"><span class="cl">git submodule update --init --recursive
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"># go to respective site
-</span></span><span class="line"><span class="cl">cd blog
-</span></span><span class="line"><span class="cl">hugo # to build
+</span></span><span class="line"><span class="cl"><span class="c1"># go to respective site</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> blog
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"># live rebuild server
+</span></span><span class="line"><span class="cl"><span class="c1"># generate static website</span>
+</span></span><span class="line"><span class="cl">hugo
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># live rebuild server</span>
 </span></span><span class="line"><span class="cl">hugo server -D
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"># before deploy
+</span></span><span class="line"><span class="cl"><span class="c1"># before deploy</span>
 </span></span><span class="line"><span class="cl">hugo --minify
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># copy public folder to your hosting platform</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="references">references</h1>
