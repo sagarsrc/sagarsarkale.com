@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Sagar Sarkale</title>
-    <link>http://localhost:1313/</link>
+    <link>https://sagarsarkale.com/</link>
     <description>Recent content on Sagar Sarkale</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 07 Apr 2024 10:38:54 +0000</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 07 Apr 2024 10:38:54 +0000</lastBuildDate><atom:link href="https://sagarsarkale.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>RNNs a walkthrough</title>
-      <link>http://localhost:1313/blog/seq/rnns-a-walkthrough/</link>
+      <link>https://sagarsarkale.com/blog/seq/rnns-a-walkthrough/</link>
       <pubDate>Tue, 22 Aug 2023 01:25:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/seq/rnns-a-walkthrough/</guid>
+      <guid>https://sagarsarkale.com/blog/seq/rnns-a-walkthrough/</guid>
       <description>A Brief about Recurrent Neural Networks</description>
       <content:encoded><![CDATA[<p>Looking back from a point where GPT models have sent waves across the industry, recurrent networks have been one of the most fundamental blocks that have been laid down, when it comes to progress of natural language and deep learning. This blog aims to give a functional understanding of RNNs. Personally, I had a difficult time wrapping my head around this when i learnt it the first time. I believe that this blog would reduce the friction for the people who have just started their journey.</p>
 <p>This blog is first in the series of Recurrent neural networks, LSTMs are extension of RNNs and we will go through a brief overview of RNNs first and understand their working and significance.</p>
@@ -249,10 +249,10 @@ $$</p>
     
     <item>
       <title>Hello super fast blogging!</title>
-      <link>http://localhost:1313/blog/web/hello-hugo/</link>
+      <link>https://sagarsarkale.com/blog/web/hello-hugo/</link>
       <pubDate>Sun, 07 Apr 2024 10:38:54 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/web/hello-hugo/</guid>
+      <guid>https://sagarsarkale.com/blog/web/hello-hugo/</guid>
       <description>Exploring static site builder for quick blogging</description>
       <content:encoded><![CDATA[<h1 id="brief">Brief</h1>
 <p>Today i tried to setup static site builder called HUGO, for blogging. It comes in handy once you set up all the parameters. It is a combination of markdown + config files. With few hours of efforts was able to set it up.</p>
@@ -343,10 +343,10 @@ $$</p>
     
     <item>
       <title>LSTM simplified</title>
-      <link>http://localhost:1313/blog/seq/lstm/</link>
+      <link>https://sagarsarkale.com/blog/seq/lstm/</link>
       <pubDate>Thu, 21 Sep 2023 01:25:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/seq/lstm/</guid>
+      <guid>https://sagarsarkale.com/blog/seq/lstm/</guid>
       <description>In depth and intuitive explanation of LSTM architecture</description>
       <content:encoded><![CDATA[<h1 id="introduction">Introduction</h1>
 <p>In my previous blog about RNNs - <a href="https://sagarsarkale.com/blog/seq/rnns-a-walkthrough/">&ldquo;RNNs a walkthrough&rdquo;</a>, we saw how recurrent neural networks worked, their limitations, like vanishing gradients, which leads to failure of learning long sequences. LSTMs try to solve for these limitations. In this blog we will go through detailed walkthrough of underlying structure of an LSTM cell.</p>
@@ -358,12 +358,12 @@ $$</p>
 
 <p>Believe me or not, the image above is the key to understanding the fundamental blocks of LSTM. This guard is protecting the gate above. For now let us assume that you will not be allowed through the gate without a small cost. Consider the same scenario with vectors. A vector cannot pass through certain path without a small cost. In the diagram below you can see that each value is reduced by some factor when it passes through the gate.</p>
 <figure>
-    <img loading="lazy" src="/lstm/Untitled%201.png"/> 
+    <img loading="lazy" src="/lstm/02-the-gate.png"/> 
 </figure>
 
 <p>How do we mathematically achieve this? Simple, using a sigmoid layer. Range of Sigmoid function is between 0 and 1. (For now let us not worry about what is the input to this sigmoid layer)</p>
 <figure>
-    <img loading="lazy" src="/lstm/Untitled%202.png"/> 
+    <img loading="lazy" src="/lstm/03-the-gate-sigmoid-intro.png"/> 
 </figure>
 
 <p>Notice how each element in the input vector $v$ is being multiplied with corresponding element in vector $t$ which is output of sigmoid layer to give resultant vector $v{&rsquo;}$. This operation is called <strong>point wise operation</strong>. In this case we are performing point wise multiplication operation. This operation depicted above allows partial passage to the input vector.</p>
@@ -377,7 +377,7 @@ $$</p>
 </ul>
 <h1 id="how-do-we-concisely-represent-this-gate">How do we concisely represent this “Gate”?</h1>
 <figure>
-    <img loading="lazy" src="/lstm/Untitled%203.png"/> 
+    <img loading="lazy" src="/lstm/04-point-wise-and-sigmoid.png" height="500"/> 
 </figure>
 
 <ol>
@@ -389,20 +389,20 @@ $$</p>
 <p>This procedure is critical to understand the gravity of the underlying structure of LSTMs, as this mechanism forms the basis of each fundamental block that we are going to discuss.</p>
 <h1 id="some-notations-before-we-begin">Some notations before we begin</h1>
 <figure>
-    <img loading="lazy" src="/lstm/Untitled%204.png"/> 
+    <img loading="lazy" src="/lstm/05-notations.png"/> 
 </figure>
 
 <h1 id="lego-pieces">Lego pieces</h1>
 <p>An LSTM unit consists of 4 blocks, 3 blocks adjacent to each other and 1 block that connects them all each block has its own significance. In order to get an functional understanding let’s first look at each lego block individually, then we can club these pieces to form a complete LSTM unit.</p>
 <figure>
-    <img loading="lazy" src="/lstm/Untitled%205.png"
+    <img loading="lazy" src="/lstm/06-separate-lego-lstm.png"
          alt="Separate Lego blocks of an LSTM" width="50%" height="50%"/> <figcaption>
             <p>Separate Lego blocks of an LSTM</p>
         </figcaption>
 </figure>
 
 <figure>
-    <img loading="lazy" src="/lstm/Untitled%206.png"
+    <img loading="lazy" src="/lstm/07-joined-lego-lstm.png"
          alt="Joined Lego blocks of an LSTM" width="50%" height="50%"/> <figcaption>
             <p>Joined Lego blocks of an LSTM</p>
         </figcaption>
@@ -410,13 +410,13 @@ $$</p>
 
 <h1 id="a-glimpse-of-an-lstm-cell">A Glimpse of an LSTM cell</h1>
 <figure>
-    <img loading="lazy" src="/lstm/Untitled%207.png"/> 
+    <img loading="lazy" src="/lstm/08-glimpse-lstm.png"/> 
 </figure>
 
 <p>While LSTM cell is similar to vanilla RNN cell, one of the key distinction is that each state has 2 inputs from the previous time step, “cell state” $c_{t-1}$ and “hidden state” $h_{t-1}$. All other concepts like unrolling a recurrent neural network, back propagation through time remain the same.</p>
 <p>Unrolling LSTM cell for 3 timesteps - recursively consume outputs of previous state and current input to generate new state for current time step.</p>
 <figure>
-    <img loading="lazy" src="/lstm/Untitled%208.png"/> 
+    <img loading="lazy" src="/lstm/09-unrolling-lstm.png"/> 
 </figure>
 
 <p>NOTE : it is the same LSTM cell that is being viewed at 3 time steps</p>
@@ -439,13 +439,14 @@ $$</p>
 <li>solve for $c$ using given information</li>
 <li>find cost of $t$ objects using $t\times c$</li>
 </ol>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<blockquote>
+<p>💡 In order to solve a problem all that matters, is that you are able to recall the concept and use previously learnt steps to solve equivalent problem in future.</p>
+</blockquote>
 <p>Though a trivial problem, it is important to list these steps down while trying to impose these steps on internal blocks of LSTMs.</p>
 <h1 id="opening-the-gates">Opening the Gates</h1>
 <h2 id="gate-1---forget-gate">Gate #1 - Forget Gate</h2>
 <figure>
-    <img loading="lazy" src="/lstm/Untitled%209.png" width="50%" height="50%"/> 
+    <img loading="lazy" src="/lstm/10-forgetgate.png" height="200"/> 
 </figure>
 
 <p>What would your initial steps be while solving the <strong>BANANAS</strong> problem in exam?</p>
@@ -471,7 +472,7 @@ $$</p>
 </ol>
 <p>Now let us impose this analogy on LSTMs.</p>
 <figure>
-    <img loading="lazy" src="/lstm/Untitled%2010.png"/> 
+    <img loading="lazy" src="/lstm/11-forgetgate.png"/> 
 </figure>
 
 <table>
@@ -558,7 +559,7 @@ $$</p>
 <p>Now that we have passed through Gate #1 let us close it behind us and move to the next one.</p>
 <h2 id="gate-2---input-gate">Gate #2 - Input Gate</h2>
 <figure>
-    <img loading="lazy" src="/lstm/Untitled%2011.png" width="50%" height="50%"/> 
+    <img loading="lazy" src="/lstm/12-inputgate.png" height="200"/> 
 </figure>
 
 <p>Again let us ask the same question now that you remember how to solve the problem, also you understand that it is a problem that involves calculating cost of single unit, what would your next step be?</p>
@@ -583,17 +584,21 @@ $$</p>
 </ol>
 <p>Now let us try to see what LSTM does in this second stage.</p>
 <figure>
-    <img loading="lazy" src="/lstm/Untitled%2012.png"/> 
+    <img loading="lazy" src="/lstm/13-inputgate.png"/> 
 </figure>
 
 <table>
 <thead>
 <tr>
-<th>$F_{t}$</th>
-<th>output of Forget gate</th>
+<th></th>
+<th></th>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>$F_{t}$</td>
+<td>output of Forget gate</td>
+</tr>
 <tr>
 <td>$I_t$</td>
 <td>output of Input gate</td>
@@ -642,29 +647,29 @@ $$</p>
 <li>create a filter for “Input gate”</li>
 </ul>
 <p>$$
-i_t = \sigma{(W_i \ .\ [h_{t-1},; x_t] + b_i)}
+i_t = \sigma{(W_i \ .\ [h_{t-1}, x_t] + b_i)}
 $$</p>
 <ul>
 <li>tanh activation for intermediate cell state generation of current time step</li>
 </ul>
 <p>$$
-\tilde{c_t} = tanh(W_c \ .\ [h_{t-1},; x_t] + b_i)
+\tilde{c_t} = tanh(W_c \ .\ [h_{t-1}, x_t] + b_i)
 $$</p>
 <ul>
 <li>Output of “Input gate”</li>
 </ul>
 <p>$$
-I_t = \tilde{c_t}; \otimes ; i_t
+I_t = \tilde{c_t} \otimes  i_t
 $$</p>
 <p>Using the output of “Forget gate” $F_t$ and “Input gate” $I_t$ , a new state or a vector is formed called <strong>cell state</strong>. It essentially holds new information with some learnings from the past. Very much like us humans. We add new learnings on top of our knowledge bank while we retain our learnings from the past.</p>
 <p>This cell state can be mathematically represented as</p>
 <p>$$
-c_t = F_t ;\oplus; I_t
+c_t = F_t \oplus I_t
 $$</p>
 <p>Notice how we are <em>adding</em> to previous knowledge $F_t$ using point wise operation here. This cell state is further used by “Output Gate” as well as the next timestep.</p>
 <h2 id="gate-3---output-gate">Gate #3 - Output Gate</h2>
 <figure>
-    <img loading="lazy" src="/lstm/Untitled%2013.png" width="50%" height="50%"/> 
+    <img loading="lazy" src="/lstm/14-outputgate.png" height="200"/> 
 </figure>
 
 <p>Now we have the equation set up for us all we need to do is plug in the value and get the answer for our bananas problem.</p>
@@ -689,17 +694,21 @@ $$</p>
 </ol>
 <p>Let us look how LSTMs generate final output.</p>
 <figure>
-    <img loading="lazy" src="/lstm/Untitled%2014.png"/> 
+    <img loading="lazy" src="/lstm/15-outputgate.png"/> 
 </figure>
 
 <table>
 <thead>
 <tr>
-<th>$W_{o}$</th>
-<th>weights associated with Output gate</th>
+<th></th>
+<th></th>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>$W_{o}$</td>
+<td>weights associated with Output gate</td>
+</tr>
 <tr>
 <td>$o_t$</td>
 <td>sigmoid activated vector associated with Output gate</td>
@@ -745,7 +754,7 @@ $$</p>
 <li>create a filter for “Output gate”</li>
 </ul>
 <p>$$
-o_t = \sigma{(W_o \ .\ [h_{t-1},; x_t] + b_o)}
+o_t = \sigma{(W_o \ .\ [h_{t-1}, x_t] + b_o)}
 $$</p>
 <ul>
 <li>tanh activation associated with “Output gate”</li>
@@ -757,7 +766,7 @@ $$</p>
 <li>output of “Output gate”</li>
 </ul>
 <p>$$
-h_t = o_t ;\otimes; c_t'
+h_t = o_t \otimes c_t'
 $$</p>
 <p>Notice how</p>
 <ol>
@@ -768,13 +777,13 @@ $$</p>
 <p>All these transformations are good but what exactly makes LSTM so special? For this we will need to ask ourselves how did LSTMs solve for issues which vanilla RNNs faced.</p>
 <h1 id="the-missing-link">The missing link</h1>
 <figure>
-    <img loading="lazy" src="/lstm/Untitled%2015.png"/> 
+    <img loading="lazy" src="/lstm/16-missing-link.png"/> 
 </figure>
 
 <p>In this section we will try to answer how does LSTM solve for “long term dependencies”. The easiest way to explain the piece that binds it all would be using how gates can be utilised in order to retain long term information.</p>
 <p>For now we are concerned with two gates forget gate and input gate. <strong>Clearing rest of the paths in LSTM for ease of explaining.</strong></p>
 <figure>
-    <img loading="lazy" src="/lstm/Untitled%2016.png"/> 
+    <img loading="lazy" src="/lstm/17-missing-link.png"/> 
 </figure>
 
 <p>Equations of LSTM at various timesteps</p>
@@ -783,20 +792,20 @@ $$</p>
 <li>Output of <em>forget gate</em></li>
 </ul>
 <p>$$
-F_{t} = f_{t};\otimes ; c_{t-1}
+F_{t} = f_{t}\otimes  c_{t-1}
 $$</p>
 <ul>
 <li>Output of <em>input gate</em></li>
 </ul>
 <p>$$
-c_{t} = F_{t}; \oplus ; I_{t}
+c_{t} = F_{t} \oplus  I_{t}
 $$</p>
 <p>$$
-I_t = i_{t} ;\otimes; \tilde{c_{t}}
+I_t = i_{t} \otimes \tilde{c_{t}}
 $$</p>
 <p>These equations can be combined to get</p>
 <p>$$
-c_{t} = [f_{t};\otimes ; c_{t-1}]; \oplus ; [i_{t} ;\otimes; \tilde{c_{t}}]
+c_{t} = [f_{t}\otimes  c_{t-1}] \oplus  [i_{t} \otimes \tilde{c_{t}}]
 $$</p>
 <blockquote>
 <p>Let us see the same set of equations at various timesteps</p>
@@ -804,19 +813,19 @@ $$</p>
 <p><code>timestep = t+1</code></p>
 <p>$$
 \begin{align}
-c_{t+1} = [f_{t+1};\otimes ; c_{t}]; \oplus ; [i_{t+1} ;\otimes; \tilde{c_{t+1}}]
+c_{t+1} = [f_{t+1}\otimes  c_{t}] \oplus  [i_{t+1} \otimes \tilde{c_{t+1}}]
 \end{align}
 $$</p>
 <p><code>timestep = t</code></p>
 <p>$$
 \begin{align}
-c_{t} = [f_{t};\otimes ; c_{t-1}]; \oplus ; [i_{t} ;\otimes; \tilde{c_{t}}]
+c_{t} = [f_{t}\otimes  c_{t-1}] \oplus  [i_{t} \otimes \tilde{c_{t}}]
 \end{align}
 $$</p>
 <p><code>timestep = t-1</code></p>
 <p>$$
 \begin{align}
-c_{t-1} = [f_{t-1};\otimes ; c_{t-2}]; \oplus ; [i_{t-1} ;\otimes; \tilde{c_{t-1}}]
+c_{t-1} = [f_{t-1}\otimes  c_{t-2}] \oplus  [i_{t-1} \otimes \tilde{c_{t-1}}]
 \end{align}
 $$</p>
 <p>Notice how cell state $c_t$ at timestep $t$ is always a function of <strong><em>addition</em></strong> of two gated <strong><em>products</em></strong>, here <em>forget gate</em> $f_t$ and <em>input gate</em> $i_t$.</p>
@@ -839,24 +848,20 @@ $$</p>
 <li>when $f_t = [0,0,0,0,0]$</li>
 <li>what happens to output of <em>forget gate</em>?</li>
 </ul>
-<p>$$
-F_{t} = f_{t};\otimes ; c_{t-1}\newline
-F_{t} = [0,0,0,0,0];\otimes ; c_{t-1}\newline
-\therefore; F_t; = [0,0,0,0,0]
-$$</p>
+<p>$F_{t} = f_{t}\otimes  c_{t-1}\newline$
+$F_{t} = [0,0,0,0,0]\otimes  c_{t-1}\newline$
+$\therefore F_t = [0,0,0,0,0]$</p>
 <p>How can we stop vectors at input gate?</p>
 <ul>
 <li>when $i_t = [0,0,0,0,0]$</li>
 <li>what happens to output of <em>input gate</em>?</li>
 </ul>
-<p>$$
-I_t = i_t ; \otimes; \tilde{c_{t-1}}\newline
-I_t = [0,0,0,0,0] ; \otimes; \tilde{c_{t-1}}\newline
-\therefore; I_t = [0,0,0,0,0]</p>
-<p>$$</p>
+<p>$I_t = i_t  \otimes \tilde{c_{t-1}}\newline$
+$I_t = [0,0,0,0,0]  \otimes \tilde{c_{t-1}}\newline$
+$\therefore I_t = [0,0,0,0,0]$</p>
 <p>Consider this simplified diagram where 3 time steps of LSTM are shown - let us view how information flows with respect to time step $t+1$. The stickman figure at time step $t+1$ needs some information from previous time along the <strong>blue</strong> path shown below, let us see if LSTM is able to provide the same.</p>
 <figure>
-    <img loading="lazy" src="/lstm/Untitled%2017.png"/> 
+    <img loading="lazy" src="/lstm/18-missing-link.png"/> 
 </figure>
 
 <p>For ease of explanation</p>
@@ -867,98 +872,103 @@ I_t = [0,0,0,0,0] ; \otimes; \tilde{c_{t-1}}\newline
 <p>where $c = 0$ or $1$</p>
 <h2 id="case-1">Case #1</h2>
 <ul>
-<li>$f_t = 1,;;; i_t = 0$</li>
+<li>$f_t = 1, i_t = 0$</li>
 </ul>
 <figure>
-    <img loading="lazy" src="/lstm/Untitled%2018.png"/> 
+    <img loading="lazy" src="/lstm/19-case1.png"/> 
 </figure>
 
 <figure>
-    <img loading="lazy" src="/lstm/Untitled%2019.png"/> 
+    <img loading="lazy" src="/lstm/20-stickman.png" height="100"/> 
 </figure>
 
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<blockquote>
+<p>💬 i ONLY need $c_{t-1}$ NOT $c_t$</p>
+</blockquote>
 <p><strong>This case is what enables LSTM to carry over long term memory.</strong></p>
 <p>Some math in action:</p>
-<p>$c_{t} = F_{t}; \oplus ; I_{t}$</p>
-<p>$c_{t} = [1 ;\otimes ; c_{t-1}]; \oplus ; 0 ;;; ; where;  f_t=1 ;;; i_t=0$</p>
+<p>$c_{t} = F_{t} \oplus  I_{t}$</p>
+<p>$c_{t} = [1 \otimes  c_{t-1}] \oplus  0  ; where  f_t=1  i_t=0$</p>
 <p>$c_{t} =c_{t-1}$</p>
 <p>As we can see this type of gate setting in LSTM serves as a skip connection for cell state, skipping one or more states in between to reach to required time step.</p>
-<p>Imagine we need cell state from time step $(t-w)$, all the intermediate gates between time step $(t-w)$ and $(t+1)$ will be set to $f_{q}=1, ;;; i_{q}=0$ where $q$ is index of intermediate time step.</p>
+<p>Imagine we need cell state from time step $(t-w)$, all the intermediate gates between time step $(t-w)$ and $(t+1)$ will be set to $f_{q}=1,  i_{q}=0$ where $q$ is index of intermediate time step.</p>
 <p>Following diagram illustrates the same with</p>
 <figure>
-    <img loading="lazy" src="/lstm/Untitled%2020.png"/> 
+    <img loading="lazy" src="/lstm/21-case1.png"/> 
 </figure>
 
 <h2 id="case-2">Case #2</h2>
 <ul>
-<li>$f_t = 0,;;; i_t = 1$</li>
+<li>$f_t = 0, i_t = 1$</li>
 </ul>
 <figure>
-    <img loading="lazy" src="/lstm/Untitled%2021.png"/> 
+    <img loading="lazy" src="/lstm/22-case2.png"/> 
 </figure>
 
 <figure>
-    <img loading="lazy" src="/lstm/Untitled%2019.png"/> 
+    <img loading="lazy" src="/lstm/20-stickman.png" height="100"/> 
 </figure>
 
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<blockquote>
+<p>💬 i do NOT need cell states before time step $t$</p>
+</blockquote>
 <p>Again some math:</p>
-<p>$c_{t} = F_{t}; \oplus ; I_{t}$</p>
-<p>$c_{t} = [f_t;\otimes ; c_{t-1}]; \oplus ; [i_t ;\otimes; \tilde{c_{t}}]
-;;; ; where;  f_t=0,;;;i_t=1$</p>
-<p>$c_{t} = [0;\otimes ; c_{t-1}]; \oplus ; [1 ;\otimes; \tilde{c_{t}}]$</p>
-<p>$c_{t} =  [1 ;\otimes; \tilde{c_{t}}]$</p>
+<p>$c_{t} = F_{t} \oplus  I_{t}$</p>
+<p>$c_{t} = [f_t\otimes  c_{t-1}] \oplus  [i_t \otimes \tilde{c_{t}}]
+; where  f_t=0,i_t=1$</p>
+<p>$c_{t} = [0\otimes  c_{t-1}] \oplus  [1 \otimes \tilde{c_{t}}]$</p>
+<p>$c_{t} =  [1 \otimes \tilde{c_{t}}]$</p>
 <p>Here we can see that no vector passes through the <em>forget gate</em> and we use ONLY the output of <em>input gate</em> to generate cell state at time $t$ to be consumed at time step $t+1$.</p>
 <h2 id="case-3">Case #3</h2>
 <ul>
-<li>$f_t = 0,;;; i_t = 0$</li>
+<li>$f_t = 0, i_t = 0$</li>
 </ul>
 <figure>
-    <img loading="lazy" src="/lstm/Untitled%2022.png"/> 
+    <img loading="lazy" src="/lstm/23-case3.png"/> 
 </figure>
 
 <figure>
-    <img loading="lazy" src="/lstm/Untitled%2019.png"/> 
+    <img loading="lazy" src="/lstm/20-stickman.png" height="100"/> 
 </figure>
 
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<blockquote>
+<p>💬 i need a break</p>
+</blockquote>
 <p>This is where LSTM</p>
 <ul>
 <li>erases all previous information</li>
 <li>and does NOT learn anything new</li>
 </ul>
 <p>Mathematically</p>
-<p>$c_{t} = F_{t}; \oplus ; I_{t}$</p>
-<p>$c_{t} = [f_t;\otimes ; c_{t-1}]; \oplus ; [i_t ;\otimes; \tilde{c_{t}}]
-;;; ; where;  f_t=0,;;;i_t=0$</p>
-<p>$c_{t} = [0;\otimes ; c_{t-1}]; \oplus ; [0 ;\otimes; \tilde{c_{t}}]$</p>
+<p>$c_{t} = F_{t} \oplus  I_{t}$</p>
+<p>$c_{t} = [f_t\otimes  c_{t-1}] \oplus  [i_t \otimes \tilde{c_{t}}]
+; where  f_t=0,i_t=0$</p>
+<p>$c_{t} = [0\otimes  c_{t-1}] \oplus  [0 \otimes \tilde{c_{t}}]$</p>
 <p>$c_{t} =  0$</p>
-<p>Here we can see that we allow both the vectors $c_{t-1},;; \tilde{c_t}$ to pass through the <em>forget gate</em> and <em>input gate</em> respectively. Here we get information of both current state and states before it as some additive form of vectors mentioned above.</p>
+<p>Here we can see that we allow both the vectors $c_{t-1}, \tilde{c_t}$ to pass through the <em>forget gate</em> and <em>input gate</em> respectively. Here we get information of both current state and states before it as some additive form of vectors mentioned above.</p>
 <h2 id="case-4">Case #4</h2>
 <ul>
-<li>$f_t = 1,;;; i_t = 1$</li>
+<li>$f_t = 1, i_t = 1$</li>
 </ul>
 <figure>
-    <img loading="lazy" src="/lstm/Untitled%2023.png"/> 
+    <img loading="lazy" src="/lstm/24-case4.png"/> 
 </figure>
 
 <figure>
-    <img loading="lazy" src="/lstm/Untitled%2019.png"/> 
+    <img loading="lazy" src="/lstm/20-stickman.png" height="100"/> 
 </figure>
 
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<blockquote>
+<p>💬 i need gist of all the cell states in previous time steps</p>
+<p>(can’t catch a break now can i?)</p>
+</blockquote>
 <p>Mathematically</p>
-<p>$c_{t} = F_{t}; \oplus ; I_{t}$</p>
-<p>$c_{t} = [f_t;\otimes ; c_{t-1}]; \oplus ; [i_t ;\otimes; \tilde{c_{t}}]
-;;; ; where;  f_t=1,;;;i_t=1$</p>
-<p>$c_{t} = [1;\otimes ; c_{t-1}]; \oplus ; [1 ;\otimes; \tilde{c_{t}}]$</p>
-<p>$c_{t} =  [c_{t-1} ;\oplus; \tilde{c_{t}}]$</p>
-<p>Here we can see that we allow both the vectors $c_{t-1},;; \tilde{c_t}$ to pass through the <em>forget gate</em> and <em>input gate</em> respectively. Here we get information of both current state and states before it as some additive form of vectors mentioned above.</p>
+<p>$c_{t} = F_{t} \oplus  I_{t}$</p>
+<p>$c_{t} = [f_t\otimes  c_{t-1}] \oplus  [i_t \otimes \tilde{c_{t}}]
+; where  f_t=1,i_t=1$</p>
+<p>$c_{t} = [1\otimes  c_{t-1}] \oplus  [1 \otimes \tilde{c_{t}}]$</p>
+<p>$c_{t} =  [c_{t-1} \oplus \tilde{c_{t}}]$</p>
+<p>Here we can see that we allow both the vectors $c_{t-1}, \tilde{c_t}$ to pass through the <em>forget gate</em> and <em>input gate</em> respectively. Here we get information of both current state and states before it as some additive form of vectors mentioned above.</p>
 <h1 id="end-note">End note</h1>
 <p>This brings us to the end of this long blog. We covered how LSTMs use gated flow of vectors to retain both long and short term information, but there is still some ground left to cover, like how LSTM actually solve for vanishing gradient problem. This part is covered in detail in the references mentioned below. I hope reading this gave an in depth as well as intuitive understanding of LSTMs.</p>
 <p>One final “diagrammatic” takeaway before ending this blog</p>
@@ -966,7 +976,7 @@ I_t = [0,0,0,0,0] ; \otimes; \tilde{c_{t-1}}\newline
 <p>This is how LSTMs keep a track of both <em>long</em> and <em>short</em> term memory</p>
 </blockquote>
 <figure>
-    <img loading="lazy" src="/lstm/Untitled%2024.png"/> 
+    <img loading="lazy" src="/lstm/25-end-note.png"/> 
 </figure>
 
 <h1 id="references">References</h1>
