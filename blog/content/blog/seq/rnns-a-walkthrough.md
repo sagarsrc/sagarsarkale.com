@@ -1,7 +1,7 @@
 ---
 title: "RNNs a walkthrough"
 date: 2023-08-22T01:25:00.000Z
-weight: 2
+weight: 1
 # aliases: ["/first"]
 author: "Sagar Sarkale"
 showToc: true

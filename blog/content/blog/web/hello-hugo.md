@@ -1,7 +1,7 @@
 ---
 title: "Hello super fast blogging!"
 date: 2024-04-07T10:38:54.267Z
-# weight: 1
+weight: 0
 # aliases: ["/first"]
 author: "Sagar Sarkale"
 showToc: true
