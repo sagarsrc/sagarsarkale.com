@@ -1,7 +1,7 @@
 ---
 title: "RNNs a walkthrough"
 date: 2023-08-22T01:25:00.000Z
-weight: 1
+# weight: 100
 # aliases: ["/first"]
 author: "Sagar Sarkale"
 showToc: true
@@ -19,7 +19,7 @@ ShowReadingTime: true
 ShowBreadCrumbs: true
 ShowPostNavLinks: true
 math: katex
-tags: ["RNN", "NLP", "DeepLearning"]
+tags: ["NLP", "DeepLearning"]
 cover:
   image: "rnns/09-cover.png" # image path/url
   alt: "RNNs a walkthrough" # alt text

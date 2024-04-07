@@ -1,7 +1,7 @@
 ---
 title: "LSTM simplified"
 date: 2023-09-21T01:25:00.000Z
-weight: 2
+weight: 100
 # aliases: ["/first"]
 author: "Sagar Sarkale"
 showToc: true
@@ -19,7 +19,7 @@ ShowReadingTime: true
 ShowBreadCrumbs: true
 ShowPostNavLinks: true
 math: katex
-tags: ["LSTM", "NLP", "DeepLearning"]
+tags: ["NLP", "DeepLearning"]
 cover:
   image: "lstm/00-cover.png" # image path/url
   alt: "LSTM simplified" # alt text
