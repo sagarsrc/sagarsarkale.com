@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Web on Sagar Sarkale</title>
-    <link>http://localhost:1313/tags/web/</link>
+    <link>https://sagarsarkale.com/tags/web/</link>
     <description>Recent content in Web on Sagar Sarkale</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 07 Apr 2024 10:38:54 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/web/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 07 Apr 2024 10:38:54 +0000</lastBuildDate><atom:link href="https://sagarsarkale.com/tags/web/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Hello super fast blogging!</title>
-      <link>http://localhost:1313/blog/web/hello-hugo/</link>
+      <link>https://sagarsarkale.com/blog/web/hello-hugo/</link>
       <pubDate>Sun, 07 Apr 2024 10:38:54 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/web/hello-hugo/</guid>
+      <guid>https://sagarsarkale.com/blog/web/hello-hugo/</guid>
       <description>Exploring static site builder for quick blogging</description>
       <content:encoded><![CDATA[<h1 id="brief">Brief</h1>
 <p>Today i tried to setup static site builder called HUGO, for blogging. It comes in handy once you set up all the parameters. It is a combination of markdown + config files. With few hours of efforts was able to set it up.</p>
