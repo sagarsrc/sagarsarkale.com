@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Sagar Sarkale</title>
-    <link>http://localhost:1313/</link>
+    <link>https://sagarsarkale.com/</link>
     <description>Recent content on Sagar Sarkale</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 07 Apr 2024 10:38:54 +0000</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 07 Apr 2024 10:38:54 +0000</lastBuildDate><atom:link href="https://sagarsarkale.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>RNNs a walkthrough</title>
-      <link>http://localhost:1313/blog/seq/rnns-a-walkthrough/</link>
+      <link>https://sagarsarkale.com/blog/seq/rnns-a-walkthrough/</link>
       <pubDate>Tue, 22 Aug 2023 01:25:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/seq/rnns-a-walkthrough/</guid>
+      <guid>https://sagarsarkale.com/blog/seq/rnns-a-walkthrough/</guid>
       <description>A Brief about Recurrent Neural Networks</description>
       <content:encoded><![CDATA[<p>Looking back from a point where GPT models have sent waves across the industry, recurrent networks have been one of the most fundamental blocks that have been laid down, when it comes to progress of natural language and deep learning. This blog aims to give a functional understanding of RNNs. Personally, I had a difficult time wrapping my head around this when i learnt it the first time. I believe that this blog would reduce the friction for the people who have just started their journey.</p>
 <p>This blog is first in the series of Recurrent neural networks, LSTMs are extension of RNNs and we will go through a brief overview of RNNs first and understand their working and significance.</p>
@@ -249,10 +249,10 @@ $$</p>
     
     <item>
       <title>Hello HUGO</title>
-      <link>http://localhost:1313/blog/hugo/hello-hugo/</link>
+      <link>https://sagarsarkale.com/blog/hugo/hello-hugo/</link>
       <pubDate>Sun, 07 Apr 2024 10:38:54 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/hugo/hello-hugo/</guid>
+      <guid>https://sagarsarkale.com/blog/hugo/hello-hugo/</guid>
       <description>Exploring static site builder for quick blogging</description>
       <content:encoded><![CDATA[<h1 id="commands">commands</h1>
 <div class="highlight"><div class="chroma">
