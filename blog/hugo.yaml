@@ -67,6 +67,8 @@ params:
         buttons:
             - name: Blog
               url: /blog
+            - name: My Work
+              url: '#'
         #     - name: Tags
         #       url: tags
         #     - name: About
@@ -126,11 +128,11 @@ menu:
         - identifier: blog
           name: blog
           url: /blog/
-          weight: 30
+          weight: 50
         - identifier: about
           name: about
           url: /about
-          weight: 30
+          weight: 100
 # Read: https://github.com/reorx/hugo-PaperModX/wiki/FAQs#using-hugos-syntax-highlighter-chroma
 pygmentsUseClasses: true
 markup:
