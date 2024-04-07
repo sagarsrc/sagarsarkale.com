@@ -17,7 +17,7 @@ hideSummary: false
 searchHidden: true
 ShowReadingTime: true
 ShowBreadCrumbs: true
-ShowPostNavLinks: false
+ShowPostNavLinks: true
 math: katex
 tags: ["RNN", "NLP", "DeepLearning"]
 cover:

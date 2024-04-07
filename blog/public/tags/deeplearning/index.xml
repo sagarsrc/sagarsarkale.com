@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>DeepLearning on Sagar Sarkale</title>
-    <link>https://sagarsarkale.com/tags/deeplearning/</link>
+    <link>http://localhost:1313/tags/deeplearning/</link>
     <description>Recent content in DeepLearning on Sagar Sarkale</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 22 Aug 2023 01:25:00 +0000</lastBuildDate><atom:link href="https://sagarsarkale.com/tags/deeplearning/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 22 Aug 2023 01:25:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/deeplearning/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>RNNs a walkthrough</title>
-      <link>https://sagarsarkale.com/blog/seq/rnns-a-walkthrough/</link>
+      <link>http://localhost:1313/blog/seq/rnns-a-walkthrough/</link>
       <pubDate>Tue, 22 Aug 2023 01:25:00 +0000</pubDate>
       
-      <guid>https://sagarsarkale.com/blog/seq/rnns-a-walkthrough/</guid>
+      <guid>http://localhost:1313/blog/seq/rnns-a-walkthrough/</guid>
       <description>A Brief about Recurrent Neural Networks</description>
       <content:encoded><![CDATA[<p>Looking back from a point where GPT models have sent waves across the industry, recurrent networks have been one of the most fundamental blocks that have been laid down, when it comes to progress of natural language and deep learning. This blog aims to give a functional understanding of RNNs. Personally, I had a difficult time wrapping my head around this when i learnt it the first time. I believe that this blog would reduce the friction for the people who have just started their journey.</p>
 <p>This blog is first in the series of Recurrent neural networks, LSTMs are extension of RNNs and we will go through a brief overview of RNNs first and understand their working and significance.</p>

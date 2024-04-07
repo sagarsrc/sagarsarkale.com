@@ -2,19 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>HUGO on Sagar Sarkale</title>
-    <link>https://sagarsarkale.com/tags/hugo/</link>
+    <link>http://localhost:1313/tags/hugo/</link>
     <description>Recent content in HUGO on Sagar Sarkale</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 07 Apr 2024 10:38:54 +0000</lastBuildDate><atom:link href="https://sagarsarkale.com/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 07 Apr 2024 10:38:54 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Hello HUGO</title>
-      <link>https://sagarsarkale.com/blog/hugo/hello-hugo/</link>
+      <title>Hello super fast blogging!</title>
+      <link>http://localhost:1313/blog/hugo/hello-hugo/</link>
       <pubDate>Sun, 07 Apr 2024 10:38:54 +0000</pubDate>
       
-      <guid>https://sagarsarkale.com/blog/hugo/hello-hugo/</guid>
+      <guid>http://localhost:1313/blog/hugo/hello-hugo/</guid>
       <description>Exploring static site builder for quick blogging</description>
-      <content:encoded><![CDATA[<h1 id="commands">commands</h1>
+      <content:encoded><![CDATA[<h1 id="brief">Brief</h1>
+<p>Today i tried to setup static site builder called HUGO, for blogging. It comes in handy once you set up all the parameters. It is a combination of markdown + config files. With few hours of efforts was able to set it up.</p>
+<p>Installing HUGO is very straightforward, you can find instructions for your platform <a href="https://gohugo.io/installation/">here</a>.</p>
+<p>Main problems that one could face are:</p>
+<ul>
+<li>version of HUGO and the reference blogs might be outdated, hence please refer to the latest docs of HUGO</li>
+<li>it is worth spending sometime to go through the <a href="https://gohugo.io/getting-started/directory-structure/">directory structure</a></li>
+<li>images and paths can get pretty cumbersome, i could not setup markdown based rendering in hugo for images</li>
+<li>using <a href="https://gohugo.io/content-management/shortcodes/">shortcodes</a> for rendering images in between the content came in handy</li>
+</ul>
+<p>HUGO needs some additional setup to get started with Math symbols in blogs using Katex, have attached relevant link in the references for the same.</p>
+<p>Below are some commands to get started with HUGO.</p>
+<h1 id="commands">commands</h1>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -40,9 +52,15 @@
 </span><span class="lnt">21
 </span><span class="lnt">22
 </span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># create HUGO site called &#34;blog&#34;</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># install HUGO (macOS)</span>
+</span></span><span class="line"><span class="cl">brew install hugo
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># create HUGO site called &#34;blog&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># choose format yaml</span>
 </span></span><span class="line"><span class="cl">hugo new site blog --format yaml
 </span></span><span class="line"><span class="cl">
@@ -52,7 +70,7 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># update submodule</span>
 </span></span><span class="line"><span class="cl">git submodule update --init --recursive
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># go to respective site</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># go to respective site directory</span>
 </span></span><span class="line"><span class="cl"><span class="nb">cd</span> blog
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># generate static website</span>
@@ -71,11 +89,15 @@
 <ol>
 <li><a href="https://reorx.github.io/hugo-PaperModX/docs/features/#intro">PaperModX features</a></li>
 <li><a href="https://gohugo.io/content-management/shortcodes/">Adding images in HUGO is pain</a></li>
-<li><a href="https://misha.brukman.net/blog/2022/04/writing-math-with-hugo/">Math with HUGO</a></li>
+<li><a href="https://misha.brukman.net/blog/2022/04/writing-math-with-hugo/">Math in HUGO</a></li>
 <li><a href="https://gohugo.io/quick-reference/emojis/">Emoji support</a></li>
 <li><a href="https://www.chrislockard.net/posts/using-local-fonts-hugo-academic-theme/">Using Local fonts HUGO</a></li>
 <li><a href="https://gohugo.io/content-management/shortcodes/">Shortcodes super useful</a></li>
 </ol>
+<p>Written By</p>
+<blockquote>
+<p><a href="https://linkedin.com/in/sagar-sarkale">Sagar Sarkale</a></p>
+</blockquote>
 ]]></content:encoded>
     </item>
     
