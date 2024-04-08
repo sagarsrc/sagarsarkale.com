@@ -68,7 +68,7 @@ params:
             - name: Blog
               url: /blog
             - name: My Work
-              url: '#'
+              url: /work
         #     - name: Tags
         #       url: tags
         #     - name: About
