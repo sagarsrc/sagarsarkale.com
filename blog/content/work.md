@@ -1,5 +1,5 @@
 ---
-title: "My Work"
+# title: "My Professional Journey"
 # weight: 1
 # aliases: ["/first"]
 author: "Sagar Sarkale"
@@ -15,12 +15,12 @@ disableShare: false
 hideSummary: false
 searchHidden: false
 ShowReadingTime: false
-ShowBreadCrumbs: false
+ShowBreadCrumbs: true
 ShowPostNavLinks: false
-ShowAuthor: false
+ShowAuthor: true
 
 cover:
-  image: "/personal/about-me_300x300.jpg" # image path/url
+  image: "" # image path/url
   alt: "Sagar Sarkale" # alt text
   # caption: "<text>" # display caption under cover
   relative: true # when using page bundles set this to true
@@ -33,7 +33,11 @@ editPost:
   appendFilePath: true # to append file path to Edit link
 ---
 
-# Smallstep.ai
+My Professional journey.
+
+# smallstep.ai
+
+{{<figure src="https://framerusercontent.com/images/cm62IqDlxSYtaLaLmTfJGnJz0C4.png" height="120px">}}
 
 > Founder
 > (Dec 2023 - Present)
@@ -47,6 +51,8 @@ editPost:
 
 # Medpiper
 
+{{<figure src="http://events.medpiper.com/medpiper.png" height="50px">}}
+
 > AI Consultant
 > (Jan 2024 - Present)
 
@@ -56,6 +62,8 @@ editPost:
 - Crafting robust solutions capable of efficiently handling medical documents in diverse formats.
 
 # Kansha.ai
+
+{{<figure src="https://kansha.ai/images/logo.webp" width="75px">}}
 
 > AI Consultant
 > (Aug 2023 - Mar 2024)
@@ -70,6 +78,8 @@ editPost:
 - Built custom tools for responses using Langchain
 
 # Tekion
+
+{{<figure src="https://logowik.com/content/uploads/images/tekion662.logowik.com.webp" height="120px">}}
 
 > Data Scientist
 > (Aug 2023 - Jul 2024)
@@ -88,6 +98,8 @@ editPost:
 - Impact : Significant increase in service add to cart and service taken rates
 
 # Pratilipi
+
+{{<figure src="https://cdn6.aptoide.com/imgs/c/3/9/c398854c8d038e8871111a74ff0ccda5_icon.png" height="100px">}}
 
 > Data Scientist
 > (Mar 2021 - Aug 2022)
