@@ -73,8 +73,14 @@ hugo
 # live rebuild server
 hugo server -D
 
+# using python http server
+python3 -m http.server -d public
+
 # before deploy
 hugo --minify
+
+# pagefind build index
+npx pagefind --site public
 
 # copy public folder to your hosting platform
 ```
@@ -87,6 +93,11 @@ hugo --minify
 1. [Emoji support](https://gohugo.io/quick-reference/emojis/)
 1. [Using Local fonts HUGO](https://www.chrislockard.net/posts/using-local-fonts-hugo-academic-theme/)
 1. [Shortcodes super useful](https://gohugo.io/content-management/shortcodes/)
+1. [Setting up internal search using pagefind](https://youtu.be/WgoBoX4qTk8?si=4dzhdOu7zq-f4Sv9)
+
+#
+
+#
 
 Written By
 

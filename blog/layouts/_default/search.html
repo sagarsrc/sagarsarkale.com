@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="{{ .Params.language | default .Language.Lang }}" dir="{{ .Language.LanguageDirection | default " auto" }}">
+
+<head>
+    {{- partial "head.html" . }}
+    {{- block "head" . }}{{ end }}
+
+    <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+    <script src="/pagefind/pagefind-ui.js"></script>
+
+
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            /* Set default background and text color */
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            /* Adjust background and text color based on theme */
+            background-color: #ffffff;
+            /* Light background color */
+            color: #000000;
+            /* Dark text color */
+        }
+
+        /* Style the search input and results */
+        .pagefind-input {
+            width: calc(100% - 50px);
+            /* Adjusted width for button */
+            padding: 10px;
+            border: 2px solid #ccc;
+            /* Add border */
+            border-radius: 5px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            /* Ensure padding and border are included in the width */
+        }
+
+        .pagefind-results {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .pagefind-results li {
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+
+        .pagefind-results li:hover {
+            background-color: #e0e0e0;
+            cursor: pointer;
+        }
+
+        /* Increase spacing between Search and Clear buttons */
+        .pagefind-submit,
+        .pagefind-reset {
+            margin-left: 10px;
+        }
+
+        /* Media query for responsiveness */
+        @media only screen and (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+        }
+
+        /* Adjust styles for dark theme */
+        body.dark {
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        .container.dark {
+            background-color: #333333;
+            /* Dark background color */
+            color: #ffffff;
+            /* Light text color */
+        }
+
+        /* Adjust styles for dark mode */
+        .pagefind-input.dark {
+            border-color: #ffffff;
+            /* Change border color */
+            color: #ffffff;
+            /* Change text color */
+        }
+
+        .pagefind-results.dark li {
+            background-color: #222222;
+            /* Change background color */
+            color: #ffffff;
+            /* Change text color */
+        }
+
+        .pagefind-results.dark li:hover {
+            background-color: #333333;
+            /* Change hover background color */
+        }
+    </style>
+</head>
+
+
+<body class="light" id="top">
+    {{- partialCached "header.html" . .Page -}}
+    <main class="main {{- if (eq .Kind `page`) -}}{{- print " post" -}}{{- end -}}">
+        {{- block "main" . }}{{ end }}
+        <h1>Quick Search 🔍</h1>
+        <br>
+        <div id="search"></div>
+    </main>
+    {{ partial "footer.html" . -}}
+    {{- block "body_end" . }}{{ end }}
+
+
+    <script>
+        // Function to update Pagefind UI styles based on theme
+        function updatePagefindTheme() {
+            const bodyClasses = document.body.classList;
+            const isDarkMode = bodyClasses.contains('dark');
+
+            // Set Pagefind UI styles based on theme
+            if (isDarkMode) {
+                document.documentElement.style.setProperty('--pagefind-ui-primary', '#f7f7f7');
+                document.documentElement.style.setProperty('--pagefind-ui-text', '#f7f7f7');
+                document.documentElement.style.setProperty('--pagefind-ui-background', '#152028');
+                document.documentElement.style.setProperty('--pagefind-ui-border', '#152028');
+                document.documentElement.style.setProperty('--pagefind-ui-tag', '#152028');
+            } else {
+                // Reset to default styles if not in dark mode
+                document.documentElement.style.removeProperty('--pagefind-ui-primary');
+                document.documentElement.style.removeProperty('--pagefind-ui-text');
+                document.documentElement.style.removeProperty('--pagefind-ui-background');
+                document.documentElement.style.removeProperty('--pagefind-ui-border');
+                document.documentElement.style.removeProperty('--pagefind-ui-tag');
+            }
+        }
+
+        // Update Pagefind UI styles initially and listen for changes in theme class
+        document.addEventListener('DOMContentLoaded', function () {
+            updatePagefindTheme();
+
+            // Listen for changes in theme class
+            const observer = new MutationObserver(function (mutations) {
+                mutations.forEach(function (mutation) {
+                    if (mutation.attributeName === 'class') {
+                        updatePagefindTheme();
+                    }
+                });
+            });
+
+            observer.observe(document.body, {
+                attributes: true,
+                attributeFilter: ['class'],
+            });
+        });
+
+        // Initialize Pagefind UI
+        window.addEventListener('DOMContentLoaded', function () {
+            new PagefindUI({
+                element: "#search",
+                showSubResults: true,
+                theme: 'dark' // Specify the theme explicitly
+            });
+        });
+    </script>
+</body>
+
+</html>

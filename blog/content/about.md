@@ -13,7 +13,7 @@ comments: false
 canonicalURL: "https://canonical.url/to/page"
 disableShare: false
 hideSummary: false
-searchHidden: true
+searchHidden: false
 ShowReadingTime: false
 ShowBreadCrumbs: false
 ShowPostNavLinks: false
@@ -49,4 +49,9 @@ Join me as I navigate through lines of code, research papers, to unravel parts o
 
 #
 
-\- Sagar Sarkale {{< figure src="/personal/about-me_800x800.jpg"  width="20%" height="20%" class="right align-right">}}
+[Sagar Sarkale](https://linkedin.com/in/sagar-sarkale)
+
+<!-- working -->
+<!-- {{< figure src="/personal/about-me_800x800.jpg"  width="20%" height="20%" class="right align-right">}} -->
+
+{{< figure src="/personal/about-me_800x800.jpg" width="100">}}

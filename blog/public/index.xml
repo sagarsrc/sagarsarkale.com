@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Sagar Sarkale</title>
-    <link>https://sagarsarkale.com/</link>
+    <link>http://localhost:1313/</link>
     <description>Recent content on Sagar Sarkale</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 07 Apr 2024 10:38:54 +0000</lastBuildDate><atom:link href="https://sagarsarkale.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 07 Apr 2024 10:38:54 +0000</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>LSTM simplified</title>
-      <link>https://sagarsarkale.com/blog/seq/lstm/</link>
+      <link>http://localhost:1313/blog/seq/lstm/</link>
       <pubDate>Thu, 21 Sep 2023 01:25:00 +0000</pubDate>
       
-      <guid>https://sagarsarkale.com/blog/seq/lstm/</guid>
+      <guid>http://localhost:1313/blog/seq/lstm/</guid>
       <description>In depth and intuitive explanation of LSTM architecture</description>
       <content:encoded><![CDATA[<h1 id="introduction">Introduction</h1>
 <p>In my previous blog about RNNs - <a href="https://sagarsarkale.com/blog/seq/rnns-a-walkthrough/">&ldquo;RNNs a walkthrough&rdquo;</a>, we saw how recurrent neural networks worked, their limitations, like vanishing gradients, which leads to failure of learning long sequences. LSTMs try to solve for these limitations. In this blog we will go through detailed walkthrough of underlying structure of an LSTM cell.</p>
@@ -669,10 +669,10 @@ $\therefore I_t = [0,0,0,0,0]$</p>
     
     <item>
       <title>Hello super fast blogging!</title>
-      <link>https://sagarsarkale.com/blog/web/hello-hugo/</link>
+      <link>http://localhost:1313/blog/web/hello-hugo/</link>
       <pubDate>Sun, 07 Apr 2024 10:38:54 +0000</pubDate>
       
-      <guid>https://sagarsarkale.com/blog/web/hello-hugo/</guid>
+      <guid>http://localhost:1313/blog/web/hello-hugo/</guid>
       <description>Exploring static site builder for quick blogging</description>
       <content:encoded><![CDATA[<h1 id="brief">Brief</h1>
 <p>Today i tried to setup static site builder called HUGO, for blogging. It comes in handy once you set up all the parameters. It is a combination of markdown + config files. With few hours of efforts was able to set it up.</p>
@@ -715,6 +715,12 @@ $\therefore I_t = [0,0,0,0,0]$</p>
 </span><span class="lnt">24
 </span><span class="lnt">25
 </span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># install HUGO (macOS)</span>
@@ -739,8 +745,14 @@ $\therefore I_t = [0,0,0,0,0]$</p>
 </span></span><span class="line"><span class="cl"><span class="c1"># live rebuild server</span>
 </span></span><span class="line"><span class="cl">hugo server -D
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># using python http server</span>
+</span></span><span class="line"><span class="cl">python3 -m http.server -d public
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># before deploy</span>
 </span></span><span class="line"><span class="cl">hugo --minify
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># pagefind build index</span>
+</span></span><span class="line"><span class="cl">npx pagefind --site public
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># copy public folder to your hosting platform</span>
 </span></span></code></pre></td></tr></table>
@@ -753,7 +765,10 @@ $\therefore I_t = [0,0,0,0,0]$</p>
 <li><a href="https://gohugo.io/quick-reference/emojis/">Emoji support</a></li>
 <li><a href="https://www.chrislockard.net/posts/using-local-fonts-hugo-academic-theme/">Using Local fonts HUGO</a></li>
 <li><a href="https://gohugo.io/content-management/shortcodes/">Shortcodes super useful</a></li>
+<li><a href="https://youtu.be/WgoBoX4qTk8?si=4dzhdOu7zq-f4Sv9">Setting up internal search using pagefind</a></li>
 </ol>
+<h1 id="heading"></h1>
+<h1 id="heading-1"></h1>
 <p>Written By</p>
 <blockquote>
 <p><a href="https://linkedin.com/in/sagar-sarkale">Sagar Sarkale</a></p>
@@ -763,10 +778,10 @@ $\therefore I_t = [0,0,0,0,0]$</p>
     
     <item>
       <title>RNNs a walkthrough</title>
-      <link>https://sagarsarkale.com/blog/seq/rnns-a-walkthrough/</link>
+      <link>http://localhost:1313/blog/seq/rnns-a-walkthrough/</link>
       <pubDate>Tue, 22 Aug 2023 01:25:00 +0000</pubDate>
       
-      <guid>https://sagarsarkale.com/blog/seq/rnns-a-walkthrough/</guid>
+      <guid>http://localhost:1313/blog/seq/rnns-a-walkthrough/</guid>
       <description>A Brief about Recurrent Neural Networks</description>
       <content:encoded><![CDATA[<p>Looking back from a point where GPT models have sent waves across the industry, recurrent networks have been one of the most fundamental blocks that have been laid down, when it comes to progress of natural language and deep learning. This blog aims to give a functional understanding of RNNs. Personally, I had a difficult time wrapping my head around this when i learnt it the first time. I believe that this blog would reduce the friction for the people who have just started their journey.</p>
 <p>This blog is first in the series of Recurrent neural networks, LSTMs are extension of RNNs and we will go through a brief overview of RNNs first and understand their working and significance.</p>

@@ -25,7 +25,7 @@ params:
     author: "Sagar Sarkale"
     images: ["personal/aboutme_800x800.png"]
     DateFormat: "2 January 2006"
-    defaultTheme: auto # dark, light
+    defaultTheme: light # dark, light
     disableThemeToggle: false
 
     ShowReadingTime: true
@@ -33,7 +33,7 @@ params:
     ShowPostNavLinks: true
     ShowAuthor: true
     ShowBreadCrumbs: true
-    ShowCodeCopyButtons: false
+    ShowCodeCopyButtons: true
     disableSpecial1stPost: false
     disableScrollToTop: false
     comments: false
@@ -118,9 +118,14 @@ params:
         distance: 1000
         threshold: 0.4
         minMatchCharLength: 0
+        EnableInstantClick: true
         keys: ["title", "permalink", "summary", "content"]
 menu:
     main:
+        - identifier: search
+          name: search
+          url: /search/
+          weight: 30
         - identifier: tags
           name: tags
           url: /tags/
@@ -142,3 +147,8 @@ markup:
         guessSyntax: true
         lineNos: true
         style: monokai
+
+outputs:
+    HTML
+    JSON
+    RSS
