@@ -9,10 +9,10 @@
     <lastBuildDate>Sun, 07 Apr 2024 10:38:54 +0000</lastBuildDate><atom:link href="https://sagarsarkale.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>LSTM simplified</title>
-      <link>https://sagarsarkale.com/blog/seq/lstm/</link>
+      <link>https://sagarsarkale.com/blog/seq/lstm-simplified/</link>
       <pubDate>Thu, 21 Sep 2023 01:25:00 +0000</pubDate>
       
-      <guid>https://sagarsarkale.com/blog/seq/lstm/</guid>
+      <guid>https://sagarsarkale.com/blog/seq/lstm-simplified/</guid>
       <description>In depth and intuitive explanation of LSTM architecture</description>
       <content:encoded><![CDATA[<h1 id="introduction">Introduction</h1>
 <p>In my previous blog about RNNs - <a href="https://sagarsarkale.com/blog/seq/rnns-a-walkthrough/">&ldquo;RNNs a walkthrough&rdquo;</a>, we saw how recurrent neural networks worked, their limitations, like vanishing gradients, which leads to failure of learning long sequences. LSTMs try to solve for these limitations. In this blog we will go through detailed walkthrough of underlying structure of an LSTM cell.</p>

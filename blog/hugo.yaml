@@ -126,17 +126,21 @@ menu:
           name: search
           url: /search/
           weight: 30
-        - identifier: tags
-          name: tags
-          url: /tags/
+        - identifier: work
+          name: work
+          url: /work/
           weight: 30
+        # - identifier: tags
+        #   name: tags
+        #   url: /tags/
+        #   weight: 30
         - identifier: blog
           name: blog
           url: /blog/
           weight: 50
         - identifier: about
           name: about
-          url: /about
+          url: /about/
           weight: 100
 # Read: https://github.com/reorx/hugo-PaperModX/wiki/FAQs#using-hugos-syntax-highlighter-chroma
 pygmentsUseClasses: true

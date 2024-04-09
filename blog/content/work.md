@@ -17,7 +17,7 @@ searchHidden: false
 ShowReadingTime: false
 ShowBreadCrumbs: true
 ShowPostNavLinks: false
-ShowAuthor: true
+ShowAuthor: false
 
 cover:
   image: "" # image path/url
@@ -51,7 +51,7 @@ My Professional journey.
 
 # Medpiper
 
-{{<figure src="http://events.medpiper.com/medpiper.png" height="50px">}}
+{{<figure src="https://www.medpiper.com/_astro/logo_dark.ppjKYHU7_8eOVV.svg" height="50px">}}
 
 > AI Consultant
 > (Jan 2024 - Present)
