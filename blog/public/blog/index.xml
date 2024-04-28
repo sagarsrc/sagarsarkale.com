@@ -6,7 +6,321 @@
     <description>Recent content in Blogs on Sagar Sarkale</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 07 Apr 2024 10:38:54 +0000</lastBuildDate><atom:link href="https://sagarsarkale.com/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 25 Apr 2024 18:26:32 +0000</lastBuildDate><atom:link href="https://sagarsarkale.com/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Position Encoding in Transformers</title>
+      <link>https://sagarsarkale.com/blog/llms/position-encoding/</link>
+      <pubDate>Thu, 25 Apr 2024 18:26:32 +0000</pubDate>
+      
+      <guid>https://sagarsarkale.com/blog/llms/position-encoding/</guid>
+      <description>How do you understand position of token in transformer?</description>
+      <content:encoded><![CDATA[<h1 id="introduction">Introduction</h1>
+<p>Positional encoding is a small concept in Transformer architecture, yet of crucial importance. In RNNs or LSTMs we pass a tokens in a sequential manner, here information of &ldquo;order&rdquo; is inherently captured.</p>
+<p>Whereas in case of Transformers we pass multiple tokens at the same time, they are more likely lose out on positional information of tokens. As we are feeding tokens parallely we need to use some mechanism to remember the &ldquo;order&rdquo; of the tokens being fed to the transformer. Hence Positional Encoding.</p>
+<p>Why position matters?</p>
+<ol>
+<li>&ldquo;the cat was chasing the mouse in the house&rdquo;</li>
+<li>&ldquo;the mouse was chasing the cat in the house&rdquo;</li>
+</ol>
+<p>As we can see by swapping 2 words in the sentence, whole meaning changes.</p>
+<h1 id="goal">Goal</h1>
+<p>Model uses these words as embeddings, our goal is to make these embeddings carry additional position information, here the corresponding index associated with each word.</p>
+<figure>
+    <img loading="lazy" src="/pos-enc/000-words-to-emb-pos.png" height="250"/> 
+</figure>
+
+<h1 id="proposed-method">Proposed method</h1>
+<p>Authors of <a href="https://arxiv.org/abs/1706.03762">&ldquo;Attention Is All You Need&rdquo;</a> propose a novel method for encoding positional information. Below is the formulation.</p>
+<p>$$ PE_{(pos,2i)} = sin({pos}/{{10000}^{{2i}/{d}}})$$</p>
+<p>$$ PE_{(pos,2i+1)} = cos({pos}/{{10000}^{{2i}/{d}}})$$</p>
+<p>Understanding variables:</p>
+<table>
+<thead>
+<tr>
+<th>variable</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$w_0, w_1, .. w_n$</td>
+<td>Words/ tokens in sequence</td>
+</tr>
+<tr>
+<td>$i$</td>
+<td>Index of embedding dimension</td>
+</tr>
+<tr>
+<td>$pos$</td>
+<td>position of word in sequence</td>
+</tr>
+<tr>
+<td>$d$</td>
+<td>embedding dimension of model</td>
+</tr>
+</tbody>
+</table>
+<figure>
+    <img loading="lazy" src="/pos-enc/003-pos-and-i-desc.png" height="250"/> 
+</figure>
+
+<h1 id="breaking-down-math">Breaking down Math</h1>
+<h2 id="step-1">step 1</h2>
+<p>As we can see here there are two operations being performed on even index of embedding dimension. All even indices are some function of sine and odd indices are some function of cosine.</p>
+<p>$$ PE_{(pos,2i)} = sin(\theta)$$</p>
+<p>$$ PE_{(pos,2i+1)} = cos(\theta)$$</p>
+<p>Where $\theta$ is a function of $pos$ and $i$</p>
+<p>$$ \theta = {pos}/{{10000}^{{2i}/{d}}} $$
+$$ \theta = {pos} * {1}/{{10000}^{{2i}/{d}}}$$</p>
+<ul>
+<li>$pos$ is just a multiplying factor</li>
+<li>whereas division term ${1}/{{10000}^{{2i}/{d}}}$</li>
+<li>it a decaying function which ranges between $(0,1]$</li>
+</ul>
+<h2 id="step-2">step 2</h2>
+<p>Let us try to plot this division term.
+$${1}/{{10000}^{{2i}/{d}}}$$</p>
+<figure>
+    <img loading="lazy" src="https://imgur.com/sygcNso.png"/> 
+</figure>
+
+<h2 id="step-3">step 3</h2>
+<p>On multiplying $pos$ term with division term.
+$$ \theta = {pos} * {1}/{{10000}^{{2i}/{d}}}$$</p>
+<figure>
+    <img loading="lazy" src="https://imgur.com/w0IsYR7.png"/> 
+</figure>
+
+<p>Notice how each word&rsquo;s position starts from a different point on y axis.</p>
+<h2 id="step-4">step 4</h2>
+<p>Now for each even index applying sine function, and for each odd index applying cosine function.</p>
+<p>$$ PE_{(pos,2i)} = sin(\theta)$$</p>
+<p>$$ PE_{(pos,2i+1)} = cos(\theta)$$
+<figure>
+    <img loading="lazy" src="https://imgur.com/dAFuCbw.png"/> 
+</figure>
+</p>
+<h1 id="other-possibilities">Other possibilities</h1>
+<p>Let&rsquo;s say we use only 1s and 0s to represent a position as a vector.
+Converting position indices to binary format is the easy part, but how do we merge this position vector with input embedding?</p>
+<!-- raw HTML omitted -->
+<p>There are 2 ways of merging the position vectors with embedding vectors.</p>
+<h2 id="concatenating-vectors">Concatenating vectors</h2>
+<!-- raw HTML omitted -->
+<h2 id="adding-vectors">Adding vectors</h2>
+<!-- raw HTML omitted -->
+<h2 id="appending-vectors">Appending vectors</h2>
+<table>
+<thead>
+<tr>
+<th>Decimal</th>
+<th>Binary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>[0, 0, 0, 0, 0, 0, 0, 1]</td>
+</tr>
+<tr>
+<td>2</td>
+<td>[0, 0, 0, 0, 0, 0, 1, 0]</td>
+</tr>
+<tr>
+<td>..</td>
+<td>..</td>
+</tr>
+<tr>
+<td>8</td>
+<td>[0, 0, 0, 0, 1, 0, 0, 0]</td>
+</tr>
+<tr>
+<td>9</td>
+<td>[0, 0, 0, 0, 1, 0, 0, 1]</td>
+</tr>
+<tr>
+<td>10</td>
+<td>[0, 0, 0, 0, 1, 0, 1, 0]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="adding-vectors-1">Adding vectors</h2>
+<table>
+<thead>
+<tr>
+<th>Decimal</th>
+<th>Binary</th>
+<th>Padded binary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>[0, 0, 0, 0, 0, 0, 0, 1]</td>
+<td>[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]</td>
+</tr>
+<tr>
+<td>2</td>
+<td>[0, 0, 0, 0, 0, 0, 1, 0]</td>
+<td>[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0]</td>
+</tr>
+<tr>
+<td>..</td>
+<td>..</td>
+<td>..</td>
+</tr>
+<tr>
+<td>8</td>
+<td>[0, 0, 0, 0, 1, 0, 0, 0]</td>
+<td>[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0]</td>
+</tr>
+<tr>
+<td>9</td>
+<td>[0, 0, 0, 0, 1, 0, 0, 1]</td>
+<td>[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1]</td>
+</tr>
+<tr>
+<td>10</td>
+<td>[0, 0, 0, 0, 1, 0, 1, 0]</td>
+<td>[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0]</td>
+</tr>
+</tbody>
+</table>
+<h1 id="why-not-concat">Why NOT concat?</h1>
+<h1 id="heading"></h1>
+<h1 id="reference">Reference</h1>
+<ul>
+<li>
+<p><a href="https://www.youtube.com/watch?v=dichIcUZfOw">Visual Guide to Transformer Neural Networks - (Episode 1) Position Embeddings</a></p>
+</li>
+<li>
+<p><a href="https://datascience.stackexchange.com/questions/55901/in-a-transformer-model-why-does-one-sum-positional-encoding-to-the-embedding-ra">Why sum and not concatenate positional embedding</a></p>
+</li>
+<li>
+<p><a href="https://github.com/tensorflow/tensor2tensor/issues/1591">Why are positional encodings added (not appended)?</a></p>
+</li>
+<li>
+<p><a href="https://datascience.stackexchange.com/questions/82451/why-is-10000-used-as-the-denominator-in-positional-encodings-in-the-transformer#:~:text=Therefore%2C%20the%20purpose%20of%20the,would%20probably%20have%20%3C1k%20words.">Why is 10000 chosen as denominator</a></p>
+</li>
+<li>
+<p><a href="https://github.com/pytorch/pytorch/blob/42a192db0f064ff122fd7b9f6418f6f48ecd03ea/benchmarks/distributed/pipeline/pipe.py#L46">Pytorch source code</a></p>
+</li>
+<li>
+<p><a href="https://excalidraw.com/">Diagrams by Excalidraw</a></p>
+</li>
+</ul>
+]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>Hello super fast blogging!</title>
+      <link>https://sagarsarkale.com/blog/web/hello-hugo/</link>
+      <pubDate>Sun, 07 Apr 2024 10:38:54 +0000</pubDate>
+      
+      <guid>https://sagarsarkale.com/blog/web/hello-hugo/</guid>
+      <description>Exploring static site builder for quick blogging</description>
+      <content:encoded><![CDATA[<h1 id="brief">Brief</h1>
+<p>Today i tried to setup static site builder called HUGO, for blogging. It comes in handy once you set up all the parameters. It is a combination of markdown + config files. With few hours of efforts was able to set it up.</p>
+<p>Installing HUGO is very straightforward, you can find instructions for your platform <a href="https://gohugo.io/installation/">here</a>.</p>
+<p>Main problems that one could face are:</p>
+<ul>
+<li>version of HUGO and the reference blogs might be outdated, hence please refer to the latest docs of HUGO</li>
+<li>it is worth spending sometime to go through the <a href="https://gohugo.io/getting-started/directory-structure/">directory structure</a></li>
+<li>images and paths can get pretty cumbersome, i could not setup markdown based rendering in hugo for images</li>
+<li>using <a href="https://gohugo.io/content-management/shortcodes/">shortcodes</a> for rendering images in between the content came in handy</li>
+</ul>
+<p>HUGO needs some additional setup to get started with Math symbols in blogs using Katex, have attached relevant link in the references for the same.</p>
+<p>Below are some commands to get started with HUGO.</p>
+<h1 id="commands">commands</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># install HUGO (macOS)</span>
+</span></span><span class="line"><span class="cl">brew install hugo
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># create HUGO site called &#34;blog&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># choose format yaml</span>
+</span></span><span class="line"><span class="cl">hugo new site blog --format yaml
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># add desired theme as submodule</span>
+</span></span><span class="line"><span class="cl">git submodule add https://github.com/reorx/hugo-PaperModX.git themes/PaperModX
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># update submodule</span>
+</span></span><span class="line"><span class="cl">git submodule update --init --recursive
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># go to respective site directory</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> blog
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># generate static website</span>
+</span></span><span class="line"><span class="cl">hugo
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># live rebuild server</span>
+</span></span><span class="line"><span class="cl">hugo server -D
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># using python http server</span>
+</span></span><span class="line"><span class="cl">python3 -m http.server -d public
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># before deploy</span>
+</span></span><span class="line"><span class="cl">hugo --minify
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># pagefind build index</span>
+</span></span><span class="line"><span class="cl">npx pagefind --site public
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># copy public folder to your hosting platform</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="references">references</h1>
+<ol>
+<li><a href="https://reorx.github.io/hugo-PaperModX/docs/features/#intro">PaperModX features</a></li>
+<li><a href="https://gohugo.io/content-management/shortcodes/">Adding images in HUGO is pain</a></li>
+<li><a href="https://misha.brukman.net/blog/2022/04/writing-math-with-hugo/">Math in HUGO</a></li>
+<li><a href="https://gohugo.io/quick-reference/emojis/">Emoji support</a></li>
+<li><a href="https://www.chrislockard.net/posts/using-local-fonts-hugo-academic-theme/">Using Local fonts HUGO</a></li>
+<li><a href="https://gohugo.io/content-management/shortcodes/">Shortcodes super useful</a></li>
+<li><a href="https://youtu.be/WgoBoX4qTk8?si=4dzhdOu7zq-f4Sv9">Setting up internal search using pagefind</a></li>
+</ol>
+<h1 id="heading"></h1>
+<h1 id="heading-1"></h1>
+<p>Written By</p>
+<blockquote>
+<p><a href="https://linkedin.com/in/sagar-sarkale">Sagar Sarkale</a></p>
+</blockquote>
+]]></content:encoded>
+    </item>
+    
     <item>
       <title>LSTM simplified</title>
       <link>https://sagarsarkale.com/blog/seq/lstm-simplified/</link>
@@ -663,115 +977,6 @@ $\therefore I_t = [0,0,0,0,0]$</p>
 <p>Written By</p>
 <blockquote>
 <p><a href="https://www.linkedin.com/in/sagar-sarkale">Sagar Sarkale</a></p>
-</blockquote>
-]]></content:encoded>
-    </item>
-    
-    <item>
-      <title>Hello super fast blogging!</title>
-      <link>https://sagarsarkale.com/blog/web/hello-hugo/</link>
-      <pubDate>Sun, 07 Apr 2024 10:38:54 +0000</pubDate>
-      
-      <guid>https://sagarsarkale.com/blog/web/hello-hugo/</guid>
-      <description>Exploring static site builder for quick blogging</description>
-      <content:encoded><![CDATA[<h1 id="brief">Brief</h1>
-<p>Today i tried to setup static site builder called HUGO, for blogging. It comes in handy once you set up all the parameters. It is a combination of markdown + config files. With few hours of efforts was able to set it up.</p>
-<p>Installing HUGO is very straightforward, you can find instructions for your platform <a href="https://gohugo.io/installation/">here</a>.</p>
-<p>Main problems that one could face are:</p>
-<ul>
-<li>version of HUGO and the reference blogs might be outdated, hence please refer to the latest docs of HUGO</li>
-<li>it is worth spending sometime to go through the <a href="https://gohugo.io/getting-started/directory-structure/">directory structure</a></li>
-<li>images and paths can get pretty cumbersome, i could not setup markdown based rendering in hugo for images</li>
-<li>using <a href="https://gohugo.io/content-management/shortcodes/">shortcodes</a> for rendering images in between the content came in handy</li>
-</ul>
-<p>HUGO needs some additional setup to get started with Math symbols in blogs using Katex, have attached relevant link in the references for the same.</p>
-<p>Below are some commands to get started with HUGO.</p>
-<h1 id="commands">commands</h1>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># install HUGO (macOS)</span>
-</span></span><span class="line"><span class="cl">brew install hugo
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># create HUGO site called &#34;blog&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># choose format yaml</span>
-</span></span><span class="line"><span class="cl">hugo new site blog --format yaml
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># add desired theme as submodule</span>
-</span></span><span class="line"><span class="cl">git submodule add https://github.com/reorx/hugo-PaperModX.git themes/PaperModX
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># update submodule</span>
-</span></span><span class="line"><span class="cl">git submodule update --init --recursive
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># go to respective site directory</span>
-</span></span><span class="line"><span class="cl"><span class="nb">cd</span> blog
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># generate static website</span>
-</span></span><span class="line"><span class="cl">hugo
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># live rebuild server</span>
-</span></span><span class="line"><span class="cl">hugo server -D
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># using python http server</span>
-</span></span><span class="line"><span class="cl">python3 -m http.server -d public
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># before deploy</span>
-</span></span><span class="line"><span class="cl">hugo --minify
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># pagefind build index</span>
-</span></span><span class="line"><span class="cl">npx pagefind --site public
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># copy public folder to your hosting platform</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h1 id="references">references</h1>
-<ol>
-<li><a href="https://reorx.github.io/hugo-PaperModX/docs/features/#intro">PaperModX features</a></li>
-<li><a href="https://gohugo.io/content-management/shortcodes/">Adding images in HUGO is pain</a></li>
-<li><a href="https://misha.brukman.net/blog/2022/04/writing-math-with-hugo/">Math in HUGO</a></li>
-<li><a href="https://gohugo.io/quick-reference/emojis/">Emoji support</a></li>
-<li><a href="https://www.chrislockard.net/posts/using-local-fonts-hugo-academic-theme/">Using Local fonts HUGO</a></li>
-<li><a href="https://gohugo.io/content-management/shortcodes/">Shortcodes super useful</a></li>
-<li><a href="https://youtu.be/WgoBoX4qTk8?si=4dzhdOu7zq-f4Sv9">Setting up internal search using pagefind</a></li>
-</ol>
-<h1 id="heading"></h1>
-<h1 id="heading-1"></h1>
-<p>Written By</p>
-<blockquote>
-<p><a href="https://linkedin.com/in/sagar-sarkale">Sagar Sarkale</a></p>
 </blockquote>
 ]]></content:encoded>
     </item>

@@ -1,7 +1,7 @@
 ---
 title: "LSTM simplified"
 date: 2023-09-21T01:25:00.000Z
-weight: 100
+# weight: 100
 # aliases: ["/first"]
 author: "Sagar Sarkale"
 showToc: true
