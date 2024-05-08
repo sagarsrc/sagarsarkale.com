@@ -179,3 +179,11 @@ This blog provides a visual mathematical guide to how a small component "positio
 - [Why is 10000 chosen as denominator](https://datascience.stackexchange.com/questions/82451/why-is-10000-used-as-the-denominator-in-positional-encodings-in-the-transformer#:~:text=Therefore%2C%20the%20purpose%20of%20the,would%20probably%20have%20%3C1k%20words.)
 - [Pytorch source code](https://github.com/pytorch/pytorch/blob/42a192db0f064ff122fd7b9f6418f6f48ecd03ea/benchmarks/distributed/pipeline/pipe.py#L46)
 - [Diagrams by Excalidraw](https://excalidraw.com/)
+
+#
+
+#
+
+Written By
+
+> [Sagar Sarkale](https://linkedin.com/in/sagar-sarkale)
