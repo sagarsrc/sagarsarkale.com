@@ -49,7 +49,7 @@ As we can see by swapping 2 words in the sentence, whole meaning changes.
 
 Model uses these words as embeddings, our goal is to make these embeddings carry additional position information, here the corresponding index associated with each word.
 
-{{< figure src="/pos-enc/000-words-to-emb-pos.png" height="250">}}
+{{< figure src="/pos-enc/000-words-to-emb-pos.png" height="300">}}
 
 # Proposed method
 
@@ -69,12 +69,18 @@ Understanding variables:
 | $d$                | embedding dimension of model |
 
 {{< figure src="/pos-enc/003-pos-and-i-desc.png" height="250">}}
+{{< figure src="/pos-enc/002-pos-enc-add.png" height="250">}}
+
+$$fig\ 1$$
+
+This position embedding is further added with the word embedding as shown above.
+Let us try to understand what extra information does the orange vector add to word embeddings.
 
 # Breaking down Math
 
-## step 1
+## step 1 - formula
 
-As we can see here there are two operations being performed on even index of embedding dimension. All even indices are some function of sine and odd indices are some function of cosine.
+As we can see here there are two operations being performed on even index of embedding dimension for a given position. All even indices are some function of sine and odd indices are some function of cosine.
 
 $$ PE\_{(pos,2i)} = sin(\theta)$$
 
@@ -89,80 +95,87 @@ $$ \theta = {pos} \* {1}/{{10000}^{{2i}/{d}}}$$
 - whereas division term ${1}/{{10000}^{{2i}/{d}}}$
 - it a decaying function which ranges between $(0,1]$
 
-## step 2
+## step 2 - division term
 
 Let us try to plot this division term.
 $${1}/{{10000}^{{2i}/{d}}}$$
 
 {{<figure src="https://imgur.com/sygcNso.png">}}
+$$fig\ 2$$
 
-## step 3
+## step 3 - offset
 
 On multiplying $pos$ term with division term.
 $$ \theta = {pos} \* {1}/{{10000}^{{2i}/{d}}}$$
 
 {{<figure src="https://imgur.com/w0IsYR7.png">}}
+$$fig\ 3$$
 
 Notice how each word's position starts from a different point on y axis.
 
-## step 4
+## step 4 - even/odd $i$
 
 Now for each even index applying sine function, and for each odd index applying cosine function.
 
 $$ PE\_{(pos,2i)} = sin(\theta)$$
 
 $$ PE\_{(pos,2i+1)} = cos(\theta)$$
-{{<figure src="https://imgur.com/dAFuCbw.png">}}
+{{<figure src="https://imgur.com/a4nFl5M.png">}}
 
-# Other possibilities
+$$fig\ 4$$
 
-Let's say we use only 1s and 0s to represent a position as a vector.
-Converting position indices to binary format is the easy part, but how do we merge this position vector with input embedding?
+- One interesting thing to note here is how all even indices of at every position converge to **0**
+- Similarly all the odd indices at every position converge to **1** as we go deeper in the dimension (as $i$ increases)
 
-<!-- {{< figure src="/pos-enc/001-bin-pos-enc.svg" height="400">}} -->
+Now let us put all these steps together and see how position embedding varies when we combine both even and odd index values
 
-There are 2 ways of merging the position vectors with embedding vectors.
+## step 5 - oscillation
 
-## Concatenating vectors
+This Plot tells us how value of position encoding varies across dimension $i$ for each word at position $pos$. We can clearly see that each encoding varies as we go to a different position. Values for any position $pos=p$ will remain same irrespective of number of words in the sentence.
+{{<figure src="https://imgur.com/YPrSqEY.png">}}
 
-<!-- {{< figure src="/pos-enc/002-concat-vec.svg" >}} -->
+$$fig\ 5.1$$
 
-## Adding vectors
+We can further visualize the same positional encoding for say 100 words as a heatmap to see overall variation in the values of these vectors.
+{{<figure src="https://imgur.com/QUP06sG.png">}}
 
-<!-- {{< figure src="/pos-enc/002-add-vec.svg" >}} -->
+$$fig\ 5.2$$
 
-## Appending vectors
+One can observe similar patterns in both $fig\ 5.1$ and $fig\ 5.2$:
 
-| Decimal | Binary                   |
-| ------- | ------------------------ |
-| 1       | [0, 0, 0, 0, 0, 0, 0, 1] |
-| 2       | [0, 0, 0, 0, 0, 0, 1, 0] |
-| ..      | ..                       |
-| 8       | [0, 0, 0, 0, 1, 0, 0, 0] |
-| 9       | [0, 0, 0, 0, 1, 0, 0, 1] |
-| 10      | [0, 0, 0, 0, 1, 0, 1, 0] |
+1. There is higher variation in the range of `[-1, 1]` seen in the initial dimensions of a positional vector
+2. Whereas as we go towards later dimensions of positional vector this oscillation ranges between `[0, 1]`
 
-## Adding vectors
+# Usage
 
-| Decimal | Binary                   | Padded binary                                    |
-| ------- | ------------------------ | ------------------------------------------------ |
-| 1       | [0, 0, 0, 0, 0, 0, 0, 1] | [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1] |
-| 2       | [0, 0, 0, 0, 0, 0, 1, 0] | [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0] |
-| ..      | ..                       | ..                                               |
-| 8       | [0, 0, 0, 0, 1, 0, 0, 0] | [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0] |
-| 9       | [0, 0, 0, 0, 1, 0, 0, 1] | [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1] |
-| 10      | [0, 0, 0, 0, 1, 0, 1, 0] | [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0] |
+Let's revisit older diagram we began with. In the above steps we saw how each position $pos$ can be represented in a unique manner. Now we have the "orange" vector which has positional information in it.
 
-# Why NOT concat?
+{{< figure src="/pos-enc/003-pos-and-i-desc.png" height="250">}}
+{{< figure src="/pos-enc/002-pos-enc-add.png" height="250">}}
 
-#
+We add each word embedding at $pos=n$ with corresponding position encoding.
+
+$$\vec{w_{n}} = \vec{e_{n}} + \vec{p_{n}}$$
+
+Each vector $\vec{w_{n}}$ , where $n\ \epsilon\  [0,1, ... N]$ is given as an input to transformer.
+
+| symbol        | meaning                                                 |
+| ------------- | ------------------------------------------------------- |
+| $N$           | total number of words                                   |
+| $\vec{w_{n}}$ | word embedding with positional information at $pos = n$ |
+| $\vec{e_{n}}$ | word embedding of word at at $pos = n$                  |
+| $\vec{p_{n}}$ | position encoding for word at at $pos = n$              |
+
+# Summary
+
+This blog provides a visual mathematical guide to how a small component "position encoding" in transformer architecture works. I hope this gave you a fresh and an in depth perspective on the topic.
 
 # Reference
 
-- [Visual Guide to Transformer Neural Networks - (Episode 1) Position Embeddings](https://www.youtube.com/watch?v=dichIcUZfOw)
+- [Transformer position encoding](https://kazemnejad.com/blog/transformer_architecture_positional_encoding/)
+- [Visual Guide to Transformer Neural Networks Ep 1](https://www.youtube.com/watch?v=dichIcUZfOw)
 - [Why sum and not concatenate positional embedding](https://datascience.stackexchange.com/questions/55901/in-a-transformer-model-why-does-one-sum-positional-encoding-to-the-embedding-ra)
 - [Why are positional encodings added (not appended)?](https://github.com/tensorflow/tensor2tensor/issues/1591)
 - [Why is 10000 chosen as denominator](https://datascience.stackexchange.com/questions/82451/why-is-10000-used-as-the-denominator-in-positional-encodings-in-the-transformer#:~:text=Therefore%2C%20the%20purpose%20of%20the,would%20probably%20have%20%3C1k%20words.)
 - [Pytorch source code](https://github.com/pytorch/pytorch/blob/42a192db0f064ff122fd7b9f6418f6f48ecd03ea/benchmarks/distributed/pipeline/pipe.py#L46)
-
 - [Diagrams by Excalidraw](https://excalidraw.com/)
