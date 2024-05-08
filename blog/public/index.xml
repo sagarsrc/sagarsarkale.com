@@ -165,11 +165,11 @@ $$fig\ 3$$</p>
 </tr>
 <tr>
 <td>$\vec{e_{n}}$</td>
-<td>word embedding of word at at $pos = n$</td>
+<td>word embedding of word at $pos = n$</td>
 </tr>
 <tr>
 <td>$\vec{p_{n}}$</td>
-<td>position encoding for word at at $pos = n$</td>
+<td>position encoding for word at $pos = n$</td>
 </tr>
 </tbody>
 </table>

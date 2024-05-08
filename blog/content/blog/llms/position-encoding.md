@@ -166,8 +166,8 @@ Each vector $\vec{w_{n}}$ , where $n\ \epsilon\  [0,1, ... N]$ is given as an in
 | ------------- | ------------------------------------------------------- |
 | $N$           | total number of words                                   |
 | $\vec{w_{n}}$ | word embedding with positional information at $pos = n$ |
-| $\vec{e_{n}}$ | word embedding of word at at $pos = n$                  |
-| $\vec{p_{n}}$ | position encoding for word at at $pos = n$              |
+| $\vec{e_{n}}$ | word embedding of word at $pos = n$                     |
+| $\vec{p_{n}}$ | position encoding for word at $pos = n$                 |
 
 # Code implementation
 
