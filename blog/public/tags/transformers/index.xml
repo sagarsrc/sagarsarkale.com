@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Transformers on Sagar Sarkale</title>
-    <link>https://sagarsarkale.com/tags/transformers/</link>
+    <link>http://localhost:1313/tags/transformers/</link>
     <description>Recent content in Transformers on Sagar Sarkale</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 25 Apr 2024 18:26:32 +0000</lastBuildDate><atom:link href="https://sagarsarkale.com/tags/transformers/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 25 Apr 2024 18:26:32 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/transformers/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Position Encoding in Transformers</title>
-      <link>https://sagarsarkale.com/blog/llms/position-encoding/</link>
+      <link>http://localhost:1313/blog/llms/position-encoding/</link>
       <pubDate>Thu, 25 Apr 2024 18:26:32 +0000</pubDate>
       
-      <guid>https://sagarsarkale.com/blog/llms/position-encoding/</guid>
+      <guid>http://localhost:1313/blog/llms/position-encoding/</guid>
       <description>How do you understand position of token in transformer?</description>
       <content:encoded><![CDATA[<h1 id="introduction">Introduction</h1>
 <p>Positional encoding is a small concept in Transformer architecture, yet of crucial importance. In RNNs or LSTMs we pass a tokens in a sequential manner, here information of &ldquo;order&rdquo; is inherently captured.</p>

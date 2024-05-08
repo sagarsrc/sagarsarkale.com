@@ -78,7 +78,9 @@ Let us try to understand what extra information does the orange vector add to wo
 
 # Breaking down Math
 
-## step 1 - formula
+For this blog let's choose embedding dimension size $d=512$
+
+## step 1 - formulation
 
 As we can see here there are two operations being performed on even index of embedding dimension for a given position. All even indices are some function of sine and odd indices are some function of cosine.
 
@@ -93,7 +95,6 @@ $$ \theta = {pos} \* {1}/{{10000}^{{2i}/{d}}}$$
 
 - $pos$ is just a multiplying factor
 - whereas division term ${1}/{{10000}^{{2i}/{d}}}$
-- it a decaying function which ranges between $(0,1]$
 
 ## step 2 - division term
 
@@ -103,6 +104,8 @@ $${1}/{{10000}^{{2i}/{d}}}$$
 {{<figure src="https://imgur.com/sygcNso.png">}}
 $$fig\ 2$$
 
+As we can see ${1}/{{10000}^{{2i}/{d}}}$ is a decaying function which ranges between $(0,1]$
+
 ## step 3 - offset
 
 On multiplying $pos$ term with division term.
@@ -111,7 +114,7 @@ $$ \theta = {pos} \* {1}/{{10000}^{{2i}/{d}}}$$
 {{<figure src="https://imgur.com/w0IsYR7.png">}}
 $$fig\ 3$$
 
-Notice how each word's position starts from a different point on y axis.
+Multiplying $pos$ works as an offset for each position. Notice how each word's 0th dimension starts from a different point on +ve y axis and diminishes as we move towards +ve x axis
 
 ## step 4 - even/odd $i$
 
@@ -165,6 +168,49 @@ Each vector $\vec{w_{n}}$ , where $n\ \epsilon\  [0,1, ... N]$ is given as an in
 | $\vec{w_{n}}$ | word embedding with positional information at $pos = n$ |
 | $\vec{e_{n}}$ | word embedding of word at at $pos = n$                  |
 | $\vec{p_{n}}$ | position encoding for word at at $pos = n$              |
+
+# Code implementation
+
+```python
+import numpy as np
+
+def positional_encoding(max_len, d):
+    """
+    Generate positional encodings for sequences.
+
+    Args:
+        max_len (int): Maximum length of the sequence.
+        d (int): Dimensionality of the positional encodings.
+
+    Returns:
+        numpy.ndarray: Positional encodings matrix of shape (max_len, d).
+    """
+    position = np.expand_dims(np.arange(0, max_len, dtype=np.float32), axis=-1)
+
+    # div_term is common for odd and even indices
+    # operation done on these indices varies
+    # hence size of `div_term` will be half that of `d`
+    div_term = np.exp(np.arange(0, d, 2) * (-np.log(10000.0) / d))
+
+    # placeholder for position encoding
+    pe = np.zeros((max_len, d))
+
+    # fill all even indices with sin(θ)
+    pe[:, 0::2] = np.sin(position * div_term)
+
+    # fill all odd indices with cos(θ)
+    pe[:, 1::2] = np.cos(position * div_term)
+
+    return pe, div_term
+
+# call
+max_len = 100
+d = 512
+
+positional_encodings, div_term = positional_encoding(max_len, d)
+print("div_term shape:", div_term.shape)
+print("Positional encodings shape:", positional_encodings.shape)
+```
 
 # Summary
 
