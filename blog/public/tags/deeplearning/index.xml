@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>DeepLearning on Sagar Sarkale</title>
-    <link>http://localhost:1313/tags/deeplearning/</link>
+    <link>https://sagarsarkale.com/tags/deeplearning/</link>
     <description>Recent content in DeepLearning on Sagar Sarkale</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 25 Apr 2024 18:26:32 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/deeplearning/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 25 Apr 2024 18:26:32 +0000</lastBuildDate><atom:link href="https://sagarsarkale.com/tags/deeplearning/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Position Encoding in Transformers</title>
-      <link>http://localhost:1313/blog/llms/position-encoding/</link>
+      <link>https://sagarsarkale.com/blog/llms/position-encoding/</link>
       <pubDate>Thu, 25 Apr 2024 18:26:32 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/llms/position-encoding/</guid>
+      <guid>https://sagarsarkale.com/blog/llms/position-encoding/</guid>
       <description>How do you understand position of token in transformer?</description>
       <content:encoded><![CDATA[<h1 id="introduction">Introduction</h1>
 <p>Positional encoding is a small concept in Transformer architecture, yet of crucial importance. In RNNs or LSTMs we pass a tokens in a sequential manner, here information of &ldquo;order&rdquo; is inherently captured.</p>
@@ -72,7 +72,8 @@
 <p>This position embedding is further added with the word embedding as shown above.
 Let us try to understand what extra information does the orange vector add to word embeddings.</p>
 <h1 id="breaking-down-math">Breaking down Math</h1>
-<h2 id="step-1---formula">step 1 - formula</h2>
+<p>For this blog let&rsquo;s choose embedding dimension size $d=512$</p>
+<h2 id="step-1---formulation">step 1 - formulation</h2>
 <p>As we can see here there are two operations being performed on even index of embedding dimension for a given position. All even indices are some function of sine and odd indices are some function of cosine.</p>
 <p>$$ PE_{(pos,2i)} = sin(\theta)$$</p>
 <p>$$ PE_{(pos,2i+1)} = cos(\theta)$$</p>
@@ -82,7 +83,6 @@ $$ \theta = {pos} * {1}/{{10000}^{{2i}/{d}}}$$</p>
 <ul>
 <li>$pos$ is just a multiplying factor</li>
 <li>whereas division term ${1}/{{10000}^{{2i}/{d}}}$</li>
-<li>it a decaying function which ranges between $(0,1]$</li>
 </ul>
 <h2 id="step-2---division-term">step 2 - division term</h2>
 <p>Let us try to plot this division term.
@@ -92,6 +92,7 @@ $${1}/{{10000}^{{2i}/{d}}}$$</p>
 </figure>
 
 $$fig\ 2$$</p>
+<p>As we can see ${1}/{{10000}^{{2i}/{d}}}$ is a decaying function which ranges between $(0,1]$</p>
 <h2 id="step-3---offset">step 3 - offset</h2>
 <p>On multiplying $pos$ term with division term.
 $$ \theta = {pos} * {1}/{{10000}^{{2i}/{d}}}$$</p>
@@ -100,7 +101,7 @@ $$ \theta = {pos} * {1}/{{10000}^{{2i}/{d}}}$$</p>
 </figure>
 
 $$fig\ 3$$</p>
-<p>Notice how each word&rsquo;s position starts from a different point on y axis.</p>
+<p>Multiplying $pos$ works as an offset for each position. Notice how each word&rsquo;s 0th dimension starts from a different point on +ve y axis and diminishes as we move towards +ve x axis</p>
 <h2 id="step-4---evenodd-i">step 4 - even/odd $i$</h2>
 <p>Now for each even index applying sine function, and for each odd index applying cosine function.</p>
 <p>$$ PE_{(pos,2i)} = sin(\theta)$$</p>
@@ -172,7 +173,90 @@ $$fig\ 3$$</p>
 </tr>
 </tbody>
 </table>
-<h1 id="summary">Summary</h1>
+<h1 id="code-implementation">Code implementation</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">positional_encoding</span><span class="p">(</span><span class="n">max_len</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Generate positional encodings for sequences.
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Args:
+</span></span></span><span class="line"><span class="cl"><span class="s2">        max_len (int): Maximum length of the sequence.
+</span></span></span><span class="line"><span class="cl"><span class="s2">        d (int): Dimensionality of the positional encodings.
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Returns:
+</span></span></span><span class="line"><span class="cl"><span class="s2">        numpy.ndarray: Positional encodings matrix of shape (max_len, d).
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">position</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_len</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># div_term is common for odd and even indices</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># operation done on these indices varies</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># hence size of `div_term` will be half that of `d`</span>
+</span></span><span class="line"><span class="cl">    <span class="n">div_term</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">10000.0</span><span class="p">)</span> <span class="o">/</span> <span class="n">d</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># placeholder for position encoding</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pe</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">max_len</span><span class="p">,</span> <span class="n">d</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># fill all even indices with sin(θ)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pe</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">position</span> <span class="o">*</span> <span class="n">div_term</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># fill all odd indices with cos(θ)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pe</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">position</span> <span class="o">*</span> <span class="n">div_term</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">pe</span><span class="p">,</span> <span class="n">div_term</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># call</span>
+</span></span><span class="line"><span class="cl"><span class="n">max_len</span> <span class="o">=</span> <span class="mi">100</span>
+</span></span><span class="line"><span class="cl"><span class="n">d</span> <span class="o">=</span> <span class="mi">512</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">positional_encodings</span><span class="p">,</span> <span class="n">div_term</span> <span class="o">=</span> <span class="n">positional_encoding</span><span class="p">(</span><span class="n">max_len</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;div_term shape:&#34;</span><span class="p">,</span> <span class="n">div_term</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Positional encodings shape:&#34;</span><span class="p">,</span> <span class="n">positional_encodings</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="summary">Summary</h1>
 <p>This blog provides a visual mathematical guide to how a small component &ldquo;position encoding&rdquo; in transformer architecture works. I hope this gave you a fresh and an in depth perspective on the topic.</p>
 <h1 id="reference">Reference</h1>
 <ul>
@@ -195,10 +279,10 @@ $$fig\ 3$$</p>
     
     <item>
       <title>LSTM simplified</title>
-      <link>http://localhost:1313/blog/seq/lstm-simplified/</link>
+      <link>https://sagarsarkale.com/blog/seq/lstm-simplified/</link>
       <pubDate>Thu, 21 Sep 2023 01:25:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/seq/lstm-simplified/</guid>
+      <guid>https://sagarsarkale.com/blog/seq/lstm-simplified/</guid>
       <description>In depth and intuitive explanation of LSTM architecture</description>
       <content:encoded><![CDATA[<h1 id="introduction">Introduction</h1>
 <p>In my previous blog about RNNs - <a href="https://sagarsarkale.com/blog/seq/rnns-a-walkthrough/">&ldquo;RNNs a walkthrough&rdquo;</a>, we saw how recurrent neural networks worked, their limitations, like vanishing gradients, which leads to failure of learning long sequences. LSTMs try to solve for these limitations. In this blog we will go through detailed walkthrough of underlying structure of an LSTM cell.</p>
@@ -854,24 +938,11 @@ $\therefore I_t = [0,0,0,0,0]$</p>
     </item>
     
     <item>
-      <title>Pulling LLMs with RoPE</title>
-      <link>http://localhost:1313/blog/llms/rope-scaling/</link>
-      <pubDate>Thu, 21 Sep 2023 01:25:00 +0000</pubDate>
-      
-      <guid>http://localhost:1313/blog/llms/rope-scaling/</guid>
-      <description>RoPE scaling explained</description>
-      <content:encoded><![CDATA[<h1 id="introduction">Introduction</h1>
-<p>RoPE scaling, or Rotary Positional Embedding scaling, is a technique used to extend the context size in Large Language Models (LLMs).</p>
-<h1 id="why">Why?</h1>
-]]></content:encoded>
-    </item>
-    
-    <item>
       <title>RNNs a walkthrough</title>
-      <link>http://localhost:1313/blog/seq/rnns-a-walkthrough/</link>
+      <link>https://sagarsarkale.com/blog/seq/rnns-a-walkthrough/</link>
       <pubDate>Tue, 22 Aug 2023 01:25:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/seq/rnns-a-walkthrough/</guid>
+      <guid>https://sagarsarkale.com/blog/seq/rnns-a-walkthrough/</guid>
       <description>A Brief about Recurrent Neural Networks</description>
       <content:encoded><![CDATA[<p>Looking back from a point where GPT models have sent waves across the industry, recurrent networks have been one of the most fundamental blocks that have been laid down, when it comes to progress of natural language and deep learning. This blog aims to give a functional understanding of RNNs. Personally, I had a difficult time wrapping my head around this when i learnt it the first time. I believe that this blog would reduce the friction for the people who have just started their journey.</p>
 <p>This blog is first in the series of Recurrent neural networks, LSTMs are extension of RNNs and we will go through a brief overview of RNNs first and understand their working and significance.</p>
