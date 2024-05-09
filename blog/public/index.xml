@@ -15,14 +15,14 @@
       <guid>https://sagarsarkale.com/blog/llms/position-encoding/</guid>
       <description>How do you understand position of token in transformer?</description>
       <content:encoded><![CDATA[<h1 id="introduction">Introduction</h1>
-<p>Positional encoding is a small concept in Transformer architecture, yet of crucial importance. In RNNs or LSTMs we pass a tokens in a sequential manner, here information of &ldquo;order&rdquo; is inherently captured.</p>
-<p>Whereas in case of Transformers we pass multiple tokens at the same time, they are more likely lose out on positional information of tokens. As we are feeding tokens parallely we need to use some mechanism to remember the &ldquo;order&rdquo; of the tokens being fed to the transformer. Hence Positional Encoding.</p>
+<p>Positional encoding is a small concept in Transformer architecture yet of crucial importance. In RNNs or LSTMs we pass tokens sequentially, here information of &ldquo;order&rdquo; is inherently captured.</p>
+<p>Whereas in the case of Transformers, we pass multiple tokens at the same time, they are more likely to lose out on positional information of tokens. As we are feeding tokens parallel we need to use some mechanism to remember the &ldquo;order&rdquo; of the tokens being fed to the transformer. Hence Positional Encoding.</p>
 <p>Why position matters?</p>
 <ol>
 <li>&ldquo;the cat was chasing the mouse in the house&rdquo;</li>
 <li>&ldquo;the mouse was chasing the cat in the house&rdquo;</li>
 </ol>
-<p>As we can see by swapping 2 words in the sentence, whole meaning changes.</p>
+<p>As we can see by swapping 2 words in the sentence, the whole meaning changes.</p>
 <h1 id="goal">Goal</h1>
 <p>Model uses these words as embeddings, our goal is to make these embeddings carry additional position information, here the corresponding index associated with each word.</p>
 <figure>
@@ -70,11 +70,11 @@
 </p>
 <p>$$fig\ 1$$</p>
 <p>This position embedding is further added with the word embedding as shown above.
-Let us try to understand what extra information does the orange vector add to word embeddings.</p>
+Let us try to understand what extra information the &ldquo;orange&rdquo; vector adds to word embeddings.</p>
 <h1 id="breaking-down-math">Breaking down Math</h1>
 <p>For this blog let&rsquo;s choose embedding dimension size $d=512$</p>
 <h2 id="step-1---formulation">step 1 - formulation</h2>
-<p>As we can see here there are two operations being performed on even index of embedding dimension for a given position. All even indices are some function of sine and odd indices are some function of cosine.</p>
+<p>As we can see here two operations are being performed on an even index of embedding dimension for a given position. All even indices are some function of sine and odd indices are some function of cosine.</p>
 <p>$$ PE_{(pos,2i)} = sin(\theta)$$</p>
 <p>$$ PE_{(pos,2i+1)} = cos(\theta)$$</p>
 <p>Where $\theta$ is a function of $pos$ and $i$</p>
@@ -101,7 +101,7 @@ $$ \theta = {pos} * {1}/{{10000}^{{2i}/{d}}}$$</p>
 </figure>
 
 $$fig\ 3$$</p>
-<p>Multiplying $pos$ works as an offset for each position. Notice how each word&rsquo;s 0th dimension starts from a different point on +ve y axis and diminishes as we move towards +ve x axis</p>
+<p>Multiplying $pos$ works as an offset for each position. Notice how each word&rsquo;s 0th dimension starts from a different point on the +ve y-axis and diminishes as we move towards the +ve x-axis</p>
 <h2 id="step-4---evenodd-i">step 4 - even/odd $i$</h2>
 <p>Now for each even index applying sine function, and for each odd index applying cosine function.</p>
 <p>$$ PE_{(pos,2i)} = sin(\theta)$$</p>
@@ -112,12 +112,12 @@ $$fig\ 3$$</p>
 </p>
 <p>$$fig\ 4$$</p>
 <ul>
-<li>One interesting thing to note here is how all even indices of at every position converge to <strong>0</strong></li>
-<li>Similarly all the odd indices at every position converge to <strong>1</strong> as we go deeper in the dimension (as $i$ increases)</li>
+<li>One interesting thing to note here is how all even indices at every position converge to <strong>0</strong></li>
+<li>Similarly, all the odd indices at every position converge to <strong>1</strong> as we go deeper in the dimension (as $i$ increases)</li>
 </ul>
 <p>Now let us put all these steps together and see how position embedding varies when we combine both even and odd index values</p>
 <h2 id="step-5---oscillation">step 5 - oscillation</h2>
-<p>This Plot tells us how value of position encoding varies across dimension $i$ for each word at position $pos$. We can clearly see that each encoding varies as we go to a different position. Values for any position $pos=p$ will remain same irrespective of number of words in the sentence.
+<p>This Plot tells us how the value of position encoding varies across dimension $i$ for each word at position $pos$. We can see that each encoding varies as we go to a different position. Values for any position $pos=p$ will remain the same irrespective of number of words in the sentence.
 <figure>
     <img loading="lazy" src="https://imgur.com/YPrSqEY.png"/> 
 </figure>
@@ -131,11 +131,11 @@ $$fig\ 3$$</p>
 <p>$$fig\ 5.2$$</p>
 <p>One can observe similar patterns in both $fig\ 5.1$ and $fig\ 5.2$:</p>
 <ol>
-<li>There is higher variation in the range of <code>[-1, 1]</code> seen in the initial dimensions of a positional vector</li>
-<li>Whereas as we go towards later dimensions of positional vector this oscillation ranges between <code>[0, 1]</code></li>
+<li>There is a higher variation in the range of <code>[-1, 1]</code> seen in the initial dimensions of a positional vector</li>
+<li>Whereas as we go towards later dimensions of the positional vector this oscillation ranges between <code>[0, 1]</code></li>
 </ol>
 <h1 id="usage">Usage</h1>
-<p>Let&rsquo;s revisit older diagram we began with. In the above steps we saw how each position $pos$ can be represented in a unique manner. Now we have the &ldquo;orange&rdquo; vector which has positional information in it.</p>
+<p>Let&rsquo;s revisit the older diagram we began with. In the above steps, we saw how each position $pos$ can be represented uniquely. Now we have the &ldquo;orange&rdquo; vector which has positional information in it.</p>
 <p><figure>
     <img loading="lazy" src="/pos-enc/003-pos-and-i-desc.png" height="250"/> 
 </figure>
@@ -257,7 +257,7 @@ $$fig\ 3$$</p>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="summary">Summary</h1>
-<p>This blog provides a visual mathematical guide to how a small component &ldquo;position encoding&rdquo; in transformer architecture works. I hope this gave you a fresh and an in depth perspective on the topic.</p>
+<p>This blog provides a visual mathematical guide to how a small component &ldquo;position encoding&rdquo; in transformer architecture works. I hope this gave you a fresh and in-depth perspective on the topic.</p>
 <h1 id="reference">Reference</h1>
 <ul>
 <li><a href="https://kazemnejad.com/blog/transformer_architecture_positional_encoding/">Transformer position encoding</a></li>

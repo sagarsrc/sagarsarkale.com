@@ -21,7 +21,7 @@ ShowPostNavLinks: true
 math: katex
 tags: ["Transformers", "DeepLearning"]
 cover:
-  image: "https://imgur.com/5NJBndS.png" # image path/url
+  image: "/pos-enc/000-cover-pe.png" # image path/url
   alt: "Position Encoding in Transformers" # alt text
   caption: "<text>" # display caption under cover
   relative: false # when using page bundles set this to true
@@ -34,16 +34,16 @@ editPost:
 
 # Introduction
 
-Positional encoding is a small concept in Transformer architecture, yet of crucial importance. In RNNs or LSTMs we pass a tokens in a sequential manner, here information of "order" is inherently captured.
+Positional encoding is a small concept in Transformer architecture yet of crucial importance. In RNNs or LSTMs we pass tokens sequentially, here information of "order" is inherently captured.
 
-Whereas in case of Transformers we pass multiple tokens at the same time, they are more likely lose out on positional information of tokens. As we are feeding tokens parallely we need to use some mechanism to remember the "order" of the tokens being fed to the transformer. Hence Positional Encoding.
+Whereas in the case of Transformers, we pass multiple tokens at the same time, they are more likely to lose out on positional information of tokens. As we are feeding tokens parallel we need to use some mechanism to remember the "order" of the tokens being fed to the transformer. Hence Positional Encoding.
 
 Why position matters?
 
 1. "the cat was chasing the mouse in the house"
 2. "the mouse was chasing the cat in the house"
 
-As we can see by swapping 2 words in the sentence, whole meaning changes.
+As we can see by swapping 2 words in the sentence, the whole meaning changes.
 
 # Goal
 
@@ -74,7 +74,7 @@ Understanding variables:
 $$fig\ 1$$
 
 This position embedding is further added with the word embedding as shown above.
-Let us try to understand what extra information does the orange vector add to word embeddings.
+Let us try to understand what extra information the "orange" vector adds to word embeddings.
 
 # Breaking down Math
 
@@ -82,7 +82,7 @@ For this blog let's choose embedding dimension size $d=512$
 
 ## step 1 - formulation
 
-As we can see here there are two operations being performed on even index of embedding dimension for a given position. All even indices are some function of sine and odd indices are some function of cosine.
+As we can see here two operations are being performed on an even index of embedding dimension for a given position. All even indices are some function of sine and odd indices are some function of cosine.
 
 $$ PE\_{(pos,2i)} = sin(\theta)$$
 
@@ -114,7 +114,7 @@ $$ \theta = {pos} \* {1}/{{10000}^{{2i}/{d}}}$$
 {{<figure src="https://imgur.com/w0IsYR7.png">}}
 $$fig\ 3$$
 
-Multiplying $pos$ works as an offset for each position. Notice how each word's 0th dimension starts from a different point on +ve y axis and diminishes as we move towards +ve x axis
+Multiplying $pos$ works as an offset for each position. Notice how each word's 0th dimension starts from a different point on the +ve y-axis and diminishes as we move towards the +ve x-axis
 
 ## step 4 - even/odd $i$
 
@@ -127,14 +127,14 @@ $$ PE\_{(pos,2i+1)} = cos(\theta)$$
 
 $$fig\ 4$$
 
-- One interesting thing to note here is how all even indices of at every position converge to **0**
-- Similarly all the odd indices at every position converge to **1** as we go deeper in the dimension (as $i$ increases)
+- One interesting thing to note here is how all even indices at every position converge to **0**
+- Similarly, all the odd indices at every position converge to **1** as we go deeper in the dimension (as $i$ increases)
 
 Now let us put all these steps together and see how position embedding varies when we combine both even and odd index values
 
 ## step 5 - oscillation
 
-This Plot tells us how value of position encoding varies across dimension $i$ for each word at position $pos$. We can clearly see that each encoding varies as we go to a different position. Values for any position $pos=p$ will remain same irrespective of number of words in the sentence.
+This Plot tells us how the value of position encoding varies across dimension $i$ for each word at position $pos$. We can see that each encoding varies as we go to a different position. Values for any position $pos=p$ will remain the same irrespective of number of words in the sentence.
 {{<figure src="https://imgur.com/YPrSqEY.png">}}
 
 $$fig\ 5.1$$
@@ -146,12 +146,12 @@ $$fig\ 5.2$$
 
 One can observe similar patterns in both $fig\ 5.1$ and $fig\ 5.2$:
 
-1. There is higher variation in the range of `[-1, 1]` seen in the initial dimensions of a positional vector
-2. Whereas as we go towards later dimensions of positional vector this oscillation ranges between `[0, 1]`
+1. There is a higher variation in the range of `[-1, 1]` seen in the initial dimensions of a positional vector
+2. Whereas as we go towards later dimensions of the positional vector this oscillation ranges between `[0, 1]`
 
 # Usage
 
-Let's revisit older diagram we began with. In the above steps we saw how each position $pos$ can be represented in a unique manner. Now we have the "orange" vector which has positional information in it.
+Let's revisit the older diagram we began with. In the above steps, we saw how each position $pos$ can be represented uniquely. Now we have the "orange" vector which has positional information in it.
 
 {{< figure src="/pos-enc/003-pos-and-i-desc.png" height="250">}}
 {{< figure src="/pos-enc/002-pos-enc-add.png" height="250">}}
@@ -214,7 +214,7 @@ print("Positional encodings shape:", positional_encodings.shape)
 
 # Summary
 
-This blog provides a visual mathematical guide to how a small component "position encoding" in transformer architecture works. I hope this gave you a fresh and an in depth perspective on the topic.
+This blog provides a visual mathematical guide to how a small component "position encoding" in transformer architecture works. I hope this gave you a fresh and in-depth perspective on the topic.
 
 # Reference
 
