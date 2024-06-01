@@ -48,7 +48,7 @@ As far as data preparation is concerned, it 2 steps are involved.
 
 ## caption = brief description
 
-Create a list of varied questions that can be used to describe an image briefly. This is used to create an Instruction-tuning dataset of this kind:
+Use existing image, caption dataset like CC3M, with caption caption as an input, create a list of varied questions answers, here answer can be caption or part of catpion. Use this dataset to create instructions of the format:
 
 ```markdown
 Human: <question> <image>
