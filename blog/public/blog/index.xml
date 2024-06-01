@@ -24,7 +24,7 @@
 <h1 id="data-preparation">Data Preparation</h1>
 <p>As far as data preparation is concerned, it 2 steps are involved.</p>
 <h2 id="caption--brief-description">caption = brief description</h2>
-<p>Use existing image, caption dataset like CC3M, with caption caption as an input, create a list of varied questions answers, here answer can be caption or part of catpion. Use this dataset to create instructions of the format:</p>
+<p>Use existing image, caption dataset like CC3M, with caption as an input, create a list of varied questions answers, here answer can be caption or part of catpion. Use this dataset to create instructions of the format:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1

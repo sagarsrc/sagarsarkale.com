@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Sagar Sarkale</title>
-    <link>https://sagarsarkale.com/</link>
-    <description>Recent content on Sagar Sarkale</description>
+    <title>Blogs on Sagar Sarkale</title>
+    <link>https://sagarsarkale.com/blog/</link>
+    <description>Recent content in Blogs on Sagar Sarkale</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 01 Jun 2024 22:25:09 +0000</lastBuildDate><atom:link href="https://sagarsarkale.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 01 Jun 2024 22:25:09 +0000</lastBuildDate><atom:link href="https://sagarsarkale.com/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>It&#39;s LLaVA not lava!</title>
       <link>https://sagarsarkale.com/blog/genai/llava/</link>
@@ -24,7 +24,7 @@
 <h1 id="data-preparation">Data Preparation</h1>
 <p>As far as data preparation is concerned, it 2 steps are involved.</p>
 <h2 id="caption--brief-description">caption = brief description</h2>
-<p>Use existing image, caption dataset like CC3M, with caption as an input, create a list of varied questions answers, here answer can be caption or part of catpion. Use this dataset to create instructions of the format:</p>
+<p>Use existing image, caption dataset like CC3M, with caption caption as an input, create a list of varied questions answers, here answer can be caption or part of catpion. Use this dataset to create instructions of the format:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1

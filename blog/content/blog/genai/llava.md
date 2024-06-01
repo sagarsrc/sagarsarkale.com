@@ -48,7 +48,7 @@ As far as data preparation is concerned, it 2 steps are involved.
 
 ## caption = brief description
 
-Use existing image, caption dataset like CC3M, with caption caption as an input, create a list of varied questions answers, here answer can be caption or part of catpion. Use this dataset to create instructions of the format:
+Use existing image, caption dataset like CC3M, with caption as an input, create a list of varied questions answers, here answer can be caption or part of catpion. Use this dataset to create instructions of the format:
 
 ```markdown
 Human: <question> <image>
