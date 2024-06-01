@@ -11,7 +11,7 @@ draft: false
 hidemeta: false
 comments: false
 description: "LLaVA = Large Language and Vision assistant ≠ 🌋"
-canonicalURL: "https://canonical.url/to/page"
+canonicalURL: "https://sagarsarkale.com/blog/genai/llava"
 disableShare: false
 hideSummary: false
 searchHidden: true
