@@ -2,22 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://sagarsarkale.com/blog/llms/position-encoding/</loc>
-    <lastmod>2024-04-25T18:26:32+00:00</lastmod>
+    <loc>https://sagarsarkale.com/blog/genai/llava/</loc>
+    <lastmod>2024-06-01T22:25:09+00:00</lastmod>
   </url><url>
     <loc>https://sagarsarkale.com/blog/</loc>
-    <lastmod>2024-04-25T18:26:32+00:00</lastmod>
+    <lastmod>2024-06-01T22:25:09+00:00</lastmod>
   </url><url>
-    <loc>https://sagarsarkale.com/tags/deeplearning/</loc>
-    <lastmod>2024-04-25T18:26:32+00:00</lastmod>
+    <loc>https://sagarsarkale.com/tags/multimodal/</loc>
+    <lastmod>2024-06-01T22:25:09+00:00</lastmod>
   </url><url>
     <loc>https://sagarsarkale.com/</loc>
-    <lastmod>2024-04-25T18:26:32+00:00</lastmod>
+    <lastmod>2024-06-01T22:25:09+00:00</lastmod>
   </url><url>
     <loc>https://sagarsarkale.com/tags/</loc>
-    <lastmod>2024-04-25T18:26:32+00:00</lastmod>
+    <lastmod>2024-06-01T22:25:09+00:00</lastmod>
   </url><url>
     <loc>https://sagarsarkale.com/tags/transformers/</loc>
+    <lastmod>2024-06-01T22:25:09+00:00</lastmod>
+  </url><url>
+    <loc>https://sagarsarkale.com/blog/genai/position-encoding/</loc>
     <lastmod>2024-04-25T18:26:32+00:00</lastmod>
   </url><url>
     <loc>https://sagarsarkale.com/blog/web/hello-hugo/</loc>
@@ -28,6 +31,9 @@
   </url><url>
     <loc>https://sagarsarkale.com/tags/web/</loc>
     <lastmod>2024-04-07T10:38:54+00:00</lastmod>
+  </url><url>
+    <loc>https://sagarsarkale.com/tags/deeplearning/</loc>
+    <lastmod>2023-09-21T01:25:00+00:00</lastmod>
   </url><url>
     <loc>https://sagarsarkale.com/blog/seq/lstm-simplified/</loc>
     <lastmod>2023-09-21T01:25:00+00:00</lastmod>

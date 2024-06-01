@@ -1,7 +1,7 @@
 ---
 title: "Position Encoding in Transformers"
 date: 2024-04-25T18:26:32+0000
-weight: 100
+# weight: 100
 # aliases: ["/first"]
 author: "Sagar Sarkale"
 showToc: true
@@ -19,7 +19,7 @@ ShowReadingTime: true
 ShowBreadCrumbs: true
 ShowPostNavLinks: true
 math: katex
-tags: ["Transformers", "DeepLearning"]
+tags: ["Transformers"]
 cover:
   image: "/pos-enc/000-cover-pe.png" # image path/url
   alt: "Position Encoding in Transformers" # alt text
