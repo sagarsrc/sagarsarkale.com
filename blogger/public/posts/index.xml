@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Sagar Sarkale</title>
+    <link>http://localhost:1313/posts/</link>
+    <description>Recent content in Posts on Sagar Sarkale</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 01 Jun 2024 22:25:09 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>It&#39;s LLaVA not lava!</title>
+      <link>http://localhost:1313/posts/llava/</link>
+      <pubDate>Sat, 01 Jun 2024 22:25:09 +0000</pubDate>
+      <guid>http://localhost:1313/posts/llava/</guid>
+      <description>LLaVA paper In this blog I try to break down some key points in the LLaVA research paper titled &amp;ldquo;Visual Instruction Tuning&amp;rdquo;, this is more of me exploring the paper and code/data associated with it and noting it down.&#xA;LLaVA is a large multimodal model that is instruction-tuned to understand images and text. The authors present an end-to-end description of the procedure they follow to build this model. Additionally, with data used for training, they also open-source their model.</description>
+    </item>
+    <item>
+      <title>Log-Structured Merge Tree</title>
+      <link>http://localhost:1313/posts/salad/</link>
+      <pubDate>Sun, 12 Nov 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/salad/</guid>
+      <description>An LSM Tree overview and Java implementation.</description>
+    </item>
+  </channel>
+</rss>
