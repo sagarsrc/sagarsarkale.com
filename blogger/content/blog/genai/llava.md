@@ -175,9 +175,7 @@ I hope you enjoyed this blog. Have fun learning!
 - [huggingface - LLaVA-CC3M-Pretrain-595K](https://huggingface.co/datasets/liuhaotian/LLaVA-CC3M-Pretrain-595K?row=0)
 - [huggingface - LLaVA-Instruct-150K](https://huggingface.co/datasets/liuhaotian/LLaVA-Instruct-150K)
 
-#
-
-#
+---
 
 Written By
 

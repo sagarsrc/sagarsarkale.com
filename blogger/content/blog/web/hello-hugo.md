@@ -1,34 +1,15 @@
 ---
 title: "Hello super fast blogging!"
-date: 2024-04-07T10:38:54.267Z
-# weight: 0
-# aliases: ["/first"]
-author: "Sagar Sarkale"
-showToc: true
-TocOpen: true
-TocSide: "left"
-draft: false
-hidemeta: false
-comments: false
+date: "2024-04-07"
+summary: "Exploring static site builder for quick blogging"
 description: "Exploring static site builder for quick blogging"
-canonicalURL: "https://canonical.url/to/page"
-disableShare: false
-hideSummary: false
-searchHidden: true
-ShowReadingTime: true
-ShowBreadCrumbs: true
-ShowPostNavLinks: true
+toc: true
+readTime: true
+autonumber: false
+math: false
 tags: ["Web", "HUGO"]
-cover:
-  image: "https://gohugo.io/images/hugo-logo-wide.svg" # image path/url
-  alt: "<alt text>" # alt text
-  caption: "<text>" # display caption under cover
-  relative: false # when using page bundles set this to true
-  hidden: false # only hide on current single page
-editPost:
-  URL: "https://github.com/<path_to_repo>/content"
-  Text: "Suggest Changes" # edit text
-  appendFilePath: true # to append file path to Edit link
+showTags: true
+hideBackToTop: false
 ---
 
 # Brief
@@ -48,7 +29,7 @@ HUGO needs some additional setup to get started with Math symbols in blogs using
 
 Below are some commands to get started with HUGO.
 
-# commands
+# Commands
 
 ```bash
 # install HUGO (macOS)
@@ -85,7 +66,7 @@ npx pagefind --site public
 # copy public folder to your hosting platform
 ```
 
-# references
+# References
 
 1. [PaperModX features](https://reorx.github.io/hugo-PaperModX/docs/features/#intro)
 1. [Adding images in HUGO is pain](https://gohugo.io/content-management/shortcodes/)
@@ -95,9 +76,7 @@ npx pagefind --site public
 1. [Shortcodes super useful](https://gohugo.io/content-management/shortcodes/)
 1. [Setting up internal search using pagefind](https://youtu.be/WgoBoX4qTk8?si=4dzhdOu7zq-f4Sv9)
 
-#
-
-#
+---
 
 Written By
 

@@ -1,36 +1,18 @@
 ---
 title: "RNNs a walkthrough"
-date: 2023-08-22T01:25:00.000Z
-# weight: 100
-# aliases: ["/first"]
-author: "Sagar Sarkale"
-showToc: true
-TocOpen: true
-TocSide: "left"
-draft: false
-hidemeta: false
-comments: false
+date: "2023-08-22"
+summary: "A Brief about Recurrent Neural Networks"
 description: "A Brief about Recurrent Neural Networks"
-canonicalURL: "https://canonical.url/to/page"
-disableShare: false
-hideSummary: false
-searchHidden: true
-ShowReadingTime: true
-ShowBreadCrumbs: true
-ShowPostNavLinks: true
-math: katex
+toc: true
+readTime: true
+autonumber: false
+math: true
 tags: ["NLP", "DeepLearning"]
-cover:
-  image: "rnns/09-cover.png" # image path/url
-  alt: "RNNs a walkthrough" # alt text
-  caption: "<text>" # display caption under cover
-  relative: false # when using page bundles set this to true
-  hidden: false # only hide on current single page
-editPost:
-  URL: "https://github.com/<path_to_repo>/content"
-  Text: "Suggest Changes" # edit text
-  appendFilePath: true # to append file path to Edit link
+showTags: true
+hideBackToTop: false
 ---
+
+# Introduction
 
 Looking back from a point where GPT models have sent waves across the industry, recurrent networks have been one of the most fundamental blocks that have been laid down, when it comes to progress of natural language and deep learning. This blog aims to give a functional understanding of RNNs. Personally, I had a difficult time wrapping my head around this when i learnt it the first time. I believe that this blog would reduce the friction for the people who have just started their journey.
 

@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width"><meta name="description" content="How do you understand position of token in transformer?" />
 
 <title>
-
+    
     Position Encoding in Transformers | Sagar Sarkale
-
+    
 </title>
 
 
@@ -24,64 +24,70 @@
 
   </head>
 
+  
 
+  
+  
+  
 
-
-
-
-
-  <body class="auto">
+  <body class="light">
 
     <div class="content">
       <header>
-
+        
 
 <div class="header">
     <h1 class="header-title">Sagar Sarkale</h1>
 
     <div class="flex">
+        
 
-
-
-
+        
+        
         <p class="small ">
             <a href="/">
                 /home
             </a>
         </p>
-
+        
         <p class="small ">
             <a href="/blog">
                 /blog
             </a>
         </p>
-
+        
+        <p class="small ">
+            <a href="/work/work">
+                /work
+            </a>
+        </p>
+        
         <p class="small ">
             <a href="/about">
                 /about
             </a>
         </p>
-
-
+        
+        
     </div>
 
 </div>
       </header>
 
       <main class="main">
-
+        
 
 
 
 
 <div class="breadcrumbs">
-
+    
     <a href="/">Home</a>
     <span class="breadcrumbs-separator"> > </span>
-
-    <a href="/blog/">Blog</a>
+    
+    <a href="/blog/">Blogs</a>
     <span class="breadcrumbs-separator"> > </span>
-
+    
     <a class="breadcrumbs-current" href="/blog/genai/position-encoding/">Position Encoding in Transformers</a>
 </div>
 
@@ -90,32 +96,76 @@
 
   <div class="single-intro-container">
 
-
+    
 
     <h1 class="single-title">Position Encoding in Transformers</h1>
+    
+    <p class="single-summary">How do you understand position of token in transformer?</p>
+    
 
-
-
+    
 
     <p class="single-readtime">
+      
+      
+      
+      <time datetime="2024-04-25T00:00:00&#43;00:00">April 25, 2024</time>
+      
 
-
-
-      <time datetime="2024-04-25T18:26:32&#43;00:00">April 25, 2024</time>
-
-
-
+      
+      &nbsp; · &nbsp;
+      5 min read
+      
     </p>
 
   </div>
 
+  
 
+  
+  
 
+  <div class="single-tags">
+    
+    <span>
+      <a href="http://localhost:1313/tags/transformers/">#Transformers</a>
+    </span>
+    
+    
+  </div>
 
+  
+  
 
+  
 
+  
+  <aside class="toc">
+    <p><strong>Table of contents</strong></p>
+    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#goal">Goal</a></li>
+    <li><a href="#proposed-method">Proposed method</a></li>
+    <li><a href="#breaking-down-math">Breaking down Math</a>
+      <ol>
+        <li><a href="#step-1---formulation">step 1 - formulation</a></li>
+        <li><a href="#step-2---division-term">step 2 - division term</a></li>
+        <li><a href="#step-3---offset">step 3 - offset</a></li>
+        <li><a href="#step-4---evenodd-i">step 4 - even/odd $i$</a></li>
+        <li><a href="#step-5---oscillation">step 5 - oscillation</a></li>
+      </ol>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#code-implementation">Code implementation</a></li>
+    <li><a href="#summary">Summary</a></li>
+    <li><a href="#reference">Reference</a></li>
+  </ol>
+</nav>
+  </aside>
+  
 
-
+  
 
   <div class="single-content">
     <h1 id="introduction">Introduction</h1>
@@ -362,23 +412,22 @@ $$fig\ 3$$</p>
 <li><a href="https://github.com/pytorch/pytorch/blob/42a192db0f064ff122fd7b9f6418f6f48ecd03ea/benchmarks/distributed/pipeline/pipe.py#L46">Pytorch source code</a></li>
 <li><a href="https://excalidraw.com/">Diagrams by Excalidraw</a></li>
 </ul>
-<h1 id="heading"></h1>
-<h1 id="heading-1"></h1>
+<hr>
 <p>Written By</p>
 <blockquote>
 <p><a href="https://linkedin.com/in/sagar-sarkale">Sagar Sarkale</a></p>
 </blockquote>
 
-
+    
   </div>
 
-
+  
   <div class="back-to-top">
     <a href="#top">
       back to top
     </a>
   </div>
-
+  
 
 </div>
 

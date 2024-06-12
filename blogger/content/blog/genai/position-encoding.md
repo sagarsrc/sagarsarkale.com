@@ -1,35 +1,15 @@
 ---
 title: "Position Encoding in Transformers"
-date: 2024-04-25T18:26:32+0000
-# weight: 100
-# aliases: ["/first"]
-author: "Sagar Sarkale"
-showToc: true
-TocOpen: true
-TocSide: "left"
-draft: false
-hidemeta: false
-comments: false
+date: "2024-04-25"
+summary: "How do you understand position of token in transformer?"
 description: "How do you understand position of token in transformer?"
-canonicalURL: "https://canonical.url/to/page"
-disableShare: false
-hideSummary: false
-searchHidden: true
-ShowReadingTime: true
-ShowBreadCrumbs: true
-ShowPostNavLinks: true
-math: katex
+toc: true
+readTime: true
+autonumber: false
+math: true
 tags: ["Transformers"]
-cover:
-  image: "/pos-enc/000-cover-pe.png" # image path/url
-  alt: "Position Encoding in Transformers" # alt text
-  caption: "<text>" # display caption under cover
-  relative: false # when using page bundles set this to true
-  hidden: false # only hide on current single page
-editPost:
-  URL: "https://github.com/<path_to_repo>/content"
-  Text: "Suggest Changes" # edit text
-  appendFilePath: true # to append file path to Edit link
+showTags: true
+hideBackToTop: false
 ---
 
 # Introduction
@@ -226,9 +206,7 @@ This blog provides a visual mathematical guide to how a small component "positio
 - [Pytorch source code](https://github.com/pytorch/pytorch/blob/42a192db0f064ff122fd7b9f6418f6f48ecd03ea/benchmarks/distributed/pipeline/pipe.py#L46)
 - [Diagrams by Excalidraw](https://excalidraw.com/)
 
-#
-
-#
+---
 
 Written By
 

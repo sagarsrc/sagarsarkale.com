@@ -13,16 +13,14 @@ googleAnalytics = "G-NYRZDCP0VT"
 
 [params]
 # Meta description
-description = "A Tech Blog"
+description = "Sagar's portfolio and blogs"
 
 # Appearance settings
-theme = 'auto'
+theme = 'light'
 
 # Intro on main page, content is markdown
-# homeIntroTitle = 'Hi, this is a sneak peek into my learning journey!'
-homeIntroContent = """
-I am me and you are you.
-"""
+homeIntroTitle = 'Hello world!'
+homeIntroContent = """This is a sneak peek into my learning journey!"""
 
 # Collection to display on home
 homeCollectionTitle = 'Blog'
@@ -39,15 +37,15 @@ breadcrumbs = true
 # Social icons
 [[params.social]]
 name = "linkedin"
-url = "https://www.linkedin.com/in/user/"
-
-# [[params.social]]
-# name = "medium"
-# url = "https://medium.com/@user"
+url = "https://www.linkedin.com/in/sagar-sarkale/"
 
 [[params.social]]
 name = "twitter"
-url = "https://x.com/user"
+url = "https://x.com/sagarrgh"
+
+[[params.social]]
+name = "email"
+url = "https://mail.google.com/mail/?view=cm&fs=1&to=sagar@smallstep.ai&su=Hi%20Sagar&body=Let%27s%20chat!"
 
 # Main menu pages
 [[params.menu]]
@@ -57,6 +55,11 @@ url = "/"
 [[params.menu]]
 name = "blog"
 url = "/blog"
+
+[[params.menu]]
+name = "work"
+url = "/work/work"
+
 
 [[params.menu]]
 name = "about"
@@ -81,3 +84,7 @@ mapping = "pathname"
 theme = "preferred_color_scheme"
 
 
+[markup.tableOfContents]
+    endLevel = 3
+    ordered = true
+    startLevel = 1

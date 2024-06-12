@@ -21,40 +21,37 @@
     <lastmod>2024-06-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/blog/genai/position-encoding/</loc>
-    <lastmod>2024-04-25T18:26:32+00:00</lastmod>
+    <lastmod>2024-04-25T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blog/hello-hugo/</loc>
-    <lastmod>2024-04-07T10:38:54+00:00</lastmod>
+    <loc>http://localhost:1313/blog/web/hello-hugo/</loc>
+    <lastmod>2024-04-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/hugo/</loc>
-    <lastmod>2024-04-07T10:38:54+00:00</lastmod>
+    <lastmod>2024-04-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/web/</loc>
-    <lastmod>2024-04-07T10:38:54+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/database/</loc>
-    <lastmod>2023-11-12T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/java/</loc>
-    <lastmod>2023-11-12T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/blog/salad/</loc>
-    <lastmod>2023-11-12T00:00:00+00:00</lastmod>
+    <lastmod>2024-04-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/deeplearning/</loc>
-    <lastmod>2023-09-21T01:25:00+00:00</lastmod>
+    <lastmod>2023-09-21T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blog/lstm-simplified/</loc>
-    <lastmod>2023-09-21T01:25:00+00:00</lastmod>
+    <loc>http://localhost:1313/blog/seq/lstm-simplified/</loc>
+    <lastmod>2023-09-21T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/nlp/</loc>
-    <lastmod>2023-09-21T01:25:00+00:00</lastmod>
+    <lastmod>2023-09-21T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blog/rnns-a-walkthrough/</loc>
-    <lastmod>2023-08-22T01:25:00+00:00</lastmod>
+    <loc>http://localhost:1313/blog/seq/rnns-a-walkthrough/</loc>
+    <lastmod>2023-08-22T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/about/</loc>
   </url><url>
     <loc>http://localhost:1313/g-nyrzdcp0vt/</loc>
+  </url><url>
+    <loc>http://localhost:1313/work/work/</loc>
+  </url><url>
+    <loc>http://localhost:1313/tags/work/</loc>
+  </url><url>
+    <loc>http://localhost:1313/work/</loc>
   </url>
 </urlset>

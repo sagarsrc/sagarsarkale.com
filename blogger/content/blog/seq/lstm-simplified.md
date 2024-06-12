@@ -1,35 +1,15 @@
 ---
 title: "LSTM simplified"
-date: 2023-09-21T01:25:00.000Z
-# weight: 100
-# aliases: ["/first"]
-author: "Sagar Sarkale"
-showToc: true
-TocOpen: true
-TocSide: "left"
-draft: false
-hidemeta: false
-comments: false
+date: "2023-09-21"
+summary: "In depth and intuitive explanation of LSTM architecture"
 description: "In depth and intuitive explanation of LSTM architecture"
-canonicalURL: "https://canonical.url/to/page"
-disableShare: false
-hideSummary: false
-searchHidden: true
-ShowReadingTime: true
-ShowBreadCrumbs: true
-ShowPostNavLinks: true
-math: katex
+toc: true
+readTime: true
+autonumber: true
+math: true
 tags: ["NLP", "DeepLearning"]
-cover:
-  image: "lstm/00-cover.png" # image path/url
-  alt: "LSTM simplified" # alt text
-  caption: "<text>" # display caption under cover
-  relative: false # when using page bundles set this to true
-  hidden: false # only hide on current single page
-editPost:
-  URL: "https://github.com/<path_to_repo>/content"
-  Text: "Suggest Changes" # edit text
-  appendFilePath: true # to append file path to Edit link
+showTags: true
+hideBackToTop: false
 ---
 
 # Introduction

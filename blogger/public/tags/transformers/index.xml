@@ -18,9 +18,9 @@
     <item>
       <title>Position Encoding in Transformers</title>
       <link>http://localhost:1313/blog/genai/position-encoding/</link>
-      <pubDate>Thu, 25 Apr 2024 18:26:32 +0000</pubDate>
+      <pubDate>Thu, 25 Apr 2024 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/blog/genai/position-encoding/</guid>
-      <description>Introduction Positional encoding is a small concept in Transformer architecture yet of crucial importance. In RNNs or LSTMs we pass tokens sequentially, here information of &amp;ldquo;order&amp;rdquo; is inherently captured.&#xA;Whereas in the case of Transformers, we pass multiple tokens at the same time, they are more likely to lose out on positional information of tokens. As we are feeding tokens parallel we need to use some mechanism to remember the &amp;ldquo;order&amp;rdquo; of the tokens being fed to the transformer.</description>
+      <description>How do you understand position of token in transformer?</description>
     </item>
   </channel>
 </rss>
