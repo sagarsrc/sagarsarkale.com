@@ -14,6 +14,7 @@ googleAnalytics = "G-NYRZDCP0VT"
 [params]
 # Meta description
 description = "Sagar's portfolio and blogs"
+favicon = "/img/favicon.ico"
 
 # Appearance settings
 theme = 'light'
