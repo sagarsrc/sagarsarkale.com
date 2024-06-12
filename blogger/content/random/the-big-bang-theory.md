@@ -12,7 +12,9 @@ showTags: true
 hideBackToTop: false
 ---
 
-By now i am assuming some of you might have guessed it that this post is about "The Big Bang Theory" show. I started watching this show during my college days. Looking back now, i know for a fact that this show was a side dish or rather main course, given the kind of food we ate back then. This show was our dinner companion of sorts, too much of nostalgia associated with it. But this is not the only reason why i love this show. I love it because it's perfect, and we can definitely get into debate "F.R.I.E.N.D.S" vs "The Big Bang Theory", but let's keep it for some other day. One point against friends the tv show is - that it was pain just typing - "F.R. ....". Anyways dinner time - college days - Ever since it has been a comfort show.
+By now, i am assuming some of you might have guessed it, what this post is about.
+
+"The Big Bang Theory" show, i started watching this show during my college days. Looking back now, i know for a fact that this show was a side dish or rather main course, given the kind of food we ate back then. For my roommate and i this show was a dinner companion of sorts, too much of nostalgia associated with it. But this is not the only reason why i love this show. I love it because it's perfect, and we can definitely get into debate "The Big Bang Theory" vs "F.R.I.E.N.D.S", but let's keep it for some other day. One point against friends the tv show is - that it was pain just typing - "F.R. ....". Anyways, dinner time - college days - Ever since it has been a comfort show.
 
 I have re-watched it multiple times now, and still cannot get enough of it. Sometime during my Big Bang watchathon (i don't know if that is even a word), i started curating some of my favorite episodes. And i feel like sharing that here, for fellow fans/ fans to be. But i must say this also can be a spoiler for those who haven't watched it. Look at the table in the end at your own risk, and even if you do look at it, it's still going to be fun believe me.
 
@@ -22,8 +24,12 @@ Well i should stop now.
 
 Anyways it feels great to have started writing for fun, with a bang indeed.
 
+I do not want to rob you of fun so... [Go watch it now!](https://www.netflix.com/in/title/70143830)
+
 SPOILER ALERT!
-{{<figure src="https://c4.wallpaperflare.com/wallpaper/1014/19/679/biology-books-food-laughter-wallpaper-preview.jpg">}}
+{{<figure src="https://r4.wallpaperflare.com/wallpaper/1014/19/679/biology-books-food-laughter-wallpaper-cbaea1e5178342ca074f22c02c02281b.jpg">}}
+
+The image above has been my wallpaper on different devices for a long time. [source](https://www.wallpaperflare.com/big-bang-theory-cast-biology-books-food-laughter-the-series-wallpaper-fedt/download)
 
 | Season.Episode | Description                                               |
 | -------------- | --------------------------------------------------------- |
