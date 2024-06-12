@@ -1,3 +1,7 @@
 [submodule "blogger/themes/typo"]
 	path = blogger/themes/typo
 	url = https://github.com/tomfran/typo.git
+
+[submodule "blog/themes/PaperModX"]
+	path = blog/themes/PaperModX
+	url = https://github.com/reorx/hugo-PaperModX.git

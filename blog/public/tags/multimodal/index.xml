@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Multimodal on Sagar Sarkale</title>
+    <link>https://sagarsarkale.com/tags/multimodal/</link>
+    <description>Recent content in Multimodal on Sagar Sarkale</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 01 Jun 2024 22:25:09 +0000</lastBuildDate><atom:link href="https://sagarsarkale.com/tags/multimodal/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>It&#39;s LLaVA not lava!</title>
+      <link>https://sagarsarkale.com/blog/genai/llava/</link>
+      <pubDate>Sat, 01 Jun 2024 22:25:09 +0000</pubDate>
+      
+      <guid>https://sagarsarkale.com/blog/genai/llava/</guid>
+      <description>LLaVA = Large Language and Vision assistant ≠ 🌋</description>
+      <content:encoded><![CDATA[<h1 id="llava-paper">LLaVA paper</h1>
+<p>In this blog I try to break down some key points in the LLaVA research paper titled &ldquo;<a href="https://arxiv.org/abs/2304.08485">Visual Instruction Tuning</a>&rdquo;, this is more of me exploring the paper and code/data associated with it and noting it down.</p>
+<p>LLaVA is a large multimodal model that is instruction-tuned to understand images and text. The authors present an end-to-end description of the procedure they follow to build this model. Additionally, with data used for training, they also open-source their model.</p>
+<p>Let us dive into LLaVA, shall we?</p>
+<blockquote>
+<p>No thanks, I’ll pass.</p>
+</blockquote>
+<h1 id="data-preparation">Data Preparation</h1>
+<p>As far as data preparation is concerned, it 2 steps are involved.</p>
+<h2 id="caption--brief-description">caption = brief description</h2>
+<p>Use existing image, caption dataset like CC3M, with caption as an input, create a list of varied questions answers, here answer can be caption or part of catpion. Use this dataset to create instructions of the format:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">Human: <span class="p">&lt;</span><span class="nt">question</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">image</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">Assistant: <span class="p">&lt;</span><span class="nt">caption</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Though this data is limitting and does not mimic scenarios where a human would ask an AI assistant about the image, it serves as a good objective for pretraining.</p>
+<h2 id="gpt-4--reasoning">gpt-4 = reasoning</h2>
+<p>Image caption instruction data mentioned above lacks in-depth reasoning and diversity. In order to mitigate this authors use GPT4 to create data by just using captions as an input. Below is the prompt mentioned in the paper.</p>
+<figure>
+    <img loading="lazy" src="https://imgur.com/zdkvz98.png"/> 
+</figure>
+
+<p>GPT4 is used for:</p>
+<ul>
+<li>Conversational data: Conversation between assistant and person as as if assistant is seeing image.</li>
+<li>Detailed description: Generate detailed description of image using sample set of questions.</li>
+<li>Complex reasoning: Generate complex questions where answering requires logical breakdown of question and multiple steps to arrive at final answer.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>type</th>
+<th>num_records</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>conversational data</td>
+<td>58K</td>
+</tr>
+<tr>
+<td>detailed description</td>
+<td>23K</td>
+</tr>
+<tr>
+<td>complex reasoning</td>
+<td>77K</td>
+</tr>
+<tr>
+<td>total instructions</td>
+<td>158K</td>
+</tr>
+</tbody>
+</table>
+<p>One other key aspect to note in this paper is type of context that was provided to GPT4 while generating data. Apart from captions, paper also mentions using bounding boxes as a context to get a rough understanding of location of objects in the image.</p>
+<figure>
+    <img loading="lazy" src="https://imgur.com/YBdq0hD.png"/> 
+</figure>
+
+<p>Below is an example of a dummy prompt to GPT4 which includes bounding boxes as input.</p>
+<figure>
+    <img loading="lazy" src="https://imgur.com/il9rIHi.png"/> 
+</figure>
+
+<p>We can see GPT4 provides spatial information of desired objects given bounding boxes. This information can be used to create more complex QA pairs for instruction tuning.</p>
+<p><strong>NOTE</strong> : Paper does NOT use image as input to GPT-4, it only utilizes captions and bounding boxes to construct training data. (see Page 3, 23, 24)</p>
+<h1 id="teaching-model-to-see">Teaching model to see</h1>
+<h2 id="architecture">Architecture</h2>
+<p>LLaVA utilizes 2 pretrained models in their architecture:</p>
+<ol>
+<li>Vicuna 13B - which is a fine tuned derivative of Llama2 13B variant</li>
+<li>CLIP embeddings - architecture known for encoding both text and images</li>
+</ol>
+<p>LLaVA training procedure is divided into 2 stages.</p>
+<h2 id="stage-1-pretraining-for-feature-alignment">Stage 1: Pretraining for feature alignment</h2>
+<p>CLIP embeddings are present in different hyperspace, plus they cannot be used as an input to LLMs readily because of different dimensionality. Hence to solve for this a projection of these embeddings is obtained using Linear layers. In this stage we keep CLIP embeddings and LLM weights frozen and only learn the weights of this Linear layer.</p>
+<figure>
+    <img loading="lazy" src="https://imgur.com/T1v2Gb1.png"/> 
+</figure>
+
+<p>For training projection layer filtered CC3M image text pairs dataset was used. Each sample was treated as single turn conversation. Learning task was to predict caption given image and a question (generated by GPT4) associated with it.</p>
+<p>Sample of pretraining data:
+<figure>
+    <img loading="lazy" src="https://imgur.com/9m3eMmj.png"/> 
+</figure>
+</p>
+<h2 id="stage-2--fine-tuning-end-to-end">Stage 2 : Fine tuning end to end</h2>
+<p>Visual encoder layers are kept frozen, only projection layer and LLM weights are learnt in this stage. Here the instruction tuning data is used conversation, complex reasoning and description instructions which were created using GPT4. As a result of this a multimodal chatbot is obtained.</p>
+<p>Sample of Instruction tuning data:</p>
+<figure>
+    <img loading="lazy" src="https://imgur.com/5TULhj5.png"/> 
+</figure>
+
+<h1 id="going-through-code--data">Going through code &amp; data</h1>
+<h2 id="llava-model-architecture">LLaVA model architecture</h2>
+<p>Here is trimmed down architecture of LLaVA model.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">LlavaForConditionalGeneration</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="n">vision_tower</span><span class="p">):</span> <span class="n">CLIPVisionModel</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="n">vision_model</span><span class="p">):</span> <span class="n">CLIPVisionTransformer</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="p">(</span><span class="n">embeddings</span><span class="p">):</span> <span class="n">CLIPVisionEmbeddings</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="n">patch_embedding</span><span class="p">):</span> <span class="n">Conv2d</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1024</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="n">stride</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="n">position_embedding</span><span class="p">):</span> <span class="n">Embedding</span><span class="p">(</span><span class="mi">577</span><span class="p">,</span> <span class="mi">1024</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="o">...</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="p">(</span><span class="n">post_layernorm</span><span class="p">):</span> <span class="n">LayerNorm</span><span class="p">((</span><span class="mi">1024</span><span class="p">,),</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-05</span><span class="p">,</span> <span class="n">elementwise_affine</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="n">multi_modal_projector</span><span class="p">):</span> <span class="n">LlavaMultiModalProjector</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="n">linear_1</span><span class="p">):</span> <span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">4096</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="n">act</span><span class="p">):</span> <span class="n">GELUActivation</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="n">linear_2</span><span class="p">):</span> <span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">4096</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">4096</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># ^^^^^^^^^^^^ note</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="n">language_model</span><span class="p">):</span> <span class="n">LlamaForCausalLM</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="n">model</span><span class="p">):</span> <span class="n">LlamaModel</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="p">(</span><span class="n">embed_tokens</span><span class="p">):</span> <span class="n">Embedding</span><span class="p">(</span><span class="mi">32064</span><span class="p">,</span> <span class="mi">4096</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="c1"># ^^^^^^^^^^^^ note</span>
+</span></span><span class="line"><span class="cl">      <span class="p">(</span><span class="n">layers</span><span class="p">):</span> <span class="n">ModuleList</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="mi">0</span><span class="o">-</span><span class="mi">31</span><span class="p">):</span> <span class="mi">32</span> <span class="n">x</span> <span class="n">LlamaDecoderLayer</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">		<span class="o">...</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">(</span><span class="n">norm</span><span class="p">):</span> <span class="n">LlamaRMSNorm</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="n">lm_head</span><span class="p">):</span> <span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">4096</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">32064</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Notice how <code>multi_modal_projector</code> is being used to convert 1024 dim CLIP embedding to 4096 dim embedding using linear layers.</p>
+<p><strong>NOTE</strong>: Above is the architecture of LLaVA-1.5 where 2 Linear layers are used in Projector as whereas first version of LLaVA has only 1 Linear layer.</p>
+<h2 id="handle-image-and-text">handle image and text</h2>
+<p>Method <code>_merge_input_ids_with_image_features</code> is crucial in class <code>LlavaForConditionalGeneration</code>. This is where image embeddings are plugged in with text embeddings, and new positions are calculated along with image embedding. Additionally respective attention masks are created to pass down to the model.</p>
+<ul>
+<li><a href="%5Bhttps://github.com/huggingface/transformers/blob/96eb06286b63c9c93334d507e632c175d6ba8b28/src/transformers/models/llava/modeling_llava.py#L439%5D(https://github.com/huggingface/transformers/blob/96eb06286b63c9c93334d507e632c175d6ba8b28/src/transformers/models/llava/modeling_llava.py#L439)">call to function </a></li>
+<li><a href="%5Bhttps://github.com/huggingface/transformers/blob/96eb06286b63c9c93334d507e632c175d6ba8b28/src/transformers/models/llava/modeling_llava.py#L277%5D(https://github.com/huggingface/transformers/blob/96eb06286b63c9c93334d507e632c175d6ba8b28/src/transformers/models/llava/modeling_llava.py#L277)">definition</a></li>
+</ul>
+<p>Example of Instruction to model:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Human: Provide a brief description of the given image.\n&lt;image&gt; &lt;STOP&gt;
+</span></span><span class="line"><span class="cl">Assistant: olive oil is a healthy ingredient used liberally. &lt;STOP&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Below is a rough sketch for the same.
+<figure>
+    <img loading="lazy" src="https://imgur.com/ALWJ7Mt.png"/> 
+</figure>
+</p>
+<h1 id="end-note">End note</h1>
+<p>This brings us to an end of walkthrough of a multimodal model LLaVA, main takeaway for me was how image features are aligned and integrated into model while accounting for position of image embeddings before passing to the model.</p>
+<p>I hope you enjoyed this blog. Have fun learning!</p>
+<h1 id="references">References</h1>
+<ul>
+<li><a href="https://arxiv.org/pdf/2304.08485">LLaVA arxiv</a></li>
+<li><a href="https://github.com/huggingface/transformers/blob/main/src/transformers/models/llava/modeling_llava.py#L241">github modeling_llava.py</a></li>
+<li><a href="https://huggingface.co/datasets/liuhaotian/LLaVA-CC3M-Pretrain-595K?row=0">huggingface - LLaVA-CC3M-Pretrain-595K</a></li>
+<li><a href="https://huggingface.co/datasets/liuhaotian/LLaVA-Instruct-150K">huggingface - LLaVA-Instruct-150K</a></li>
+</ul>
+<h1 id="heading"></h1>
+<h1 id="heading-1"></h1>
+<p>Written By</p>
+<blockquote>
+<p><a href="https://linkedin.com/in/sagar-sarkale">Sagar Sarkale</a></p>
+</blockquote>
+]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>
