@@ -71,6 +71,10 @@ url = "/about"
 style = 'xcode'
 lineNos = true
 
+[markup.tableOfContents]
+    startLevel = 1
+    endLevel = 3
+    ordered = true
 
 
 # Giscus comments
@@ -84,7 +88,4 @@ mapping = "pathname"
 theme = "preferred_color_scheme"
 
 
-[markup.tableOfContents]
-    endLevel = 3
-    ordered = true
-    startLevel = 1
+

@@ -2,7 +2,7 @@
 title: "My Professional Journey"
 toc: false
 readTime: false
-autonumber: true
+autonumber: false
 math: false
 tags: ["work"]
 showTags: false

@@ -12,6 +12,8 @@ showTags: true
 hideBackToTop: false
 ---
 
+{{<figure src="/rnns/09-cover.png">}}
+
 # Introduction
 
 Looking back from a point where GPT models have sent waves across the industry, recurrent networks have been one of the most fundamental blocks that have been laid down, when it comes to progress of natural language and deep learning. This blog aims to give a functional understanding of RNNs. Personally, I had a difficult time wrapping my head around this when i learnt it the first time. I believe that this blog would reduce the friction for the people who have just started their journey.

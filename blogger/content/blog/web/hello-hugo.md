@@ -12,6 +12,8 @@ showTags: true
 hideBackToTop: false
 ---
 
+{{<figure src="https://gohugo.io/images/hugo-logo-wide.svg">}}
+
 # Brief
 
 Today i tried to setup static site builder called HUGO, for blogging. It comes in handy once you set up all the parameters. It is a combination of markdown + config files. With few hours of efforts was able to set it up.

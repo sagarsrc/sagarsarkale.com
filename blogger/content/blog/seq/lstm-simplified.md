@@ -5,12 +5,14 @@ summary: "In depth and intuitive explanation of LSTM architecture"
 description: "In depth and intuitive explanation of LSTM architecture"
 toc: true
 readTime: true
-autonumber: true
+autonumber: false
 math: true
 tags: ["NLP", "DeepLearning"]
 showTags: true
 hideBackToTop: false
 ---
+
+{{<figure src="/lstm/00-cover.png">}}
 
 # Introduction
 

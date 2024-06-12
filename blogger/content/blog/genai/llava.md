@@ -5,12 +5,14 @@ summary: "LLaVA = Large Language and Vision assistant ≠ 🌋"
 description: "LLaVA = Large Language and Vision assistant ≠ 🌋"
 toc: true
 readTime: true
-autonumber: true
+autonumber: false
 math: true
 tags: ["Multimodal", "Transformers"]
 showTags: true
 hideBackToTop: false
 ---
+
+{{<figure src="/llava/llava-cover.png">}}
 
 # LLaVA paper
 
@@ -30,9 +32,11 @@ As far as data preparation is concerned, it 2 steps are involved.
 
 Use existing image, caption dataset like CC3M, with caption as an input, create a list of varied questions answers, here answer can be caption or part of catpion. Use this dataset to create instructions of the format:
 
-```markdown
+```python
+"""
 Human: <question> <image>
 Assistant: <caption>
+"""
 ```
 
 Though this data is limitting and does not mimic scenarios where a human would ask an AI assistant about the image, it serves as a good objective for pretraining.

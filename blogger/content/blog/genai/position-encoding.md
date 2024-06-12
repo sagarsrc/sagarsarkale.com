@@ -12,6 +12,8 @@ showTags: true
 hideBackToTop: false
 ---
 
+{{<figure src="/pos-enc/000-cover-pe.png">}}
+
 # Introduction
 
 Positional encoding is a small concept in Transformer architecture yet of crucial importance. In RNNs or LSTMs we pass tokens sequentially, here information of "order" is inherently captured.
