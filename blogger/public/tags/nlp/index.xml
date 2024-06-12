@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>NLP on Sagar Sarkale</title>
+    <link>http://localhost:1313/tags/nlp/</link>
+    <description>Recent content in NLP on Sagar Sarkale</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 21 Sep 2023 01:25:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/nlp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LSTM simplified</title>
+      <link>http://localhost:1313/blog/lstm-simplified/</link>
+      <pubDate>Thu, 21 Sep 2023 01:25:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/lstm-simplified/</guid>
+      <description>Introduction In my previous blog about RNNs - &amp;ldquo;RNNs a walkthrough&amp;rdquo;, we saw how recurrent neural networks worked, their limitations, like vanishing gradients, which leads to failure of learning long sequences. LSTMs try to solve for these limitations. In this blog we will go through detailed walkthrough of underlying structure of an LSTM cell.&#xA;This is my effort to simplify each of the blocks of LSTM piece by piece. In the end we join all these pieces to answer the question - How is LSTM an add on over RNNs?</description>
+    </item>
+    <item>
+      <title>RNNs a walkthrough</title>
+      <link>http://localhost:1313/blog/rnns-a-walkthrough/</link>
+      <pubDate>Tue, 22 Aug 2023 01:25:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/rnns-a-walkthrough/</guid>
+      <description>Looking back from a point where GPT models have sent waves across the industry, recurrent networks have been one of the most fundamental blocks that have been laid down, when it comes to progress of natural language and deep learning. This blog aims to give a functional understanding of RNNs. Personally, I had a difficult time wrapping my head around this when i learnt it the first time. I believe that this blog would reduce the friction for the people who have just started their journey.</description>
+    </item>
+  </channel>
+</rss>

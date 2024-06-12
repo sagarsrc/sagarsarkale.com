@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en-us"
+  dir="ltr">
+
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width"><meta name="description" content="How do you understand position of token in transformer?" />
+
+<title>
+    
+    Position Encoding in Transformers | Sagar Sarkale
+    
+</title>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/assets/combined.min.f69b4a5b91a9bc416804eda1f19d04210551b843d47318bf1913d7edce1504fb.css" media="all">
+
+
+
+  </head>
+
+  
+
+  
+  
+  
+
+  <body class="auto">
+
+    <div class="content">
+      <header>
+        
+
+<div class="header">
+    <h1 class="header-title">Sagar Sarkale</h1>
+
+    <div class="flex">
+        
+
+        
+        
+        <p class="small ">
+            <a href="/">
+                /home
+            </a>
+        </p>
+        
+        <p class="small ">
+            <a href="/posts">
+                /posts
+            </a>
+        </p>
+        
+        <p class="small ">
+            <a href="/about">
+                /about
+            </a>
+        </p>
+        
+        
+    </div>
+
+</div>
+      </header>
+
+      <main class="main">
+        
+
+
+
+
+<div class="breadcrumbs">
+    
+    <a href="/">Home</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a href="/posts/">Posts</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a class="breadcrumbs-current" href="/posts/position-encoding/">Position Encoding in Transformers</a>
+</div>
+
+
+<div >
+
+  <div class="single-intro-container">
+
+    
+
+    <h1 class="single-title">Position Encoding in Transformers</h1>
+    
+
+    
+
+    <p class="single-readtime">
+      
+      
+      
+      <time datetime="2024-04-25T18:26:32&#43;00:00">April 25, 2024</time>
+      
+
+      
+    </p>
+
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  <div class="single-content">
+    <h1 id="introduction">Introduction</h1>
+<p>Positional encoding is a small concept in Transformer architecture yet of crucial importance. In RNNs or LSTMs we pass tokens sequentially, here information of &ldquo;order&rdquo; is inherently captured.</p>
+<p>Whereas in the case of Transformers, we pass multiple tokens at the same time, they are more likely to lose out on positional information of tokens. As we are feeding tokens parallel we need to use some mechanism to remember the &ldquo;order&rdquo; of the tokens being fed to the transformer. Hence Positional Encoding.</p>
+<p>Why position matters?</p>
+<ol>
+<li>&ldquo;the cat was chasing the mouse in the house&rdquo;</li>
+<li>&ldquo;the mouse was chasing the cat in the house&rdquo;</li>
+</ol>
+<p>As we can see by swapping 2 words in the sentence, the whole meaning changes.</p>
+<h1 id="goal">Goal</h1>
+<p>Model uses these words as embeddings, our goal is to make these embeddings carry additional position information, here the corresponding index associated with each word.</p>
+<figure><img src="/pos-enc/000-words-to-emb-pos.png" height="300">
+</figure>
+
+<h1 id="proposed-method">Proposed method</h1>
+<p>Authors of <a href="https://arxiv.org/abs/1706.03762">&ldquo;Attention Is All You Need&rdquo;</a> propose a novel method for encoding positional information. Below is the formulation.</p>
+<p>$$ PE_{(pos,2i)} = sin({pos}/{{10000}^{{2i}/{d}}})$$</p>
+<p>$$ PE_{(pos,2i+1)} = cos({pos}/{{10000}^{{2i}/{d}}})$$</p>
+<p>Understanding variables:</p>
+<table>
+<thead>
+<tr>
+<th>variable</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$w_0, w_1, .. w_n$</td>
+<td>Words/ tokens in sequence</td>
+</tr>
+<tr>
+<td>$i$</td>
+<td>Index of embedding dimension</td>
+</tr>
+<tr>
+<td>$pos$</td>
+<td>position of word in sequence</td>
+</tr>
+<tr>
+<td>$d$</td>
+<td>embedding dimension of model</td>
+</tr>
+</tbody>
+</table>
+<p><figure><img src="/pos-enc/003-pos-and-i-desc.png" height="250">
+</figure>
+
+<figure><img src="/pos-enc/002-pos-enc-add.png" height="250">
+</figure>
+</p>
+<p>$$fig\ 1$$</p>
+<p>This position embedding is further added with the word embedding as shown above.
+Let us try to understand what extra information the &ldquo;orange&rdquo; vector adds to word embeddings.</p>
+<h1 id="breaking-down-math">Breaking down Math</h1>
+<p>For this blog let&rsquo;s choose embedding dimension size $d=512$</p>
+<h2 id="step-1---formulation">step 1 - formulation</h2>
+<p>As we can see here two operations are being performed on an even index of embedding dimension for a given position. All even indices are some function of sine and odd indices are some function of cosine.</p>
+<p>$$ PE_{(pos,2i)} = sin(\theta)$$</p>
+<p>$$ PE_{(pos,2i+1)} = cos(\theta)$$</p>
+<p>Where $\theta$ is a function of $pos$ and $i$</p>
+<p>$$ \theta = {pos}/{{10000}^{{2i}/{d}}} $$
+$$ \theta = {pos} * {1}/{{10000}^{{2i}/{d}}}$$</p>
+<ul>
+<li>$pos$ is just a multiplying factor</li>
+<li>whereas division term ${1}/{{10000}^{{2i}/{d}}}$</li>
+</ul>
+<h2 id="step-2---division-term">step 2 - division term</h2>
+<p>Let us try to plot this division term.
+$${1}/{{10000}^{{2i}/{d}}}$$</p>
+<p><figure><img src="https://imgur.com/sygcNso.png">
+</figure>
+
+$$fig\ 2$$</p>
+<p>As we can see ${1}/{{10000}^{{2i}/{d}}}$ is a decaying function which ranges between $(0,1]$</p>
+<h2 id="step-3---offset">step 3 - offset</h2>
+<p>On multiplying $pos$ term with division term.
+$$ \theta = {pos} * {1}/{{10000}^{{2i}/{d}}}$$</p>
+<p><figure><img src="https://imgur.com/w0IsYR7.png">
+</figure>
+
+$$fig\ 3$$</p>
+<p>Multiplying $pos$ works as an offset for each position. Notice how each word&rsquo;s 0th dimension starts from a different point on the +ve y-axis and diminishes as we move towards the +ve x-axis</p>
+<h2 id="step-4---evenodd-i">step 4 - even/odd $i$</h2>
+<p>Now for each even index applying sine function, and for each odd index applying cosine function.</p>
+<p>$$ PE_{(pos,2i)} = sin(\theta)$$</p>
+<p>$$ PE_{(pos,2i+1)} = cos(\theta)$$
+<figure><img src="https://imgur.com/a4nFl5M.png">
+</figure>
+</p>
+<p>$$fig\ 4$$</p>
+<ul>
+<li>One interesting thing to note here is how all even indices at every position converge to <strong>0</strong></li>
+<li>Similarly, all the odd indices at every position converge to <strong>1</strong> as we go deeper in the dimension (as $i$ increases)</li>
+</ul>
+<p>Now let us put all these steps together and see how position embedding varies when we combine both even and odd index values</p>
+<h2 id="step-5---oscillation">step 5 - oscillation</h2>
+<p>This Plot tells us how the value of position encoding varies across dimension $i$ for each word at position $pos$. We can see that each encoding varies as we go to a different position. Values for any position $pos=p$ will remain the same irrespective of number of words in the sentence.
+<figure><img src="https://imgur.com/YPrSqEY.png">
+</figure>
+</p>
+<p>$$fig\ 5.1$$</p>
+<p>We can further visualize the same positional encoding for say 100 words as a heatmap to see overall variation in the values of these vectors.
+<figure><img src="https://imgur.com/QUP06sG.png">
+</figure>
+</p>
+<p>$$fig\ 5.2$$</p>
+<p>One can observe similar patterns in both $fig\ 5.1$ and $fig\ 5.2$:</p>
+<ol>
+<li>There is a higher variation in the range of <code>[-1, 1]</code> seen in the initial dimensions of a positional vector</li>
+<li>Whereas as we go towards later dimensions of the positional vector this oscillation ranges between <code>[0, 1]</code></li>
+</ol>
+<h1 id="usage">Usage</h1>
+<p>Let&rsquo;s revisit the older diagram we began with. In the above steps, we saw how each position $pos$ can be represented uniquely. Now we have the &ldquo;orange&rdquo; vector which has positional information in it.</p>
+<p><figure><img src="/pos-enc/003-pos-and-i-desc.png" height="250">
+</figure>
+
+<figure><img src="/pos-enc/002-pos-enc-add.png" height="250">
+</figure>
+</p>
+<p>We add each word embedding at $pos=n$ with corresponding position encoding.</p>
+<p>$$\vec{w_{n}} = \vec{e_{n}} + \vec{p_{n}}$$</p>
+<p>Each vector $\vec{w_{n}}$ , where $n\ \epsilon\  [0,1, &hellip; N]$ is given as an input to transformer.</p>
+<table>
+<thead>
+<tr>
+<th>symbol</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$N$</td>
+<td>total number of words</td>
+</tr>
+<tr>
+<td>$\vec{w_{n}}$</td>
+<td>word embedding with positional information at $pos = n$</td>
+</tr>
+<tr>
+<td>$\vec{e_{n}}$</td>
+<td>word embedding of word at $pos = n$</td>
+</tr>
+<tr>
+<td>$\vec{p_{n}}$</td>
+<td>position encoding for word at $pos = n$</td>
+</tr>
+</tbody>
+</table>
+<h1 id="code-implementation">Code implementation</h1>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold;text-decoration:underline">import</span> <span style="color:#666;font-weight:bold;font-style:italic">numpy</span> <span style="font-weight:bold;text-decoration:underline">as</span> <span style="color:#666;font-weight:bold;font-style:italic">np</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold;text-decoration:underline">def</span> <span style="color:#666;font-weight:bold;font-style:italic">positional_encoding</span>(max_len, d):
+</span></span><span style="display:flex;"><span>    <span style="color:#666;font-style:italic">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#666;font-style:italic">    Generate positional encodings for sequences.
+</span></span></span><span style="display:flex;"><span><span style="color:#666;font-style:italic">
+</span></span></span><span style="display:flex;"><span><span style="color:#666;font-style:italic">    Args:
+</span></span></span><span style="display:flex;"><span><span style="color:#666;font-style:italic">        max_len (int): Maximum length of the sequence.
+</span></span></span><span style="display:flex;"><span><span style="color:#666;font-style:italic">        d (int): Dimensionality of the positional encodings.
+</span></span></span><span style="display:flex;"><span><span style="color:#666;font-style:italic">
+</span></span></span><span style="display:flex;"><span><span style="color:#666;font-style:italic">    Returns:
+</span></span></span><span style="display:flex;"><span><span style="color:#666;font-style:italic">        numpy.ndarray: Positional encodings matrix of shape (max_len, d).
+</span></span></span><span style="display:flex;"><span><span style="color:#666;font-style:italic">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    position = np.expand_dims(np.arange(0, max_len, dtype=np.float32), axis=-1)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#888;font-style:italic"># div_term is common for odd and even indices</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#888;font-style:italic"># operation done on these indices varies</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#888;font-style:italic"># hence size of `div_term` will be half that of `d`</span>
+</span></span><span style="display:flex;"><span>    div_term = np.exp(np.arange(0, d, 2) * (-np.log(10000.0) / d))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#888;font-style:italic"># placeholder for position encoding</span>
+</span></span><span style="display:flex;"><span>    pe = np.zeros((max_len, d))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#888;font-style:italic"># fill all even indices with sin(θ)</span>
+</span></span><span style="display:flex;"><span>    pe[:, 0::2] = np.sin(position * div_term)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#888;font-style:italic"># fill all odd indices with cos(θ)</span>
+</span></span><span style="display:flex;"><span>    pe[:, 1::2] = np.cos(position * div_term)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold;text-decoration:underline">return</span> pe, div_term
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#888;font-style:italic"># call</span>
+</span></span><span style="display:flex;"><span>max_len = 100
+</span></span><span style="display:flex;"><span>d = 512
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>positional_encodings, div_term = positional_encoding(max_len, d)
+</span></span><span style="display:flex;"><span><span style="font-weight:bold;font-style:italic">print</span>(<span style="color:#666;font-style:italic">&#34;div_term shape:&#34;</span>, div_term.shape)
+</span></span><span style="display:flex;"><span><span style="font-weight:bold;font-style:italic">print</span>(<span style="color:#666;font-style:italic">&#34;Positional encodings shape:&#34;</span>, positional_encodings.shape)
+</span></span></code></pre></div><h1 id="summary">Summary</h1>
+<p>This blog provides a visual mathematical guide to how a small component &ldquo;position encoding&rdquo; in transformer architecture works. I hope this gave you a fresh and in-depth perspective on the topic.</p>
+<h1 id="reference">Reference</h1>
+<ul>
+<li><a href="https://kazemnejad.com/blog/transformer_architecture_positional_encoding/">Transformer position encoding</a></li>
+<li><a href="https://www.youtube.com/watch?v=dichIcUZfOw">Visual Guide to Transformer Neural Networks Ep 1</a></li>
+<li><a href="https://datascience.stackexchange.com/questions/55901/in-a-transformer-model-why-does-one-sum-positional-encoding-to-the-embedding-ra">Why sum and not concatenate positional embedding</a></li>
+<li><a href="https://github.com/tensorflow/tensor2tensor/issues/1591">Why are positional encodings added (not appended)?</a></li>
+<li><a href="https://datascience.stackexchange.com/questions/82451/why-is-10000-used-as-the-denominator-in-positional-encodings-in-the-transformer#:~:text=Therefore%2C%20the%20purpose%20of%20the,would%20probably%20have%20%3C1k%20words.">Why is 10000 chosen as denominator</a></li>
+<li><a href="https://github.com/pytorch/pytorch/blob/42a192db0f064ff122fd7b9f6418f6f48ecd03ea/benchmarks/distributed/pipeline/pipe.py#L46">Pytorch source code</a></li>
+<li><a href="https://excalidraw.com/">Diagrams by Excalidraw</a></li>
+</ul>
+<h1 id="heading"></h1>
+<h1 id="heading-1"></h1>
+<p>Written By</p>
+<blockquote>
+<p><a href="https://linkedin.com/in/sagar-sarkale">Sagar Sarkale</a></p>
+</blockquote>
+
+    
+  </div>
+
+  
+  <div class="back-to-top">
+    <a href="#top">
+      back to top
+    </a>
+  </div>
+  
+
+</div>
+
+
+      </main>
+    </div>
+
+    <footer>
+      <p>Powered by
+    <a href="https://gohugo.io/">Hugo</a>
+    and
+    <a href="https://github.com/tomfran/typo">tomfran/typo</a>
+</p>
+
+
+<link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script>
+
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body);"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false }
+      ]
+    });
+  });
+</script>
+
+    </footer>
+
+  </body>
+
+  <script>
+
+  function isAuto() {
+    return document.body.classList.contains("auto");
+  }
+
+  function setTheme() {
+    if (!isAuto()) {
+      return
+    }
+
+    document.body.classList.remove("auto");
+    let cls = "light";
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      cls = "dark";
+    }
+
+    document.body.classList.add(cls);
+  }
+
+  function invertBody() {
+    document.body.classList.toggle("dark");
+    document.body.classList.toggle("light");
+  }
+
+  if (isAuto()) {
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(invertBody);
+  }
+
+  setTheme();
+
+</script>
+
+</html>

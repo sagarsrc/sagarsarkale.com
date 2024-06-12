@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Web on Sagar Sarkale</title>
+    <link>http://localhost:1313/tags/web/</link>
+    <description>Recent content in Web on Sagar Sarkale</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 07 Apr 2024 10:38:54 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/web/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hello super fast blogging!</title>
+      <link>http://localhost:1313/blog/hello-hugo/</link>
+      <pubDate>Sun, 07 Apr 2024 10:38:54 +0000</pubDate>
+      <guid>http://localhost:1313/blog/hello-hugo/</guid>
+      <description>Brief Today i tried to setup static site builder called HUGO, for blogging. It comes in handy once you set up all the parameters. It is a combination of markdown + config files. With few hours of efforts was able to set it up.&#xA;Installing HUGO is very straightforward, you can find instructions for your platform here.&#xA;Main problems that one could face are:&#xA;version of HUGO and the reference blogs might be outdated, hence please refer to the latest docs of HUGO it is worth spending sometime to go through the directory structure images and paths can get pretty cumbersome, i could not setup markdown based rendering in hugo for images using shortcodes for rendering images in between the content came in handy HUGO needs some additional setup to get started with Math symbols in blogs using Katex, have attached relevant link in the references for the same.</description>
+    </item>
+  </channel>
+</rss>

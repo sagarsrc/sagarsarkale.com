@@ -9,7 +9,7 @@ theme = 'Typo'
 tag = 'tags'
 
 # Google analytics code
-googleAnalytics = "G-xxxxxxxxx"
+googleAnalytics = "G-NYRZDCP0VT"
 
 [params]
 # Meta description
@@ -19,18 +19,18 @@ description = "A Tech Blog"
 theme = 'auto'
 
 # Intro on main page, content is markdown
-homeIntroTitle = 'Hi, this is a sneak peek into my learning journey!'
+# homeIntroTitle = 'Hi, this is a sneak peek into my learning journey!'
 homeIntroContent = """
 I am me and you are you.
 """
 
 # Collection to display on home
-homeCollectionTitle = 'Posts'
-homeCollection = 'posts'
+homeCollectionTitle = 'Blog'
+homeCollection = 'blog'
 
 # Lists parameters
 paginationSize = 100
-listSummaries = true
+listSummaries = false
 listDateFormat = '2 Jan 2006'
 
 # Breadcrumbs
@@ -55,8 +55,8 @@ name = "home"
 url = "/"
 
 [[params.menu]]
-name = "posts"
-url = "/posts"
+name = "blog"
+url = "/blog"
 
 [[params.menu]]
 name = "about"
@@ -65,7 +65,10 @@ url = "/about"
 # Syntax highligth on code blocks
 [markup]
 [markup.highlight]
-style = 'algol'
+style = 'xcode'
+lineNos = true
+
+
 
 # Giscus comments
 [params.giscus]

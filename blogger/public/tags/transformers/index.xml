@@ -6,14 +6,21 @@
     <description>Recent content in Transformers on Sagar Sarkale</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 01 Jun 2024 22:25:09 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 01 Jun 2024 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/transformers/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>It&#39;s LLaVA not lava!</title>
-      <link>http://localhost:1313/posts/llava/</link>
-      <pubDate>Sat, 01 Jun 2024 22:25:09 +0000</pubDate>
-      <guid>http://localhost:1313/posts/llava/</guid>
-      <description>LLaVA paper In this blog I try to break down some key points in the LLaVA research paper titled &amp;ldquo;Visual Instruction Tuning&amp;rdquo;, this is more of me exploring the paper and code/data associated with it and noting it down.&#xA;LLaVA is a large multimodal model that is instruction-tuned to understand images and text. The authors present an end-to-end description of the procedure they follow to build this model. Additionally, with data used for training, they also open-source their model.</description>
+      <link>http://localhost:1313/blog/genai/llava/</link>
+      <pubDate>Sat, 01 Jun 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/genai/llava/</guid>
+      <description>LLaVA = Large Language and Vision assistant ≠ 🌋</description>
+    </item>
+    <item>
+      <title>Position Encoding in Transformers</title>
+      <link>http://localhost:1313/blog/genai/position-encoding/</link>
+      <pubDate>Thu, 25 Apr 2024 18:26:32 +0000</pubDate>
+      <guid>http://localhost:1313/blog/genai/position-encoding/</guid>
+      <description>Introduction Positional encoding is a small concept in Transformer architecture yet of crucial importance. In RNNs or LSTMs we pass tokens sequentially, here information of &amp;ldquo;order&amp;rdquo; is inherently captured.&#xA;Whereas in the case of Transformers, we pass multiple tokens at the same time, they are more likely to lose out on positional information of tokens. As we are feeding tokens parallel we need to use some mechanism to remember the &amp;ldquo;order&amp;rdquo; of the tokens being fed to the transformer.</description>
     </item>
   </channel>
 </rss>
