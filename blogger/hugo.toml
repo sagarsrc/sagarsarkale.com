@@ -1,6 +1,6 @@
 # documentation: https://github.com/tomfran/typo/wiki/Features
 
-baseURL = 'https://example.org/'
+baseURL = 'https://sagarsarkale.org/'
 languageCode = 'en-us'
 title = 'Sagar Sarkale'
 theme = 'Typo'
@@ -13,8 +13,9 @@ googleAnalytics = "G-NYRZDCP0VT"
 
 [params]
 # Meta description
-description = "Sagar's portfolio and blogs"
-favicon = '/img/favicon.ico'
+description = "Discover Sagar's corner of the web"
+favicon = "favicon.ico"
+ogImage = "android-chrome-192x192.png"
 
 # Appearance settings
 theme = 'light'
