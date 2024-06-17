@@ -1,6 +1,6 @@
 # documentation: https://github.com/tomfran/typo/wiki/Features
 
-baseURL = 'https://sagarsarkale.org/'
+baseURL = 'https://sagarsarkale.com/'
 languageCode = 'en-us'
 title = 'Sagar Sarkale'
 theme = 'Typo'
@@ -14,8 +14,14 @@ googleAnalytics = "G-J90LP2EWLN"
 [params]
 # Meta description
 description = "Sagar's digital corner"
-favicon = "favicon.ico"
-ogImage = "favicon-32x32.png"
+
+# check favicon here - https://realfavicongenerator.net/
+# faviconApple = "https://sagarsarkale.com/favicon-32x32.png"
+# favicon32 = "https://sagarsarkale.com/favicon-32x32.png"
+# favicon16 = "https://sagarsarkale.com/favicon-32x32.png"
+
+ogImage = "https://sagarsarkale.com/favicon-32x32.png"
+ogUrl = "https://sagarsarkale.com"
 
 # Appearance settings
 theme = 'light'
