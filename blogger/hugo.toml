@@ -1,6 +1,7 @@
 # documentation: https://github.com/tomfran/typo/wiki/Features
 
-baseURL = 'https://sagarsarkale.com/'
+baseURL = 'https://sagarsarkale.com'
+permalink = 'https://sagarsarkale.com'
 languageCode = 'en-us'
 title = 'Sagar Sarkale'
 theme = 'Typo'
