@@ -13,9 +13,9 @@ googleAnalytics = "G-J90LP2EWLN"
 
 [params]
 # Meta description
-description = "Sagar's corner of the web"
+description = "Sagar's digital corner"
 favicon = "favicon.ico"
-ogImage = "android-chrome-192x192.png"
+ogImage = "favicon-32x32.png"
 
 # Appearance settings
 theme = 'light'

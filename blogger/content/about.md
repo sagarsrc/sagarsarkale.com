@@ -12,15 +12,11 @@ hideBackToTop: true
 
 {{< figure src="/personal/about-me_800x800.jpg" width="100">}}
 
-Welcome to my corner of the digital world! I'm a passionate tech enthusiast driven by a strong desire to build and make a positive change. With a deep interest in Natural Language Processing (NLP) and Generative AI, I dive into the realms of technology to explore their endless possibilities.
+Welcome to my digital! I’m a tech enthusiast on a mission to build and create positive change. With a knack for NLP and Gen-AI, I love diving deep into tech.
 
-Here, you'll find more than just a portfolio; it's a glimpse into my journey of continuous learning and growth in the ever-evolving landscape of AI. From daily tech discoveries to thought-provoking blogs, this space is dedicated to sharing insights, experiences, and creations that reflect my dedication to making a meaningful impact through my work.
+This space, it’s more than just a portfolio; it’s a peek into my journey of continuous learning and growth. In the AI realm, you will find some of my tech blogs and notes here at [**/blog**](http://sagarsarkale.com/blog/). Beyond AI musings, I also share my non-work thoughts at [**/random**](http://sagarsarkale.com/random/).
 
-Join me as I navigate through ever evolving phases of AI, and strive to contribute to a brighter, tech-driven future. Let's embark on this exciting adventure together!
-
-#
-
-#
+Join me as I navigate the ever-evolving AI landscape and carve out my own path in this crazy world, tech-driven future. Let’s embark on this adventure together!
 
 [Sagar Sarkale](https://linkedin.com/in/sagar-sarkale)
 

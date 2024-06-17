@@ -30,7 +30,7 @@ Oh, how i wish things were simpler, while you know some people are very much com
 
 If you haven't listened to the song already:
 
-{{<spotify type="track" id="0ll8uFnc0nANY35E0Lfxvg" width="50%" height="200">}}
+{{<spotify type="track" id="0ll8uFnc0nANY35E0Lfxvg">}}
 
 ---
 
