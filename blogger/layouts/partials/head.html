@@ -18,38 +18,38 @@
 <!-- Favicon -->
 <!-- https://realfavicongenerator.net/favicon_result?file_id=p1i0jq39ougc21mts19pmmi91rj56 -->
 
-<link rel="shortcut" href="{{ .Permalink }}favicon.ico" type="image/x-icon">
-<link rel="shortcut icon" href="{{ .Permalink }}favicon.ico" type="image/x-icon">
+<link rel="shortcut" href="/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
 <!-- Safari Pinned Tab -->
-<link rel="mask-icon" href="{{ .Permalink }}safari-pinned-tab.svg" color="#5bbad5">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 <!-- iOS -->
-<link rel="apple-touch-icon" sizes="180x180" href="{{ .Permalink }}apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
 <!-- Android -->
-<link rel="icon" type="image/png" sizes="192x192" href="{{ .Permalink }}android-chrome-192x192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="{{ .Permalink }}android-chrome-512x512.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
 
 <!-- Desktop -->
-<link rel="icon" type="image/png" sizes="32x32" href="{{ .Permalink }}favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="{{ .Permalink }}favicon-16x16.png">
-<link rel="icon" type="image/x-icon" href="{{ .Permalink }}favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
 
 <!-- Windows 8.1 -->
 <meta name="msapplication-TileColor" content="#da532c">
-<meta name="msapplication-TileImage" content="{{ .Permalink }}mstile-150x150.png">
-<meta name="msapplication-config" content="{{ .Permalink }}browserconfig.xml">
+<meta name="msapplication-TileImage" content="/mstile-150x150.png">
+<meta name="msapplication-config" content="/browserconfig.xml">
 
 <!-- Manifest -->
-<link rel="manifest" href="{{ .Permalink }}site.webmanifest">
+<link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#ffffff">
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Sagar Sarkale">
 <meta name="twitter:description" content="Sagar's digital corner">
-<meta name="twitter:image" content="{{ .Permalink }}android-chrome-512x512.png">
+<meta name="twitter:image" content="/android-chrome-512x512.png">
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-J90LP2EWLN"></script>
@@ -66,8 +66,8 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }}{{ end }}">
 <meta property="og:description" content="{{ if .IsHome }}{{ site.Params.Description }}{{ else }}{{ .Params.Description }}{{ end }}">
-<meta property="og:image" content="{{ .Permalink }}android-chrome-512x512.png">
-<meta property="og:image:secure_url" content="{{ .Permalink }}android-chrome-512x512.png">
+<meta property="og:image" content="/android-chrome-512x512.png">
+<meta property="og:image:secure_url" content="/android-chrome-512x512.png">
 <meta property="og:url" content="{{ .Permalink }}">
 
 {{ partialCached "head/css.html" . }}
