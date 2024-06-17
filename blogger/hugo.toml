@@ -17,7 +17,7 @@ googleAnalytics = "G-J90LP2EWLN"
 description = "Sagar's digital corner"
 
 # check favicon here - https://realfavicongenerator.net/
-# faviconApple = "https://sagarsarkale.com/favicon-32x32.png"
+favicon = "https://sagarsarkale.com/favicon-32x32.png"
 # favicon32 = "https://sagarsarkale.com/favicon-32x32.png"
 # favicon16 = "https://sagarsarkale.com/favicon-32x32.png"
 
