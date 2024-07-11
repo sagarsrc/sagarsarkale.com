@@ -12,6 +12,8 @@ showTags: true
 hideBackToTop: false
 ---
 
+{{<figure src="/attn/patience-cover.png">}}
+
 # Introduction
 
 Transformer architecture in the paper [Attention Is All You Need](https://arxiv.org/abs/1706.03762) might seem intimidating at first, given the number of prerequisites one needs to know before taking a shot at reading the paper or any blog around this topic. Here i try and attempt my version of breaking down the transformer architecture. While giving enough intuitive understanding of why certain things exist in the architecture, i also try to explain the transformations of matrices along the pipeline.
