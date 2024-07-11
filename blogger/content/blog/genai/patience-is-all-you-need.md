@@ -324,9 +324,9 @@ Happy learning!
 4. [The Illustrated Transformer by Jay Alammar](https://jalammar.github.io/illustrated-transformer/)
 5. [University of Waterloo Lecture: Attention and Transformers](https://www.youtube.com/watch?v=OyFJWRnt_AY)
 6. Serrano Academy
-   - Video 1: [Attention Intuition](https://youtu.be/OxCpWwDCDFQ?si=ZNTntunGOzsTvV1o)
-   - Video 2: [Attention Intuition KQV](https://youtu.be/UPtG_38Oq8o?si=_ZhkBHfqxKHMfmYL)
-   - Video 3: [Transformer](https://youtu.be/qaWMOYf4ri8?si=5o-UJOEus5WUvp6S)
+   - [Video 1: Attention Intuition](https://youtu.be/OxCpWwDCDFQ?si=ZNTntunGOzsTvV1o)
+   - [Video 2: Attention Intuition KQV](https://youtu.be/UPtG_38Oq8o?si=_ZhkBHfqxKHMfmYL)
+   - [Video 3: Transformer](https://youtu.be/qaWMOYf4ri8?si=5o-UJOEus5WUvp6S)
 7. [Attention Visualized by Umar Jamil](https://www.youtube.com/watch?v=bCz4OMemCcA)
    - [Training](https://youtu.be/bCz4OMemCcA?si=New4uqu0SJeZTYCv&t=2700) happens in one time step sequence by sequence (unlike RNNs, this is a speedup in training) - you already have the target sequence’s attentions.
    - [Inference](https://youtu.be/bCz4OMemCcA?si=Gg1K0ZQW3UlLNhHg&t=3131) happens in multiple time steps token by token until EOS is predicted.
