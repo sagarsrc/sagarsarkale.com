@@ -323,7 +323,7 @@ Happy learning!
 3. [Transformers Explained Visually (Part 3): Multi-Head Attention Deep Dive](https://towardsdatascience.com/transformers-explained-visually-part-3-multi-head-attention-deep-dive-1c1ff1024853)
 4. [The Illustrated Transformer by Jay Alammar](https://jalammar.github.io/illustrated-transformer/)
 5. [University of Waterloo Lecture: Attention and Transformers](https://www.youtube.com/watch?v=OyFJWRnt_AY)
-6. Cohere Person - Serrano Academy
+6. Serrano Academy
    - Video 1: [Attention Intuition](https://youtu.be/OxCpWwDCDFQ?si=ZNTntunGOzsTvV1o)
    - Video 2: [Attention Intuition KQV](https://youtu.be/UPtG_38Oq8o?si=_ZhkBHfqxKHMfmYL)
    - Video 3: [Transformer](https://youtu.be/qaWMOYf4ri8?si=5o-UJOEus5WUvp6S)
