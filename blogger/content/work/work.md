@@ -18,7 +18,7 @@ hideBackToTop: false
 
 **Building Marathi LLM**:
 
-- Pretraining and Finetuning of Marathi Llama - Misal 7Bn, 2Bn parameter models.
+- Pretraining and Finetuning of Marathi Llama - Misal 7Bn, 1Bn parameter models.
 - End to end development, evaluation and deployment of Marathi Llama.
 - Open sourced Instruction tuned model [here](https://huggingface.co/smallstepai/Misal-7B-instruct-v0.1)
 - Published a technical blog with entire procedure [here](https://smallstep.ai/making-misal)
@@ -39,22 +39,6 @@ hideBackToTop: false
 - Built robust solutions to efficiently handle medical documents in diverse formats across vendors.
 - Developed high-performance document extraction system, processing batches with sub-second latency.
 - Optimized systems to reduce processing time from 10 minutes to 1 minute, achieving a 10x performance boost.
-
-# Kansha.ai
-
-{{<figure src="https://kansha.ai/images/logo.webp" width="75px">}}
-
-> AI Consultant
-> (Aug 2023 - Mar 2024)
-
-**Mental health and AI bots**:
-
-- Built LLMs for targeted mental health solutions
-- Integrated running summary based history feature in chatbot
-- Synthetic data generation using PPO
-- Designed bot testing pipeline
-- Developed RAG-based mental health chatbots
-- Built custom tools for responses using Langchain
 
 # Tekion
 
