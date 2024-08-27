@@ -68,7 +68,7 @@ url = "/blog"
 
 [[params.menu]]
 name = "work"
-url = "/work/work"
+url = "/work"
 
 [[params.menu]]
 name = "random"
