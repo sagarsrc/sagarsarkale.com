@@ -18,22 +18,27 @@ hideBackToTop: false
 
 **Building Marathi LLM**:
 
-- Pretraining and Finetuning of Marathi Llama - Misal
-- End to end development, evaluation and deployment of Marathi Llama
+- Pretraining and Finetuning of Marathi Llama - Misal 7Bn, 2Bn parameter models.
+- End to end development, evaluation and deployment of Marathi Llama.
 - Open sourced Instruction tuned model [here](https://huggingface.co/smallstepai/Misal-7B-instruct-v0.1)
 - Published a technical blog with entire procedure [here](https://smallstep.ai/making-misal)
+- Launch : [Linkedin Post](https://www.linkedin.com/posts/sagar-sarkale_misal-activity-7184874193405038594-lgkE?utm_source=share&utm_medium=member_desktop), [Twitter Post](https://x.com/smallstepai/status/1779108646263423307)
+- Coverage : [YourStory](https://yourstory.com/2024/05/for-the-love-of-misal-smallstepai-is-building-an-llm-for-marathi), [Moneycontrol](https://www.moneycontrol.com/news/technology/bootstrapped-ai-startup-smallstep-serves-up-misal-a-marathi-llm-12693311.html), [ARB Podcast](https://www.youtube.com/watch?v=YHVFgb0RTVg)
+- Open Source : [Huggingface Space](https://huggingface.co/smallstepai)
 
 # Medpiper
 
 {{<figure src="https://www.medpiper.com/_astro/logo_dark.ppjKYHU7_8eOVV.svg" height="50px">}}
 
 > AI Consultant
-> (Jan 2024 - Present)
+> (Jan 2024 - Jun 2024)
 
 **Medical Documents Digitization**:
 
-- Leading the creation of innovative platform dedicated for extraction and digitization of health records.
-- Crafting robust solutions capable of efficiently handling medical documents in diverse formats.
+- Led the creation of AI platform dedicated for extraction and digitization of health records.
+- Built robust solutions to efficiently handle medical documents in diverse formats across vendors.
+- Developed high-performance document extraction system, processing batches with sub-second latency.
+- Optimized systems to reduce processing time from 10 minutes to 1 minute, achieving a 10x performance boost.
 
 # Kansha.ai
 
