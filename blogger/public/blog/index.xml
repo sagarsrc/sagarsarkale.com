@@ -1,1 +1,61 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog on Sagar Sarkale</title><link>https://sagarsarkale.com/blog/</link><description>Recent content in Blog on Sagar Sarkale</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 11 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://sagarsarkale.com/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>Patience is all you need!</title><link>https://sagarsarkale.com/blog/genai/patience-is-all-you-need/</link><pubDate>Thu, 11 Jul 2024 00:00:00 +0000</pubDate><guid>https://sagarsarkale.com/blog/genai/patience-is-all-you-need/</guid><description>Patience is all you need to learn transformers.</description></item><item><title>It's LLaVA not lava!</title><link>https://sagarsarkale.com/blog/genai/llava/</link><pubDate>Sat, 01 Jun 2024 00:00:00 +0000</pubDate><guid>https://sagarsarkale.com/blog/genai/llava/</guid><description>LLaVA = Large Language and Vision assistant ≠ 🌋</description></item><item><title>Position Encoding in Transformers</title><link>https://sagarsarkale.com/blog/genai/position-encoding/</link><pubDate>Thu, 25 Apr 2024 00:00:00 +0000</pubDate><guid>https://sagarsarkale.com/blog/genai/position-encoding/</guid><description>How do you understand position of token in transformer?</description></item><item><title>Hello super fast blogging!</title><link>https://sagarsarkale.com/blog/web/hello-hugo/</link><pubDate>Sun, 07 Apr 2024 00:00:00 +0000</pubDate><guid>https://sagarsarkale.com/blog/web/hello-hugo/</guid><description>Exploring static site builder for quick blogging</description></item><item><title>LSTM simplified</title><link>https://sagarsarkale.com/blog/seq/lstm-simplified/</link><pubDate>Thu, 21 Sep 2023 00:00:00 +0000</pubDate><guid>https://sagarsarkale.com/blog/seq/lstm-simplified/</guid><description>In depth and intuitive explanation of LSTM architecture</description></item><item><title>RNNs a walkthrough</title><link>https://sagarsarkale.com/blog/seq/rnns-a-walkthrough/</link><pubDate>Tue, 22 Aug 2023 00:00:00 +0000</pubDate><guid>https://sagarsarkale.com/blog/seq/rnns-a-walkthrough/</guid><description>A Brief about Recurrent Neural Networks</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blog on Sagar Sarkale</title>
+    <link>http://localhost:1313/blog/</link>
+    <description>Recent content in Blog on Sagar Sarkale</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 07 Jan 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[BLT#1] - Precursors to Byte Latent Transformer</title>
+      <link>http://localhost:1313/blog/genai/precursor-to-byte-latent-transformer/</link>
+      <pubDate>Tue, 07 Jan 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/genai/precursor-to-byte-latent-transformer/</guid>
+      <description>Precursors to Byte Latent Transformer</description>
+    </item>
+    <item>
+      <title>Patience is all you need!</title>
+      <link>http://localhost:1313/blog/genai/patience-is-all-you-need/</link>
+      <pubDate>Thu, 11 Jul 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/genai/patience-is-all-you-need/</guid>
+      <description>Patience is all you need to learn transformers.</description>
+    </item>
+    <item>
+      <title>It&#39;s LLaVA not lava!</title>
+      <link>http://localhost:1313/blog/genai/llava/</link>
+      <pubDate>Sat, 01 Jun 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/genai/llava/</guid>
+      <description>LLaVA = Large Language and Vision assistant ≠ 🌋</description>
+    </item>
+    <item>
+      <title>Position Encoding in Transformers</title>
+      <link>http://localhost:1313/blog/genai/position-encoding/</link>
+      <pubDate>Thu, 25 Apr 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/genai/position-encoding/</guid>
+      <description>How do you understand position of token in transformer?</description>
+    </item>
+    <item>
+      <title>Hello super fast blogging!</title>
+      <link>http://localhost:1313/blog/web/hello-hugo/</link>
+      <pubDate>Sun, 07 Apr 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/web/hello-hugo/</guid>
+      <description>Exploring static site builder for quick blogging</description>
+    </item>
+    <item>
+      <title>LSTM simplified</title>
+      <link>http://localhost:1313/blog/seq/lstm-simplified/</link>
+      <pubDate>Thu, 21 Sep 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/seq/lstm-simplified/</guid>
+      <description>In depth and intuitive explanation of LSTM architecture</description>
+    </item>
+    <item>
+      <title>RNNs a walkthrough</title>
+      <link>http://localhost:1313/blog/seq/rnns-a-walkthrough/</link>
+      <pubDate>Tue, 22 Aug 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/seq/rnns-a-walkthrough/</guid>
+      <description>A Brief about Recurrent Neural Networks</description>
+    </item>
+  </channel>
+</rss>
