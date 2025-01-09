@@ -6,7 +6,7 @@ description: "Precursors to Byte Latent Transformer"
 toc: true
 readTime: true
 autonumber: false
-math: false
+math: true
 tags: ["GenAI", "BLT", "Transformers", "DeepDive"]
 showTags: true
 hideBackToTop: false
@@ -40,11 +40,11 @@ The fundamental difference between tokenizer-free architectures and token-based 
 
 Tokenizers need to be trained with multiple preprocessing steps on a large corpus to come up with a fixed set of vocabulary (~30K-50K items) for the model. In order to expand this vocabulary you need to re-train the tokenizer.
 
-{{< figure src="/blt/000-tokenizer.png">}}
+{{< figure src="/blt1/000-tokenizer.png">}}
 
 Whereas in case of Byte-based systems there is no concept of vocabulary as such, we need to map 256 combinations of 1s and 0s to an embedding space. The real tricky part in tokenizer-free systems is how do we make splits between the raw byte streams, more on that later.
 
-{{< figure src="/blt/001-byte-based.png">}}
+{{< figure src="/blt1/001-byte-based.png">}}
 
 For now here are some major differences between these two systems:
 
@@ -78,7 +78,7 @@ There are multiple architectural changes that have gone into this paper, which h
 
 **But before we dive into technicalities, let’s talk about this diagram for a bit.**
 
-{{< figure src="/blt/002-byte-stream-parts.png">}}
+{{< figure src="/blt1/002-byte-stream-parts.png">}}
 
 Training of tokenizers inherently teaches them the patterns of words and subwords, so we exactly know where the splits will occur when we use a tokenizer, whereas what if you are given a series of integers as an input.
 
@@ -95,17 +95,17 @@ Let us look into type of patching where each one falls short and how does BLT so
 
 As the name suggests, after every K bytes we create a patch and move to creating next patch.
 
-{{< figure src="/blt/003-fixed-patching.png">}}
+{{< figure src="/blt1/003-fixed-patching.png">}}
 
 - We can clearly see this leads to inconsistent and non-contextual patching of similar byte sequences - for example, the same word could be split differently in different contexts
-- The fixed stride offers implementation simplicity and provides a straightforward mechanism for controlling FLOP cost, as patch size directly determines compute requirements
-- A key limitation is that compute is not dynamically allocated - the model uses the same transformer computation step whether processing informational bytes (like the start of a word) or more predictable content (like whitespace or code)"
+- The fixed stride is simpler to implement and provides a straightforward mechanism for controlling FLOP cost, as patch size directly determines compute required
+- A key limitation is that compute is not dynamically allocated - the model uses the same transformer computation step whether processing informational bytes (like the start of a word) or more predictable content (like whitespace or punctuations)
 
 ## Space-based Patching
 
 Similarly here irrespective of the number of bytes each patch holds, you make a split where a space occurs.
 
-{{< figure src="/blt/004-space-patching.png">}}
+{{< figure src="/blt1/004-space-patching.png">}}
 
 - This type of patching gives more coherent patching as words stay together and are segmented consistently across sequences
 - However, it has limited control over patch size and therefore compute costs, as patch lengths vary based on word lengths
@@ -134,15 +134,83 @@ NOTE : there are other patching schemes/ functions like BPE, CNN based patching 
 
 # Entropy based Patching
 
+## What is Entropy mathematically?
+
 Now that we have seen few types of patching, let's look into how BLT solves for patching. Instead of using rule based patching, BLT relies on a more data driven approach for patching.
 
-<diagram and explanation>
+Taken from the paper:
 
-<advantages and disadvantages>
+> We train a small byte-level auto-regressive language model on the training data for BLT and compute next byte entropies under the LM distribution $p_e$ over the byte vocabulary $\mathcal{V}$:
+>
+> $$H(x_i) = \sum_{v\in\mathcal{V}} p_e(x_i = v|x<i) \log p_e(x_i = v|x<i)$$
+
+Let's break down this equation:
+
+- $H(x_i)$ is the entropy of the next byte $x_i$
+- $p_e(x_i = v|x<i)$ is the probability of the next byte $x_i$ being $v$ given the previous bytes $x<i$
+- $\log p_e(x_i = v|x<i)$ is the log probability of the next byte $x_i$ being $v$ given the previous bytes $x<i$
+
+Entropy is a measure of the uncertainty or randomness of a probability distribution. In this case, it measures the uncertainty of the next byte in the sequence given the previous bytes.
+
+## Why is Entropy important in patching?
+
+Imagine you are talking to your friend on a call and you start the conversation with "Hello, how are you?" And your friend responds with one of the following:
+
+1. "Hello, I'm great!"
+2. "Flying Elephants in the zoo are very cute!"
+
+Which of the above responses is more surprising?
+I think we all agree that the second response is more surprising, and extremely unlikely to be the response to the question "Hello, how are you?".
+
+This is because the second response is more random, and entropy is a measure of randomness. Using entropy equation we have a measure of quantifying this randomness. The way we know a certain sentence or a set of words is totally random in the same manner we can quantify how random a certain byte sequence is.
+
+## How does Entropy intuition translate into patching?
+
+Researchers trained a small model to predict degree of randomness given a byte sequence. So let's try to visualize and understand how this entropy model works with a diagram.
+
+`"I walked to the store and bought a book"`.
+{{< figure src="/blt1/005-entropy-diagram-1.0.png">}}
+
+Key components of diagram:
+
+- **Blue Line**: Shows entropy values for each byte/character
+- **Red Dashed Line**: Represents the entropy threshold
+- **Green Dotted Line**: Shows the average entropy
+- **Red Dots**: Marks high entropy points (peaks) where entropy exceeds the threshold
+- **Y-axis**: Measures entropy is in bits
+- **X-axis**: Individual bytes converted to characters in the sentence
+
+Let's look more closely at this diagram now:
+{{< figure src="/blt1/005-entropy-diagram-1.1.jpeg">}}
+
+You can see that after every word there is a spike in entropy. And as you progress through a certain word, the entropy decreases gradually. **A word can bounded by dashed lines can be considered as a patch**.
+
+Similarly you can notice abnormalities in entropy values when you look at some unusual words in sentences, like `"I WALKED to the store and bought @ BOOK!"` in the diagram below.
+
+{{< figure src="/blt1/006-entropy-diagram-2.png">}}
+
+**Methods mentioned in the paper for patching**
+
+1. Global Constraint
+
+   - Here you use a global threshold to determine a patch boundary
+   - In the above diagram you can see that the threshold is being set to some value in red dashed lines
+   - Every Red dot above the threshold marks the start/end of a patch
+   - Mathematically it can be represented as
+   - $$H(x_t) > \theta_{g}$$
+
+2. Approximate Monotonic Constraint
+   - Here you use a monotonic constraint to determine a patch boundary
+   - This constraint tries to answer if the entropy is consistently decreasing or not across the sequence
+   - Mathematically it can be represented as
+   - $$H(x_t) - H(x_{t+1}) > \theta_{r}$$
+
+Let's try to see what patches are created using these methods.
 
 # Code example of Entropy Patching
 
 <code>
+</code>
 
 What is tokenizer free architecture?
 
@@ -154,3 +222,4 @@ What is tokenizer free architecture?
 - Entropy based patching?\*
 - Give Code example
 - Show overview diagram in the paper
+  $$

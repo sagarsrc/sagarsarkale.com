@@ -175,7 +175,7 @@
 
       
       &nbsp; · &nbsp;
-      6 min read
+      9 min read
       
     </p>
 
@@ -231,7 +231,13 @@
         <li><a href="#cons-of-fixed-k-size-and-space-based-patching">Cons of Fixed K-size and Space-based Patching</a></li>
       </ol>
     </li>
-    <li><a href="#entropy-based-patching">Entropy based Patching</a></li>
+    <li><a href="#entropy-based-patching">Entropy based Patching</a>
+      <ol>
+        <li><a href="#what-is-entropy-mathematically">What is Entropy mathematically?</a></li>
+        <li><a href="#why-is-entropy-important-in-patching">Why is Entropy important in patching?</a></li>
+        <li><a href="#how-does-entropy-intuition-translate-into-patching">How does Entropy intuition translate into patching?</a></li>
+      </ol>
+    </li>
     <li><a href="#code-example-of-entropy-patching">Code example of Entropy Patching</a></li>
   </ol>
 </nav>
@@ -258,11 +264,11 @@
 <h1 id="think-bytes-not-tokens">Think Bytes not Tokens</h1>
 <p>The fundamental difference between tokenizer-free architectures and token-based systems lies in their input processing and initialization.</p>
 <p>Tokenizers need to be trained with multiple preprocessing steps on a large corpus to come up with a fixed set of vocabulary (~30K-50K items) for the model. In order to expand this vocabulary you need to re-train the tokenizer.</p>
-<figure><img src="/blt/000-tokenizer.png">
+<figure><img src="/blt1/000-tokenizer.png">
 </figure>
 
 <p>Whereas in case of Byte-based systems there is no concept of vocabulary as such, we need to map 256 combinations of 1s and 0s to an embedding space. The real tricky part in tokenizer-free systems is how do we make splits between the raw byte streams, more on that later.</p>
-<figure><img src="/blt/001-byte-based.png">
+<figure><img src="/blt1/001-byte-based.png">
 </figure>
 
 <p>For now here are some major differences between these two systems:</p>
@@ -321,7 +327,7 @@
 </ol>
 <h1 id="patching">Patching</h1>
 <p><strong>But before we dive into technicalities, let’s talk about this diagram for a bit.</strong></p>
-<figure><img src="/blt/002-byte-stream-parts.png">
+<figure><img src="/blt1/002-byte-stream-parts.png">
 </figure>
 
 <p>Training of tokenizers inherently teaches them the patterns of words and subwords, so we exactly know where the splits will occur when we use a tokenizer, whereas what if you are given a series of integers as an input.</p>
@@ -334,17 +340,17 @@
 <h1 id="types-of-byte-patching">Types of Byte Patching</h1>
 <h2 id="fixed-k-byte-patching">Fixed K Byte Patching</h2>
 <p>As the name suggests, after every K bytes we create a patch and move to creating next patch.</p>
-<figure><img src="/blt/003-fixed-patching.png">
+<figure><img src="/blt1/003-fixed-patching.png">
 </figure>
 
 <ul>
 <li>We can clearly see this leads to inconsistent and non-contextual patching of similar byte sequences - for example, the same word could be split differently in different contexts</li>
-<li>The fixed stride offers implementation simplicity and provides a straightforward mechanism for controlling FLOP cost, as patch size directly determines compute requirements</li>
-<li>A key limitation is that compute is not dynamically allocated - the model uses the same transformer computation step whether processing informational bytes (like the start of a word) or more predictable content (like whitespace or code)&quot;</li>
+<li>The fixed stride is simpler to implement and provides a straightforward mechanism for controlling FLOP cost, as patch size directly determines compute required</li>
+<li>A key limitation is that compute is not dynamically allocated - the model uses the same transformer computation step whether processing informational bytes (like the start of a word) or more predictable content (like whitespace or punctuations)</li>
 </ul>
 <h2 id="space-based-patching">Space-based Patching</h2>
 <p>Similarly here irrespective of the number of bytes each patch holds, you make a split where a space occurs.</p>
-<figure><img src="/blt/004-space-patching.png">
+<figure><img src="/blt1/004-space-patching.png">
 </figure>
 
 <ul>
@@ -414,9 +420,76 @@
 </table>
 <p>NOTE : there are other patching schemes/ functions like BPE, CNN based patching which are not discussed in this blog as they are slightly out of scope.</p>
 <h1 id="entropy-based-patching">Entropy based Patching</h1>
+<h2 id="what-is-entropy-mathematically">What is Entropy mathematically?</h2>
 <p>Now that we have seen few types of patching, let&rsquo;s look into how BLT solves for patching. Instead of using rule based patching, BLT relies on a more data driven approach for patching.</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<p>Taken from the paper:</p>
+<blockquote>
+<p>We train a small byte-level auto-regressive language model on the training data for BLT and compute next byte entropies under the LM distribution $p_e$ over the byte vocabulary $\mathcal{V}$:</p>
+<p>$$H(x_i) = \sum_{v\in\mathcal{V}} p_e(x_i = v|x&lt;i) \log p_e(x_i = v|x&lt;i)$$</p>
+</blockquote>
+<p>Let&rsquo;s break down this equation:</p>
+<ul>
+<li>$H(x_i)$ is the entropy of the next byte $x_i$</li>
+<li>$p_e(x_i = v|x&lt;i)$ is the probability of the next byte $x_i$ being $v$ given the previous bytes $x&lt;i$</li>
+<li>$\log p_e(x_i = v|x&lt;i)$ is the log probability of the next byte $x_i$ being $v$ given the previous bytes $x&lt;i$</li>
+</ul>
+<p>Entropy is a measure of the uncertainty or randomness of a probability distribution. In this case, it measures the uncertainty of the next byte in the sequence given the previous bytes.</p>
+<h2 id="why-is-entropy-important-in-patching">Why is Entropy important in patching?</h2>
+<p>Imagine you are talking to your friend on a call and you start the conversation with &ldquo;Hello, how are you?&rdquo; And your friend responds with one of the following:</p>
+<ol>
+<li>&ldquo;Hello, I&rsquo;m great!&rdquo;</li>
+<li>&ldquo;Flying Elephants in the zoo are very cute!&rdquo;</li>
+</ol>
+<p>Which of the above responses is more surprising?
+I think we all agree that the second response is more surprising, and extremely unlikely to be the response to the question &ldquo;Hello, how are you?&rdquo;.</p>
+<p>This is because the second response is more random, and entropy is a measure of randomness. Using entropy equation we have a measure of quantifying this randomness. The way we know a certain sentence or a set of words is totally random in the same manner we can quantify how random a certain byte sequence is.</p>
+<h2 id="how-does-entropy-intuition-translate-into-patching">How does Entropy intuition translate into patching?</h2>
+<p>Researchers trained a small model to predict degree of randomness given a byte sequence. So let&rsquo;s try to visualize and understand how this entropy model works with a diagram.</p>
+<p><code>&quot;I walked to the store and bought a book&quot;</code>.
+<figure><img src="/blt1/005-entropy-diagram-1.0.png">
+</figure>
+</p>
+<p>Key components of diagram:</p>
+<ul>
+<li><strong>Blue Line</strong>: Shows entropy values for each byte/character</li>
+<li><strong>Red Dashed Line</strong>: Represents the entropy threshold</li>
+<li><strong>Green Dotted Line</strong>: Shows the average entropy</li>
+<li><strong>Red Dots</strong>: Marks high entropy points (peaks) where entropy exceeds the threshold</li>
+<li><strong>Y-axis</strong>: Measures entropy is in bits</li>
+<li><strong>X-axis</strong>: Individual bytes converted to characters in the sentence</li>
+</ul>
+<p>Let&rsquo;s look more closely at this diagram now:
+<figure><img src="/blt1/005-entropy-diagram-1.1.jpeg">
+</figure>
+</p>
+<p>You can see that after every word there is a spike in entropy. And as you progress through a certain word, the entropy decreases gradually. <strong>A word can bounded by dashed lines can be considered as a patch</strong>.</p>
+<p>Similarly you can notice abnormalities in entropy values when you look at some unusual words in sentences, like <code>&quot;I WALKED to the store and bought @ BOOK!&quot;</code> in the diagram below.</p>
+<figure><img src="/blt1/006-entropy-diagram-2.png">
+</figure>
+
+<p><strong>Methods mentioned in the paper for patching</strong></p>
+<ol>
+<li>
+<p>Global Constraint</p>
+<ul>
+<li>Here you use a global threshold to determine a patch boundary</li>
+<li>In the above diagram you can see that the threshold is being set to some value in red dashed lines</li>
+<li>Every Red dot above the threshold marks the start/end of a patch</li>
+<li>Mathematically it can be represented as</li>
+<li>$$H(x_t) &gt; \theta_{g}$$</li>
+</ul>
+</li>
+<li>
+<p>Approximate Monotonic Constraint</p>
+<ul>
+<li>Here you use a monotonic constraint to determine a patch boundary</li>
+<li>This constraint tries to answer if the entropy is consistently decreasing or not across the sequence</li>
+<li>Mathematically it can be represented as</li>
+<li>$$H(x_t) - H(x_{t+1}) &gt; \theta_{r}$$</li>
+</ul>
+</li>
+</ol>
+<p>Let&rsquo;s try to see what patches are created using these methods.</p>
 <h1 id="code-example-of-entropy-patching">Code example of Entropy Patching</h1>
 <!-- raw HTML omitted -->
 <p>What is tokenizer free architecture?</p>
@@ -428,7 +501,8 @@
 <li>types of patching - Techniques of splitting words into bytes</li>
 <li>Entropy based patching?*</li>
 <li>Give Code example</li>
-<li>Show overview diagram in the paper</li>
+<li>Show overview diagram in the paper
+$$</li>
 </ul>
 
     
@@ -451,6 +525,26 @@
     <footer>
       <p>ꕀ Powered by caffeine and occasional epiphany. ꕀ </p>
 
+
+<link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script>
+
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body);"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false }
+      ]
+    });
+  });
+</script>
 
     </footer>
 
