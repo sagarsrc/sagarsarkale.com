@@ -1,6 +1,6 @@
 ---
 title: "[BLT#1] - Precursors to Byte Latent Transformer"
-date: "2025-01-07"
+date: "2025-01-12"
 summary: "Precursors to Byte Latent Transformer"
 description: "Precursors to Byte Latent Transformer"
 toc: true
