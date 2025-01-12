@@ -3,7 +3,7 @@ name: FTP Deploy to Hostinger
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - 'blogger/public/**'
   workflow_dispatch:
@@ -15,9 +15,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: List files to deploy
-        run: ls -la ./blogger/public/
-
       - name: Deploy to Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
@@ -28,3 +25,12 @@ jobs:
           server-dir: ./public_html/
           port: 21
           protocol: ftp
+          dangerous-clean-slate: false  # Don't clean remote directory
+          state-name: .sync-state.json  # Track deployment state
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.DS_Store
+            **/node_modules/**
+            state.json
+            .sync-state.json
