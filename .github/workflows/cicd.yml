@@ -3,10 +3,10 @@ name: FTP Deploy to Hostinger
 on:
   push:
     branches:
-      - main  # or your default branch
+      - main
     paths:
-      - 'blogger/public/**'  # Only trigger when the public directory changes
-  workflow_dispatch:  # Manual trigger
+      - 'blogger/public/**'
+  workflow_dispatch:
 
 jobs:
   ftp-deploy:
@@ -15,6 +15,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: List files to deploy
+        run: ls -la ./blogger/public/
+
       - name: Deploy to Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
@@ -22,5 +25,6 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./blogger/public/
-          server-dir: /public_html/
-          dangerous-clean-slate: true
+          server-dir: ./public_html/
+          port: 21
+          protocol: ftp
