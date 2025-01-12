@@ -2,7 +2,7 @@
 <html lang="en-us"
   dir="ltr">
 
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width"><meta name="description" content="Precursors to Byte Latent Transformer" />
 
@@ -65,7 +65,7 @@
 <meta property="og:description" content="Precursors to Byte Latent Transformer">
 <meta property="og:image" content="/android-chrome-512x512.png">
 <meta property="og:image:secure_url" content="/android-chrome-512x512.png">
-<meta property="og:url" content="http://localhost:1313/blog/genai/precursor-to-byte-latent-transformer/">
+<meta property="og:url" content="https://sagarsarkale.com/blog/genai/precursor-to-byte-latent-transformer/">
 
 
 
@@ -74,6 +74,11 @@
 
 
 <link rel="stylesheet" href="/assets/combined.min.f69b4a5b91a9bc416804eda1f19d04210551b843d47318bf1913d7edce1504fb.css" media="all">
+
+
+
+
+  
 
 
 
@@ -175,7 +180,7 @@
 
       
       &nbsp; · &nbsp;
-      9 min read
+      12 min read
       
     </p>
 
@@ -189,22 +194,22 @@
   <div class="single-tags">
     
     <span>
-      <a href="http://localhost:1313/tags/genai/">#GenAI</a>
+      <a href="https://sagarsarkale.com/tags/genai/">#GenAI</a>
     </span>
     
     
     <span>
-      <a href="http://localhost:1313/tags/blt/">#BLT</a>
+      <a href="https://sagarsarkale.com/tags/blt/">#BLT</a>
     </span>
     
     
     <span>
-      <a href="http://localhost:1313/tags/transformers/">#Transformers</a>
+      <a href="https://sagarsarkale.com/tags/transformers/">#Transformers</a>
     </span>
     
     
     <span>
-      <a href="http://localhost:1313/tags/deepdive/">#DeepDive</a>
+      <a href="https://sagarsarkale.com/tags/deepdive/">#DeepDive</a>
     </span>
     
     
@@ -238,7 +243,15 @@
         <li><a href="#how-does-entropy-intuition-translate-into-patching">How does Entropy intuition translate into patching?</a></li>
       </ol>
     </li>
-    <li><a href="#code-example-of-entropy-patching">Code example of Entropy Patching</a></li>
+    <li><a href="#lets-patch">Let&rsquo;s patch!</a>
+      <ol>
+        <li><a href="#patching-with-a-simple-model">Patching with a simple model</a></li>
+        <li><a href="#but-why-patch-with-entropy">But why Patch with entropy?</a></li>
+      </ol>
+    </li>
+    <li><a href="#end-note">End Note</a></li>
+    <li><a href="#appendix">Appendix</a></li>
+    <li><a href="#references">References</a></li>
   </ol>
 </nav>
   </aside>
@@ -442,9 +455,9 @@
 </ol>
 <p>Which of the above responses is more surprising?
 I think we all agree that the second response is more surprising, and extremely unlikely to be the response to the question &ldquo;Hello, how are you?&rdquo;.</p>
-<p>This is because the second response is more random, and entropy is a measure of randomness. Using entropy equation we have a measure of quantifying this randomness. The way we know a certain sentence or a set of words is totally random in the same manner we can quantify how random a certain byte sequence is.</p>
+<p>Using entropy equation we have a measure of quantifying this randomness. The way we know a certain sentence or a set of words is totally random in the same manner we can quantify how random a certain byte sequence is.</p>
 <h2 id="how-does-entropy-intuition-translate-into-patching">How does Entropy intuition translate into patching?</h2>
-<p>Researchers trained a small model to predict degree of randomness given a byte sequence. So let&rsquo;s try to visualize and understand how this entropy model works with a diagram.</p>
+<p>Researchers trained a small model to predict degree of randomness of the next byte given a byte sequence. So let&rsquo;s try to visualize and understand how this entropy model works with a diagram.</p>
 <p><code>&quot;I walked to the store and bought a book&quot;</code>.
 <figure><img src="/blt1/005-entropy-diagram-1.0.png">
 </figure>
@@ -462,8 +475,8 @@ I think we all agree that the second response is more surprising, and extremely 
 <figure><img src="/blt1/005-entropy-diagram-1.1.jpeg">
 </figure>
 </p>
-<p>You can see that after every word there is a spike in entropy. And as you progress through a certain word, the entropy decreases gradually. <strong>A word can bounded by dashed lines can be considered as a patch</strong>.</p>
-<p>Similarly you can notice abnormalities in entropy values when you look at some unusual words in sentences, like <code>&quot;I WALKED to the store and bought @ BOOK!&quot;</code> in the diagram below.</p>
+<p>You can see that after every word there is a spike in entropy. And as you progress through a certain word, the entropy decreases gradually. <strong>A word can be bounded by dashed lines can be considered as a patch</strong>.</p>
+<p>Similarly you can notice abnormalities in entropy values when you look at some unusual words and symbols in sentences, like <code>&quot;I WALKED to the store and bought @ BOOK!&quot;</code> in the diagram below.</p>
 <figure><img src="/blt1/006-entropy-diagram-2.png">
 </figure>
 
@@ -489,21 +502,103 @@ I think we all agree that the second response is more surprising, and extremely 
 </ul>
 </li>
 </ol>
-<p>Let&rsquo;s try to see what patches are created using these methods.</p>
-<h1 id="code-example-of-entropy-patching">Code example of Entropy Patching</h1>
-<!-- raw HTML omitted -->
-<p>What is tokenizer free architecture?</p>
+<p><strong>NOTE</strong>: All the diagrams below have different entropy values and thresholds, this is because the model is trained on a slightly larger dataset.</p>
+<h1 id="lets-patch">Let&rsquo;s patch!</h1>
+<h2 id="patching-with-a-simple-model">Patching with a simple model</h2>
+<p>Let&rsquo;s try to see what patches are created using these methods seen in the previous section.
+I trained a small model (ngram model with n=2) here to predict entropy of the next byte given a byte sequence, and plotted the patches created using global constraint method and approximate monotonic constraint method.</p>
+<figure><img src="/blt1/008-patches-1.png">
+</figure>
+
+<details>
+    <summary>Outputs Global Threshold Patches</summary>
+    <pre tabindex="0"><code>Patch 1: &#39;I &#39; (2 bytes)
+Patch 2: &#39;w&#39; (1 bytes)
+Patch 3: &#39;alked &#39; (6 bytes)
+Patch 4: &#39;t&#39; (1 bytes)
+Patch 5: &#39;o &#39; (2 bytes)
+Patch 6: &#39;t&#39; (1 bytes)
+Patch 7: &#39;he &#39; (3 bytes)
+Patch 8: &#39;s&#39; (1 bytes)
+Patch 9: &#39;tore &#39; (5 bytes)
+Patch 10: &#39;a&#39; (1 bytes)
+Patch 11: &#39;nd &#39; (3 bytes)
+Patch 12: &#39;b&#39; (1 bytes)
+Patch 13: &#39;ought &#39; (6 bytes)
+Patch 14: &#39;a&#39; (1 bytes)
+Patch 15: &#39; &#39; (1 bytes)
+Patch 16: &#39;b&#39; (1 bytes)
+Patch 17: &#39;ook.&#39; (4 bytes)
+</code></pre>
+</details>
+<details>
+    <summary>Outputs Approximate Monotonic Constraint Patches</summary>
+    <pre tabindex="0"><code>Monotonic Constraint Patches:
+Patch 1: &#39;I&#39; (1 bytes)
+Patch 2: &#39; &#39; (1 bytes)
+Patch 3: &#39;wal&#39; (3 bytes)
+Patch 4: &#39;ke&#39; (2 bytes)
+Patch 5: &#39;d &#39; (2 bytes)
+Patch 6: &#39;to&#39; (2 bytes)
+Patch 7: &#39; &#39; (1 bytes)
+Patch 8: &#39;th&#39; (2 bytes)
+Patch 9: &#39;e&#39; (1 bytes)
+Patch 10: &#39; &#39; (1 bytes)
+Patch 11: &#39;stor&#39; (4 bytes)
+Patch 12: &#39;e&#39; (1 bytes)
+Patch 13: &#39; &#39; (1 bytes)
+Patch 14: &#39;and &#39; (4 bytes)
+Patch 15: &#39;bo&#39; (2 bytes)
+Patch 16: &#39;u&#39; (1 bytes)
+Patch 17: &#39;gh&#39; (2 bytes)
+Patch 18: &#39;t&#39; (1 bytes)
+Patch 19: &#39; &#39; (1 bytes)
+Patch 20: &#39;a &#39; (2 bytes)
+Patch 21: &#39;bo&#39; (2 bytes)
+Patch 22: &#39;o&#39; (1 bytes)
+Patch 23: &#39;k.&#39; (2 bytes)
+</code></pre>
+</details>
+<p>If you closely look at the outputs of both monotonic and global threshold patching, you can see that the patches created are varying in size, but they are not coherent.</p>
+<h2 id="but-why-patch-with-entropy">But why Patch with entropy?</h2>
+<p><strong>So what did we even achieve here, with entropy based patching?</strong></p>
+<p>While the previous outputs may not have provided complete clarity, here is another interesting result worth considering!
+Input sentence: <code>&quot;Sherlock Holmes is a smart detective.&quot;</code>
+<figure><img src="/blt1/008-patches-2.png">
+</figure>
+</p>
 <ul>
-<li>Why is Byte Latent Transformer so big a deal?</li>
-<li>Context window and how does it differ in BLT?</li>
-<li>If not tokens then how do we get embeddings?</li>
-<li>Create a need for better mechanism - can we do better?</li>
-<li>types of patching - Techniques of splitting words into bytes</li>
-<li>Entropy based patching?*</li>
-<li>Give Code example</li>
-<li>Show overview diagram in the paper
-$$</li>
+<li>Notice how the word <code>&quot;Sherlock Holmes&quot;</code> is being combined into a single patch, this is because the entropy values are very low for the word <code>&quot;Sherlock Holmes&quot;</code> and the bytes forming this word frequently occur together in the corpus.</li>
+<li>This is a good example of how entropy based patching can create coherent patches, even for complex words.</li>
+<li>This fairly proves the point that breaking down sentences into coherent patches is possible with entropy based patching</li>
+<li>This also proves the point that extending the domain knowledge of the model is possible with this type of patching.</li>
 </ul>
+<p>Entropy values diagram for the above sentence are shown below.</p>
+<figure><img src="/blt1/008-patches-3.png">
+</figure>
+
+<p><strong>NOTE</strong>: This result was obtained using a better next byte entropy prediction model using 3,4,5-gram models.</p>
+<h1 id="end-note">End Note</h1>
+<p>Additionally, this paper uses smart hacks to convert these dynamic patches to embeddings. It was important to establish the fact that patches of dynamic sizes can be created with entropy based patching, and this can be achieved with simple models. The entropy based patching model serves as an essential building block for BLT to achieve it&rsquo;s performance.</p>
+<figure><img src="/blt1/009-we-are-here.jpeg">
+</figure>
+
+<p>Well, we are just getting started, the next blog will cover how these patches are converted to embeddings and how BLT, and how the inputs for the model are generated. It is going to be fun!</p>
+<h1 id="appendix">Appendix</h1>
+<p>All the code used for generating diagrams and artifacts in this blog are available on github below:</p>
+<ul>
+<li><a href="https://github.com/another-learning-experiment/concept-deep-dive">https://github.com/another-learning-experiment/concept-deep-dive</a></li>
+</ul>
+<p>I will be maintaining this repo for this blog and the upcoming ones. Feel free to experiment with the code and share your thoughts.</p>
+<h1 id="references">References</h1>
+<ol>
+<li><a href="https://arxiv.org/pdf/2412.09871">Byte Latent Transformer Research Paper</a></li>
+</ol>
+<hr>
+<p>Written By</p>
+<blockquote>
+<p>Sagar Sarkale</p>
+</blockquote>
 
     
   </div>

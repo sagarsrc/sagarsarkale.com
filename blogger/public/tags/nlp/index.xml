@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>NLP on Sagar Sarkale</title>
-    <link>http://localhost:1313/tags/nlp/</link>
+    <link>https://sagarsarkale.com/tags/nlp/</link>
     <description>Recent content in NLP on Sagar Sarkale</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 21 Sep 2023 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/nlp/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://sagarsarkale.com/tags/nlp/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>LSTM simplified</title>
-      <link>http://localhost:1313/blog/seq/lstm-simplified/</link>
+      <link>https://sagarsarkale.com/blog/seq/lstm-simplified/</link>
       <pubDate>Thu, 21 Sep 2023 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/blog/seq/lstm-simplified/</guid>
+      <guid>https://sagarsarkale.com/blog/seq/lstm-simplified/</guid>
       <description>In depth and intuitive explanation of LSTM architecture</description>
     </item>
     <item>
       <title>RNNs a walkthrough</title>
-      <link>http://localhost:1313/blog/seq/rnns-a-walkthrough/</link>
+      <link>https://sagarsarkale.com/blog/seq/rnns-a-walkthrough/</link>
       <pubDate>Tue, 22 Aug 2023 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/blog/seq/rnns-a-walkthrough/</guid>
+      <guid>https://sagarsarkale.com/blog/seq/rnns-a-walkthrough/</guid>
       <description>A Brief about Recurrent Neural Networks</description>
     </item>
   </channel>

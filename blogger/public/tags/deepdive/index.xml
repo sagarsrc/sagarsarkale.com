@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>DeepDive on Sagar Sarkale</title>
-    <link>http://localhost:1313/tags/deepdive/</link>
+    <link>https://sagarsarkale.com/tags/deepdive/</link>
     <description>Recent content in DeepDive on Sagar Sarkale</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 07 Jan 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/deepdive/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://sagarsarkale.com/tags/deepdive/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>[BLT#1] - Precursors to Byte Latent Transformer</title>
-      <link>http://localhost:1313/blog/genai/precursor-to-byte-latent-transformer/</link>
+      <link>https://sagarsarkale.com/blog/genai/precursor-to-byte-latent-transformer/</link>
       <pubDate>Tue, 07 Jan 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/blog/genai/precursor-to-byte-latent-transformer/</guid>
+      <guid>https://sagarsarkale.com/blog/genai/precursor-to-byte-latent-transformer/</guid>
       <description>Precursors to Byte Latent Transformer</description>
     </item>
     <item>
       <title>Patience is all you need!</title>
-      <link>http://localhost:1313/blog/genai/patience-is-all-you-need/</link>
+      <link>https://sagarsarkale.com/blog/genai/patience-is-all-you-need/</link>
       <pubDate>Thu, 11 Jul 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/blog/genai/patience-is-all-you-need/</guid>
+      <guid>https://sagarsarkale.com/blog/genai/patience-is-all-you-need/</guid>
       <description>Patience is all you need to learn transformers.</description>
     </item>
   </channel>

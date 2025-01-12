@@ -162,11 +162,11 @@ Imagine you are talking to your friend on a call and you start the conversation 
 Which of the above responses is more surprising?
 I think we all agree that the second response is more surprising, and extremely unlikely to be the response to the question "Hello, how are you?".
 
-This is because the second response is more random, and entropy is a measure of randomness. Using entropy equation we have a measure of quantifying this randomness. The way we know a certain sentence or a set of words is totally random in the same manner we can quantify how random a certain byte sequence is.
+Using entropy equation we have a measure of quantifying this randomness. The way we know a certain sentence or a set of words is totally random in the same manner we can quantify how random a certain byte sequence is.
 
 ## How does Entropy intuition translate into patching?
 
-Researchers trained a small model to predict degree of randomness given a byte sequence. So let's try to visualize and understand how this entropy model works with a diagram.
+Researchers trained a small model to predict degree of randomness of the next byte given a byte sequence. So let's try to visualize and understand how this entropy model works with a diagram.
 
 `"I walked to the store and bought a book"`.
 {{< figure src="/blt1/005-entropy-diagram-1.0.png">}}
@@ -183,9 +183,9 @@ Key components of diagram:
 Let's look more closely at this diagram now:
 {{< figure src="/blt1/005-entropy-diagram-1.1.jpeg">}}
 
-You can see that after every word there is a spike in entropy. And as you progress through a certain word, the entropy decreases gradually. **A word can bounded by dashed lines can be considered as a patch**.
+You can see that after every word there is a spike in entropy. And as you progress through a certain word, the entropy decreases gradually. **A word can be bounded by dashed lines can be considered as a patch**.
 
-Similarly you can notice abnormalities in entropy values when you look at some unusual words in sentences, like `"I WALKED to the store and bought @ BOOK!"` in the diagram below.
+Similarly you can notice abnormalities in entropy values when you look at some unusual words and symbols in sentences, like `"I WALKED to the store and bought @ BOOK!"` in the diagram below.
 
 {{< figure src="/blt1/006-entropy-diagram-2.png">}}
 
@@ -205,21 +205,115 @@ Similarly you can notice abnormalities in entropy values when you look at some u
    - Mathematically it can be represented as
    - $$H(x_t) - H(x_{t+1}) > \theta_{r}$$
 
-Let's try to see what patches are created using these methods.
+**NOTE**: All the diagrams below have different entropy values and thresholds, this is because the model is trained on a slightly larger dataset.
 
-# Code example of Entropy Patching
+# Let's patch!
 
-<code>
-</code>
+## Patching with a simple model
 
-What is tokenizer free architecture?
+Let's try to see what patches are created using these methods seen in the previous section.
+I trained a small model (ngram model with n=2) here to predict entropy of the next byte given a byte sequence, and plotted the patches created using global constraint method and approximate monotonic constraint method.
 
-- Why is Byte Latent Transformer so big a deal?
-- Context window and how does it differ in BLT?
-- If not tokens then how do we get embeddings?
-- Create a need for better mechanism - can we do better?
-- types of patching - Techniques of splitting words into bytes
-- Entropy based patching?\*
-- Give Code example
-- Show overview diagram in the paper
-  $$
+{{< figure src="/blt1/008-patches-1.png">}}
+
+{{< details "Outputs Global Threshold Patches" >}}
+
+```
+Patch 1: 'I ' (2 bytes)
+Patch 2: 'w' (1 bytes)
+Patch 3: 'alked ' (6 bytes)
+Patch 4: 't' (1 bytes)
+Patch 5: 'o ' (2 bytes)
+Patch 6: 't' (1 bytes)
+Patch 7: 'he ' (3 bytes)
+Patch 8: 's' (1 bytes)
+Patch 9: 'tore ' (5 bytes)
+Patch 10: 'a' (1 bytes)
+Patch 11: 'nd ' (3 bytes)
+Patch 12: 'b' (1 bytes)
+Patch 13: 'ought ' (6 bytes)
+Patch 14: 'a' (1 bytes)
+Patch 15: ' ' (1 bytes)
+Patch 16: 'b' (1 bytes)
+Patch 17: 'ook.' (4 bytes)
+```
+
+{{< /details >}}
+
+{{< details "Outputs Approximate Monotonic Constraint Patches" >}}
+
+```
+Monotonic Constraint Patches:
+Patch 1: 'I' (1 bytes)
+Patch 2: ' ' (1 bytes)
+Patch 3: 'wal' (3 bytes)
+Patch 4: 'ke' (2 bytes)
+Patch 5: 'd ' (2 bytes)
+Patch 6: 'to' (2 bytes)
+Patch 7: ' ' (1 bytes)
+Patch 8: 'th' (2 bytes)
+Patch 9: 'e' (1 bytes)
+Patch 10: ' ' (1 bytes)
+Patch 11: 'stor' (4 bytes)
+Patch 12: 'e' (1 bytes)
+Patch 13: ' ' (1 bytes)
+Patch 14: 'and ' (4 bytes)
+Patch 15: 'bo' (2 bytes)
+Patch 16: 'u' (1 bytes)
+Patch 17: 'gh' (2 bytes)
+Patch 18: 't' (1 bytes)
+Patch 19: ' ' (1 bytes)
+Patch 20: 'a ' (2 bytes)
+Patch 21: 'bo' (2 bytes)
+Patch 22: 'o' (1 bytes)
+Patch 23: 'k.' (2 bytes)
+```
+
+{{< /details >}}
+
+If you closely look at the outputs of both monotonic and global threshold patching, you can see that the patches created are varying in size, but they are not coherent.
+
+## But why Patch with entropy?
+
+**So what did we even achieve here, with entropy based patching?**
+
+While the previous outputs may not have provided complete clarity, here is another interesting result worth considering!
+Input sentence: `"Sherlock Holmes is a smart detective."`
+{{< figure src="/blt1/008-patches-2.png">}}
+
+- Notice how the word `"Sherlock Holmes"` is being combined into a single patch, this is because the entropy values are very low for the word `"Sherlock Holmes"` and the bytes forming this word frequently occur together in the corpus.
+- This is a good example of how entropy based patching can create coherent patches, even for complex words.
+- This fairly proves the point that breaking down sentences into coherent patches is possible with entropy based patching
+- This also proves the point that extending the domain knowledge of the model is possible with this type of patching.
+
+Entropy values diagram for the above sentence are shown below.
+
+{{< figure src="/blt1/008-patches-3.png">}}
+
+**NOTE**: This result was obtained using a better next byte entropy prediction model using 3,4,5-gram models.
+
+# End Note
+
+Additionally, this paper uses smart hacks to convert these dynamic patches to embeddings. It was important to establish the fact that patches of dynamic sizes can be created with entropy based patching, and this can be achieved with simple models. The entropy based patching model serves as an essential building block for BLT to achieve it's performance.
+
+{{< figure src="/blt1/009-we-are-here.jpeg">}}
+
+Well, we are just getting started, the next blog will cover how these patches are converted to embeddings and how BLT, and how the inputs for the model are generated. It is going to be fun!
+
+# Appendix
+
+All the code used for generating diagrams and artifacts in this blog are available on github below:
+
+- https://github.com/another-learning-experiment/concept-deep-dive
+
+I will be maintaining this repo for this blog and the upcoming ones. Feel free to experiment with the code and share your thoughts.
+
+# References
+
+1. [Byte Latent Transformer Research Paper](https://arxiv.org/pdf/2412.09871)
+
+---
+
+Written By
+
+> Sagar Sarkale
