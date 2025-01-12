@@ -25,7 +25,7 @@ jobs:
           server-dir: ./public_html/
           port: 21
           protocol: ftp
-          dangerous-clean-slate: false  # Don't clean remote directory
+          dangerous-clean-slate: true  # Don't clean remote directory
           state-name: .sync-state.json  # Track deployment state
           exclude: |
             **/.git*
