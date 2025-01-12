@@ -3,7 +3,7 @@ name: FTP Deploy to Hostinger
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - 'blogger/public/**'
   workflow_dispatch:
