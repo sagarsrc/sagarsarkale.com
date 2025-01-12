@@ -1,9 +1,6 @@
 name: Deploy Hugo site to Hostinger
 
 on:
-#   push:
-#     branches:
-#       - master
   workflow_dispatch:  # for manual deployment
 
 jobs:
@@ -23,6 +20,7 @@ jobs:
           extended: true
 
       - name: Build
+        working-directory: ./blogger  # Add this line to change directory
         run: hugo --minify
 
       - name: Deploy to Hostinger
@@ -31,5 +29,5 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./public/
+          local-dir: ./blogger/public/  # Update this path
           server-dir: /public_html/
