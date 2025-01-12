@@ -1,27 +1,19 @@
-name: Deploy Hugo site to Hostinger
+name: FTP Deploy to Hostinger
 
 on:
-  workflow_dispatch:  # for manual deployment
+  push:
+    branches:
+      - main  # or your default branch
+    paths:
+      - 'blogger/public/**'  # Only trigger when the public directory changes
+  workflow_dispatch:  # Manual trigger
 
 jobs:
-  deploy:
+  ftp-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-        with:
-          submodules: true
-          fetch-depth: 0
-
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
-        with:
-          hugo-version: 'latest'
-          extended: true
-
-      - name: Build
-        working-directory: ./blogger  # Add this line to change directory
-        run: hugo --minify
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Deploy to Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
@@ -29,5 +21,6 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./blogger/public/  # Update this path
+          local-dir: ./blogger/public/
           server-dir: /public_html/
+          dangerous-clean-slate: true
