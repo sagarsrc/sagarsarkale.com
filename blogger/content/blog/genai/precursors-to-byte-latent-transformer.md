@@ -12,6 +12,8 @@ showTags: true
 hideBackToTop: false
 ---
 
+{{<figure src="/blt1/000-cover.jpg">}}
+
 # Introduction
 
 Recently Meta announced a tokenizer-free architecture called Byte Latent Transformer for language modelling, which for the first time, matches tokenizer-based LLM performance at scale with a significant breakthrough: using up to 50% fewer FLOPs during inference.
