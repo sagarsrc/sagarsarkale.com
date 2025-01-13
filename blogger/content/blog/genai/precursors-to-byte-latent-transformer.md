@@ -1,8 +1,8 @@
 ---
 title: "Precursors to Byte Latent Transformer"
 date: "2025-01-12"
-summary: "Precursors to Byte Latent Transformer"
-description: "Precursors to Byte Latent Transformer"
+summary: "Part 1 of All you need to know to get started with Byte Latent Transformer"
+description: "Part 1 of All you need to know to get started with Byte Latent Transformer"
 toc: true
 readTime: true
 autonumber: false
