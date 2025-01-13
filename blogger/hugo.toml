@@ -51,7 +51,7 @@ url = "https://www.linkedin.com/in/sagar-sarkale/"
 
 [[params.social]]
 name = "twitter"
-url = "https://x.com/SagarSarkale_"
+url = "https://x.com/sagar_sarkale"
 
 [[params.social]]
 name = "email"
@@ -85,9 +85,9 @@ style = 'xcode'
 lineNos = true
 
 [markup.tableOfContents]
-    startLevel = 1
-    endLevel = 3
-    ordered = true
+startLevel = 1
+endLevel = 3
+ordered = true
 
 
 # Giscus comments
@@ -99,6 +99,3 @@ category = "General"
 categoryid = "categoryId"
 mapping = "pathname"
 theme = "preferred_color_scheme"
-
-
-
