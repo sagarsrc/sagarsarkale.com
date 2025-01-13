@@ -1,5 +1,5 @@
 ---
-title: "[BLT#1] - Precursors to Byte Latent Transformer"
+title: "Precursors to Byte Latent Transformer"
 date: "2025-01-12"
 summary: "Precursors to Byte Latent Transformer"
 description: "Precursors to Byte Latent Transformer"
@@ -16,15 +16,18 @@ hideBackToTop: false
 
 Recently Meta announced a tokenizer-free architecture called Byte Latent Transformer for language modelling, which for the first time, matches tokenizer-based LLM performance at scale with a significant breakthrough: using up to 50% fewer FLOPs during inference.
 
-**What got me into this rabbit hole was the inference efficiency!**
+# 50% lesser FLOPs
 
-Computational Costs Example (at $3/GPU hour):
+This is what got me into this rabbit hole!
 
-- Running inference on large models like Llama 3 requires significant computational resources
-- Each inference request needs to go through the entire model architecture
-- For high-traffic applications, inference costs can quickly accumulate into millions of dollars
+| Users | Monthly Cost | Yearly Cost | GPUs Needed | What That Yearly Cost Could Buy                  |
+| ----- | ------------ | ----------- | ----------- | ------------------------------------------------ |
+| 1K    | ~40K         | ~500K       | 8 A100s     | A small apartment in most major cities worldwide |
+| 100K  | ~110K        | ~1.3M       | 16 A100s    | A fleet of 20 luxury cars                        |
+| 1M    | ~460K        | ~5.5M       | 32 A100s    | A mid-sized commercial building                  |
+| 100M  | ~30M         | ~360M       | 100+ A100s  | A modern passenger aircraft                      |
 
-When we're talking about reducing inference FLOPs by up to 50%, we're not just discussing technical improvements - we're talking about making AI more economically viable for real-world applications.
+Detailed calculations are available in the [appendix](#appendix).
 
 These technical changes are not just about complexity reduction anymore. This is about the pure economic scale at which AI is operating today. More efficient inference means more accessible AI, lower operational costs, and potentially faster response times.
 
@@ -283,8 +286,6 @@ Input sentence: `"Sherlock Holmes is a smart detective."`
 
 - Notice how the word `"Sherlock Holmes"` is being combined into a single patch, this is because the entropy values are very low for the word `"Sherlock Holmes"` and the bytes forming this word frequently occur together in the corpus.
 - This is a good example of how entropy based patching can create coherent patches, even for complex words.
-- This fairly proves the point that breaking down sentences into coherent patches is possible with entropy based patching
-- This also proves the point that extending the domain knowledge of the model is possible with this type of patching.
 
 Entropy values diagram for the above sentence are shown below.
 
@@ -296,21 +297,83 @@ Entropy values diagram for the above sentence are shown below.
 
 Additionally, this paper uses smart hacks to convert these dynamic patches to embeddings. It was important to establish the fact that patches of dynamic sizes can be created with entropy based patching, and this can be achieved with simple models. The entropy based patching model serves as an essential building block for BLT to achieve it's performance.
 
+Byte Latent Transformer architecture is shown below:
 {{< figure src="/blt1/009-we-are-here.jpeg">}}
 
 Well, we are just getting started, the next blog will cover how these patches are converted to embeddings and how BLT, and how the inputs for the model are generated. It is going to be fun!
 
 # Appendix
 
-All the code used for generating diagrams and artifacts in this blog are available on github below:
+1. Code for generating diagrams and artifacts in this blog are available on github below:
 
-- https://github.com/another-learning-experiment/concept-deep-dive
+   - https://github.com/another-learning-experiment/concept-deep-dive
+   - I will be maintaining this repo for this blog and the upcoming ones.
+   - Feel free to experiment with the code and share your thoughts.
 
-I will be maintaining this repo for this blog and the upcoming ones. Feel free to experiment with the code and share your thoughts.
+2. {{< details "Detailed calculations for Inference Costs" >}}
+
+**Base Monthly Infrastructure Cost**
+
+```
+$38/hour × 24 hours × 30 days = $27,360
+With 1.5x redundancy: $27,360 × 1.5 = $41,040 base cost
+```
+
+**Scaling factors for different user bases**
+
+```
+1K users: 1x = $41,040
+100K users: 2x = $82,080
+1M users: 4x = $164,160
+100M users: 12x = $492,480
+```
+
+**Monthly inference cost per user**
+
+```
+Tokens per request: 1,000
+Requests per month: 10
+Total tokens per user: 10,000
+Cost per 1K tokens: $0.03
+Monthly cost per user: (10,000 × $0.03) ÷ 1,000 = $0.30
+```
+
+**Total monthly inference costs**
+
+```
+1K users: $0.30 × 1,000 = $300
+100K users: $0.30 × 100,000 = $30,000
+1M users: $0.30 × 1,000,000 = $300,000
+100M users: $0.30 × 100,000,000 = $30,000,000
+```
+
+**Cost Summary Table**
+
+| Scale (Users) | Monthly Infrastructure Cost | Monthly Inference Cost | Total Monthly Cost | Annual Cost  |
+| ------------- | --------------------------- | ---------------------- | ------------------ | ------------ |
+| 1K            | $41,040                     | $300                   | $41,340            | $496,080     |
+| 100K          | $82,080                     | $30,000                | $112,080           | $1,344,960   |
+| 1M            | $164,160                    | $300,000               | $464,160           | $5,569,920   |
+| 100M          | $492,480                    | $30,000,000            | $30,492,480        | $365,909,760 |
+
+**NOTE**
+
+These calculations are based on multiple assumptions like:
+
+1. User Behavior:
+   - Each user makes about 10 queries per month
+   - Average query is like a paragraph of text back and forth
+   - Usage is spread throughout the month (no major spikes)
+2. Cost Components:
+   - Server costs: ~30K/month for base setup (8 A100s)
+   - Processing costs: ~30¢ per user per month
+
+{{< /details >}}
 
 # References
 
 1. [Byte Latent Transformer Research Paper](https://arxiv.org/pdf/2412.09871)
+2. [Understanding the Cost of Large Language Models (LLMs)](https://www.tensorops.ai/post/understanding-the-cost-of-large-language-models-llms)
 
 ---
 
