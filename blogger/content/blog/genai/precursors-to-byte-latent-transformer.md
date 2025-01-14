@@ -47,7 +47,7 @@ Tokenizers need to be trained with multiple preprocessing steps on a large corpu
 
 {{< figure src="/blt1/000-tokenizer.png">}}
 
-Whereas in the case of Byte-based systems, there is no concept of vocabulary as such, we need to map 256 combinations of 1s and 0s to an embedding space. The real tricky part in tokenizer-free systems is how we make splits between the raw byte streams, more on that later.
+Whereas in the case of Byte-based systems, there is no concept of vocabulary as such. The real tricky part in tokenizer-free systems is how we make splits between the raw byte streams, more on that later.
 
 {{< figure src="/blt1/001-byte-based.png">}}
 
@@ -64,7 +64,7 @@ For now here are some major differences between these two systems:
 
 **But how does using bytes instead of tokens make a difference?**
 
-Traditional tokenizer-based Large Language Models (LLMs) learn a unique embedding for each token in their vocabulary, which can be as large as 50,000 tokens. In contrast, by using byte representations, you only need to learn 256 unique representations. This significantly reduces the memory usage of the model.
+Traditional tokenizer-based Large Language Models (LLMs) learn a unique embedding for each token in their vocabulary, which can be as large as 50,000 tokens. In contrast, by using byte representations, you only need to learn a very small set of byte representations. This significantly reduces the memory usage of the model.
 
 Moreover, when expanding the domain knowledge or multilingual capabilities of a traditional LLM, the tokenizer requires additional training. This training process also increases the size of the model's embedding layer.
 
@@ -147,9 +147,9 @@ Taken from the paper:
 
 > We train a small byte-level auto-regressive language model on the training data for BLT and compute next byte entropies under the LM distribution $p_e$ over the byte vocabulary $\mathcal{V}$:
 
-$$H(x_i) = \sum_{v\in\mathcal{V}} p_e(x_i = v|x<i) \log p_e(x_i = v|x<i)$$
+$$H(x_i) = \sum_{v\in\mathcal{V}} p_e(x_i = v|x<i) \log p_e(x_i = v|x<i) \tag{1}$$
 
-Let's break down this equation:
+This equation is called Claude Shannon's entropy equation. Let's break down this equation:
 
 - $H(x_i)$ is the entropy of the next byte $x_i$
 - $p_e(x_i = v|x<i)$ is the probability of the next byte $x_i$ being $v$ given the previous bytes $x<i$
@@ -167,11 +167,11 @@ Imagine you are talking to your friend on a call and you start the conversation 
 Which of the above responses is more surprising?
 I think we all agree that the second response is more surprising, and extremely unlikely to be the response to the question "Hello, how are you?".
 
-Using entropy equation we have a measure of quantifying this randomness. The way we know a certain sentence or a set of words is totally random in the same manner we can quantify how random a certain byte sequence is.
+The entropy equation $(1)$ helps us measure how likely a byte sequence is. Just like we can tell if a sentence/word is highly unlikely, we can also measure how random a byte sequence is.
 
 ## How does Entropy intuition translate into patching?
 
-Researchers trained a small model to predict the degree of randomness of the next byte given a byte sequence. So let's try to visualize and understand how this entropy model works with a diagram.
+Researchers trained a small model to predict the entropy $H(x_i)$ of the next byte given a byte sequence. So let's try to visualize and understand how this entropy model works with a diagram.
 
 `"I walked to the store and bought a book"`.
 {{< figure src="/blt1/005-entropy-diagram-1.0.png">}}
