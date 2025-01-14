@@ -56,7 +56,7 @@ For now here are some major differences between these two systems:
 | Aspect            | Token-based Systems (Sentence piece, BPE) | Token-Free Systems (BLT, MegaByte, SpaceByte) |
 | ----------------- | ----------------------------------------- | --------------------------------------------- |
 | Training Data     | Requires large corpus (>100GB)            | No pre-training data needed                   |
-| Vocabulary Size   | 30,000-50,000 tokens                      | 256 bytes                                     |
+| Vocabulary Size   | 30,000-50,000 tokens                      | -                                             |
 | Vocabulary Growth | Grows with data/domains                   | Fixed size                                    |
 | Representation    | Learned subword units                     | Raw UTF-8 bytes                               |
 | Coverage          | Limited by training corpus                | Universal                                     |
@@ -147,7 +147,7 @@ Taken from the paper:
 
 > We train a small byte-level auto-regressive language model on the training data for BLT and compute next byte entropies under the LM distribution $p_e$ over the byte vocabulary $\mathcal{V}$:
 
-$$H(x_i) = \sum_{v\in\mathcal{V}} p_e(x_i = v|x<i) \log p_e(x_i = v|x<i) \tag{1}$$
+$$H(x_i) = \sum_{v\in\mathcal{V}} p_e(x_i = v|x<i) \log p_e(x_i = v|x<i) \qquad\dotsb\qquad (1)$$
 
 This equation is called Claude Shannon's entropy equation. Let's break down this equation:
 
