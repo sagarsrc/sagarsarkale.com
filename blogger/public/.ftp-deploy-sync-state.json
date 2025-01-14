@@ -1,0 +1,1247 @@
+{
+    "description": "DO NOT DELETE THIS FILE. This file is used to keep track of which files have been synced in the most recent deployment. If you delete this file a resync will need to be done (which can take a while) - read more: https://github.com/SamKirkland/FTP-Deploy-Action",
+    "version": "1.0.0",
+    "generatedTime": 1736834704572,
+    "data": [
+        {
+            "type": "file",
+            "name": "404.html",
+            "size": 3101,
+            "hash": "afa21428fba23ed20c56aa639a3c2755a0417b97782c2c88edde2d81d1902b7f"
+        },
+        {
+            "type": "folder",
+            "name": "about"
+        },
+        {
+            "type": "file",
+            "name": "android-chrome-192x192.png",
+            "size": 40732,
+            "hash": "2565d23dc85dc4f04097860a579b3e88c40ec7f5843246498f45486ed6f0dd24"
+        },
+        {
+            "type": "file",
+            "name": "android-chrome-196x196.png",
+            "size": 2040,
+            "hash": "231b2301ba234bd6a0f5c9cc1380c50056aeec948a06c8fb2887d5044a466bef"
+        },
+        {
+            "type": "file",
+            "name": "android-chrome-512x512.png",
+            "size": 74671,
+            "hash": "9f6c4d4e9a340500e04669c3e58882e158b2fcb6c1d8121fc8ffb92c01cd1c33"
+        },
+        {
+            "type": "file",
+            "name": "apple-touch-icon.png",
+            "size": 37774,
+            "hash": "c247e4ec7f75af5ff1ec4ad775608f9a76c834c62be2bc7de7285a04b5b08cfa"
+        },
+        {
+            "type": "folder",
+            "name": "assets"
+        },
+        {
+            "type": "folder",
+            "name": "attn"
+        },
+        {
+            "type": "folder",
+            "name": "blog"
+        },
+        {
+            "type": "folder",
+            "name": "blt1"
+        },
+        {
+            "type": "file",
+            "name": "browserconfig.xml",
+            "size": 246,
+            "hash": "c348b0d6df3d900efef7ae4b4dfc8b62b1737b04d09d4584fef243211c266866"
+        },
+        {
+            "type": "file",
+            "name": "favicon-16x16.png",
+            "size": 1395,
+            "hash": "77e18b27d4a2c772a3a0f433b44775023bf4ea68ccd2c9b41b886ec7fbb771a8"
+        },
+        {
+            "type": "file",
+            "name": "favicon-32x32.png",
+            "size": 2731,
+            "hash": "7ea686890a10c1256cbca2718f3a0c1fbb5c7ba9bff69ba7de4557c0637d0c48"
+        },
+        {
+            "type": "file",
+            "name": "favicon.ico",
+            "size": 15086,
+            "hash": "144d5dc1cf76c050f1d93019d79e30272b84672d2bf6a5a8926903e163386410"
+        },
+        {
+            "type": "folder",
+            "name": "fonts"
+        },
+        {
+            "type": "folder",
+            "name": "g-j90lp2ewln"
+        },
+        {
+            "type": "file",
+            "name": "index.html",
+            "size": 5717,
+            "hash": "9cde8bc4bd52dbbaaec1ef59662bde4a1f9f643e9dead1b4253a2690878b7eb9"
+        },
+        {
+            "type": "file",
+            "name": "index.xml",
+            "size": 4891,
+            "hash": "978b5d8cf7e1173b48ccded61999f4bdddeaf496f90e3a459a03188d6e4c4504"
+        },
+        {
+            "type": "folder",
+            "name": "llava"
+        },
+        {
+            "type": "folder",
+            "name": "lstm"
+        },
+        {
+            "type": "file",
+            "name": "mstile-150x150.png",
+            "size": 25040,
+            "hash": "6b7f165f2b9a6913b61bc309b987b4806f47871f511d6b2dcb9c6b00d3cae7d2"
+        },
+        {
+            "type": "folder",
+            "name": "page"
+        },
+        {
+            "type": "folder",
+            "name": "personal"
+        },
+        {
+            "type": "folder",
+            "name": "pos-enc"
+        },
+        {
+            "type": "folder",
+            "name": "random"
+        },
+        {
+            "type": "folder",
+            "name": "rnns"
+        },
+        {
+            "type": "file",
+            "name": "safari-pinned-tab.svg",
+            "size": 609,
+            "hash": "f64cb0f9c85a715dc2fd200a0cf95a4106ef6bbf67c6cbf345226ac70344524a"
+        },
+        {
+            "type": "file",
+            "name": "site.webmanifest",
+            "size": 452,
+            "hash": "04afb47febc70494079869f157212901c606e223ca848a0ebe29c9e2f2d4b9cb"
+        },
+        {
+            "type": "file",
+            "name": "sitemap.xml",
+            "size": 2997,
+            "hash": "fa0d400cb0e52ad0879a70fb0fd7bfcfc393a2f22435b053a04341c217539494"
+        },
+        {
+            "type": "folder",
+            "name": "tags"
+        },
+        {
+            "type": "folder",
+            "name": "work"
+        },
+        {
+            "type": "file",
+            "name": "about/index.html",
+            "size": 4061,
+            "hash": "8415881490cbcd97f06aac6224c86e0e1a97692dc196d580ccf235d6b06602aa"
+        },
+        {
+            "type": "file",
+            "name": "assets/combined.min.f69b4a5b91a9bc416804eda1f19d04210551b843d47318bf1913d7edce1504fb.css",
+            "size": 9437,
+            "hash": "f69b4a5b91a9bc416804eda1f19d04210551b843d47318bf1913d7edce1504fb"
+        },
+        {
+            "type": "file",
+            "name": "attn/attn-eqn-explained.png",
+            "size": 116351,
+            "hash": "a05a1b59b5ce31aa819720314172a207747231ede21ef7def3e066f6f105563d"
+        },
+        {
+            "type": "file",
+            "name": "attn/edited-transformer.png",
+            "size": 493733,
+            "hash": "4231c81cc274acaaad8de6cf0db8ecbcfeb3b7b1d5f108b610092cd71445ca39"
+        },
+        {
+            "type": "file",
+            "name": "attn/expand-nx.png",
+            "size": 461556,
+            "hash": "0280e9ec4cb11e429017464c6276d3a2d1c1183bb97208ff933e637aa45f2902"
+        },
+        {
+            "type": "file",
+            "name": "attn/lm-head.png",
+            "size": 189078,
+            "hash": "559ec8ff005ba4027ca0276b249cc785b27733dbcf3cec90036b777a1f1166c1"
+        },
+        {
+            "type": "file",
+            "name": "attn/masked-attn-pred.png",
+            "size": 286703,
+            "hash": "6399c5454e8a69eef6436d22662004a154552fafa8cc2234984db23d6b783914"
+        },
+        {
+            "type": "file",
+            "name": "attn/masked-attn.png",
+            "size": 410160,
+            "hash": "a9426af3bad4312615296497ac7b903656a45d751762b14a4d3f5461d5c54db4"
+        },
+        {
+            "type": "file",
+            "name": "attn/mlp-block.png",
+            "size": 506316,
+            "hash": "2f9e93f2384d53a58b38d7f66f8db549a6d963fee123ef969cbb4422bf950d46"
+        },
+        {
+            "type": "file",
+            "name": "attn/multi-head-attn.png",
+            "size": 341045,
+            "hash": "913aec216940477f699e3badef355759a99e77faaf7a593618a77edc8a72e33c"
+        },
+        {
+            "type": "file",
+            "name": "attn/output-of-attn.png",
+            "size": 36023,
+            "hash": "32cd1906a1a4a239eb01c8a4437e9fdd1489f2efc56d2d66067d71d594d8a10f"
+        },
+        {
+            "type": "file",
+            "name": "attn/patience-cover.png",
+            "size": 858927,
+            "hash": "ad1e68f761f9d6396bdf6ff13adf6bb5f378e0b2a868057a67d09e3bb3f9a561"
+        },
+        {
+            "type": "file",
+            "name": "attn/qkv-mult-eg.png",
+            "size": 42892,
+            "hash": "7bff361658f01037a19bce5d17b622c9e8a051ebc80a661e3c5f9839c89fe083"
+        },
+        {
+            "type": "file",
+            "name": "attn/qkv-splits.png",
+            "size": 252428,
+            "hash": "f7fd86ce6e47b33bf585f59e022dcd6ac8d719453a8e734b92d3d34394a7dc88"
+        },
+        {
+            "type": "file",
+            "name": "attn/single-head-attn.png",
+            "size": 295559,
+            "hash": "1e127ff18c7bd3a817d88fca70685923828c86ae7d6c8a5f3ef36b98a473460e"
+        },
+        {
+            "type": "file",
+            "name": "attn/softmax-op-prob.png",
+            "size": 176623,
+            "hash": "51ad1614c456a2abc1bd61b17f46a08a4912c6e7b5236dd633fa5ca3bd257bf2"
+        },
+        {
+            "type": "file",
+            "name": "attn/stack-attn.png",
+            "size": 141696,
+            "hash": "8a8571058e93c3e1b3f1d002c1fcbf2ea79c1b5f146acf5b051969dda6edcf0e"
+        },
+        {
+            "type": "file",
+            "name": "attn/step-1-emb-pos.png",
+            "size": 185787,
+            "hash": "90460ee36df815dd634d3abaeef7085ece5d0532d0bf36b5e37d931729a408ee"
+        },
+        {
+            "type": "file",
+            "name": "attn/unedited-transformer.png",
+            "size": 524465,
+            "hash": "02531481f00da3c8e3badc7f803d8cc7c4455d82c84b23e84e28dd8959a2506e"
+        },
+        {
+            "type": "file",
+            "name": "attn/unmasked-attn.png",
+            "size": 406146,
+            "hash": "82e312eb5d13c3a8faddeef919e25f075e342646e39dee4cd3ef86e66d9f1a33"
+        },
+        {
+            "type": "file",
+            "name": "attn/where-are-we.png",
+            "size": 297070,
+            "hash": "2ac9ed78eecea65f584ee516e82318a52968915d85aa67badb74c7685a46b4d0"
+        },
+        {
+            "type": "folder",
+            "name": "blog/genai"
+        },
+        {
+            "type": "file",
+            "name": "blog/index.html",
+            "size": 4309,
+            "hash": "722929164de2ef9055b77e0f23f5a8a0a42da0efbcbeb26e75631ebb1c721186"
+        },
+        {
+            "type": "file",
+            "name": "blog/index.xml",
+            "size": 2716,
+            "hash": "0672a449d62f5f247c65935aebd976aaa6576114ba93f194dc9ca71d50e83b3b"
+        },
+        {
+            "type": "folder",
+            "name": "blog/page"
+        },
+        {
+            "type": "folder",
+            "name": "blog/seq"
+        },
+        {
+            "type": "folder",
+            "name": "blog/web"
+        },
+        {
+            "type": "file",
+            "name": "blt1/000-cover.jpg",
+            "size": 80088,
+            "hash": "ea912ed5f15c043971710083a451fc36b8147ac63d7eba39d99bf37568debc6b"
+        },
+        {
+            "type": "file",
+            "name": "blt1/000-tokenizer.png",
+            "size": 100634,
+            "hash": "495d7531972897db4e34f656cb8b02348b93dce251dd6b3dd2211ce07cacad85"
+        },
+        {
+            "type": "file",
+            "name": "blt1/001-byte-based.png",
+            "size": 137809,
+            "hash": "2007f4cb912266d72fff4a8378e1a02bd9fd28237025a30c30596dc2c3ab24d6"
+        },
+        {
+            "type": "file",
+            "name": "blt1/002-byte-stream-parts.png",
+            "size": 57448,
+            "hash": "d8e7a064210937306de4163895134378312911de6168229319b868860506a67d"
+        },
+        {
+            "type": "file",
+            "name": "blt1/003-fixed-patching.png",
+            "size": 29575,
+            "hash": "0108de988efa075239ff1d1ac5148cbb38d4d969fc36c8d503f28edbe276b1f8"
+        },
+        {
+            "type": "file",
+            "name": "blt1/004-space-patching.png",
+            "size": 28905,
+            "hash": "9590e95b8343cbae19f3ceb655983c0a398e5e099dd5cb0ac6f449662cb0e3b8"
+        },
+        {
+            "type": "file",
+            "name": "blt1/005-entropy-diagram-1.0.png",
+            "size": 114837,
+            "hash": "f8aa7e6970380dac9f65b0246778077b8096b041cbde92d241d86d806b5fee73"
+        },
+        {
+            "type": "file",
+            "name": "blt1/005-entropy-diagram-1.1.jpeg",
+            "size": 616741,
+            "hash": "182d3af112a6869e8e9222cc239a96e71b1db419871fe4aceb24ce702fb4f3fb"
+        },
+        {
+            "type": "file",
+            "name": "blt1/006-entropy-diagram-2.png",
+            "size": 74696,
+            "hash": "873c80ecba8f709d1215910f52a2cfa4afc2112d1e2122166fc8afe82be9ac93"
+        },
+        {
+            "type": "file",
+            "name": "blt1/007-entropy-diagram-3.png",
+            "size": 76986,
+            "hash": "78f4d29ca0d86751e080032411e85e7900e3ae0f1f19f12042f378f7544b2692"
+        },
+        {
+            "type": "file",
+            "name": "blt1/008-patches-1.png",
+            "size": 89686,
+            "hash": "160748aa01ecf28a57b48af3aebb58a339ebe8172cd7b968e2b3d206b35ccf54"
+        },
+        {
+            "type": "file",
+            "name": "blt1/008-patches-2.png",
+            "size": 92509,
+            "hash": "70c99ea2e9382da43ba0eeb091e345433590177b1e344062f9b3da66c8364e2d"
+        },
+        {
+            "type": "file",
+            "name": "blt1/008-patches-3.png",
+            "size": 68985,
+            "hash": "b86012c84d7285f0e9ebe1321600f53dfd4d877d7689db082e84eb0d74b1b10d"
+        },
+        {
+            "type": "file",
+            "name": "blt1/009-we-are-here.jpeg",
+            "size": 320664,
+            "hash": "25099418fee3c6a2a6484d9c2c4ecc766c3daac7d1de3034757915df638c572c"
+        },
+        {
+            "type": "folder",
+            "name": "fonts/Literata"
+        },
+        {
+            "type": "folder",
+            "name": "fonts/Monaspace"
+        },
+        {
+            "type": "file",
+            "name": "g-j90lp2ewln/index.html",
+            "size": 3202,
+            "hash": "7d2031391477d1ab0f66945fe5377530a77c8d740e11102df19894cc37ad3830"
+        },
+        {
+            "type": "file",
+            "name": "g-j90lp2ewln/index.xml",
+            "size": 467,
+            "hash": "b7b0837c54b4570517c83f327d8fcf4eeb0df467b161a4e750f4da7e73b2904f"
+        },
+        {
+            "type": "folder",
+            "name": "g-j90lp2ewln/page"
+        },
+        {
+            "type": "file",
+            "name": "llava/llava-cover.png",
+            "size": 325957,
+            "hash": "2f117a8d0492808f45fbcda4be1b360a7a46f04600c745012b606937c97b5f57"
+        },
+        {
+            "type": "file",
+            "name": "lstm/00-cover.png",
+            "size": 67246,
+            "hash": "3a4973d3d2f9b1440d91ab2528337573d9f645622a3b2e09799a04716d0c5531"
+        },
+        {
+            "type": "file",
+            "name": "lstm/01-the-gate.png",
+            "size": 56813,
+            "hash": "16cc2ec3cac6c5520ffaca80246c54a9484962478c987c0cf703c618c7c2920a"
+        },
+        {
+            "type": "file",
+            "name": "lstm/02-the-gate.png",
+            "size": 58383,
+            "hash": "8a3e15138ef7c93e16faba17cd7cd40f44dd92d9be000fb29efad3f5252981a4"
+        },
+        {
+            "type": "file",
+            "name": "lstm/03-the-gate-sigmoid-intro.png",
+            "size": 85217,
+            "hash": "bb93db5f4ee6ec063073018e91c9ab087e93727f79749ceb0582b3e5cfc237a1"
+        },
+        {
+            "type": "file",
+            "name": "lstm/04-point-wise-and-sigmoid.png",
+            "size": 51771,
+            "hash": "6ccae940e8808d48dca72c48bc486588bbd23f2f4fbfa245347378a9bd5f83d1"
+        },
+        {
+            "type": "file",
+            "name": "lstm/05-notations.png",
+            "size": 65287,
+            "hash": "315340b2ada4cb4712a86886d8d91dde51a8e6eeb8a6dcfa59310aef8dd0e6e7"
+        },
+        {
+            "type": "file",
+            "name": "lstm/06-separate-lego-lstm.png",
+            "size": 49040,
+            "hash": "a0c5ed47d2d32d43ecfbdda51277db4b73db71a3d6190064487c3f6c75cd663f"
+        },
+        {
+            "type": "file",
+            "name": "lstm/07-joined-lego-lstm.png",
+            "size": 29366,
+            "hash": "bba2e86983bac646e4d0a52577ad528aca722dbd815e1c4f39e99c548611ddb4"
+        },
+        {
+            "type": "file",
+            "name": "lstm/08-glimpse-lstm.png",
+            "size": 95881,
+            "hash": "a8b7faf5141f6a3984b33dc942141b7aee67a1eb932de0b29e22d5da643f5212"
+        },
+        {
+            "type": "file",
+            "name": "lstm/09-unrolling-lstm.png",
+            "size": 85258,
+            "hash": "1280c2b8c3b04b35743e89bb3d30cdf6d7bbb4f720588c4cd8c391ea60f6f569"
+        },
+        {
+            "type": "file",
+            "name": "lstm/10-forgetgate.png",
+            "size": 18658,
+            "hash": "f9effc821a76a42c8406c693938e1e09e71fd7259c18cf55c2b659971664480f"
+        },
+        {
+            "type": "file",
+            "name": "lstm/11-forgetgate.png",
+            "size": 131947,
+            "hash": "6a56ebf7e5303b53073e5c84f9814afa2cde67b5399c490e6520611d87c490e8"
+        },
+        {
+            "type": "file",
+            "name": "lstm/12-inputgate.png",
+            "size": 19145,
+            "hash": "db4970c36f10134b90248d217bdc6b856f435723f800fc6cd95584a1c789b782"
+        },
+        {
+            "type": "file",
+            "name": "lstm/13-inputgate.png",
+            "size": 140585,
+            "hash": "b28b49fa0262a0acf625149e50f2d2e4f925034ded2f52cb7ee8ce6d6a120b28"
+        },
+        {
+            "type": "file",
+            "name": "lstm/14-outputgate.png",
+            "size": 19383,
+            "hash": "2a8db6d84a1a0badd9a193699d8f7acfff25df2c0e1c7da485554f7879e7ff70"
+        },
+        {
+            "type": "file",
+            "name": "lstm/15-outputgate.png",
+            "size": 143853,
+            "hash": "d04954825b3f0609cedb792ab99af3386d72d098443ff5441bec21d2003e26df"
+        },
+        {
+            "type": "file",
+            "name": "lstm/16-missing-link.png",
+            "size": 10527,
+            "hash": "97806ab750e5a39839098b64dcc5ea1adc63af7d3182e61f639af1b46efc46f8"
+        },
+        {
+            "type": "file",
+            "name": "lstm/17-missing-link.png",
+            "size": 96804,
+            "hash": "9bcc2a259b1818a921ae485f6bd5f77db7e8c9e80a3c6889f2a1fc2412a0e9b1"
+        },
+        {
+            "type": "file",
+            "name": "lstm/18-missing-link.png",
+            "size": 98893,
+            "hash": "834152626ffac13e2c6f95f96d7374a222f1c0edb5be26070853e5e2c453966c"
+        },
+        {
+            "type": "file",
+            "name": "lstm/19-case1.png",
+            "size": 88395,
+            "hash": "8189d3ca264dd9a2eb7ee015e61a22ffe1935d88c277a0c0f123e7e78c16a6fa"
+        },
+        {
+            "type": "file",
+            "name": "lstm/20-stickman.png",
+            "size": 7557,
+            "hash": "6f7a6f30c4da18b1d4db70cf9b9ece1eade1743ea56ca74a8d8c0524f95a1044"
+        },
+        {
+            "type": "file",
+            "name": "lstm/21-case1.png",
+            "size": 110416,
+            "hash": "e4bdc5093cc8a0f0a4e9c54b887143fe706cd9e5f4ff543937e384aeaea7e5e1"
+        },
+        {
+            "type": "file",
+            "name": "lstm/22-case2.png",
+            "size": 76418,
+            "hash": "4d8a451fdff8ae78a5832da7b8cc7c3eb209ca0290621b9f8171b0eeca0c240a"
+        },
+        {
+            "type": "file",
+            "name": "lstm/23-case3.png",
+            "size": 77663,
+            "hash": "01cb0343e412ddb51da36105f78f4190079c9b38c33e7d1ade494bff9d57418f"
+        },
+        {
+            "type": "file",
+            "name": "lstm/24-case4.png",
+            "size": 75580,
+            "hash": "1aee567a8176da84798e46abf9e6022a918596b96a418284d0a4fcbab5f45775"
+        },
+        {
+            "type": "file",
+            "name": "lstm/25-end-note.png",
+            "size": 77227,
+            "hash": "e0d5ac12ff11eebe349e8ff0406ca5aae4ffe08a92047773ea99427146a9fa34"
+        },
+        {
+            "type": "folder",
+            "name": "page/1"
+        },
+        {
+            "type": "file",
+            "name": "personal/about-me.jpeg",
+            "size": 386575,
+            "hash": "c042256111ed57aeb6492b3e64b90a29ad1adf33fbdecec8c34706cf34d03792"
+        },
+        {
+            "type": "file",
+            "name": "personal/about-me_300x300.jpg",
+            "size": 70910,
+            "hash": "5a3675ace54ff852b9e2c5a60cce08d7f9598b54c33d6c89a49e2cdb836aa7d2"
+        },
+        {
+            "type": "file",
+            "name": "personal/about-me_800x800.jpg",
+            "size": 324936,
+            "hash": "c81b802d633058525129e85a298de247dba68095dd0d738807343a018acea70e"
+        },
+        {
+            "type": "file",
+            "name": "personal/me-sq.png",
+            "size": 1835236,
+            "hash": "039bd4a384dff6e1a7f22fbaf32a49dfed4b2a8be62cda5dbfc0dab60e7f9bb8"
+        },
+        {
+            "type": "file",
+            "name": "pos-enc/000-cover-pe.png",
+            "size": 219575,
+            "hash": "2c9e00e885ac4eb07adbb3757e109868043080f61580a602c1ec99fed4dba01e"
+        },
+        {
+            "type": "file",
+            "name": "pos-enc/000-words-to-emb-pos.png",
+            "size": 30946,
+            "hash": "543a164402ec39147bd0cbf5ef98f7f08ef565543f90755109653553b865aab0"
+        },
+        {
+            "type": "file",
+            "name": "pos-enc/002-pos-enc-add.png",
+            "size": 48148,
+            "hash": "da5b5daca478c11e2f570b27e507347fb42b56c35cf907f0602ee30ffd8dbf9c"
+        },
+        {
+            "type": "file",
+            "name": "pos-enc/003-pos-and-i-desc.png",
+            "size": 44318,
+            "hash": "875697cd805aa064b39e58a956c8fc4e7a3f14148d677ea8347f6c449a448dd5"
+        },
+        {
+            "type": "folder",
+            "name": "random/another-morning"
+        },
+        {
+            "type": "file",
+            "name": "random/index.xml",
+            "size": 1399,
+            "hash": "3b06820e2f5f51357bd9e654e8785ce55f0c9bfce121e38eff36862d929d41a4"
+        },
+        {
+            "type": "file",
+            "name": "random/index.html",
+            "size": 3870,
+            "hash": "000abad0c09e9be4b7a14f98d24a08bced26cc6259c5d18c2b2a747c76c55be2"
+        },
+        {
+            "type": "folder",
+            "name": "random/the-big-bang-theory"
+        },
+        {
+            "type": "folder",
+            "name": "random/page"
+        },
+        {
+            "type": "folder",
+            "name": "random/to-simpler-times"
+        },
+        {
+            "type": "file",
+            "name": "rnns/00-simple-nn.png",
+            "size": 157982,
+            "hash": "338cf9835d0ba98e5f0003c978468aad5aa7c7a9fba49c6a7e0b4e9dd8698f4b"
+        },
+        {
+            "type": "file",
+            "name": "rnns/01-rnn-unit-cell.png",
+            "size": 27022,
+            "hash": "c97db9affa543c951a47052d1565b791dff1d14528f2df7522e0e5ffb097c1a9"
+        },
+        {
+            "type": "file",
+            "name": "rnns/02-break-rnn-unit-cell.png",
+            "size": 45992,
+            "hash": "8967b4889da135ac0bc151c61144ea6d36aa722735f4d8c3ddc82ef0d988e589"
+        },
+        {
+            "type": "file",
+            "name": "rnns/04-break-rnn-unit-cell.png",
+            "size": 63584,
+            "hash": "498144594f703d1df0abf50cfe97af7590bc6eb508cdbfe326d59b1b22dcc0ba"
+        },
+        {
+            "type": "file",
+            "name": "rnns/03-break-rnn-unit-cell.png",
+            "size": 56785,
+            "hash": "7c5dedae7c771cbda2411a2d9a1ee0ef46eb0f1f22192c7ee4699ec503c5a757"
+        },
+        {
+            "type": "file",
+            "name": "rnns/05-simplified-rnn.png",
+            "size": 84998,
+            "hash": "b14760741088fd87ac5ffc7c9663d71f080ba3cc2dcd54b8fc916e0804a86a83"
+        },
+        {
+            "type": "file",
+            "name": "rnns/06-simplified-rnn-weights.png",
+            "size": 105704,
+            "hash": "ed3c37a6816340dab0c3a8ab2b946e3da1c6d8b95921389d72091e99d2041f1d"
+        },
+        {
+            "type": "file",
+            "name": "rnns/07-bptt-intro.png",
+            "size": 143584,
+            "hash": "23dfaa9e5fc28fc9e80fc35b5af8af527547ff68d6fbf7253b05b89d60b5d8ff"
+        },
+        {
+            "type": "file",
+            "name": "rnns/08-bptt-end.png",
+            "size": 137769,
+            "hash": "03aab19e2a1353aee0b42b6a8b824bc519aed24ef0790f1a441ef135eeb54c2e"
+        },
+        {
+            "type": "file",
+            "name": "rnns/09-cover.png",
+            "size": 61997,
+            "hash": "e844bd0c0f42398fd6c57f38b15c503f619036a97167cafb91809b144d52b456"
+        },
+        {
+            "type": "folder",
+            "name": "tags/attention"
+        },
+        {
+            "type": "folder",
+            "name": "tags/blt"
+        },
+        {
+            "type": "folder",
+            "name": "tags/deepdive"
+        },
+        {
+            "type": "folder",
+            "name": "tags/deeplearning"
+        },
+        {
+            "type": "folder",
+            "name": "tags/genai"
+        },
+        {
+            "type": "folder",
+            "name": "tags/hugo"
+        },
+        {
+            "type": "file",
+            "name": "tags/index.html",
+            "size": 4191,
+            "hash": "597bbf40a74c8ab04ce85504260184a0e3060e3cdbfd1ff619b84e0e9053feb3"
+        },
+        {
+            "type": "folder",
+            "name": "tags/multimodal"
+        },
+        {
+            "type": "file",
+            "name": "tags/index.xml",
+            "size": 2696,
+            "hash": "92988ad37f729b5859b08a38fc19d8b23a5d33af0c81fe6cab97cc354929ba37"
+        },
+        {
+            "type": "folder",
+            "name": "tags/nlp"
+        },
+        {
+            "type": "folder",
+            "name": "tags/page"
+        },
+        {
+            "type": "folder",
+            "name": "tags/transformers"
+        },
+        {
+            "type": "folder",
+            "name": "tags/web"
+        },
+        {
+            "type": "folder",
+            "name": "tags/work"
+        },
+        {
+            "type": "file",
+            "name": "work/index.html",
+            "size": 8042,
+            "hash": "6a7227a21eb2c798521bf3e430ed3dfd9fcb87d693afc17283c758f8fe4cf26f"
+        },
+        {
+            "type": "folder",
+            "name": "blog/genai/llava"
+        },
+        {
+            "type": "folder",
+            "name": "blog/genai/patience-is-all-you-need"
+        },
+        {
+            "type": "folder",
+            "name": "blog/genai/position-encoding"
+        },
+        {
+            "type": "folder",
+            "name": "blog/genai/precursors-to-byte-latent-transformer"
+        },
+        {
+            "type": "folder",
+            "name": "blog/page/1"
+        },
+        {
+            "type": "folder",
+            "name": "blog/seq/lstm-simplified"
+        },
+        {
+            "type": "folder",
+            "name": "blog/seq/rnns-a-walkthrough"
+        },
+        {
+            "type": "folder",
+            "name": "blog/web/hello-hugo"
+        },
+        {
+            "type": "file",
+            "name": "fonts/Literata/Literata-Light.woff2",
+            "size": 81764,
+            "hash": "61397ad9f1974686ca16ab661bb6edd760afe1cf2f0ad3875b3f5e68508a0f51"
+        },
+        {
+            "type": "file",
+            "name": "fonts/Literata/Literata-LightItalic.woff2",
+            "size": 82144,
+            "hash": "a9c013af1aa78896ac41b8fd2a1cbf0865aaa8db3ca1b55b8cb349ff9087d467"
+        },
+        {
+            "type": "file",
+            "name": "fonts/Literata/Literata-SemiBold.woff2",
+            "size": 83900,
+            "hash": "202b1cc59516b1bd22c3a4cf67bc4520fcd40e96236c2e1596a810065276c988"
+        },
+        {
+            "type": "file",
+            "name": "fonts/Literata/Literata-SemiBoldItalic.woff2",
+            "size": 85020,
+            "hash": "03707323a7a42f01329306237c68a7b9e400d8c1f3ea50807412ca877dfa5c57"
+        },
+        {
+            "type": "file",
+            "name": "fonts/Monaspace/MonaspaceArgon-Regular.woff",
+            "size": 48612,
+            "hash": "12356fb721bacd3299e368349ec7a12152542b0ecb283ce973e2e1d16a8ed69d"
+        },
+        {
+            "type": "file",
+            "name": "fonts/Monaspace/MonaspaceArgon-SemiBold.woff",
+            "size": 49488,
+            "hash": "555f0ec20f4e448d9ad1bbc24dfd28d7c8a71638d7f658153a4b0050edc20774"
+        },
+        {
+            "type": "folder",
+            "name": "g-j90lp2ewln/page/1"
+        },
+        {
+            "type": "file",
+            "name": "page/1/index.html",
+            "size": 268,
+            "hash": "792deae9ec85ce0aa1bbb06dba1747de60ffc6b0111fb3497de12ffd690ec8cc"
+        },
+        {
+            "type": "file",
+            "name": "random/another-morning/index.html",
+            "size": 6160,
+            "hash": "ccff4190fd1aa883548a8a450767ffb43c4abb212f395587d3583457d9e85573"
+        },
+        {
+            "type": "file",
+            "name": "random/the-big-bang-theory/index.html",
+            "size": 8024,
+            "hash": "a9578916eef2f8982ed9db0c296e29535ec0e2416273f900f80b661d507bf9bf"
+        },
+        {
+            "type": "folder",
+            "name": "random/page/1"
+        },
+        {
+            "type": "file",
+            "name": "random/to-simpler-times/index.html",
+            "size": 6667,
+            "hash": "4e94c3f6d2da5409e4ffe3ab3f80a22ec5125c7444d731e35c2e57379694a954"
+        },
+        {
+            "type": "file",
+            "name": "tags/attention/index.html",
+            "size": 3432,
+            "hash": "3a6229c0d28bd24a4cc51749e850bd93067a34e07e7ec88d3229f58cabc6ec90"
+        },
+        {
+            "type": "file",
+            "name": "tags/attention/index.xml",
+            "size": 852,
+            "hash": "bb0f2aa3d654d8218bf816fe63b72133397084c593899bf5afb90d1894ecabde"
+        },
+        {
+            "type": "folder",
+            "name": "tags/attention/page"
+        },
+        {
+            "type": "file",
+            "name": "tags/blt/index.html",
+            "size": 3421,
+            "hash": "f2712ca566ec0b09ecc5cec44ff9c71ad5ca7e261179de4ffbc619872b6dd29e"
+        },
+        {
+            "type": "file",
+            "name": "tags/blt/index.xml",
+            "size": 893,
+            "hash": "aa0709ab173f652e96bf3e4cd33d53195bee1c51c1f276718f5b4bd9f701aa17"
+        },
+        {
+            "type": "folder",
+            "name": "tags/blt/page"
+        },
+        {
+            "type": "file",
+            "name": "tags/deepdive/index.html",
+            "size": 3622,
+            "hash": "c5a69160c54b82a238d12ed820c55cfe3f01d278ea30470f29522e8d15f3e469"
+        },
+        {
+            "type": "file",
+            "name": "tags/deepdive/index.xml",
+            "size": 1238,
+            "hash": "49b362852186eb9c7030a57a039aecd449bec759ed3e287bba4d690e7a4ccc84"
+        },
+        {
+            "type": "folder",
+            "name": "tags/deepdive/page"
+        },
+        {
+            "type": "file",
+            "name": "tags/deeplearning/index.html",
+            "size": 3585,
+            "hash": "5901633be7ef1f2350a54b5f1d5e7d31c4be3c96f45a1fb56f4274409cf1f06c"
+        },
+        {
+            "type": "file",
+            "name": "tags/deeplearning/index.xml",
+            "size": 1134,
+            "hash": "5d188fe9104e2ecc3f1475a3e529a54ff06ae6da940153a5054cafc8e5dec4c3"
+        },
+        {
+            "type": "folder",
+            "name": "tags/deeplearning/page"
+        },
+        {
+            "type": "file",
+            "name": "tags/genai/index.html",
+            "size": 3433,
+            "hash": "1cd023a29c9abcef350023e261dc215a32de7fc2d8a0c6803a61f574d75eb521"
+        },
+        {
+            "type": "file",
+            "name": "tags/genai/index.xml",
+            "size": 901,
+            "hash": "a1419e9adeda0b064151ca51a83a681c03ef13463c1d8717d64c676a115d5b6c"
+        },
+        {
+            "type": "folder",
+            "name": "tags/genai/page"
+        },
+        {
+            "type": "file",
+            "name": "tags/hugo/index.html",
+            "size": 3387,
+            "hash": "5d4a113c136e3fcfe23d23ce518501d2aeaf1ba009f33f86a9b721a587bd4d10"
+        },
+        {
+            "type": "file",
+            "name": "tags/hugo/index.xml",
+            "size": 802,
+            "hash": "7e82dadedf416f69764c1d3f321e426880fa57d3525b94c28190d389c0d8a4cf"
+        },
+        {
+            "type": "folder",
+            "name": "tags/hugo/page"
+        },
+        {
+            "type": "file",
+            "name": "tags/multimodal/index.html",
+            "size": 3414,
+            "hash": "8d361ab3ab267f3886f2629b6b7c6e83324f18a32aaacd164d774863077ca9ab"
+        },
+        {
+            "type": "file",
+            "name": "tags/multimodal/index.xml",
+            "size": 818,
+            "hash": "1c7e98dbc21e7263f901efadec8ddbd5866252194318c25a1f9c75752d1667e3"
+        },
+        {
+            "type": "folder",
+            "name": "tags/multimodal/page"
+        },
+        {
+            "type": "file",
+            "name": "tags/nlp/index.html",
+            "size": 3531,
+            "hash": "6c3bb54b645a30fca493776eca7d5043b9b4512c3daa902c2b5921e60a7c685e"
+        },
+        {
+            "type": "file",
+            "name": "tags/nlp/index.xml",
+            "size": 1098,
+            "hash": "05b4cc344223693d4bc2c263bb2a2422f6a1c190a325cb75bb3d7c453243869d"
+        },
+        {
+            "type": "folder",
+            "name": "tags/nlp/page"
+        },
+        {
+            "type": "folder",
+            "name": "tags/page/1"
+        },
+        {
+            "type": "file",
+            "name": "tags/transformers/index.html",
+            "size": 3965,
+            "hash": "e1e9a6dac13dde2ac62e7cbacda92f6d632ac943cd6db3aa279e90b6146457a3"
+        },
+        {
+            "type": "file",
+            "name": "tags/transformers/index.xml",
+            "size": 1868,
+            "hash": "831c9352cdc6f3225df953e122edaa46d7a749c4ddba2372d126351d9500d39e"
+        },
+        {
+            "type": "folder",
+            "name": "tags/transformers/page"
+        },
+        {
+            "type": "file",
+            "name": "tags/web/index.html",
+            "size": 3381,
+            "hash": "87b81133d82ae5c0d1ee7c99c8d466df611621623e26c7dc927c216a8ae8427d"
+        },
+        {
+            "type": "file",
+            "name": "tags/web/index.xml",
+            "size": 798,
+            "hash": "b10eaeff5b18129acf1bc75a2f9eddd40e4ae80ddbabc2002b193c0618292128"
+        },
+        {
+            "type": "folder",
+            "name": "tags/web/page"
+        },
+        {
+            "type": "file",
+            "name": "tags/work/index.html",
+            "size": 3369,
+            "hash": "5942af5463548250cf368a18b1611ee67eac0417e451e2482816f7fa0fba5ad3"
+        },
+        {
+            "type": "file",
+            "name": "tags/work/index.xml",
+            "size": 1127,
+            "hash": "6827682b8ffbbff1066a625ed255e9b0564f98f15850cbd54375679cf18e7ef3"
+        },
+        {
+            "type": "folder",
+            "name": "tags/work/page"
+        },
+        {
+            "type": "file",
+            "name": "blog/genai/llava/index.html",
+            "size": 24865,
+            "hash": "68ec22665ef4af7ae2667ac2768c555bf69ca911cf6984735a228d3884f8fb15"
+        },
+        {
+            "type": "file",
+            "name": "blog/genai/patience-is-all-you-need/index.html",
+            "size": 26969,
+            "hash": "bc99d1e6952b1db8bc3d937e651e1838bcf9bf26006a6ac4e147f5c8ad5b63ed"
+        },
+        {
+            "type": "file",
+            "name": "blog/genai/precursors-to-byte-latent-transformer/index.html",
+            "size": 27230,
+            "hash": "491532d9b0ac5b23956d18916bbe3f0e6d11f6d74510915f608ebc48031cd4bc"
+        },
+        {
+            "type": "file",
+            "name": "blog/genai/position-encoding/index.html",
+            "size": 24964,
+            "hash": "0fb390c19213b8627763440c3bcebffee41da89950e1568464440aac577b8254"
+        },
+        {
+            "type": "file",
+            "name": "blog/seq/lstm-simplified/index.html",
+            "size": 28743,
+            "hash": "6fac0fae77ebb57c6b8a7cfa15ab677e9fb336f6eee3e9aa949fb9f62dd4a71d"
+        },
+        {
+            "type": "file",
+            "name": "blog/seq/rnns-a-walkthrough/index.html",
+            "size": 17666,
+            "hash": "51fe11c1d027cd4d85c6020aeefac27c7c21864c3dc295aefa29ae4c41bc9b0d"
+        },
+        {
+            "type": "file",
+            "name": "blog/web/hello-hugo/index.html",
+            "size": 13431,
+            "hash": "4e412f7cd4a487660c46c694686d271e52454912beb5eaf33353fd9f97c8fc2f"
+        },
+        {
+            "type": "file",
+            "name": "blog/page/1/index.html",
+            "size": 283,
+            "hash": "15b9182fd2c1b0817903fed4933dfaa5134293e63075fc0b2ff1f1fc0824dd59"
+        },
+        {
+            "type": "file",
+            "name": "g-j90lp2ewln/page/1/index.html",
+            "size": 307,
+            "hash": "bf6001a89fb1d881d40ef2071aee4ee3b5c30553e3f5685434c6ebebcf54f409"
+        },
+        {
+            "type": "file",
+            "name": "random/page/1/index.html",
+            "size": 289,
+            "hash": "18345a2d8a19ec0a962ea12bb089439074cd90aaca4faa0aab6ca3bf812042bd"
+        },
+        {
+            "type": "folder",
+            "name": "tags/attention/page/1"
+        },
+        {
+            "type": "folder",
+            "name": "tags/blt/page/1"
+        },
+        {
+            "type": "folder",
+            "name": "tags/deepdive/page/1"
+        },
+        {
+            "type": "folder",
+            "name": "tags/deeplearning/page/1"
+        },
+        {
+            "type": "folder",
+            "name": "tags/genai/page/1"
+        },
+        {
+            "type": "folder",
+            "name": "tags/hugo/page/1"
+        },
+        {
+            "type": "folder",
+            "name": "tags/nlp/page/1"
+        },
+        {
+            "type": "folder",
+            "name": "tags/multimodal/page/1"
+        },
+        {
+            "type": "file",
+            "name": "tags/page/1/index.html",
+            "size": 283,
+            "hash": "5583bc01da84523aa74e6bc40ab0178186cee83def9a1f234181ebcdc418af71"
+        },
+        {
+            "type": "folder",
+            "name": "tags/transformers/page/1"
+        },
+        {
+            "type": "folder",
+            "name": "tags/web/page/1"
+        },
+        {
+            "type": "folder",
+            "name": "tags/work/page/1"
+        },
+        {
+            "type": "file",
+            "name": "tags/attention/page/1/index.html",
+            "size": 313,
+            "hash": "235e7164d0d6772616f9c2ffb76ad323557c7584f86a6a7ffdb25d1b3ffa9486"
+        },
+        {
+            "type": "file",
+            "name": "tags/blt/page/1/index.html",
+            "size": 295,
+            "hash": "37dba38bee78e25363f293f01f7d95d436392ce43ece50a295914b36b94f14cd"
+        },
+        {
+            "type": "file",
+            "name": "tags/deepdive/page/1/index.html",
+            "size": 310,
+            "hash": "a549d6673d21d96d8490d4f26ddfda9456534217cfc3d39911ec8af46baf84a9"
+        },
+        {
+            "type": "file",
+            "name": "tags/deeplearning/page/1/index.html",
+            "size": 322,
+            "hash": "923a79abbb705eb4beab9202729fef0d6a96896cc13a6686a330f15c86e38a0a"
+        },
+        {
+            "type": "file",
+            "name": "tags/genai/page/1/index.html",
+            "size": 301,
+            "hash": "8ca65a159bd2d712aee9ea702d43bed6611e38196eacab81e0bc0800d403bbf4"
+        },
+        {
+            "type": "file",
+            "name": "tags/hugo/page/1/index.html",
+            "size": 298,
+            "hash": "5e73e2c57ecbd513357f9193f5d2860da5a9b07ebe5c0578025dd5afe0560ef9"
+        },
+        {
+            "type": "file",
+            "name": "tags/nlp/page/1/index.html",
+            "size": 295,
+            "hash": "647a54cdfae8affbcbc2bb534c1da0e47ce49b49fbf10f75596e2c5f18d366a7"
+        },
+        {
+            "type": "file",
+            "name": "tags/multimodal/page/1/index.html",
+            "size": 316,
+            "hash": "3d52ae66201dcaf864975669e2b16a465b15031f7307de10235407e6d0307a62"
+        },
+        {
+            "type": "file",
+            "name": "tags/transformers/page/1/index.html",
+            "size": 322,
+            "hash": "ea430dc93fa24e2da7544b3bb50c215f6966ac916f01cd6a2086b1a2a7b6cc5d"
+        },
+        {
+            "type": "file",
+            "name": "tags/web/page/1/index.html",
+            "size": 295,
+            "hash": "0b2bf2b671c2c92cbb97f026eb844d19453af7d3e07bda36e6f54d74602bda0a"
+        },
+        {
+            "type": "file",
+            "name": "tags/work/page/1/index.html",
+            "size": 298,
+            "hash": "29fd3549edf1e00f6bfb2ea952e0d0a4b0827e18c438fa8e0fbbe17b6cbb163b"
+        }
+    ]
+}
