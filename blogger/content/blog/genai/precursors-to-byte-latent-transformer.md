@@ -16,7 +16,7 @@ hideBackToTop: false
 
 # Introduction
 
-Recently Meta announced a tokenizer-free architecture called Byte Latent Transformer for language modelling, which for the first time, matches tokenizer-based LLM performance at scale with a significant breakthrough: using up to 50% fewer FLOPs during inference.
+Recently, Meta announced a tokenizer-free architecture called Byte Latent Transformer for language modelling. For the first time, this architecture matches tokenizer-based LLM performance at scale with a significant breakthrough: using up to 50% fewer FLOPs during inference.
 
 # 50% lesser FLOPs
 
@@ -24,30 +24,30 @@ This is what got me into this rabbit hole!
 
 | Users | Monthly Cost | Yearly Cost | GPUs Needed | What That Yearly Cost Could Buy                  |
 | ----- | ------------ | ----------- | ----------- | ------------------------------------------------ |
-| 1K    | ~40K         | ~500K       | 8 A100s     | A small apartment in most major cities worldwide |
-| 100K  | ~110K        | ~1.3M       | 16 A100s    | A fleet of 20 luxury cars                        |
-| 1M    | ~460K        | ~5.5M       | 32 A100s    | A mid-sized commercial building                  |
-| 100M  | ~30M         | ~360M       | 100+ A100s  | A modern passenger aircraft                      |
+| 1K    | ~ $40K       | ~ $500K     | 8 A100s     | A small apartment in most major cities worldwide |
+| 100K  | ~ $110K      | ~ $1.3M     | 16 A100s    | A fleet of 20 luxury cars                        |
+| 1M    | ~ $460K      | ~ $5.5M     | 32 A100s    | A mid-sized commercial building                  |
+| 100M  | ~ $30M       | ~ $360M     | 100+ A100s  | A modern passenger aircraft                      |
 
 Detailed calculations are available in the [appendix](#appendix).
 
-These technical changes are not just about complexity reduction anymore. This is about the pure economic scale at which AI is operating today. More efficient inference means more accessible AI, lower operational costs, and potentially faster response times.
+These technical changes are no longer just about complexity reduction. They are about the pure economic scale at which AI is operating today. More efficient inference means more accessible AI, lower operational costs, and potentially faster response times.
 
-This is Part 1 of deep dive into Byte Latent Transformer where i will cover few concepts which are required to get into depths of this architecture and also provide a brief overview about this newly proposed architecture by Meta.
+This is Part 1 of a deep dive into Byte Latent Transformer where I will cover a few concepts that are required to get into the depths of this architecture and also provide a brief overview of this newly proposed architecture by Meta.
 
 Before we dive deep, let's break down the key pieces required to learn this new architecture.
 
-\*tokenizer-free: for this blog refers to byte based models which do not use tokenizers
+\*tokenizer-free: for this blog refers to byte-based models which do not use tokenizers
 
-# Think Bytes not Tokens
+# Think Bytes, not Tokens
 
 The fundamental difference between tokenizer-free architectures and token-based systems lies in their input processing and initialization.
 
-Tokenizers need to be trained with multiple preprocessing steps on a large corpus to come up with a fixed set of vocabulary (~30K-50K items) for the model. In order to expand this vocabulary you need to re-train the tokenizer.
+Tokenizers need to be trained with multiple preprocessing steps on a large corpus to come up with a fixed set of vocabulary (~30K-50K items) for the model. To expand this vocabulary you need to re-train the tokenizer.
 
 {{< figure src="/blt1/000-tokenizer.png">}}
 
-Whereas in case of Byte-based systems there is no concept of vocabulary as such, we need to map 256 combinations of 1s and 0s to an embedding space. The real tricky part in tokenizer-free systems is how do we make splits between the raw byte streams, more on that later.
+Whereas in the case of Byte-based systems, there is no concept of vocabulary as such, we need to map 256 combinations of 1s and 0s to an embedding space. The real tricky part in tokenizer-free systems is how we make splits between the raw byte streams, more on that later.
 
 {{< figure src="/blt1/001-byte-based.png">}}
 
@@ -68,11 +68,11 @@ Traditional tokenizer-based Large Language Models (LLMs) learn a unique embeddin
 
 Moreover, when expanding the domain knowledge or multilingual capabilities of a traditional LLM, the tokenizer requires additional training. This training process also increases the size of the model's embedding layer.
 
-By encoding words or sentences into their fundamental byte representations, the need for a tokenizer is eliminated altogether. This approach simplifies the process of extending the model's knowledge and multilingual capabilities without the overhead of tokenizer training and increased embedding layer size.
+By encoding words or sentences into their fundamental byte representations, the need for a tokenizer is eliminated. This approach simplifies the process of extending the model's knowledge and multilingual capabilities without the overhead of tokenizer training and increased embedding layer size.
 
 **Is this all that there is to using Bytes instead of Tokens in BLT?**
 
-There are multiple architectural changes that have gone into this paper, which has resulted into significant results:
+Multiple architectural changes have gone into this paper, which has resulted in significant results:
 
 1. BLT matches performance of Llama3 model while using **50% lesser FLOPs** during inference
 2. BLT dynamically allocates compute to improve FLOP efficiency
@@ -85,25 +85,25 @@ There are multiple architectural changes that have gone into this paper, which h
 
 {{< figure src="/blt1/002-byte-stream-parts.png">}}
 
-Training of tokenizers inherently teaches them the patterns of words and subwords, so we exactly know where the splits will occur when we use a tokenizer, whereas what if you are given a series of integers as an input.
+Training of tokenizers inherently teaches them the patterns of words and subwords, so we exactly know where the splits will occur when we use a tokenizer, whereas what if you are given a series of integers as an input?
 
 1. How will you decide on what the right partition (p1, p2, p3) is?
-2. What makes a partition a right one?
+2. What makes a partition the right one?
 
-This art of splitting long series of bytes into smaller groups / chunks is called **patching** and the formed groups are called **patches** in this paper, you use a **patching function** to get patches from byte stream.
+This art of splitting a long series of bytes into smaller groups/chunks is called **patching** and the formed groups are called **patches** in this paper, you use a **patching function** to get patches from byte stream.
 
-Let us look into type of patching where each one falls short and how does BLT solve for patching in next few sections.
+Let us look into the type of patching where each one falls short and how BLT solve patching in the next few sections.
 
 # Types of Byte Patching
 
 ## Fixed K Byte Patching
 
-As the name suggests, after every K bytes we create a patch and move to creating next patch.
+As the name suggests, after every K bytes we create a patch and move to create the next patch.
 
 {{< figure src="/blt1/003-fixed-patching.png">}}
 
-- We can clearly see this leads to inconsistent and non-contextual patching of similar byte sequences - for example, the same word could be split differently in different contexts
-- The fixed stride is simpler to implement and provides a straightforward mechanism for controlling FLOP cost, as patch size directly determines compute required
+- We can see this leads to inconsistent and non-contextual patching of similar byte sequences - for example, the same word could be split differently in different contexts
+- The fixed stride is simpler to implement and provides a straightforward mechanism for controlling FLOP cost, as patch size directly determines the compute required
 - A key limitation is that compute is not dynamically allocated - the model uses the same transformer computation step whether processing informational bytes (like the start of a word) or more predictable content (like whitespace or punctuations)
 
 ## Space-based Patching
@@ -116,7 +116,7 @@ Similarly here irrespective of the number of bytes each patch holds, you make a 
 - However, it has limited control over patch size and therefore compute costs, as patch lengths vary based on word lengths
 - While it naturally allocates compute for harder predictions (like first bytes after spaces), it cannot gracefully handle all languages and domains
 
-Below is a more comprehensive table, listing down strengths and limitations of fixed size and space based patching.
+Below is a more comprehensive table, listing down strengths and limitations of fixed-size and space-based patching.
 
 ## Pros of Fixed K-size and Space-based Patching
 
@@ -171,12 +171,12 @@ Using entropy equation we have a measure of quantifying this randomness. The way
 
 ## How does Entropy intuition translate into patching?
 
-Researchers trained a small model to predict degree of randomness of the next byte given a byte sequence. So let's try to visualize and understand how this entropy model works with a diagram.
+Researchers trained a small model to predict the degree of randomness of the next byte given a byte sequence. So let's try to visualize and understand how this entropy model works with a diagram.
 
 `"I walked to the store and bought a book"`.
 {{< figure src="/blt1/005-entropy-diagram-1.0.png">}}
 
-Key components of diagram:
+Key components of the diagram:
 
 - **Blue Line**: Shows entropy values for each byte/character
 - **Red Dashed Line**: Represents the entropy threshold
@@ -188,9 +188,9 @@ Key components of diagram:
 Let's look more closely at this diagram now:
 {{< figure src="/blt1/005-entropy-diagram-1.1.jpeg">}}
 
-You can see that after every word there is a spike in entropy. And as you progress through a certain word, the entropy decreases gradually. **A word can be bounded by dashed lines can be considered as a patch**.
+You can see that after every word there is a spike in entropy. And as you progress through a certain word, the entropy decreases gradually. **A word can be bounded by dashed lines and can be considered as a patch**.
 
-Similarly you can notice abnormalities in entropy values when you look at some unusual words and symbols in sentences, like `"I WALKED to the store and bought @ BOOK!"` in the diagram below.
+Similarly, you can notice abnormalities in entropy values when you look at some unusual words and symbols in sentences, like `"I WALKED to the store and bought @ BOOK!"` in the diagram below.
 
 {{< figure src="/blt1/006-entropy-diagram-2.png">}}
 
@@ -198,17 +198,18 @@ Similarly you can notice abnormalities in entropy values when you look at some u
 
 1. Global Constraint
 
-   - Here you use a global threshold to determine a patch boundary
-   - In the above diagram you can see that the threshold is being set to some value in red dashed lines
-   - Every Red dot above the threshold marks the start/end of a patch
-   - Mathematically it can be represented as
-   - $$H(x_t) > \theta_{g}$$
+- Here you use a global threshold to determine a patch boundary
+- In the above diagram you can see that the threshold is being set to some value in red dashed lines
+- Every Red dot above the threshold marks the start/end of a patch
+- Mathematically it can be represented as
+- $$H(x_t) > \theta_{g}$$
 
 2. Approximate Monotonic Constraint
-   - Here you use a monotonic constraint to determine a patch boundary
-   - This constraint tries to answer if the entropy is consistently decreasing or not across the sequence
-   - Mathematically it can be represented as
-   - $$H(x_t) - H(x_{t+1}) > \theta_{r}$$
+
+- Here you use a monotonic constraint to determine a patch boundary
+- This constraint tries to answer if the entropy is consistently decreasing or not across the sequence
+- Mathematically it can be represented as
+- $$H(x_t) - H(x_{t+1}) > \theta_{r}$$
 
 **NOTE**: All the diagrams below have different entropy values and thresholds, this is because the model is trained on a slightly larger dataset.
 
@@ -217,7 +218,7 @@ Similarly you can notice abnormalities in entropy values when you look at some u
 ## Patching with a simple model
 
 Let's try to see what patches are created using these methods seen in the previous section.
-I trained a small model (ngram model with n=2) here to predict entropy of the next byte given a byte sequence, and plotted the patches created using global constraint method and approximate monotonic constraint method.
+I trained a small model (n-gram model with n=2) here to predict the entropy of the next byte given a byte sequence and plotted the patches created using the global constraint method and approximate monotonic constraint method.
 
 {{< figure src="/blt1/008-patches-1.png">}}
 
@@ -276,41 +277,41 @@ Patch 23: 'k.' (2 bytes)
 
 {{< /details >}}
 
-If you closely look at the outputs of both monotonic and global threshold patching, you can see that the patches created are varying in size, but they are not coherent.
+If you closely look at the outputs of both monotonic and global threshold patching, you can see that the patches created vary in size, but they are not coherent.
 
 ## But why Patch with entropy?
 
-**So what did we even achieve here, with entropy based patching?**
+**So what did we even achieve here, with entropy-based patching?**
 
 While the previous outputs may not have provided complete clarity, here is another interesting result worth considering!
 Input sentence: `"Sherlock Holmes is a smart detective."`
 {{< figure src="/blt1/008-patches-2.png">}}
 
 - Notice how the word `"Sherlock Holmes"` is being combined into a single patch, this is because the entropy values are very low for the word `"Sherlock Holmes"` and the bytes forming this word frequently occur together in the corpus.
-- This is a good example of how entropy based patching can create coherent patches, even for complex words.
+- This is a good example of how entropy-based patching can create coherent patches, even for complex words.
 
-Entropy values diagram for the above sentence are shown below.
+The entropy values diagram for the above sentence are shown below.
 
 {{< figure src="/blt1/008-patches-3.png">}}
 
-**NOTE**: This result was obtained using a better next byte entropy prediction model using 3,4,5-gram models.
+**NOTE**: This result was obtained using a better next-byte entropy prediction model using 3,4,5-gram models.
 
 # End Note
 
-Additionally, this paper uses smart hacks to convert these dynamic patches to embeddings. It was important to establish the fact that patches of dynamic sizes can be created with entropy based patching, and this can be achieved with simple models. The entropy based patching model serves as an essential building block for BLT to achieve it's performance.
+Additionally, this paper uses smart hacks to convert these dynamic patches to embeddings. It was important to establish the fact that patches of dynamic sizes can be created with entropy-based patching, and this can be achieved with simple models. The entropy-based patching model serves as an essential building block for BLT to achieve its performance.
 
 Byte Latent Transformer architecture is shown below:
 {{< figure src="/blt1/009-we-are-here.jpeg">}}
 
-Well, we are just getting started, the next blog will cover how these patches are converted to embeddings and how BLT, and how the inputs for the model are generated. It is going to be fun!
+Well, we are just getting started, the next blog will cover how these patches are converted to embeddings how BLT, and how the inputs for the model are generated. It is going to be fun!
 
 # Appendix
 
-1. Code for generating diagrams and artifacts in this blog are available on github below:
+1. Code for generating diagrams and artifacts in this blog is available on GitHub below:
 
-   - https://github.com/another-learning-experiment/concept-deep-dive
-   - I will be maintaining this repo for this blog and the upcoming ones.
-   - Feel free to experiment with the code and share your thoughts.
+- https://github.com/another-learning-experiment/concept-deep-dive
+- I will be maintaining this repo for this blog and the upcoming ones.
+- Feel free to experiment with the code and share your thoughts.
 
 2. {{< details "Detailed calculations for Inference Costs" >}}
 
@@ -360,15 +361,18 @@ Monthly cost per user: (10,000 × $0.03) ÷ 1,000 = $0.30
 
 **NOTE**
 
-These calculations are based on multiple assumptions like:
+These calculations are based on multiple assumptions:
 
 1. User Behavior:
-   - Each user makes about 10 queries per month
-   - Average query is like a paragraph of text back and forth
-   - Usage is spread throughout the month (no major spikes)
+
+- Each user makes about 10 queries per month
+- Average query is like a paragraph of text back and forth
+- Usage is spread throughout the month (no major spikes)
+
 2. Cost Components:
-   - Server costs: ~30K/month for base setup (8 A100s)
-   - Processing costs: ~30¢ per user per month
+
+- Server costs: ~30K/month for base setup (8 A100s)
+- Processing costs: ~30¢ per user per month
 
 {{< /details >}}
 

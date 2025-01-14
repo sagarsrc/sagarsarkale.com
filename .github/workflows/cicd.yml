@@ -3,7 +3,7 @@ name: FTP Deploy to Hostinger
 on:
   push:
     branches:
-      - dev
+      - master
     paths:
       - 'blogger/public/**'
   workflow_dispatch:
@@ -22,11 +22,10 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./blogger/public/
-          server-dir: ./public_html/
+          server-dir: /domains/sagarsarkale.com/public_html/  # Updated with exact path from your server
           port: 21
           protocol: ftp
-          dangerous-clean-slate: true  # Don't clean remote directory
-          state-name: .sync-state.json  # Track deployment state
+          dangerous-clean-slate: false
           exclude: |
             **/.git*
             **/.git*/**
