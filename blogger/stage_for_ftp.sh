@@ -1,3 +1,3 @@
 #!/bin/bash
 hugo --minify
-mv public public_html
+# mv public public_html

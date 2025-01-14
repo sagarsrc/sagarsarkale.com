@@ -146,8 +146,8 @@ Now that we have seen few types of patching, let's look into how BLT solves for 
 Taken from the paper:
 
 > We train a small byte-level auto-regressive language model on the training data for BLT and compute next byte entropies under the LM distribution $p_e$ over the byte vocabulary $\mathcal{V}$:
->
-> $$H(x_i) = \sum_{v\in\mathcal{V}} p_e(x_i = v|x<i) \log p_e(x_i = v|x<i)$$
+
+$$H(x_i) = \sum_{v\in\mathcal{V}} p_e(x_i = v|x<i) \log p_e(x_i = v|x<i)$$
 
 Let's break down this equation:
 
@@ -196,20 +196,20 @@ Similarly, you can notice abnormalities in entropy values when you look at some 
 
 **Methods mentioned in the paper for patching**
 
-1. Global Constraint
+1. Global Constraint:
 
-- Here you use a global threshold to determine a patch boundary
-- In the above diagram you can see that the threshold is being set to some value in red dashed lines
-- Every Red dot above the threshold marks the start/end of a patch
-- Mathematically it can be represented as
-- $$H(x_t) > \theta_{g}$$
+   - Here you use a global threshold to determine a patch boundary
+   - In the above diagram you can see that the threshold is being set to some value in red dashed lines
+   - Every Red dot above the threshold marks the start/end of a patch
+   - Mathematically it can be represented as
+     $$H(x_t) > \theta_{g}$$
 
-2. Approximate Monotonic Constraint
+1. Approximate Monotonic Constraint:
 
-- Here you use a monotonic constraint to determine a patch boundary
-- This constraint tries to answer if the entropy is consistently decreasing or not across the sequence
-- Mathematically it can be represented as
-- $$H(x_t) - H(x_{t+1}) > \theta_{r}$$
+   - Here you use a monotonic constraint to determine a patch boundary
+   - This constraint tries to answer if the entropy is consistently decreasing or not across the sequence
+   - Mathematically it can be represented as
+     $$H(x_t) - H(x_{t+1}) > \theta_{r}$$
 
 **NOTE**: All the diagrams below have different entropy values and thresholds, this is because the model is trained on a slightly larger dataset.
 
@@ -309,9 +309,9 @@ Well, we are just getting started, the next blog will cover how these patches ar
 
 1. Code for generating diagrams and artifacts in this blog is available on GitHub below:
 
-- https://github.com/another-learning-experiment/concept-deep-dive
-- I will be maintaining this repo for this blog and the upcoming ones.
-- Feel free to experiment with the code and share your thoughts.
+   - https://github.com/another-learning-experiment/concept-deep-dive
+   - I will be maintaining this repo for this blog and the upcoming ones.
+   - Feel free to experiment with the code and share your thoughts.
 
 2. {{< details "Detailed calculations for Inference Costs" >}}
 
@@ -365,14 +365,14 @@ These calculations are based on multiple assumptions:
 
 1. User Behavior:
 
-- Each user makes about 10 queries per month
-- Average query is like a paragraph of text back and forth
-- Usage is spread throughout the month (no major spikes)
+   - Each user makes about 10 queries per month
+   - Average query is like a paragraph of text back and forth
+   - Usage is spread throughout the month (no major spikes)
 
 2. Cost Components:
 
-- Server costs: ~30K/month for base setup (8 A100s)
-- Processing costs: ~30¢ per user per month
+   - Server costs: ~30K/month for base setup (8 A100s)
+   - Processing costs: ~30¢ per user per month
 
 {{< /details >}}
 
