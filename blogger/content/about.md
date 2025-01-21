@@ -16,7 +16,7 @@ This space, it’s more than just a portfolio; it’s a peek into my journey of 
 
 Join me as I navigate the ever-evolving AI landscape and carve out my own path in this crazy world.
 
-{{< figure src="/personal/about-me_800x800.jpg" width="100">}}\
+{{< figure src="/personal/about-me_800x800.jpg" width="100">}}
 
 [Sagar Sarkale](https://linkedin.com/in/sagar-sarkale)
 

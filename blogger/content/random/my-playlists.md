@@ -10,7 +10,9 @@ draft: false
 hideBackToTop: false
 ---
 
-This is not an ordered list, just a collection of playlists that i have created.
+{{< figure src="https://i.pinimg.com/originals/f9/e5/bb/f9e5bbef37d9ea267efba0d1c77d7c38.jpg" >}}
+
+This still is from one of my favourite movies Begin Again (2013). Well yes you can tell a lot about a person by what's on their playlist, but who cares! So here are my playlists. Also this is not an ordered list, just a collection out of which i randomly pick and choose when i feel like it.
 
 ## English Discovery
 
