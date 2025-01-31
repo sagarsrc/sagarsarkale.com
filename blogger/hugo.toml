@@ -89,6 +89,9 @@ startLevel = 1
 endLevel = 3
 ordered = true
 
+[params.mermaid]
+theme = "neutral"
+align = "center"
 
 # Giscus comments
 [params.giscus]

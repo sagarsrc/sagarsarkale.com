@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en-us"
+  dir="ltr">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width"><meta name="description" content="Part 2 of All you need to know to get started with Byte Latent Transformer" />
+
+<title>
+    
+    Inputs to Byte Latent Transformer | Sagar Sarkale
+    
+</title>
+
+
+
+
+<link rel="shortcut" href="/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+
+<link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="/mstile-150x150.png">
+<meta name="msapplication-config" content="/browserconfig.xml">
+
+
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#ffffff">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sagar Sarkale">
+<meta name="twitter:description" content="Sagar's digital corner">
+<meta name="twitter:image" content="/android-chrome-512x512.png">
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J90LP2EWLN"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-J90LP2EWLN');
+</script>
+
+
+<meta property="og:site_name" content="Sagar Sarkale">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Inputs to Byte Latent Transformer">
+<meta property="og:description" content="Part 2 of All you need to know to get started with Byte Latent Transformer">
+<meta property="og:image" content="/android-chrome-512x512.png">
+<meta property="og:image:secure_url" content="/android-chrome-512x512.png">
+<meta property="og:url" content="http://localhost:1313/blog/genai/inputs-to-byte-latent-transformer/">
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/assets/combined.min.9f94999293aaaf24e71e657a7e1124895c2d1d99645b9b12a06923c3fa957566.css" media="all">
+
+
+
+</head>
+
+
+
+
+
+
+
+<body class="light">
+
+  <div class="content">
+    <header>
+      
+
+<div class="header">
+    <h1 class="header-title">Sagar Sarkale</h1>
+
+    <div class="flex">
+        
+
+        
+        
+        <p class="small ">
+            <a href="/">
+                /home
+            </a>
+        </p>
+        
+        <p class="small ">
+            <a href="/blog">
+                /blog
+            </a>
+        </p>
+        
+        <p class="small ">
+            <a href="/work">
+                /work
+            </a>
+        </p>
+        
+        <p class="small ">
+            <a href="/random">
+                /random
+            </a>
+        </p>
+        
+        <p class="small ">
+            <a href="/about">
+                /about
+            </a>
+        </p>
+        
+        
+    </div>
+
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor">
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+        </svg>
+        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+    </button>
+</div>
+    </header>
+
+    <main class="main">
+      
+
+
+
+
+<div class="breadcrumbs">
+    
+    <a href="/">Home</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a href="/blog/">Blog</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a class="breadcrumbs-current" href="/blog/genai/inputs-to-byte-latent-transformer/">Inputs to Byte Latent Transformer</a>
+</div>
+
+
+<div >
+
+  <div class="single-intro-container">
+
+    
+
+    <h1 class="single-title">Inputs to Byte Latent Transformer</h1>
+    
+    <p class="single-summary">Part 2 of All you need to know to get started with Byte Latent Transformer</p>
+    
+
+    
+
+    <p class="single-readtime">
+      
+      
+      
+      <time datetime="2025-12-12T00:00:00&#43;00:00">December 12, 2025</time>
+      
+
+      
+      &nbsp; · &nbsp;
+      6 min read
+      
+    </p>
+
+  </div>
+
+  
+
+  
+  
+
+  <div class="single-tags">
+    
+    <span>
+      <a href="http://localhost:1313/tags/genai/">#GenAI</a>
+    </span>
+    
+    
+    <span>
+      <a href="http://localhost:1313/tags/blt/">#BLT</a>
+    </span>
+    
+    
+    <span>
+      <a href="http://localhost:1313/tags/transformers/">#Transformers</a>
+    </span>
+    
+    
+    <span>
+      <a href="http://localhost:1313/tags/deepdive/">#DeepDive</a>
+    </span>
+    
+    
+  </div>
+
+  
+  
+
+  
+
+  
+  <aside class="toc">
+    <p><strong>Table of contents</strong></p>
+    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#introduction">Introduction</a>
+      <ol>
+        <li><a href="#recall">Recall</a></li>
+        <li><a href="#up-next">Up Next!</a></li>
+      </ol>
+    </li>
+    <li><a href="#local-encoder">Local Encoder</a>
+      <ol>
+        <li><a href="#byte-embeddings">Byte Embeddings</a></li>
+        <li><a href="#hash-n-gram-embeddings">Hash n-gram Embeddings</a></li>
+        <li><a href="#frequency-embeddings">Frequency Embeddings</a></li>
+      </ol>
+    </li>
+    <li><a href="#references">References</a></li>
+  </ol>
+</nav>
+  </aside>
+  
+
+  
+
+  <div class="single-content">
+    
+    <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+    var config = {
+        startOnLoad: true,
+        theme: 'neutral',
+        align: 'center',
+    };
+    mermaid.initialize(config);
+</script>
+    
+    <figure><img src="/blt2/000-cover.png">
+</figure>
+
+<h1 id="introduction">Introduction</h1>
+<p>In the <a href="https://sagarsarkale.com/blog/genai/precursors-to-byte-latent-transformer/">Part 1 of this series on BLT</a>, we discussed about some prerequisites to understand Byte Latent Transformer. To briefly summarize, BLT is a tokenizer-free architecture that matches tokenizer-based LLM performance at scale. We also saw how entropy-based patching is used to convert the input text into a sequence of bytes.</p>
+<h2 id="recall">Recall</h2>
+<p>In the last post we converted the input text into a sequence of bytes. Let&rsquo;s recall the steps:</p>
+<ol>
+<li>The input sentence was: <code>&quot;Sherlock Holmes is a smart detective.&quot;</code></li>
+<li>Using entropy-based patching, we broke the sentence into patches of bytes.</li>
+<li>As you can see in the figure below, the sentence was broken into patches using 4 variants of entropy-based patching.</li>
+</ol>
+<figure><img src="/blt1/008-patches-2.png">
+</figure>
+
+<h2 id="up-next">Up Next!</h2>
+<p>In this post, we will discuss about how these patches are further processed in BLT. Let us have a look at the architecture of BLT and see which areas are we going to cover in this post.</p>
+<figure><img src="/blt2/001-upnext-and-where-are-we.png">
+</figure>
+
+<p>Self Reference:</p>
+<pre tabindex="0"><code>1. Local Encoder
+   1. Embeddings:
+      1. Hash n-gram Embedding
+      2. Hash Embeddings
+      3. Frequency Embeddings
+   2. How all of these embeddings are combined together
+   3. Local Encoder Diagram
+   4. How residual connection is sent out of this local encoder
+2. Latent Global Transformer Model
+</code></pre><h1 id="local-encoder">Local Encoder</h1>
+<p>Once we have the patches from the entropy-based patching, we pass them through the local encoder. In order to get to the local encoder we need to convert the patches into embeddings first. BLT uses 3 major types of embeddings in the play here:</p>
+<ol>
+<li>Byte Embeddings</li>
+<li>Hash ngram Embeddings</li>
+<li>Position Embeddings</li>
+</ol>
+<p>Let us see this in a rough flow diagram to understand it better.</p>
+<div class="mermaid">
+    
+graph LR
+style input fill:#f0f7ff,stroke:#666,stroke-width:2px
+style patches fill:#ffe0b2,stroke:#666,stroke-width:2px
+style byte fill:#fge0b2,stroke:#666,stroke-width:2px
+style hash fill:#ebbee7,stroke:#666,stroke-width:2px
+style freq fill:#ffcdd2,stroke:#666,stroke-width:2px
+style combine fill:#b3e5fc,stroke:#666,stroke-width:2px
+style combined fill:#c8e6c9,stroke:#666,stroke-width:2px
+
+    input --[E]--> patches
+    patches --> byte[Byte Embeddings]
+    patches --> hash[Hash n-gram Embedding]
+    patches --> freq[Position Embedding]
+    byte --> combine[combine]
+    hash --> combine
+    freq --> combine
+    combine --> combined[Combined Embeddings]
+
+
+</div>
+<p>Where [E] is the entropy-based patching step.</p>
+<p>Let us look deeper into each of these embeddings.</p>
+<h2 id="byte-embeddings">Byte Embeddings</h2>
+<p>This embedding is the simplest one. It is just a representation of all possible individual byte values which are learnt during the training of the model.</p>
+<h2 id="hash-n-gram-embeddings">Hash n-gram Embeddings</h2>
+<p>Let&rsquo;s try to understand how what is ngram embeddings first, then we will see how and why hashing is used a bit later in this section. Instead of passing all the bytes directly to the model, we pass it in chunks, these chunks are generated exhaustively from the input text using ngrams. Let&rsquo;s see how this is done.</p>
+<p><strong>Step 1: Basic Building Blocks</strong></p>
+<p>Let&rsquo;s use a familiar input sentence: <code>&quot;Hello World&quot;</code></p>
+<p>First, let&rsquo;s see what our text looks like as bytes (similar to how a computer sees it):</p>
+<pre tabindex="0"><code>H    e    l    l    o    _    W    o    r    l    d
+72   101  108  108  111  32   87   111  114  108  100
+</code></pre><p><strong>Step 2: Creating Groups (N-grams)</strong></p>
+<p>Now comes the fun part - we&rsquo;ll look at this text in different-sized windows:</p>
+<p>For 2-letter Groups (n=2):</p>
+<pre tabindex="0"><code>He (72,101)
+el (101,108)
+ll (108,108)
+lo (108,111)
+o_ (111,32)
+_W (32,87)
+Wo (87,111)
+or (111,114)
+rl (114,108)
+ld (108,100)
+</code></pre><p>It&rsquo;s like sliding a two-character window across our text!</p>
+<p>For 3-letter Groups (n=3):</p>
+<pre tabindex="0"><code>Hel (72,101,108)
+ell (101,108,108)
+llo (108,108,111)
+lo_ (108,111,32)
+o_W (111,32,87)
+_Wo (32,87,111)
+Wor (87,111,114)
+orl (111,114,108)
+rld (114,108,100)
+</code></pre><p>Now we&rsquo;re looking at three characters at a time!</p>
+<p><strong>Step 3: ID Assignment</strong></p>
+<p>Here&rsquo;s where it gets interesting! We give each unique group a number (like a catalog ID):</p>
+<pre tabindex="0"><code>2-letter groups:
+&#34;He&#34; -&gt; 1
+&#34;el&#34; -&gt; 2
+&#34;ll&#34; -&gt; 3
+&#34;lo&#34; -&gt; 4
+...
+
+3-letter groups:
+&#34;Hel&#34; -&gt; 1
+&#34;ell&#34; -&gt; 2
+&#34;llo&#34; -&gt; 3
+...
+</code></pre><p>BLT uses ngrams of size $n$ where $n \in \{3,4,5,6,7,8\}$ .</p>
+<p><strong>Step 4: Hashing</strong></p>
+<p>Let us understand what hashing is in brief first. Hashing is like creating a fingerprint for data - <strong>it converts data of any size into a fixed-size value</strong>.</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#177500"># X mod N = remainder</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#177500"># hash function</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">def</span> <span style="color:#000">hash_function</span>(<span style="color:#000">number</span>, <span style="color:#000">table_size</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">return</span> <span style="color:#000">number</span> <span style="color:#000">%</span> <span style="color:#000">table_size</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#177500"># Example</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">number</span> <span style="color:#000">=</span> <span style="color:#1c01ce">456</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">table_size</span> <span style="color:#000">=</span> <span style="color:#1c01ce">10</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">hash_value</span> <span style="color:#000">=</span> <span style="color:#000">hash_function</span>(<span style="color:#000">number</span>, <span style="color:#000">table_size</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#177500"># Output</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">print</span>(<span style="color:#c41a16">f</span><span style="color:#c41a16">&#34;</span><span style="color:#c41a16">{</span><span style="color:#000">number</span><span style="color:#c41a16">}</span><span style="color:#c41a16"> hashes to </span><span style="color:#c41a16">{</span><span style="color:#000">hash_value</span><span style="color:#c41a16">}</span><span style="color:#c41a16">&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#177500"># 456 hashes to 6</span>
+</span></span><span style="display:flex;"><span><span style="color:#177500"># 6 is the hash value</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>If we provide a number of say 10 or 100 or even 1000 digits to the hash function, the hash value will be a single digit. Hence, we are able to reduce the size of the data to a single digit.</p>
+<p>But, you see the problem here is that the hash value is not unique. For example, if we have two numbers <code>456</code> and <code>1456</code>, they both hash to <code>6</code>. This is where the hashing function fails, this is called a collision. By increasing complexity of the hash function, we can reduce the number of collisions and map the data to a unique hash value.</p>
+<p>Now that we have some understanding of hashing, let us see how it is used in BLT.</p>
+<p>Remember we are using ngrams of size 3, 4, 5, 6, 7, 8. Each of this has a different size by default. How do we map these ngrams to a unique hash value? That&rsquo;s where hashing comes into the picture, it helps us create a catalog of ngrams.</p>
+<div class="mermaid">
+    
+graph LR
+%% Style definitions
+classDef inputStyle fill:#dbeafe,stroke:#2563eb,stroke-width:2px
+classDef hashStyle fill:#fef9c3,stroke:#ca8a04,stroke-width:2px
+classDef outputStyle fill:#dcfce7,stroke:#16a34a,stroke-width:2px
+classDef subgraphStyle fill:white,stroke:#94a3b8,stroke-width:1px
+
+    subgraph NGrams["Input N-grams"]
+        ngram1["'Hel'"]
+        ngram2["'ell'"]
+        ngram3["'llo'"]
+    end
+
+    subgraph HashFunction["Hash Function"]
+        hash{"sum(ascii) % 10"}
+    end
+
+    subgraph HashTable["Hash Table"]
+        val1["Slot 1: 'Hel'"]
+        val2["Slot 2: 'ell'"]
+        val3["Slot 3: 'llo'"]
+    end
+
+    ngram1 --> hash
+    ngram2 --> hash
+    ngram3 --> hash
+
+    hash --> val1
+    hash --> val2
+    hash --> val3
+
+    %% Apply styles
+    class ngram1,ngram2,ngram3 inputStyle
+    class hash hashStyle
+    class val1,val2,val3 outputStyle
+    class NGrams,HashFunction,HashTable subgraphStyle
+
+
+</div>
+<p>This is very analogous to having a token_id for each token in the tokenizer. Instead of using the tokenizer, we are using ngrams to create a catalog of ngrams, which is then used to create embeddings. Also because we are operating on bytes this ngram is called as bytegrams.</p>
+<p>Instead of using <code>sum(ascii) % 10</code> as hash function, BLT uses a more sophisticated hash function to create the catalog of ngrams. The function is called as RollPolyHash (Rolling Polynomial Hash).</p>
+<p>Taken from the paper:</p>
+<blockquote>
+<p>Given a byte $n$-gram $g_{i,n} = {b_{i-n+1},\ldots,b_i}$</p>
+<p>Here $g_{i,n}$ is the set of bytegrams for each byte position $i$ and $n$ from 3 to 8.</p>
+<p>The rolling polynomial hash of $g_{i,n}$ is defined as:</p>
+</blockquote>
+<p>$$ \text{Hash}(g_{i,n}) = \sum_{j=1}^n b_{i-j+1}a^{j-1} \qquad\dotsb\qquad (1) $$</p>
+<p>Where $a$ is chosen to be a 10-digit prime number.</p>
+<p>The same can be simplified as:
+$$\text{Hash}(g) = b_{1} + b_{2}a + b_{3}a^2 + \cdots + b_{n}a^{n-1}$$</p>
+<p>But what does this hash function have to do with embeddings?</p>
+<p><strong>Step 5: Embeddings and Hash function</strong></p>
+<p>Let us see how embeddings come into the picture now.</p>
+<figure><img src="/blt2/002-rollpolyhash.png">
+</figure>
+
+<h2 id="frequency-embeddings">Frequency Embeddings</h2>
+<h1 id="references">References</h1>
+<ol>
+<li><a href="https://arxiv.org/pdf/2412.09871">Byte Latent Transformer Research Paper</a></li>
+<li><a href="https://github.com/facebookresearch/blt/tree/main">Byte Latent Transformer Github</a></li>
+</ol>
+<hr>
+<p>Written By</p>
+<blockquote>
+<p>Sagar Sarkale</p>
+</blockquote>
+
+    
+  </div>
+
+  
+  <div class="back-to-top">
+    <a href="#top">
+      back to top
+    </a>
+  </div>
+  
+
+</div>
+
+
+    </main>
+  </div>
+
+  <footer>
+    <p>ꕀ Powered by caffeine and occasional epiphany. ꕀ </p>
+
+
+<link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script>
+
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body);"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false }
+      ]
+    });
+  });
+</script>
+
+  </footer>
+
+</body>
+
+<script>
+
+  function setTheme(theme) {
+    document.body.classList.remove('light', 'dark', 'auto');
+    document.body.classList.add(theme);
+    localStorage.setItem('theme', theme);
+  }
+
+  function toggleTheme() {
+    const currentTheme = localStorage.getItem('theme') || 'auto';
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+  }
+
+  function initTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'auto';
+    if (savedTheme === 'auto') {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setTheme(prefersDark ? 'dark' : 'light');
+    } else {
+      setTheme(savedTheme);
+    }
+  }
+
+  
+  initTheme();
+
+  
+  document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+
+  
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (localStorage.getItem('theme') === 'auto') {
+      setTheme(e.matches ? 'dark' : 'light');
+    }
+  });
+
+</script>
+
+</html>

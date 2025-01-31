@@ -1,6 +1,6 @@
 ---
 title: "Precursors to Byte Latent Transformer"
-date: "2025-01-12"
+date: 2025-01-12
 summary: "Part 1 of All you need to know to get started with Byte Latent Transformer"
 description: "Part 1 of All you need to know to get started with Byte Latent Transformer"
 toc: true
@@ -301,7 +301,7 @@ The entropy values diagram for the above sentence are shown below.
 Additionally, this paper uses smart hacks to convert these dynamic patches to embeddings. It was important to establish the fact that patches of dynamic sizes can be created with entropy-based patching, and this can be achieved with simple models. The entropy-based patching model serves as an essential building block for BLT to achieve its performance.
 
 Byte Latent Transformer architecture is shown below:
-{{< figure src="/blt1/009-we-are-here.jpeg">}}
+{{< figure src="/blt1/009-we-are-here.png">}}
 
 Well, we are just getting started, the next blog will cover how these patches are converted to embeddings how BLT, and how the inputs for the model are generated. It is going to be fun!
 
