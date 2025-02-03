@@ -257,7 +257,7 @@ Where $a$ is chosen to be a 10-digit prime number.
 The same can be simplified as:
 $$\text{Hash}(g) = b_{1} + b_{2}a + b_{3}a^2 + \cdots + b_{n}a^{n-1}$$
 
-**Hash Function and Calculation of Hash Values**"
+**Hash Function and Calculation of Hash Values**
 
 **Formula for generating n-gram**
 
