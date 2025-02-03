@@ -27,9 +27,10 @@ In the last post we converted the input text into a sequence of bytes. Let's rec
 2. Using entropy-based patching, we broke the sentence into patches of bytes.
 3. As you can see in the figure below, the sentence was broken into patches using 4 variants of entropy-based patching.
 
+`todo: increase green box to latent transformer model as well`
 {{< figure src="/blt1/008-patches-2.png">}}
 
-## Up Next!
+## What are we going to cover today?
 
 In this post, we will discuss about how these patches are further processed in BLT. Let us have a look at the architecture of BLT and see which areas are we going to cover in this post.
 
@@ -37,7 +38,7 @@ In this post, we will discuss about how these patches are further processed in B
 
 Self Reference:
 
-```
+```plaintext
 1. Local Encoder
    1. Embeddings:
       1. Hash n-gram Embedding
@@ -98,7 +99,7 @@ Let's use a familiar input sentence: `"Hello World"`
 
 First, let's see what our text looks like as bytes (similar to how a computer sees it):
 
-```
+```plaintext
 H    e    l    l    o    _    W    o    r    l    d
 72   101  108  108  111  32   87   111  114  108  100
 
@@ -110,7 +111,7 @@ Now comes the fun part - we'll look at this text in different-sized windows:
 
 For 2-letter Groups (n=2):
 
-```
+```plaintext
 He (72,101)
 el (101,108)
 ll (108,108)
@@ -128,7 +129,7 @@ It's like sliding a two-character window across our text!
 
 For 3-letter Groups (n=3):
 
-```
+```plaintext
 Hel (72,101,108)
 ell (101,108,108)
 llo (108,108,111)
@@ -147,7 +148,7 @@ Now we're looking at three characters at a time!
 
 Here's where it gets interesting! We give each unique group a number (like a catalog ID):
 
-```
+```plaintext
 2-letter groups:
 "He" -> 1
 "el" -> 2
@@ -168,6 +169,7 @@ BLT uses ngrams of size $n$ where $n \in \\{3,4,5,6,7,8\\}$ .
 **Step 4: Hashing**
 
 Let us understand what hashing is in brief first. Hashing is like creating a fingerprint for data - **it converts data of any size into a fixed-size value**.
+
 
 ```python
 # X mod N = remainder
@@ -268,7 +270,7 @@ Steps:
 
 **Example for n-gram generation**
 
-```
+```python
 # A, B, C, D, E - string
 # 65, 66, 67, 68, 69 - byte values
 # Showing g_{i,n} for each n-gram where i is current position and n is n-gram size
@@ -350,10 +352,21 @@ To summarize this section in a pictorial way:
 This is used for positional encoding of the input text in transformers, for more on that read my previous blog [here](https://sagarsarkale.com/blog/genai/position-encoding/). It should give a fair understanding of what positional encodings are and why they are used in transformers. Only difference is that, BLT uses Rotary Positional Embedding (RoPE), which is a different type of positional encoding.
 
 # Local Encoder
+How the layers are in Local Encoder. Number of layers, what each layer does. And what is the output of the local encoder.
+How does multi-head attention work in local encoder what are the queries, keys and values. Here what is key query and value from a BLT perspective.
+Cross attention in local encoder formula.
+How are we compressing the information here?
+How do we get a residual connection here?
+
+# Latent Global Transformer Model
+What is the input of the latent global transformer model?
+Large transformer model that uses cross attention to attend to the latent embeddings.
+Tell how latent embeddings are used in BLT. How the actual processing is reduced in latent global transformer model.
+Tell how input shape == output shape in latent global transformer model basic attention.
 
 
-
-
+# Up Next
+How does decoding work in BLT and summarize entire BLT architecture.
 
 # References
 

@@ -65,7 +65,8 @@
 <meta property="og:site_name" content="Sagar Sarkale">
 <meta property="og:type" content="website">
 <meta property="og:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }}{{ end }}">
-<meta property="og:description" content="{{ if .IsHome }}{{ site.Params.Description }}{{ else }}{{ .Params.Description }}{{ end }}">
+<meta property="og:description"
+    content="{{ if .IsHome }}{{ site.Params.Description }}{{ else }}{{ .Params.Description }}{{ end }}">
 <meta property="og:image" content="/android-chrome-512x512.png">
 <meta property="og:image:secure_url" content="/android-chrome-512x512.png">
 <meta property="og:url" content="{{ .Permalink }}">

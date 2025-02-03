@@ -158,7 +158,7 @@ Method `_merge_input_ids_with_image_features` is crucial in class `LlavaForCondi
 
 Example of Instruction to model:
 
-```
+```plaintext
 Human: Provide a brief description of the given image.\n<image> <STOP>
 Assistant: olive oil is a healthy ingredient used liberally. <STOP>
 ```

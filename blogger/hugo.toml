@@ -83,6 +83,11 @@ url = "/about"
 [markup.highlight]
 style = 'xcode'
 lineNos = true
+codeFences = true
+guessSyntax = false
+noClasses = false
+tabWidth = 2
+
 
 [markup.tableOfContents]
 startLevel = 1
@@ -102,3 +107,6 @@ category = "General"
 categoryid = "categoryId"
 mapping = "pathname"
 theme = "preferred_color_scheme"
+
+
+colorScheme = "default" # or "catpuccin"

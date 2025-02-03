@@ -62,7 +62,8 @@
 <meta property="og:site_name" content="Sagar Sarkale">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Inputs to Byte Latent Transformer">
-<meta property="og:description" content="Part 2 of All you need to know to get started with Byte Latent Transformer">
+<meta property="og:description"
+    content="Part 2 of All you need to know to get started with Byte Latent Transformer">
 <meta property="og:image" content="/android-chrome-512x512.png">
 <meta property="og:image:secure_url" content="/android-chrome-512x512.png">
 <meta property="og:url" content="http://localhost:1313/blog/genai/inputs-to-byte-latent-transformer/">
@@ -73,7 +74,7 @@
 
 
 
-<link rel="stylesheet" href="/assets/combined.min.a1307bd225ecb4ecd86506b118426dc0eda9393c6d83cc24a215b17be6221a7a.css" media="all">
+<link rel="stylesheet" href="/assets/combined.min.d2cf86cf4bf9762efc19f30d9f33cb179f21025d29dbbff8c73e35efb6e1bc5e.css" media="all">
 
 
 
@@ -193,7 +194,7 @@
 
       
       &nbsp; · &nbsp;
-      8 min read
+      9 min read
       
     </p>
 
@@ -241,7 +242,7 @@
     <li><a href="#introduction">Introduction</a>
       <ol>
         <li><a href="#recall">Recall</a></li>
-        <li><a href="#up-next">Up Next!</a></li>
+        <li><a href="#what-are-we-going-to-cover-today">What are we going to cover today?</a></li>
       </ol>
     </li>
     <li><a href="#embeddings">Embeddings</a>
@@ -252,6 +253,8 @@
       </ol>
     </li>
     <li><a href="#local-encoder">Local Encoder</a></li>
+    <li><a href="#latent-global-transformer-model">Latent Global Transformer Model</a></li>
+    <li><a href="#up-next">Up Next</a></li>
     <li><a href="#references">References</a></li>
   </ol>
 </nav>
@@ -284,16 +287,19 @@
 <li>Using entropy-based patching, we broke the sentence into patches of bytes.</li>
 <li>As you can see in the figure below, the sentence was broken into patches using 4 variants of entropy-based patching.</li>
 </ol>
+<p><code>todo: increase green box to latent transformer model as well</code>
 <figure><img src="/blt1/008-patches-2.png">
 </figure>
-
-<h2 id="up-next">Up Next!</h2>
+</p>
+<h2 id="what-are-we-going-to-cover-today">What are we going to cover today?</h2>
 <p>In this post, we will discuss about how these patches are further processed in BLT. Let us have a look at the architecture of BLT and see which areas are we going to cover in this post.</p>
 <figure><img src="/blt2/001-upnext-and-where-are-we.png">
 </figure>
 
 <p>Self Reference:</p>
-<pre tabindex="0"><code>1. Local Encoder
+
+<div class="highlight">
+    <pre><code class="language-">1. Local Encoder
    1. Embeddings:
       1. Hash n-gram Embedding
       2. Hash Embeddings
@@ -301,8 +307,16 @@
    2. How all of these embeddings are combined together
    3. Local Encoder Diagram
    4. How residual connection is sent out of this local encoder
-2. Latent Global Transformer Model
-</code></pre><h1 id="embeddings">Embeddings</h1>
+2. Latent Global Transformer Model</code></pre>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-go.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script><h1 id="embeddings">Embeddings</h1>
 <p>Once we have the patches from the entropy-based patching, we pass them through the local encoder. In order to get to the local encoder we need to convert the patches into embeddings first. BLT uses 3 major types of embeddings in the play here:</p>
 <ol>
 <li>Byte Embeddings</li>
@@ -341,12 +355,24 @@ style combined fill:#c8e6c9,stroke:#666,stroke-width:2px
 <p><strong>Step 1: Basic Building Blocks</strong></p>
 <p>Let&rsquo;s use a familiar input sentence: <code>&quot;Hello World&quot;</code></p>
 <p>First, let&rsquo;s see what our text looks like as bytes (similar to how a computer sees it):</p>
-<pre tabindex="0"><code>H    e    l    l    o    _    W    o    r    l    d
-72   101  108  108  111  32   87   111  114  108  100
-</code></pre><p><strong>Step 2: Creating Groups (N-grams)</strong></p>
+
+<div class="highlight">
+    <pre><code class="language-">H    e    l    l    o    _    W    o    r    l    d
+72   101  108  108  111  32   87   111  114  108  100</code></pre>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-go.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script><p><strong>Step 2: Creating Groups (N-grams)</strong></p>
 <p>Now comes the fun part - we&rsquo;ll look at this text in different-sized windows:</p>
 <p>For 2-letter Groups (n=2):</p>
-<pre tabindex="0"><code>He (72,101)
+
+<div class="highlight">
+    <pre><code class="language-">He (72,101)
 el (101,108)
 ll (108,108)
 lo (108,111)
@@ -355,10 +381,20 @@ _W (32,87)
 Wo (87,111)
 or (111,114)
 rl (114,108)
-ld (108,100)
-</code></pre><p>It&rsquo;s like sliding a two-character window across our text!</p>
+ld (108,100)</code></pre>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-go.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script><p>It&rsquo;s like sliding a two-character window across our text!</p>
 <p>For 3-letter Groups (n=3):</p>
-<pre tabindex="0"><code>Hel (72,101,108)
+
+<div class="highlight">
+    <pre><code class="language-">Hel (72,101,108)
 ell (101,108,108)
 llo (108,108,111)
 lo_ (108,111,32)
@@ -366,11 +402,21 @@ o_W (111,32,87)
 _Wo (32,87,111)
 Wor (87,111,114)
 orl (111,114,108)
-rld (114,108,100)
-</code></pre><p>Now we&rsquo;re looking at three characters at a time!</p>
+rld (114,108,100)</code></pre>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-go.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script><p>Now we&rsquo;re looking at three characters at a time!</p>
 <p><strong>Step 3: ID Assignment</strong></p>
 <p>Here&rsquo;s where it gets interesting! We give each unique group a number (like a catalog ID):</p>
-<pre tabindex="0"><code>2-letter groups:
+
+<div class="highlight">
+    <pre><code class="language-">2-letter groups:
 &#34;He&#34; -&gt; 1
 &#34;el&#34; -&gt; 2
 &#34;ll&#34; -&gt; 3
@@ -381,47 +427,44 @@ rld (114,108,100)
 &#34;Hel&#34; -&gt; 1
 &#34;ell&#34; -&gt; 2
 &#34;llo&#34; -&gt; 3
-...
-</code></pre><p>BLT uses ngrams of size $n$ where $n \in \{3,4,5,6,7,8\}$ .</p>
+...</code></pre>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-go.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script><p>BLT uses ngrams of size $n$ where $n \in \{3,4,5,6,7,8\}$ .</p>
 <p><strong>Step 4: Hashing</strong></p>
 <p>Let us understand what hashing is in brief first. Hashing is like creating a fingerprint for data - <strong>it converts data of any size into a fixed-size value</strong>.</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#177500"># X mod N = remainder</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#177500"># hash function</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">def</span> <span style="color:#000">hash_function</span>(<span style="color:#000">number</span>, <span style="color:#000">table_size</span>):
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">return</span> <span style="color:#000">number</span> <span style="color:#000">%</span> <span style="color:#000">table_size</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#177500"># Example</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">number</span> <span style="color:#000">=</span> <span style="color:#1c01ce">456</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">table_size</span> <span style="color:#000">=</span> <span style="color:#1c01ce">10</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">hash_value</span> <span style="color:#000">=</span> <span style="color:#000">hash_function</span>(<span style="color:#000">number</span>, <span style="color:#000">table_size</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#177500"># Output</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">print</span>(<span style="color:#c41a16">f</span><span style="color:#c41a16">&#34;</span><span style="color:#c41a16">{</span><span style="color:#000">number</span><span style="color:#c41a16">}</span><span style="color:#c41a16"> hashes to </span><span style="color:#c41a16">{</span><span style="color:#000">hash_value</span><span style="color:#c41a16">}</span><span style="color:#c41a16">&#34;</span>)
-</span></span><span style="display:flex;"><span><span style="color:#177500"># 456 hashes to 6</span>
-</span></span><span style="display:flex;"><span><span style="color:#177500"># 6 is the hash value</span>
-</span></span></code></pre></td></tr></table>
+
+<div class="highlight">
+    <pre><code class="language-python"># X mod N = remainder
+
+# hash function
+def hash_function(number, table_size):
+    return number % table_size
+
+# Example
+number = 456
+table_size = 10
+hash_value = hash_function(number, table_size)
+
+# Output
+print(f&#34;{number} hashes to {hash_value}&#34;)
+# 456 hashes to 6
+# 6 is the hash value</code></pre>
 </div>
-</div><p>If we provide a number of say 10 or 100 or even 1000 digits to the hash function, the hash value will be a single digit. Hence, we are able to reduce the size of the data to a single digit.</p>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-go.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script><p>If we provide a number of say 10 or 100 or even 1000 digits to the hash function, the hash value will be a single digit. Hence, we are able to reduce the size of the data to a single digit.</p>
 <p>But, you see the problem here is that the hash value is not unique. For example, if we have two numbers <code>456</code> and <code>1456</code>, they both hash to <code>6</code>. This is where the hashing function fails, this is called a collision. By increasing complexity of the hash function, we can reduce the number of collisions and map the data to a unique hash value.</p>
 <p>Now that we have some understanding of hashing, let us see how it is used in BLT.</p>
 <p>Remember we are using ngrams of size 3, 4, 5, 6, 7, 8. Each of this has a different size by default. How do we map these ngrams to a unique hash value? That&rsquo;s where hashing comes into the picture, it helps us create a catalog of ngrams.</p>
@@ -489,7 +532,9 @@ $$\text{Hash}(g) = b_{1} + b_{2}a + b_{3}a^2 + \cdots + b_{n}a^{n-1}$$</p>
 <li>Include all elements from that starting point up to position i</li>
 </ol>
 <p><strong>Example for n-gram generation</strong></p>
-<pre tabindex="0"><code># A, B, C, D, E - string
+
+<div class="highlight">
+    <pre><code class="language-python"># A, B, C, D, E - string
 # 65, 66, 67, 68, 69 - byte values
 # Showing g_{i,n} for each n-gram where i is current position and n is n-gram size
 
@@ -526,8 +571,16 @@ g = {
    &#34;8_grams&#34;: {
        # None possible - string length &lt; 8
    }
-}
-</code></pre><p>For each of the ngram byte values, we will apply the hash function to get the hash value denoted as $h_{i,n}$.</p>
+}</code></pre>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-go.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script><p>For each of the ngram byte values, we will apply the hash function to get the hash value denoted as $h_{i,n}$.</p>
 <p>$\text{Hash}(g_{i,n}) = b_{1} + b_{2}a + b_{3}a^2 + \cdots + b_{n}a^{n-1}$</p>
 <p>$\text{Hash}(g_{3,3}) = 65 + 66a + 67a^2 = h_{3,3}$</p>
 <p>$\text{Hash}(g_{4,3}) = 66 + 67a + 68a^2 = h_{4,3}$</p>
@@ -549,6 +602,18 @@ g = {
 <h2 id="position-embeddings">Position Embeddings</h2>
 <p>This is used for positional encoding of the input text in transformers, for more on that read my previous blog <a href="https://sagarsarkale.com/blog/genai/position-encoding/">here</a>. It should give a fair understanding of what positional encodings are and why they are used in transformers. Only difference is that, BLT uses Rotary Positional Embedding (RoPE), which is a different type of positional encoding.</p>
 <h1 id="local-encoder">Local Encoder</h1>
+<p>How the layers are in Local Encoder. Number of layers, what each layer does. And what is the output of the local encoder.
+How does multi-head attention work in local encoder what are the queries, keys and values. Here what is key query and value from a BLT perspective.
+Cross attention in local encoder formula.
+How are we compressing the information here?
+How do we get a residual connection here?</p>
+<h1 id="latent-global-transformer-model">Latent Global Transformer Model</h1>
+<p>What is the input of the latent global transformer model?
+Large transformer model that uses cross attention to attend to the latent embeddings.
+Tell how latent embeddings are used in BLT. How the actual processing is reduced in latent global transformer model.
+Tell how input shape == output shape in latent global transformer model basic attention.</p>
+<h1 id="up-next">Up Next</h1>
+<p>How does decoding work in BLT and summarize entire BLT architecture.</p>
 <h1 id="references">References</h1>
 <ol>
 <li><a href="https://arxiv.org/pdf/2412.09871">Byte Latent Transformer Research Paper</a></li>

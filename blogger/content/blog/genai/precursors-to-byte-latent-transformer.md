@@ -224,7 +224,7 @@ I trained a small model (n-gram model with n=2) here to predict the entropy of t
 
 {{< details "Outputs Global Threshold Patches" >}}
 
-```
+```plaintext
 Patch 1: 'I ' (2 bytes)
 Patch 2: 'w' (1 bytes)
 Patch 3: 'alked ' (6 bytes)
@@ -248,7 +248,7 @@ Patch 17: 'ook.' (4 bytes)
 
 {{< details "Outputs Approximate Monotonic Constraint Patches" >}}
 
-```
+```plaintext
 Monotonic Constraint Patches:
 Patch 1: 'I' (1 bytes)
 Patch 2: ' ' (1 bytes)
@@ -317,14 +317,14 @@ Well, we are just getting started, the next blog will cover how these patches ar
 
 **Base Monthly Infrastructure Cost**
 
-```
+```plaintext
 $38/hour × 24 hours × 30 days = $27,360
 With 1.5x redundancy: $27,360 × 1.5 = $41,040 base cost
 ```
 
 **Scaling factors for different user bases**
 
-```
+```plaintext
 1K users: 1x = $41,040
 100K users: 2x = $82,080
 1M users: 4x = $164,160
@@ -333,7 +333,7 @@ With 1.5x redundancy: $27,360 × 1.5 = $41,040 base cost
 
 **Monthly inference cost per user**
 
-```
+```plaintext
 Tokens per request: 1,000
 Requests per month: 10
 Total tokens per user: 10,000
@@ -343,7 +343,7 @@ Monthly cost per user: (10,000 × $0.03) ÷ 1,000 = $0.30
 
 **Total monthly inference costs**
 
-```
+```plaintext
 1K users: $0.30 × 1,000 = $300
 100K users: $0.30 × 100,000 = $30,000
 1M users: $0.30 × 1,000,000 = $300,000
