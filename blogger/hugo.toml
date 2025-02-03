@@ -81,11 +81,10 @@ url = "/about"
 # Syntax highligth on code blocks
 [markup]
 [markup.highlight]
-style = 'xcode'
+style = 'dracula'
 lineNos = true
-codeFences = true
-guessSyntax = false
-noClasses = false
+lineNumbersInTable = false
+noClasses = true
 tabWidth = 2
 
 
@@ -107,6 +106,3 @@ category = "General"
 categoryid = "categoryId"
 mapping = "pathname"
 theme = "preferred_color_scheme"
-
-
-colorScheme = "default" # or "catpuccin"
