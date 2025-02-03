@@ -5,7 +5,7 @@ summary: "How do you understand position of token in transformer?"
 description: "How do you understand position of token in transformer?"
 toc: true
 readTime: true
-autonumber: false
+autonumber: true
 math: true
 tags: ["Transformers"]
 showTags: true

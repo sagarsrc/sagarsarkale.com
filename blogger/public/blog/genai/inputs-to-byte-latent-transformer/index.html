@@ -73,7 +73,7 @@
 
 
 
-<link rel="stylesheet" href="/assets/combined.min.9f94999293aaaf24e71e657a7e1124895c2d1d99645b9b12a06923c3fa957566.css" media="all">
+<link rel="stylesheet" href="/assets/combined.min.a1307bd225ecb4ecd86506b118426dc0eda9393c6d83cc24a215b17be6221a7a.css" media="all">
 
 
 
@@ -171,7 +171,7 @@
 </div>
 
 
-<div >
+<div  class="autonumber" >
 
   <div class="single-intro-container">
 
@@ -193,7 +193,7 @@
 
       
       &nbsp; · &nbsp;
-      6 min read
+      8 min read
       
     </p>
 
@@ -244,13 +244,14 @@
         <li><a href="#up-next">Up Next!</a></li>
       </ol>
     </li>
-    <li><a href="#local-encoder">Local Encoder</a>
+    <li><a href="#embeddings">Embeddings</a>
       <ol>
         <li><a href="#byte-embeddings">Byte Embeddings</a></li>
         <li><a href="#hash-n-gram-embeddings">Hash n-gram Embeddings</a></li>
-        <li><a href="#frequency-embeddings">Frequency Embeddings</a></li>
+        <li><a href="#position-embeddings">Position Embeddings</a></li>
       </ol>
     </li>
+    <li><a href="#local-encoder">Local Encoder</a></li>
     <li><a href="#references">References</a></li>
   </ol>
 </nav>
@@ -301,7 +302,7 @@
    3. Local Encoder Diagram
    4. How residual connection is sent out of this local encoder
 2. Latent Global Transformer Model
-</code></pre><h1 id="local-encoder">Local Encoder</h1>
+</code></pre><h1 id="embeddings">Embeddings</h1>
 <p>Once we have the patches from the entropy-based patching, we pass them through the local encoder. In order to get to the local encoder we need to convert the patches into embeddings first. BLT uses 3 major types of embeddings in the play here:</p>
 <ol>
 <li>Byte Embeddings</li>
@@ -334,7 +335,7 @@ style combined fill:#c8e6c9,stroke:#666,stroke-width:2px
 <p>Where [E] is the entropy-based patching step.</p>
 <p>Let us look deeper into each of these embeddings.</p>
 <h2 id="byte-embeddings">Byte Embeddings</h2>
-<p>This embedding is the simplest one. It is just a representation of all possible individual byte values which are learnt during the training of the model.</p>
+<p>This embedding is the simplest one. It is just a representation of all possible individual byte values which are learnt during the training of the model. For the sake of understanding next sections let us denote byte embeddings with $x_i$.</p>
 <h2 id="hash-n-gram-embeddings">Hash n-gram Embeddings</h2>
 <p>Let&rsquo;s try to understand how what is ngram embeddings first, then we will see how and why hashing is used a bit later in this section. Instead of passing all the bytes directly to the model, we pass it in chunks, these chunks are generated exhaustively from the input text using ngrams. Let&rsquo;s see how this is done.</p>
 <p><strong>Step 1: Basic Building Blocks</strong></p>
@@ -470,20 +471,84 @@ classDef subgraphStyle fill:white,stroke:#94a3b8,stroke-width:1px
 <p>Taken from the paper:</p>
 <blockquote>
 <p>Given a byte $n$-gram $g_{i,n} = {b_{i-n+1},\ldots,b_i}$</p>
-<p>Here $g_{i,n}$ is the set of bytegrams for each byte position $i$ and $n$ from 3 to 8.</p>
+<p>Here $g_{i,n}$ is the set of bytegrams for each byte position $i$ and $n$ from 3 to 8.
+$b_i$ = byte at position i</p>
 <p>The rolling polynomial hash of $g_{i,n}$ is defined as:</p>
 </blockquote>
 <p>$$ \text{Hash}(g_{i,n}) = \sum_{j=1}^n b_{i-j+1}a^{j-1} \qquad\dotsb\qquad (1) $$</p>
 <p>Where $a$ is chosen to be a 10-digit prime number.</p>
 <p>The same can be simplified as:
 $$\text{Hash}(g) = b_{1} + b_{2}a + b_{3}a^2 + \cdots + b_{n}a^{n-1}$$</p>
+<p><strong>Hash Function and Calculation of Hash Values</strong>&quot;</p>
+<p><strong>Formula for generating n-gram</strong></p>
+<p>Formula for generating n-gram: $g_{i,n} = {b_{i-n+1}, &hellip;, b_i}$</p>
+<p>Steps:</p>
+<ol>
+<li>Start from the current position i</li>
+<li>Look back (n-1) positions from i</li>
+<li>Include all elements from that starting point up to position i</li>
+</ol>
+<p><strong>Example for n-gram generation</strong></p>
+<pre tabindex="0"><code># A, B, C, D, E - string
+# 65, 66, 67, 68, 69 - byte values
+# Showing g_{i,n} for each n-gram where i is current position and n is n-gram size
+
+g = {
+   # 3-grams (n=3)
+   &#34;3_grams&#34;: {
+       &#34;ABC&#34; : [65, 66, 67],  # g_{3,3}
+       &#34;BCD&#34; : [66, 67, 68],  # g_{4,3}
+       &#34;CDE&#34; : [67, 68, 69]   # g_{5,3}
+   },
+
+   # 4-grams (n=4)
+   &#34;4_grams&#34;: {
+       &#34;ABCD&#34; : [65, 66, 67, 68],  # g_{4,4}
+       &#34;BCDE&#34; : [66, 67, 68, 69]   # g_{5,4}
+   },
+
+   # 5-grams (n=5)
+   &#34;5_grams&#34;: {
+       &#34;ABCDE&#34; : [65, 66, 67, 68, 69]  # g_{5,5}
+   },
+
+   # 6-grams (n=6)
+   &#34;6_grams&#34;: {
+       # None possible - string length &lt; 6
+   },
+
+   # 7-grams (n=7)
+   &#34;7_grams&#34;: {
+       # None possible - string length &lt; 7
+   },
+
+   # 8-grams (n=8)
+   &#34;8_grams&#34;: {
+       # None possible - string length &lt; 8
+   }
+}
+</code></pre><p>For each of the ngram byte values, we will apply the hash function to get the hash value denoted as $h_{i,n}$.</p>
+<p>$\text{Hash}(g_{i,n}) = b_{1} + b_{2}a + b_{3}a^2 + \cdots + b_{n}a^{n-1}$</p>
+<p>$\text{Hash}(g_{3,3}) = 65 + 66a + 67a^2 = h_{3,3}$</p>
+<p>$\text{Hash}(g_{4,3}) = 66 + 67a + 68a^2 = h_{4,3}$</p>
+<p>$\text{Hash}(g_{5,3}) = 67 + 68a + 69a^2 = h_{5,3}$</p>
+<p>&hellip;</p>
+<p>$\text{Hash}(g_{5,5}) = 65 + 66a + 67a^2 + 68a^3 + 69a^4 = h_{5,5}$</p>
+<p>Where $a$ as mentioned earlier is a 10-digit prime number.</p>
 <p>But what does this hash function have to do with embeddings?</p>
 <p><strong>Step 5: Embeddings and Hash function</strong></p>
 <p>Let us see how embeddings come into the picture now.</p>
-<figure><img src="/blt2/002-rollpolyhash.png">
+<p>Taken from the paper:</p>
+<p>$$ e_i = x_i + \sum_{n=3,&hellip;,8} E_n^{hash}(Hash(g_{i,n}))  \qquad\dotsb\qquad (2) $$</p>
+<p>I hope equation (2) seems less scary. Once we have the hash values, we can use them to get corresponding embeddings from the hash embedding table.</p>
+<p>Here, $e_i$ is the embedding for the $i^{th}$ byte, $x_i$ is the byte embedding, $E_n^{hash}$ is the hash embedding table for the $n$-gram, and $Hash(g_{i,n})$ is the hash value for the $n$-gram.</p>
+<p>To summarize this section in a pictorial way:</p>
+<figure><img src="/blt2/002-rollpoly-hash.png">
 </figure>
 
-<h2 id="frequency-embeddings">Frequency Embeddings</h2>
+<h2 id="position-embeddings">Position Embeddings</h2>
+<p>This is used for positional encoding of the input text in transformers, for more on that read my previous blog <a href="https://sagarsarkale.com/blog/genai/position-encoding/">here</a>. It should give a fair understanding of what positional encodings are and why they are used in transformers. Only difference is that, BLT uses Rotary Positional Embedding (RoPE), which is a different type of positional encoding.</p>
+<h1 id="local-encoder">Local Encoder</h1>
 <h1 id="references">References</h1>
 <ol>
 <li><a href="https://arxiv.org/pdf/2412.09871">Byte Latent Transformer Research Paper</a></li>

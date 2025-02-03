@@ -5,7 +5,7 @@ summary: "LLaVA = Large Language and Vision assistant ≠ 🌋"
 description: "LLaVA = Large Language and Vision assistant ≠ 🌋"
 toc: true
 readTime: true
-autonumber: false
+autonumber: true
 math: true
 tags: ["Multimodal", "Transformers"]
 showTags: true

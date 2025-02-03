@@ -5,7 +5,7 @@ summary: "Exploring static site builder for quick blogging"
 description: "Exploring static site builder for quick blogging"
 toc: true
 readTime: true
-autonumber: false
+autonumber: true
 math: false
 tags: ["Web", "HUGO"]
 showTags: true

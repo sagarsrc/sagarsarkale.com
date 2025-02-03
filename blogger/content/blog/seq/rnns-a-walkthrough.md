@@ -5,7 +5,7 @@ summary: "A Brief about Recurrent Neural Networks"
 description: "A Brief about Recurrent Neural Networks"
 toc: true
 readTime: true
-autonumber: false
+autonumber: true
 math: true
 tags: ["NLP", "DeepLearning"]
 showTags: true

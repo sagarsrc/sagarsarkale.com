@@ -5,7 +5,7 @@ summary: "Part 1 of All you need to know to get started with Byte Latent Transfo
 description: "Part 1 of All you need to know to get started with Byte Latent Transformer"
 toc: true
 readTime: true
-autonumber: false
+autonumber: true
 math: true
 tags: ["GenAI", "BLT", "Transformers", "DeepDive"]
 showTags: true

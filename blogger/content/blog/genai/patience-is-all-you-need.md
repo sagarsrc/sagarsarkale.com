@@ -5,7 +5,7 @@ summary: "Patience is all you need to learn transformers."
 description: "Transformer architecture intuitive deep dive."
 toc: true
 readTime: true
-autonumber: false
+autonumber: true
 math: true
 tags: ["Transformers", "Attention", "DeepDive"]
 showTags: true

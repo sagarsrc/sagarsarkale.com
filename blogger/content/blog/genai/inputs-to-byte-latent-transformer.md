@@ -5,7 +5,7 @@ summary: "Part 2 of All you need to know to get started with Byte Latent Transfo
 description: "Part 2 of All you need to know to get started with Byte Latent Transformer"
 toc: true
 readTime: true
-autonumber: false
+autonumber: true
 math: true
 tags: ["GenAI", "BLT", "Transformers", "DeepDive"]
 showTags: true
@@ -49,7 +49,7 @@ Self Reference:
 2. Latent Global Transformer Model
 ```
 
-# Local Encoder
+# Embeddings
 
 Once we have the patches from the entropy-based patching, we pass them through the local encoder. In order to get to the local encoder we need to convert the patches into embeddings first. BLT uses 3 major types of embeddings in the play here:
 
@@ -86,7 +86,7 @@ Let us look deeper into each of these embeddings.
 
 ## Byte Embeddings
 
-This embedding is the simplest one. It is just a representation of all possible individual byte values which are learnt during the training of the model.
+This embedding is the simplest one. It is just a representation of all possible individual byte values which are learnt during the training of the model. For the sake of understanding next sections let us denote byte embeddings with $x_i$.
 
 ## Hash n-gram Embeddings
 
@@ -244,6 +244,7 @@ Taken from the paper:
 > Given a byte $n$-gram $g_{i,n} = \{b_{i-n+1},\ldots,b_i\}$
 >
 > Here $g_{i,n}$ is the set of bytegrams for each byte position $i$ and $n$ from 3 to 8.
+> $b_i$ = byte at position i
 >
 > The rolling polynomial hash of $g_{i,n}$ is defined as:
 
@@ -254,16 +255,105 @@ Where $a$ is chosen to be a 10-digit prime number.
 The same can be simplified as:
 $$\text{Hash}(g) = b_{1} + b_{2}a + b_{3}a^2 + \cdots + b_{n}a^{n-1}$$
 
+**Hash Function and Calculation of Hash Values**"
+
+**Formula for generating n-gram**
+
+Formula for generating n-gram: $g_{i,n} = {b_{i-n+1}, ..., b_i}$
+
+Steps:
+1. Start from the current position i
+2. Look back (n-1) positions from i
+3. Include all elements from that starting point up to position i
+
+**Example for n-gram generation**
+
+```
+# A, B, C, D, E - string
+# 65, 66, 67, 68, 69 - byte values
+# Showing g_{i,n} for each n-gram where i is current position and n is n-gram size
+
+g = {
+   # 3-grams (n=3)
+   "3_grams": {
+       "ABC" : [65, 66, 67],  # g_{3,3}
+       "BCD" : [66, 67, 68],  # g_{4,3}
+       "CDE" : [67, 68, 69]   # g_{5,3}
+   },
+
+   # 4-grams (n=4)
+   "4_grams": {
+       "ABCD" : [65, 66, 67, 68],  # g_{4,4}
+       "BCDE" : [66, 67, 68, 69]   # g_{5,4}
+   },
+
+   # 5-grams (n=5)
+   "5_grams": {
+       "ABCDE" : [65, 66, 67, 68, 69]  # g_{5,5}
+   },
+
+   # 6-grams (n=6)
+   "6_grams": {
+       # None possible - string length < 6
+   },
+
+   # 7-grams (n=7)
+   "7_grams": {
+       # None possible - string length < 7
+   },
+
+   # 8-grams (n=8)
+   "8_grams": {
+       # None possible - string length < 8
+   }
+}
+```
+
+For each of the ngram byte values, we will apply the hash function to get the hash value denoted as $h_{i,n}$.
+
+
+$\text{Hash}(g_{i,n}) = b_{1} + b_{2}a + b_{3}a^2 + \cdots + b_{n}a^{n-1}$
+
+$\text{Hash}(g_{3,3}) = 65 + 66a + 67a^2 = h_{3,3}$
+
+$\text{Hash}(g_{4,3}) = 66 + 67a + 68a^2 = h_{4,3}$
+
+$\text{Hash}(g_{5,3}) = 67 + 68a + 69a^2 = h_{5,3}$
+
+...
+
+$\text{Hash}(g_{5,5}) = 65 + 66a + 67a^2 + 68a^3 + 69a^4 = h_{5,5}$
+
+Where $a$ as mentioned earlier is a 10-digit prime number.
+
+
 But what does this hash function have to do with embeddings?
 
 **Step 5: Embeddings and Hash function**
 
 Let us see how embeddings come into the picture now.
 
+Taken from the paper:
 
-{{<figure src="/blt2/002-rollpolyhash.png">}}
+$$ e_i = x_i + \sum_{n=3,...,8} E_n^{hash}(Hash(g_{i,n}))  \qquad\dotsb\qquad (2) $$
 
-## Frequency Embeddings
+I hope equation (2) seems less scary. Once we have the hash values, we can use them to get corresponding embeddings from the hash embedding table.
+
+Here, $e_i$ is the embedding for the $i^{th}$ byte, $x_i$ is the byte embedding, $E_n^{hash}$ is the hash embedding table for the $n$-gram, and $Hash(g_{i,n})$ is the hash value for the $n$-gram.
+
+To summarize this section in a pictorial way:
+
+{{<figure src="/blt2/002-rollpoly-hash.png">}}
+
+## Position Embeddings
+
+This is used for positional encoding of the input text in transformers, for more on that read my previous blog [here](https://sagarsarkale.com/blog/genai/position-encoding/). It should give a fair understanding of what positional encodings are and why they are used in transformers. Only difference is that, BLT uses Rotary Positional Embedding (RoPE), which is a different type of positional encoding.
+
+# Local Encoder
+
+
+
+
 
 # References
 
