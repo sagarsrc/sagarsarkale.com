@@ -28,7 +28,7 @@ In the last post we converted the input text into a sequence of bytes. Let's rec
 3. As you can see in the figure below, the sentence was broken into patches using 4 variants of entropy-based patching.
 
 `todo: increase green box to latent transformer model as well`
-{{< figure src="/blt1/008-patches-2.png">}}
+{{< figure src="/blt1/008-patches-2.png" >}}
 
 ## What are we going to cover today?
 
@@ -62,26 +62,30 @@ Let us see this in a rough flow diagram to understand it better.
 
 {{<mermaid>}}
 graph LR
-style input fill:#f0f7ff,stroke:#666,stroke-width:2px
-style patches fill:#ffe0b2,stroke:#666,stroke-width:2px
-style byte fill:#fge0b2,stroke:#666,stroke-width:2px
-style hash fill:#ebbee7,stroke:#666,stroke-width:2px
-style freq fill:#ffcdd2,stroke:#666,stroke-width:2px
-style combine fill:#b3e5fc,stroke:#666,stroke-width:2px
-style combined fill:#c8e6c9,stroke:#666,stroke-width:2px
+    subgraph Input
+        input[Input Bytes] --Entropy--> patches[Patches]
+    end
 
-    input --[E]--> patches
-    patches --> byte[Byte Embeddings]
-    patches --> hash[Hash n-gram Embedding]
-    patches --> freq[Position Embedding]
-    byte --> combine[combine]
-    hash --> combine
-    freq --> combine
-    combine --> combined[Combined Embeddings]
+    subgraph Embeddings
+        patches --> byte[Byte Embeddings]
+        patches --> hash[Hash n-gram Embeddings]
+        patches --> pos[Position Embeddings]
+        byte --> combine1[Combine & Normalize]
+        hash --> combine1
+    end
+
+    combine1 --> transformer[Local Encoder]
+    pos --> transformer
+
+    style input fill:#E3F2FD,stroke:#1976D2,stroke-width:2px
+    style patches fill:#FFF3E0,stroke:#F57C00,stroke-width:2px
+    style byte fill:#E8F5E9,stroke:#388E3C,stroke-width:2px
+    style hash fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px
+    style pos fill:#FFEBEE,stroke:#D32F2F,stroke-width:2px
+    style combine1 fill:#E8EAF6,stroke:#3949AB,stroke-width:2px
+    style transformer fill:#FAFAFA,stroke:#424242,stroke-width:2px
 
 {{</mermaid>}}
-
-Where [E] is the entropy-based patching step.
 
 Let us look deeper into each of these embeddings.
 
@@ -337,7 +341,7 @@ Let us see how embeddings come into the picture now.
 
 Taken from the paper:
 
-$$ e_i = x_i + \sum_{n=3,...,8} E_n^{hash}(Hash(g_{i,n}))  \qquad\dotsb\qquad (2) $$
+$$ e_i = x_i + \sum_{n=3,...,8} E_n^{hash}(Hash(g_{i,n}))  \qquad\dotsb\qquad (2) $$****
 
 I hope equation (2) seems less scary. Once we have the hash values, we can use them to get corresponding embeddings from the hash embedding table.
 
@@ -349,20 +353,38 @@ To summarize this section in a pictorial way:
 
 ## Position Embeddings
 
-This is used for positional encoding of the input text in transformers, for more on that read my previous blog [here](https://sagarsarkale.com/blog/genai/position-encoding/). It should give a fair understanding of what positional encodings are and why they are used in transformers. Only difference is that, BLT uses Rotary Positional Embedding (RoPE), which is a different type of positional encoding.
+This is used for positional reference of the input chunk of bytes, in this case instead of tokens, but the reason for using this is same as that of position encodings in transformers. For more on that read my previous blog [here](https://sagarsarkale.com/blog/genai/position-encoding/). It should give you a fair understanding of what positional encodings are and why they are used in transformers.
+
+Only difference is that, BLT uses Rotary Positional Embedding (RoPE), which is a different type of positional encoding.
 
 # Local Encoder
-How the layers are in Local Encoder. Number of layers, what each layer does. And what is the output of the local encoder.
-How does multi-head attention work in local encoder what are the queries, keys and values. Here what is key query and value from a BLT perspective.
-Cross attention in local encoder formula.
-How are we compressing the information here?
-How do we get a residual connection here?
+
+Remember in last [blog](https://sagarsarkale.com/blog/genai/precursors-to-byte-latent-transformer/) we read about **patching** and how we convert the input text into a sequence of bytes. So far we were only dealing with input bytes, but now let us see how we use patches to get patch embeddings.
+
+{{<mermaid>}}
+graph LR
+    subgraph Input
+        input[Input Bytes] --Entropy--> patches[Patches]
+    end
+
+{{</mermaid>}}
+
+Essentially, we convert byte ndim space to patch ndim space.
+
+1. How the layers are in Local Encoder.
+2. Number of layers, what each layer does.
+3. And what is the output of the local encoder.
+4. How does multi-head attention work in local encoder what are the queries, keys and values.
+5. Here what is key query and value from a BLT perspective.
+6. Cross attention in local encoder formula.
+7. How are we compressing the information here?
+8. How do we get a residual connection here?
 
 # Latent Global Transformer Model
-What is the input of the latent global transformer model?
-Large transformer model that uses cross attention to attend to the latent embeddings.
-Tell how latent embeddings are used in BLT. How the actual processing is reduced in latent global transformer model.
-Tell how input shape == output shape in latent global transformer model basic attention.
+1. What is the input of the latent global transformer model?
+2. Large transformer model that uses cross attention to attend to the latent embeddings.
+3. Tell how latent embeddings are used in BLT. How the actual processing is reduced in latent global transformer model.
+4. Tell how input shape == output shape in latent global transformer model basic attention.
 
 
 # Up Next
