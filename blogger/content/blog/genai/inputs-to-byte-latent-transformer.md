@@ -27,7 +27,6 @@ In the last post we converted the input text into a sequence of bytes. Let's rec
 2. Using entropy-based patching, we broke the sentence into patches of bytes.
 3. As you can see in the figure below, the sentence was broken into patches using 4 variants of entropy-based patching.
 
-`todo: increase green box to latent transformer model as well`
 {{< figure src="/blt1/008-patches-2.png" >}}
 
 ## What are we going to cover today?
@@ -386,8 +385,7 @@ graph LR
     P["patches
     $(p)$"]
 
-    C((process))
-    style C fill:#feF2FD,stroke:#1976D2
+    C((downsample))
 
 
     LE["Local encoder $(\mathcal{E})$
@@ -396,7 +394,7 @@ graph LR
 
     subgraph patch_space[patch space]
         HS["hidden states
-        $(p \times d)$"]
+        $(p^\prime \times d)$"]
     end
     AT["Attention"]
     GT["Global Transformer $(\mathcal{G})$
@@ -414,6 +412,7 @@ graph LR
 
     style LE fill:#E8F5E9,stroke:#388E3C
     style P fill:#ffca04,stroke:#F57C00
+    style C fill:#feF2FD,stroke:#1976D2
     style byte_space fill:#FAFAFA,stroke:#424242
     style patch_space fill:#FAFAFA,stroke:#424242
     style HS fill:#E8EAF6,stroke:#3949AB
@@ -425,6 +424,7 @@ graph LR
 - $n$ : number of bytes
 - $p$ : number of patches
 - $d$ : embedding dimension
+- $p^\prime$ : downsampled output of local encoder's hidden states
 - $l_\mathcal{E}$ : number of layers in local encoder
 - $l_\mathcal{G}$ : number of layers in global transformer
 
@@ -432,23 +432,95 @@ In the above diagram, we are essentially converting byte space to patch space, a
 
 ## Exploded view of Local Encoder
 
+Let us now dive a bit deeper into how attention works in local encoder and try to understand what are queries, keys and values in this context.
 
-1. How does multi-head attention work in local encoder what are the queries, keys and values.
-2. Here what is key query and value from a BLT perspective.
-3. Cross attention in local encoder formula.
-4. How are we compressing the information here?
-5. How do we get a residual connection here?
-
-
-# Latent Global Transformer Model
-1. What is the input of the latent global transformer model?
-2. Large transformer model that uses cross attention to attend to the latent embeddings.
-3. Tell how latent embeddings are used in BLT. How the actual processing is reduced in latent global transformer model.
-4. Tell how input shape == output shape in latent global transformer model basic attention.
+{{<mermaid>}}
+graph LR
+    subgraph byte_space[byte space]
+        CE["combined embedding
+        $(n \times d)$"]
+        R["position embedding
+        $(n \times d)$"]
 
 
-# Up Next
-How does decoding work in BLT and summarize entire BLT architecture.
+        style CE fill:#E3F2FD,stroke:#1976D2
+        style R fill:#FFEBEE,stroke:#D32F2F
+    end
+    P["patches
+    $(p)$"]
+
+    C((downsample))
+
+
+    LE["Local encoder $(\mathcal{E})$
+    $l_\mathcal{E}$ layers
+    "]
+
+    subgraph patch_space[patch space]
+        HS["hidden states
+        $(p^\prime \times d)$"]
+    end
+    AT["Attention"]
+    GT["Global Transformer $(\mathcal{G})$
+    $l_\mathcal{G}$ layers
+    "]
+
+    CE --> LE
+    R --> LE
+    P --> C
+    LE --> C
+    C --> patch_space
+    LE --> AT
+    HS --> AT
+    AT --> GT
+
+    style LE fill:#E8F5E9,stroke:#388E3C
+    style P fill:#FFF2CC,stroke:#F57C00
+    style C fill:#feF2FD,stroke:#1976D2
+    style byte_space fill:#FAFAFA,stroke:#424242
+    style patch_space fill:#FAFAFA,stroke:#424242
+    style HS fill:#E8EAF6,stroke:#3949AB
+    style AT fill:#ffca04,stroke:#F57C00
+    style GT fill:#FAFAFA,stroke:#424242,stroke-dasharray: 5 5
+
+{{</mermaid>}}
+
+We get queries from patch space, keys and values are derived from the outputs of local encoder. Let us pictorially look at how these are used in local encoder to get attention scores.
+
+{{<figure src="/blt2/003-attention-scores.png">}}
+
+Here, $a_{m,n}$ denotes the attention score for the $m^{th}$ patch and $n^{th}$ byte.
+
+- In case of tokenizer based attention, this matrix would have been a square matrix (self attention) with number of rows and columns being equal to number of patches.
+- Here we have a rectangular matrix (cross attention) reason being number of patches are less than number of bytes.
+- This is cross attention as we are using patches as queries and local encoder hidden states as keys and values, two different spaces.
+- We apply a masking operation to ensure that patches do not attend to bytes which are to be predicted next (area sketched in red in above figure).
+- Once we have the attention scores $(QK^T)$, we do a scaled softmax, which is later multiplied with the values $V$ to get the final attention output.
+
+{{<figure src="/blt2/004-attention-detail-res.png">}}
+
+- All weight matrices are colored in yellow.
+- Arrows moving into weight matrices denote matrix multiplications between weight matrices and incoming input matrix.
+- `[M]` denotes projection matrix multiplications and usage of residual connections (skipping detail in diagram for brevity).
+- Final attention outputs are of the same dimension as the input embeddings, which is $(p^\prime \times d)$.
+- Another important thing to note here is that we use encoder hidden states as a residual connection (More on residual connection later).
+
+
+# End Note
+We have covered a lot of ground in this post. Let us summarize what we have covered so far:
+
+1. How we convert the input text into a sequence of bytes (in part 1 of this series).
+2. How we convert the bytes into embeddings.
+3. How we use local encoder to get attention scores.
+4. How we calculate cross attention scores in local encoder.
+
+Most importantly, we have seen how BLT uses a lightweight local encoder to compress information and pass it on to the latent global transformer model, this is the key reason for BLT's significant performance gains over tokenizer-based models.
+
+**Progress Report!**
+
+{{<figure src="/blt2/005-progress.png">}}
+
+In the next post, we will see how global transformer and the local decoder works to generate the final output. We are nearing the end of this series, so stay tuned!
 
 # References
 
