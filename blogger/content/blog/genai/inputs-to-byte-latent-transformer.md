@@ -360,32 +360,28 @@ It's time we ask this question. Remember in last [blog](https://sagarsarkale.com
 graph LR
     subgraph byte_space[byte space]
         CE["combined embedding
-        $(n \times d)$"]
+        (n × d)"]
         R["position embedding
-        $(n \times d)$"]
-
+        (n × d)"]
 
         style CE fill:#E3F2FD,stroke:#1976D2
         style R fill:#FFEBEE,stroke:#D32F2F
     end
     P["patches
-    $(p)$"]
+    (p)"]
 
     C((downsample))
 
-
-    LE["Local encoder $(\mathcal{E})$
-    $l_\mathcal{E}$ layers
-    "]
+    LE["Local encoder (E)
+    l_E layers"]
 
     subgraph patch_space[patch space]
         HS["hidden states
-        $(p^\prime \times d)$"]
+        (p' × d)"]
     end
     AT["Attention"]
-    GT["Global Transformer $(\mathcal{G})$
-    $l_\mathcal{G}$ layers
-    "]
+    GT["Global Transformer (G)
+    l_G layers"]
 
     CE --> LE
     R --> LE
@@ -424,32 +420,30 @@ Let us now dive a bit deeper into how attention works in local encoder and try t
 graph LR
     subgraph byte_space[byte space]
         CE["combined embedding
-        $(n \times d)$"]
+        (n × d)"]
         R["position embedding
-        $(n \times d)$"]
+        (n × d)"]
 
 
         style CE fill:#E3F2FD,stroke:#1976D2
         style R fill:#FFEBEE,stroke:#D32F2F
     end
     P["patches
-    $(p)$"]
+    (p)"]
 
     C((downsample))
 
 
-    LE["Local encoder $(\mathcal{E})$
-    $l_\mathcal{E}$ layers
-    "]
+    LE["Local encoder (E)
+    l_E layers"]
 
     subgraph patch_space[patch space]
         HS["hidden states
-        $(p^\prime \times d)$"]
+        (p' × d)"]
     end
     AT["Attention"]
-    GT["Global Transformer $(\mathcal{G})$
-    $l_\mathcal{G}$ layers
-    "]
+    GT["Global Transformer (G)
+    l_G layers"]
 
     CE --> LE
     R --> LE

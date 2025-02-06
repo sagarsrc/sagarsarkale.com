@@ -152,26 +152,24 @@ $$\text{Hash}(g) = b_{1} + b_{2}a + b_{3}a^2 + \cdots + b_{n}a^{n-1}$$</p><p><st
 </span></span></code></pre></div><p>For each of the ngram byte values, we will apply the hash function to get the hash value denoted as $h_{i,n}$.</p><p>$\text{Hash}(g_{i,n}) = b_{1} + b_{2}a + b_{3}a^2 + \cdots + b_{n}a^{n-1}$</p><p>$\text{Hash}(g_{3,3}) = 65 + 66a + 67a^2 = h_{3,3}$</p><p>$\text{Hash}(g_{4,3}) = 66 + 67a + 68a^2 = h_{4,3}$</p><p>$\text{Hash}(g_{5,3}) = 67 + 68a + 69a^2 = h_{5,3}$</p><p>&mldr;</p><p>$\text{Hash}(g_{5,5}) = 65 + 66a + 67a^2 + 68a^3 + 69a^4 = h_{5,5}$</p><p>Where $a$ as mentioned earlier is a 10-digit prime number.</p><p>But what does this hash function have to do with embeddings?</p><p><strong>Step 5: Embeddings and Hash function</strong></p><p>Let us see how embeddings come into the picture now.</p><p>Taken from the paper:</p><p>$$ e_i = x_i + \sum_{n=3,&mldr;,8} E_n^{hash}(Hash(g_{i,n})) \qquad\dotsb\qquad (2) $$****</p><p>I hope equation (2) seems less scary. Once we have the hash values, we can use them to get corresponding embeddings from the hash embedding table.</p><p>Here, $e_i$ is the embedding for the $i^{th}$ byte, $x_i$ is the byte embedding, $E_n^{hash}$ is the hash embedding table for the $n$-gram, and $Hash(g_{i,n})$ is the hash value for the $n$-gram.</p><p>To summarize this section in a pictorial way:</p><figure><img src=/blt2/002-rollpoly-hash.png></figure><h2 id=position-embeddings>Position Embeddings</h2><p>This is used for positional reference of the input chunk of bytes, in this case instead of tokens, but the reason for using this is same as that of position encodings in transformers. For more on that read my previous blog <a href=https://sagarsarkale.com/blog/genai/position-encoding/>here</a>. It should give you a fair understanding of what positional encodings are and why they are used in transformers.</p><p>Only difference is that, BLT uses Rotary Positional Embedding (RoPE), which is a different type of positional encoding.</p><h1 id=local-encoder-mathcale>Local Encoder ($\mathcal{E}$)</h1><p>Let us denote the local encoder as $\space\mathcal{E}$. Local encoder is a lightweight transformer model whose outputs are then passed to the latent global transformer model denoted as $\space\mathcal{G}$.</p><h2 id=but-where-are-patches>But where are Patches?</h2><p>It&rsquo;s time we ask this question. Remember in last <a href=https://sagarsarkale.com/blog/genai/precursors-to-byte-latent-transformer/>blog</a> we read about <strong>patching</strong> and how we convert the input text into a sequence of bytes. So far we were only dealing with input bytes, but now let us see how we use patches to get patch embeddings.</p><div class=mermaid>graph LR
 subgraph byte_space[byte space]
 CE["combined embedding
-$(n \times d)$"]
+(n × d)"]
 R["position embedding
-$(n \times d)$"]
+(n × d)"]
 style CE fill:#E3F2FD,stroke:#1976D2
 style R fill:#FFEBEE,stroke:#D32F2F
 end
 P["patches
-$(p)$"]
+(p)"]
 C((downsample))
-LE["Local encoder $(\mathcal{E})$
-$l_\mathcal{E}$ layers
-"]
+LE["Local encoder (E)
+l_E layers"]
 subgraph patch_space[patch space]
 HS["hidden states
-$(p^\prime \times d)$"]
+(p' × d)"]
 end
 AT["Attention"]
-GT["Global Transformer $(\mathcal{G})$
-$l_\mathcal{G}$ layers
-"]
+GT["Global Transformer (G)
+l_G layers"]
 CE --> LE
 R --> LE
 P --> C
@@ -190,26 +188,24 @@ style AT fill:#FFF2CC,stroke:#F57C00
 style GT fill:#FAFAFA,stroke:#424242,stroke-dasharray: 5 5</div><ul><li>$n$ : number of bytes</li><li>$p$ : number of patches</li><li>$d$ : embedding dimension</li><li>$p^\prime$ : downsampled output of local encoder&rsquo;s hidden states</li><li>$l_\mathcal{E}$ : number of layers in local encoder</li><li>$l_\mathcal{G}$ : number of layers in global transformer</li></ul><p>In the above diagram, we are essentially converting byte space to patch space, and number of bytes is greater than number of patches, hence $n > p$. Additionally, because local encoder has significantly less number of layers than the global transformer ($l_\mathcal{E} \ll l_\mathcal{G}$), initial processing of bytes in local encoder is lightweight, compressed information is passed on to the global transformer which is computationally expensive.</p><h2 id=exploded-view-of-local-encoder>Exploded view of Local Encoder</h2><p>Let us now dive a bit deeper into how attention works in local encoder and try to understand what are queries, keys and values in this context.</p><div class=mermaid>graph LR
 subgraph byte_space[byte space]
 CE["combined embedding
-$(n \times d)$"]
+(n × d)"]
 R["position embedding
-$(n \times d)$"]
+(n × d)"]
 style CE fill:#E3F2FD,stroke:#1976D2
 style R fill:#FFEBEE,stroke:#D32F2F
 end
 P["patches
-$(p)$"]
+(p)"]
 C((downsample))
-LE["Local encoder $(\mathcal{E})$
-$l_\mathcal{E}$ layers
-"]
+LE["Local encoder (E)
+l_E layers"]
 subgraph patch_space[patch space]
 HS["hidden states
-$(p^\prime \times d)$"]
+(p' × d)"]
 end
 AT["Attention"]
-GT["Global Transformer $(\mathcal{G})$
-$l_\mathcal{G}$ layers
-"]
+GT["Global Transformer (G)
+l_G layers"]
 CE --> LE
 R --> LE
 P --> C
