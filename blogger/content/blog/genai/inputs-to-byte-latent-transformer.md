@@ -35,20 +35,6 @@ In this post, we will discuss about how these patches are further processed in B
 
 {{< figure src="/blt2/001-upnext-and-where-are-we.png">}}
 
-Self Reference:
-
-```plaintext
-1. Local Encoder
-   1. Embeddings:
-      1. Hash n-gram Embedding
-      2. Hash Embeddings
-      3. Frequency Embeddings
-   2. How all of these embeddings are combined together
-   3. Local Encoder Diagram
-   4. How residual connection is sent out of this local encoder
-2. Latent Global Transformer Model
-```
-
 # Embeddings
 
 Once we have the patches from the entropy-based patching, we pass them through the local encoder. In order to get to the local encoder we need to convert the patches into embeddings first. BLT uses 3 major types of embeddings in the play here:
