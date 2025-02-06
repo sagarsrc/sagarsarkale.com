@@ -1,6 +1,6 @@
 ---
 title: "Inputs to Byte Latent Transformer"
-date: 2025-12-12
+date: 2025-02-06
 summary: "Part 2 of All you need to know to get started with Byte Latent Transformer"
 description: "Part 2 of All you need to know to get started with Byte Latent Transformer"
 toc: true
