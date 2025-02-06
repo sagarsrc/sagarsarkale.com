@@ -412,7 +412,7 @@ graph LR
 
 In the above diagram, we are essentially converting byte space to patch space, and number of bytes is greater than number of patches, hence $n > p$. Additionally, because local encoder has significantly less number of layers than the global transformer ($l_\mathcal{E} \ll l_\mathcal{G}$), initial processing of bytes in local encoder is lightweight, compressed information is passed on to the global transformer which is computationally expensive.
 
-## Exploded view of Local Encoder
+## Local Encoder & Attention
 
 Let us now dive a bit deeper into how attention works in local encoder and try to understand what are queries, keys and values in this context.
 
