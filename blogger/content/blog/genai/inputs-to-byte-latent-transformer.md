@@ -491,8 +491,7 @@ We have covered a lot of ground in this post. Let us summarize what we have cove
 
 1. How we convert the input text into a sequence of bytes (in part 1 of this series).
 2. How we convert the bytes into embeddings.
-3. How we use local encoder to get attention scores.
-4. How we calculate cross attention scores in local encoder.
+3. How we use local encoder to get attention scores and get cross attention.
 
 Most importantly, we have seen how BLT uses a lightweight local encoder to compress information and pass it on to the latent global transformer model, this is the key reason for BLT's significant performance gains over tokenizer-based models.
 
