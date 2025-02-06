@@ -67,14 +67,19 @@ graph LR
     end
 
     subgraph Embeddings
-        patches --> byte[Byte Embeddings]
-        patches --> hash[Hash n-gram Embeddings]
-        patches --> pos[Position Embeddings]
-        byte --> combine1[Combine & Normalize]
+        patches --> byte["Byte
+        Embeddings"]
+        patches --> hash["Hash n-gram
+        Embeddings"]
+        patches --> pos["Position
+        Embeddings"]
+        byte --> combine1["Combine
+        & Normalize"]
         hash --> combine1
     end
 
-    combine1 --> transformer[Local Encoder]
+    combine1 --> transformer["Local
+    Encoder"]
     pos --> transformer
 
     style input fill:#E3F2FD,stroke:#1976D2,stroke-width:2px
@@ -204,10 +209,12 @@ Remember we are using ngrams of size 3, 4, 5, 6, 7, 8. Each of this has a differ
 {{<mermaid>}}
 graph LR
 %% Style definitions
-classDef inputStyle fill:#dbeafe,stroke:#2563eb,stroke-width:2px
-classDef hashStyle fill:#fef9c3,stroke:#ca8a04,stroke-width:2px
-classDef outputStyle fill:#dcfce7,stroke:#16a34a,stroke-width:2px
-classDef subgraphStyle fill:white,stroke:#94a3b8,stroke-width:1px
+classDef inputStyle fill:#E3F2FD,stroke:#1976D2,stroke-width:2px
+classDef hashStyle fill:#FFF3E0,stroke:#F57C00,stroke-width:2px
+classDef outputStyle fill:#E8F5E9,stroke:#388E3C,stroke-width:2px
+classDef posStyle fill:#FFEBEE,stroke:#D32F2F,stroke-width:2px
+classDef combineStyle fill:#E8EAF6,stroke:#3949AB,stroke-width:2px
+classDef subgraphStyle fill:#FAFAFA,stroke:#424242,stroke-width:1px
 
     subgraph NGrams["Input N-grams"]
         ngram1["'Hel'"]
@@ -357,28 +364,81 @@ This is used for positional reference of the input chunk of bytes, in this case 
 
 Only difference is that, BLT uses Rotary Positional Embedding (RoPE), which is a different type of positional encoding.
 
-# Local Encoder
+# Local Encoder ($\mathcal{E}$)
 
-Remember in last [blog](https://sagarsarkale.com/blog/genai/precursors-to-byte-latent-transformer/) we read about **patching** and how we convert the input text into a sequence of bytes. So far we were only dealing with input bytes, but now let us see how we use patches to get patch embeddings.
+Let us denote the local encoder as  $\space\mathcal{E}$. Local encoder is a lightweight transformer model whose outputs are then passed to the latent global transformer model denoted as $\space\mathcal{G}$.
+
+## But where are Patches?
+It's time we ask this question. Remember in last [blog](https://sagarsarkale.com/blog/genai/precursors-to-byte-latent-transformer/) we read about **patching** and how we convert the input text into a sequence of bytes. So far we were only dealing with input bytes, but now let us see how we use patches to get patch embeddings.
 
 {{<mermaid>}}
 graph LR
-    subgraph Input
-        input[Input Bytes] --Entropy--> patches[Patches]
+    subgraph byte_space[byte space]
+        CE["combined embedding
+        $(n \times d)$"]
+        R["position embedding
+        $(n \times d)$"]
+
+
+        style CE fill:#E3F2FD,stroke:#1976D2
+        style R fill:#FFEBEE,stroke:#D32F2F
     end
+    P["patches
+    $(p)$"]
+
+    C((process))
+    style C fill:#feF2FD,stroke:#1976D2
+
+
+    LE["Local encoder $(\mathcal{E})$
+    $l_\mathcal{E}$ layers
+    "]
+
+    subgraph patch_space[patch space]
+        HS["hidden states
+        $(p \times d)$"]
+    end
+    AT["Attention"]
+    GT["Global Transformer $(\mathcal{G})$
+    $l_\mathcal{G}$ layers
+    "]
+
+    CE --> LE
+    R --> LE
+    P --> C
+    LE --> C
+    C --> patch_space
+    LE --> AT
+    HS --> AT
+    AT --> GT
+
+    style LE fill:#E8F5E9,stroke:#388E3C
+    style P fill:#ffca04,stroke:#F57C00
+    style byte_space fill:#FAFAFA,stroke:#424242
+    style patch_space fill:#FAFAFA,stroke:#424242
+    style HS fill:#E8EAF6,stroke:#3949AB
+    style AT fill:#FFF2CC,stroke:#F57C00
+    style GT fill:#FAFAFA,stroke:#424242,stroke-dasharray: 5 5
 
 {{</mermaid>}}
 
-Essentially, we convert byte ndim space to patch ndim space.
+- $n$ : number of bytes
+- $p$ : number of patches
+- $d$ : embedding dimension
+- $l_\mathcal{E}$ : number of layers in local encoder
+- $l_\mathcal{G}$ : number of layers in global transformer
 
-1. How the layers are in Local Encoder.
-2. Number of layers, what each layer does.
-3. And what is the output of the local encoder.
-4. How does multi-head attention work in local encoder what are the queries, keys and values.
-5. Here what is key query and value from a BLT perspective.
-6. Cross attention in local encoder formula.
-7. How are we compressing the information here?
-8. How do we get a residual connection here?
+In the above diagram, we are essentially converting byte space to patch space, and number of bytes is greater than number of patches, hence $n > p$. Additionally, because local encoder has significantly less number of layers than the global transformer ($l_\mathcal{E} \ll l_\mathcal{G}$), initial processing of bytes in local encoder is lightweight, compressed information is passed on to the global transformer which is computationally expensive.
+
+## Exploded view of Local Encoder
+
+
+1. How does multi-head attention work in local encoder what are the queries, keys and values.
+2. Here what is key query and value from a BLT perspective.
+3. Cross attention in local encoder formula.
+4. How are we compressing the information here?
+5. How do we get a residual connection here?
+
 
 # Latent Global Transformer Model
 1. What is the input of the latent global transformer model?
