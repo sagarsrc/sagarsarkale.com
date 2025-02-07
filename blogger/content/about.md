@@ -18,8 +18,9 @@ Join me as I navigate the ever-evolving AI landscape and carve out my own path i
 
 [{{< figure src="/personal/about-me_800x800.jpg" width="30%">}}](https://linkedin.com/in/sagar-sarkale)
 
+<!-- Silkscreen -->
 
-[{{< customfont font="Silkscreen" weight="1000" size="2rem" >}}
-Sagar Sarkale
+[{{< customfont font="Cedarville Cursive" weight="1000" size="2rem" >}}
+- Sagar
 {{< /customfont >}}
 ](https://linkedin.com/in/sagar-sarkale)

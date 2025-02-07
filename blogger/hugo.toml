@@ -28,8 +28,8 @@ ogUrl = "https://sagarsarkale.com"
 theme = 'light'
 
 # Intro on main page, content is markdown
-homeIntroTitle = 'Hi'
-homeIntroContent = """This is a sneak peek into my learning journey!"""
+# homeIntroTitle = 'Hi'
+# homeIntroContent = """This is a sneak peek into my learning journey!"""
 
 # Collection to display on home
 homeCollectionTitle = 'Blog'
@@ -52,6 +52,10 @@ url = "https://www.linkedin.com/in/sagar-sarkale/"
 [[params.social]]
 name = "twitter"
 url = "https://x.com/sagar_sarkale"
+
+[[params.social]]
+name = "github"
+url = "https://github.com/sagarsrc"
 
 [[params.social]]
 name = "email"
