@@ -1,0 +1,11 @@
+{{ $font := .Get "font" }}
+{{ $text := .Inner }}
+{{ $weight := .Get "weight" | default "400" }}
+{{ $size := .Get "size" | default "1em" }}
+
+<span style="
+  font-family: '{{ $font }}', monospace;
+  font-weight: {{ $weight }};
+  font-size: {{ $size }};
+  display: inline-block;
+">{{ .Inner }}</span>
