@@ -10,6 +10,7 @@ math: true
 tags: ["GenAI", "LLM", "Training"]
 showTags: true
 hideBackToTop: false
+mermaid: true
 ---
 {{<figure src="/lora/000-lora-cover.jpg">}}
 
@@ -35,7 +36,7 @@ Though this matrix is made of 9 numbers it's information lies across 3 dimension
 **Example 2**:
 
 
-Similarly a linearly dependent vectors looks like this:
+Similarly a set of linearly dependent vectors looks like this:
 $$M_{1} = \begin{bmatrix} 1 & 0 & 0 \\\\ 3 & 0 & 0 \\\\ 0 & 0 & 0 \end{bmatrix}$$
 {{<figure src="/lora/001-linearly-dependent.jpg">}}
 - Rank of this matrix is 1
@@ -80,7 +81,7 @@ $$
 
 With $r \ll d$ (r much smaller than d), making the adaptation parameter-efficient.
 
-> Essentially we are trying to learn what is $\Delta W$ that should be added to existing weights of a model to learn / adapt to a new task.
+> Essentially we are trying to learn what $\Delta W$ should be added to existing weights of a model to learn / adapt to a new task.
 
 Visually it looks like this:
 {{<figure src="/lora/003-lora-diagram.jpg">}}
@@ -88,11 +89,12 @@ Visually it looks like this:
 **Where does rank fit in?**
 - Notice $r$ i.e rank in above diagram
 - You choose it as a parameter, generally $r \ll d$
+- Typically $r \in \\{8, 16, 32, 64\\}$, and is decided empirically
 
 **But how does it imply parameter efficient training?**
 - Without LoRA, learnable weights were $d^2$
-- With LoRA, we only need to learn $ 2dr = d \times r + r \times d$ weights, such that $r \ll d$
-- This reduces number of trainable parameters drastically
+- With LoRA, we only need to learn $ 2dr = (d \times r + r \times d)$ weights
+- As $r \ll d$ it reduces number of trainable parameters drastically
 
 **Is Rank calculated during this process?**
 - NO! rank of matrix is not calculated during LoRA training or inference
@@ -106,17 +108,180 @@ Visually it looks like this:
 - How much computation you save
 
 ## Training: LoRA
+During training:
+- $W_0$ remains frozen (gradients blocked)
+- Only $A$ and $B$ matrices are updated via backpropagation
+- Forward pass: $h = (W_0 + BA)x$ where $x$ is input
+
+{{<mermaid>}}
+flowchart TD
+    input["Input $x$"]
+    
+    subgraph matrices[Weight Matrices]
+        frozen["$W_0$ Frozen<br/>No Gradients"]
+        matrixA["Matrix $A$<br/>Trainable"]
+        matrixB["Matrix $B$<br/>Trainable"]
+    end
+
+    subgraph forward[Forward Pass]
+        multiply["$B \times A$"]
+        add["$W_0 + BA$"]
+        output["Output $h$"]
+    end
+
+    subgraph backward[Backward Pass]
+        gradA["$\nabla A$"]
+        gradB["$\nabla B$"]
+        blocked["$\nabla W_0 = 0$<br/>Blocked"]
+    end
+
+    input --> matrices
+    matrixB --> multiply
+    matrixA --> multiply
+    frozen --> add
+    multiply --> add
+    add --> output
+
+    output --> gradA
+    output --> gradB
+    output -.-> blocked
+
+    style frozen fill:#E3F2FD,stroke:#1976D2,stroke-width:2px
+    style matrixA fill:#FFEBEE,stroke:#D32F2F,stroke-width:2px
+    style matrixB fill:#FFEBEE,stroke:#D32F2F,stroke-width:2px
+    style multiply fill:#E8F5E9,stroke:#388E3C,stroke-width:2px
+    style add fill:#FFF3E0,stroke:#F57C00,stroke-width:2px
+    style output fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px
+    style gradA fill:#FFCDD2,stroke:#C62828,stroke-width:2px
+    style gradB fill:#FFCDD2,stroke:#C62828,stroke-width:2px
+    style blocked fill:#ECEFF1,stroke:#455A64,stroke-width:2px,stroke-dasharray: 5 5
+{{</mermaid>}}
+
+> **Key insight**: The $\nabla W_0 = 0$ means gradients for $W_0$ are blocked/not calculated. $W_0$ remains completely frozen during training - only the small matrices $A$ and $B$ receive gradient updates. The dotted arrow shows this blocked gradient flow.
 
 ## Inference: LoRA
+During inference:
+- **Option 1**: Compute $W_0 + BA$ once and use merged weights
+- **Option 2**: Keep separate and compute $W_0x + BAx$
+- **Adapter swapping**: Replace $BA$ with different adapters for different tasks
 
+### Option 1: Merged Weights
+*Pre-compute the combined weights once, then use standard inference*
+
+{{<mermaid>}}
+flowchart TD
+    input1["Input $x$"]
+    
+    subgraph setup["Setup Phase"]
+        w0["$W_0$ Base Weights"]
+        lora["$BA$ LoRA Weights"]
+        merge["Merge: $W = W_0 + BA$"]
+    end
+    
+    subgraph inference["Inference Phase"]
+        forward["Forward: $Wx$"]
+        output1["Output $h$"]
+    end
+    
+    input1 --> setup
+    w0 --> merge
+    lora --> merge
+    merge --> forward
+    forward --> output1
+
+    style w0 fill:#E3F2FD,stroke:#1976D2,stroke-width:2px
+    style lora fill:#FFEBEE,stroke:#D32F2F,stroke-width:2px
+    style merge fill:#E8F5E9,stroke:#388E3C,stroke-width:2px
+    style forward fill:#FFF3E0,stroke:#F57C00,stroke-width:2px
+    style output1 fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px
+{{</mermaid>}}
+
+### Option 2: Separate Computation
+*Compute base and LoRA paths separately, then add their outputs*
+
+{{<mermaid>}}
+flowchart TD
+    input2["Input $x$"]
+    
+    subgraph paths["Parallel Paths"]
+        path1["Base Path: $W_0x$"]
+        path2["LoRA Path: $BAx$"]
+    end
+    
+    subgraph combine["Combination"]
+        sum["Sum: $W_0x + BAx$"]
+        output2["Output $h$"]
+    end
+    
+    input2 --> path1
+    input2 --> path2
+    path1 --> sum
+    path2 --> sum
+    sum --> output2
+
+    style path1 fill:#E3F2FD,stroke:#1976D2,stroke-width:2px
+    style path2 fill:#FFEBEE,stroke:#D32F2F,stroke-width:2px
+    style sum fill:#E8F5E9,stroke:#388E3C,stroke-width:2px
+    style output2 fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px
+{{</mermaid>}}
+
+### Option 3: Adapter Swapping
+*Keep multiple task-specific LoRA adapters and swap them dynamically*
+
+{{<mermaid>}}
+flowchart TD
+    input3["Input $x$"]
+    
+    subgraph base["Base Model"]
+        w0_base["$W_0$ Frozen Base"]
+    end
+    
+    subgraph adapters["Available Adapters"]
+        task1["Task 1: $B_1A_1$"]
+        task2["Task 2: $B_2A_2$"]
+        task3["Task 3: $B_3A_3$"]
+    end
+    
+    subgraph selection["Dynamic Selection"]
+        switch["Select Adapter"]
+        selected["Selected: $B_iA_i$"]
+    end
+    
+    subgraph compute["Computation"]
+        final["$W_0 + B_iA_i$"]
+        output3["Output $h$"]
+    end
+    
+    input3 --> base
+    adapters --> switch
+    switch --> selected
+    w0_base --> final
+    selected --> final
+    final --> output3
+
+    style w0_base fill:#E3F2FD,stroke:#1976D2,stroke-width:2px
+    style task1 fill:#E8F5E9,stroke:#388E3C,stroke-width:2px
+    style task2 fill:#FFEBEE,stroke:#D32F2F,stroke-width:2px
+    style task3 fill:#E1F5FE,stroke:#0277BD,stroke-width:2px
+    style switch fill:#FFF9C4,stroke:#F9A825,stroke-width:2px
+    style selected fill:#FFCDD2,stroke:#C62828,stroke-width:2px
+    style final fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px
+    style output3 fill:#E8EAF6,stroke:#3949AB,stroke-width:2px
+{{</mermaid>}}
 
 # What does LoRA unlock?
 Tell about how lora adapters can be quickly loaded and unloaded, give example of diffusion models which can generate avatars and realistic figures.
+Explain dynamic loading.
+
+# LoRA backpropagation
 
 # LoRA and a small neural network
 
 # LoRA and trainable params
 
+# Looking at huggingface library
+
+#
 
 # References
 1. [LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685)

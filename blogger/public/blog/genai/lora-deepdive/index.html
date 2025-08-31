@@ -1,496 +1,119 @@
-<!DOCTYPE html>
-<html lang="en-us"
-  dir="ltr">
-
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-  <meta charset="utf-8">
-<meta name="viewport" content="width=device-width"><meta name="description" content="Secret sauce to train large language models" />
-
-<title>
-    
-    LoRA: Low Rank Adaptation | Sagar Sarkale
-    
-</title>
-
-
-
-
-<link rel="shortcut" href="/favicon.ico" type="image/x-icon">
-<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-
-
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-
-
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-
-
-<link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
-
-
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
-
-
-<meta name="msapplication-TileColor" content="#da532c">
-<meta name="msapplication-TileImage" content="/mstile-150x150.png">
-<meta name="msapplication-config" content="/browserconfig.xml">
-
-
-<link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#ffffff">
-
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Sagar Sarkale">
-<meta name="twitter:description" content="Sagar's digital corner">
-<meta name="twitter:image" content="/android-chrome-512x512.png">
-
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-J90LP2EWLN"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-
-    gtag('config', 'G-J90LP2EWLN');
-</script>
-
-
-<meta property="og:site_name" content="Sagar Sarkale">
-<meta property="og:type" content="website">
-<meta property="og:title" content="LoRA: Low Rank Adaptation">
-<meta property="og:description"
-    content="Secret sauce to train large language models">
-<meta property="og:image" content="/android-chrome-512x512.png">
-<meta property="og:image:secure_url" content="/android-chrome-512x512.png">
-<meta property="og:url" content="http://localhost:1313/blog/genai/lora-deepdive/">
-
-
-
-
-
-
-
-<link rel="stylesheet" href="/assets/combined.min.db8ef8c3a31366f267bea6788a54bde50a233bcc9dea1309d747e786449cb8e7.css" media="all">
-
-
-
-
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-    href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Silkscreen&family=Pixelify+Sans&display=swap"
-    rel="stylesheet">
-
-<link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap" rel="stylesheet">
-</head>
-
-
-
-
-
-
-
-<body class="light">
-
-  <div class="content">
-    <header>
-      
-
-<div class="header">
-    <h1 class="header-title">Sagar Sarkale</h1>
-
-    <div class="flex">
-        
-
-        
-        
-        <p class="small ">
-            <a href="/">
-                /home
-            </a>
-        </p>
-        
-        <p class="small ">
-            <a href="/blog">
-                /blog
-            </a>
-        </p>
-        
-        <p class="small ">
-            <a href="/work">
-                /work
-            </a>
-        </p>
-        
-        <p class="small ">
-            <a href="/random">
-                /random
-            </a>
-        </p>
-        
-        <p class="small ">
-            <a href="/about">
-                /about
-            </a>
-        </p>
-        
-        
-    </div>
-
-    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
-        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor">
-            <circle cx="12" cy="12" r="5" />
-            <line x1="12" y1="1" x2="12" y2="3" />
-            <line x1="12" y1="21" x2="12" y2="23" />
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-            <line x1="1" y1="12" x2="3" y2="12" />
-            <line x1="21" y1="12" x2="23" y2="12" />
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-        </svg>
-        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-        </svg>
-    </button>
-</div>
-    </header>
-
-    <main class="main">
-      
-
-
-
-
-<div class="breadcrumbs">
-    
-    <a href="/">Home</a>
-    <span class="breadcrumbs-separator"> > </span>
-    
-    <a href="/blog/">Blog</a>
-    <span class="breadcrumbs-separator"> > </span>
-    
-    <a class="breadcrumbs-current" href="/blog/genai/lora-deepdive/">LoRA: Low Rank Adaptation</a>
-</div>
-
-
-<div  class="autonumber" >
-
-  <div class="single-intro-container">
-
-    
-
-    <h1 class="single-title">LoRA: Low Rank Adaptation</h1>
-    
-    <p class="single-summary">Secret sauce to train large language models</p>
-    
-
-    
-
-    <p class="single-readtime">
-      
-      
-      
-      <time datetime="2025-08-31T00:00:00&#43;00:00">August 31, 2025</time>
-      
-
-      
-      &nbsp; · &nbsp;
-      4 min read
-      
-    </p>
-
-  </div>
-
-  
-
-  
-  
-
-  <div class="single-tags">
-    
-    <span>
-      <a href="http://localhost:1313/tags/genai/">#GenAI</a>
-    </span>
-    
-    
-    <span>
-      <a href="http://localhost:1313/tags/llm/">#LLM</a>
-    </span>
-    
-    
-    <span>
-      <a href="http://localhost:1313/tags/training/">#Training</a>
-    </span>
-    
-    
-  </div>
-
-  
-  
-
-  
-
-  
-  <aside class="toc">
-    <p><strong>Table of contents</strong></p>
-    <nav id="TableOfContents">
-  <ol>
-    <li><a href="#introduction">Introduction</a></li>
-    <li><a href="#refresher-on-rank-of-a-matrix">Refresher on Rank of a Matrix</a>
-      <ol>
-        <li><a href="#visual-guide-to-rankm">Visual guide to rank(M)</a></li>
-      </ol>
-    </li>
-    <li><a href="#what-is-low-rank-adapter">What is Low Rank Adapter?</a>
-      <ol>
-        <li><a href="#brief">Brief</a></li>
-        <li><a href="#training-lora">Training: LoRA</a></li>
-        <li><a href="#inference-lora">Inference: LoRA</a></li>
-      </ol>
-    </li>
-    <li><a href="#what-does-lora-unlock">What does LoRA unlock?</a></li>
-    <li><a href="#lora-and-a-small-neural-network">LoRA and a small neural network</a></li>
-    <li><a href="#lora-and-trainable-params">LoRA and trainable params</a></li>
-    <li><a href="#references">References</a></li>
-  </ol>
-</nav>
-  </aside>
-  
-
-  
-
-  <div class="single-content">
-    
-    <figure><img src="/lora/000-lora-cover.jpg">
-</figure>
-
-<h1 id="introduction">Introduction</h1>
-<p>LoRA or Low Rank Adaptation is one of the techniques which was introduced to train large language model efficiently. To quote it in numbers, using this technique while training GPT3 175B number of trainable parameters can be reduced by 10000x, all while keeping the performance at par or better than fully finetuned model. In this blog i try to condense multiple resources and the nuances that come with this technique.</p>
-<h1 id="refresher-on-rank-of-a-matrix">Refresher on Rank of a Matrix</h1>
-<p>Some basics first before diving into the concept. Number of linearly independent rows or columns in a matrix is known as rank of the matrix. I like to think of this in a 3D system, where each row is a vector.</p>
-<h2 id="visual-guide-to-rankm">Visual guide to rank(M)</h2>
-<p><strong>Example 1</strong>:</p>
-<p>What is the simplest 3D system that would be linearly independent? Identity matrix $I_{3}$</p>
-<p>$$I_3 = \begin{bmatrix} 1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 1 \end{bmatrix}$$</p>
-<p>Though this matrix is made of 9 numbers it&rsquo;s information lies across 3 dimensions. In the following representation we can clearly see each vector is linearly independent of each other.
-<figure><img src="/lora/000-identity-matrix-repr.jpg">
-</figure>
-</p>
-<ul>
-<li>Rank of this matrix is 3</li>
-<li>No row can be expressed as a linear combination of the other rows</li>
-</ul>
-<p><strong>Example 2</strong>:</p>
-<p>Similarly a linearly dependent vectors looks like this:
-$$M_{1} = \begin{bmatrix} 1 &amp; 0 &amp; 0 \\ 3 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 \end{bmatrix}$$
-<figure><img src="/lora/001-linearly-dependent.jpg">
-</figure>
-</p>
-<ul>
-<li>Rank of this matrix is 1</li>
-<li>Row $r_2$ is 3 times Row $r_1$</li>
-</ul>
-<p><strong>Example 3</strong>:</p>
-<p>Extending the same concept further we can have a matrix with rank 2:
-$$M_{2} = \begin{bmatrix} 1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 1 \\ 0 &amp; 0 &amp; 0 \end{bmatrix}$$
-<figure><img src="/lora/002-rank2-matrix.jpg">
-</figure>
-</p>
-<ul>
-<li>Rank of this matrix is 2</li>
-<li>Only the first two rows are linearly independent, the third row is zero</li>
-</ul>
-<p><strong>Key Properties of Matrix Rank</strong>:</p>
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Mathematical Expression</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Upper bound</strong></td>
-<td>$\text{rank}(A) \leq \min(m, n)$</td>
-<td>Rank cannot exceed smallest dimension</td>
-</tr>
-<tr>
-<td><strong>Full vs Low rank</strong></td>
-<td>Full: $\text{rank}(A) = \min(m, n)$</td>
-<td>When rank equals smallest dimension</td>
-</tr>
-<tr>
-<td><strong>Multiplication</strong></td>
-<td>$\text{rank}(AB) \leq \min(\text{rank}(A), \text{rank}(B))$</td>
-<td>Product rank is bounded by minimum</td>
-</tr>
-<tr>
-<td><strong>Addition</strong></td>
-<td>$\text{rank}(A + B) \leq \text{rank}(A) + \text{rank}(B)$</td>
-<td>Sum rank is bounded by sum of ranks</td>
-</tr>
-<tr>
-<td><strong>Subtraction</strong></td>
-<td>$\text{rank}(A - B) \leq \text{rank}(A) + \text{rank}(B)$</td>
-<td>Difference rank follows same bound as addition</td>
-</tr>
-<tr>
-<td><strong>Transpose</strong></td>
-<td>$\text{rank}(A^T) = \text{rank}(A)$</td>
-<td>Rank is preserved under transpose</td>
-</tr>
-<tr>
-<td><strong>Zero rank</strong></td>
-<td>$\text{rank}(A) = 0 \iff A = 0$</td>
-<td>Only zero matrix has rank zero</td>
-</tr>
-</tbody>
-</table>
-<h1 id="what-is-low-rank-adapter">What is Low Rank Adapter?</h1>
-<h2 id="brief">Brief</h2>
-<p>LoRA adds a low-rank update to frozen pre-trained weights. Instead of updating the original weight matrix $W_0$ directly, LoRA keeps it frozen and learns a low-rank decomposition $\Delta W = BA$ to adapt the model:</p>
-<p>$$
+<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width"><meta name=description content="Secret sauce to train large language models"><title>LoRA: Low Rank Adaptation | Sagar Sarkale
+</title><link rel=shortcut href=/favicon.ico type=image/x-icon><link rel="shortcut icon" href=/favicon.ico type=image/x-icon><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=192x192 href=/android-chrome-192x192.png><link rel=icon type=image/png sizes=512x512 href=/android-chrome-512x512.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=icon type=image/x-icon href=/favicon.ico><meta name=msapplication-TileColor content="#da532c"><meta name=msapplication-TileImage content="/mstile-150x150.png"><meta name=msapplication-config content="/browserconfig.xml"><link rel=manifest href=/site.webmanifest><meta name=theme-color content="#ffffff"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="Sagar Sarkale"><meta name=twitter:description content="Sagar's digital corner"><meta name=twitter:image content="/android-chrome-512x512.png"><script async src="https://www.googletagmanager.com/gtag/js?id=G-J90LP2EWLN"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-J90LP2EWLN")</script><meta property="og:site_name" content="Sagar Sarkale"><meta property="og:type" content="website"><meta property="og:title" content="LoRA: Low Rank Adaptation"><meta property="og:description" content="Secret sauce to train large language models"><meta property="og:image" content="/android-chrome-512x512.png"><meta property="og:image:secure_url" content="/android-chrome-512x512.png"><meta property="og:url" content="https://sagarsarkale.com/blog/genai/lora-deepdive/"><link rel=stylesheet href=/assets/combined.min.db8ef8c3a31366f267bea6788a54bde50a233bcc9dea1309d747e786449cb8e7.css media=all><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Silkscreen&family=Pixelify+Sans&display=swap" rel=stylesheet><link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap" rel=stylesheet></head><body class=light><div class=content><header><div class=header><h1 class=header-title>Sagar Sarkale</h1><div class=flex><p class=small><a href=/>/home</a></p><p class=small><a href=/blog>/blog</a></p><p class=small><a href=/work>/work</a></p><p class=small><a href=/random>/random</a></p><p class=small><a href=/about>/about</a></p></div><button id=theme-toggle class=theme-toggle aria-label="Toggle theme"><svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg><svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></button></div></header><main class=main><div class=breadcrumbs><a href=/>Home</a>
+<span class=breadcrumbs-separator>> </span><a href=/blog/>Blog</a>
+<span class=breadcrumbs-separator>> </span><a class=breadcrumbs-current href=/blog/genai/lora-deepdive/>LoRA: Low Rank Adaptation</a></div><div class=autonumber><div class=single-intro-container><h1 class=single-title>LoRA: Low Rank Adaptation</h1><p class=single-summary>Secret sauce to train large language models</p><p class=single-readtime><time datetime=2025-08-31T00:00:00+00:00>August 31, 2025</time>
+&nbsp; · &nbsp;
+6 min read</p></div><div class=single-tags><span><a href=https://sagarsarkale.com/tags/genai/>#GenAI</a>
+</span><span><a href=https://sagarsarkale.com/tags/llm/>#LLM</a>
+</span><span><a href=https://sagarsarkale.com/tags/training/>#Training</a></span></div><aside class=toc><p><strong>Table of contents</strong></p><nav id=TableOfContents><ol><li><a href=#introduction>Introduction</a></li><li><a href=#refresher-on-rank-of-a-matrix>Refresher on Rank of a Matrix</a><ol><li><a href=#visual-guide-to-rankm>Visual guide to rank(M)</a></li></ol></li><li><a href=#what-is-low-rank-adapter>What is Low Rank Adapter?</a><ol><li><a href=#brief>Brief</a></li><li><a href=#training-lora>Training: LoRA</a></li><li><a href=#inference-lora>Inference: LoRA</a><ol><li><a href=#option-1-merged-weights>Option 1: Merged Weights</a></li><li><a href=#option-2-separate-computation>Option 2: Separate Computation</a></li><li><a href=#option-3-adapter-swapping>Option 3: Adapter Swapping</a></li></ol></li></ol></li><li><a href=#what-does-lora-unlock>What does LoRA unlock?</a></li><li><a href=#lora-backpropagation>LoRA backpropagation</a></li><li><a href=#lora-and-a-small-neural-network>LoRA and a small neural network</a></li><li><a href=#lora-and-trainable-params>LoRA and trainable params</a></li><li><a href=#looking-at-huggingface-library>Looking at huggingface library</a></li><li><a href=#heading></a></li><li><a href=#references>References</a></li></ol></nav></aside><div class=single-content><script type=application/javascript src=https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js></script><script>var config={startOnLoad:!0,theme:"neutral",align:"center"};mermaid.initialize(config)</script><figure><img src=/lora/000-lora-cover.jpg></figure><h1 id=introduction>Introduction</h1><p>LoRA or Low Rank Adaptation is one of the techniques which was introduced to train large language model efficiently. To quote it in numbers, using this technique while training GPT3 175B number of trainable parameters can be reduced by 10000x, all while keeping the performance at par or better than fully finetuned model. In this blog i try to condense multiple resources and the nuances that come with this technique.</p><h1 id=refresher-on-rank-of-a-matrix>Refresher on Rank of a Matrix</h1><p>Some basics first before diving into the concept. Number of linearly independent rows or columns in a matrix is known as rank of the matrix. I like to think of this in a 3D system, where each row is a vector.</p><h2 id=visual-guide-to-rankm>Visual guide to rank(M)</h2><p><strong>Example 1</strong>:</p><p>What is the simplest 3D system that would be linearly independent? Identity matrix $I_{3}$</p><p>$$I_3 = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}$$</p><p>Though this matrix is made of 9 numbers it&rsquo;s information lies across 3 dimensions. In the following representation we can clearly see each vector is linearly independent of each other.<figure><img src=/lora/000-identity-matrix-repr.jpg></figure></p><ul><li>Rank of this matrix is 3</li><li>No row can be expressed as a linear combination of the other rows</li></ul><p><strong>Example 2</strong>:</p><p>Similarly a set of linearly dependent vectors looks like this:
+$$M_{1} = \begin{bmatrix} 1 & 0 & 0 \\ 3 & 0 & 0 \\ 0 & 0 & 0 \end{bmatrix}$$<figure><img src=/lora/001-linearly-dependent.jpg></figure></p><ul><li>Rank of this matrix is 1</li><li>Row $r_2$ is 3 times Row $r_1$</li></ul><p><strong>Example 3</strong>:</p><p>Extending the same concept further we can have a matrix with rank 2:
+$$M_{2} = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 1 \\ 0 & 0 & 0 \end{bmatrix}$$<figure><img src=/lora/002-rank2-matrix.jpg></figure></p><ul><li>Rank of this matrix is 2</li><li>Only the first two rows are linearly independent, the third row is zero</li></ul><p><strong>Key Properties of Matrix Rank</strong>:</p><table><thead><tr><th>Property</th><th>Mathematical Expression</th><th>Description</th></tr></thead><tbody><tr><td><strong>Upper bound</strong></td><td>$\text{rank}(A) \leq \min(m, n)$</td><td>Rank cannot exceed smallest dimension</td></tr><tr><td><strong>Full vs Low rank</strong></td><td>Full: $\text{rank}(A) = \min(m, n)$</td><td>When rank equals smallest dimension</td></tr><tr><td><strong>Multiplication</strong></td><td>$\text{rank}(AB) \leq \min(\text{rank}(A), \text{rank}(B))$</td><td>Product rank is bounded by minimum</td></tr><tr><td><strong>Addition</strong></td><td>$\text{rank}(A + B) \leq \text{rank}(A) + \text{rank}(B)$</td><td>Sum rank is bounded by sum of ranks</td></tr><tr><td><strong>Subtraction</strong></td><td>$\text{rank}(A - B) \leq \text{rank}(A) + \text{rank}(B)$</td><td>Difference rank follows same bound as addition</td></tr><tr><td><strong>Transpose</strong></td><td>$\text{rank}(A^T) = \text{rank}(A)$</td><td>Rank is preserved under transpose</td></tr><tr><td><strong>Zero rank</strong></td><td>$\text{rank}(A) = 0 \iff A = 0$</td><td>Only zero matrix has rank zero</td></tr></tbody></table><h1 id=what-is-low-rank-adapter>What is Low Rank Adapter?</h1><h2 id=brief>Brief</h2><p>LoRA adds a low-rank update to frozen pre-trained weights. Instead of updating the original weight matrix $W_0$ directly, LoRA keeps it frozen and learns a low-rank decomposition $\Delta W = BA$ to adapt the model:</p><p>$$
 W = W_0 + \Delta W = W_0 + BA
-$$</p>
-<p>Where:
+$$</p><p>Where:
 $$
 B \in \mathbb{R}^{d \times r}, \quad A \in \mathbb{R}^{r \times d}, \quad W_0 \in \mathbb{R}^{d \times d}
-$$</p>
-<p>With $r \ll d$ (r much smaller than d), making the adaptation parameter-efficient.</p>
-<blockquote>
-<p>Essentially we are trying to learn what is $\Delta W$ that should be added to existing weights of a model to learn / adapt to a new task.</p>
-</blockquote>
-<p>Visually it looks like this:
-<figure><img src="/lora/003-lora-diagram.jpg">
-</figure>
-</p>
-<p><strong>Where does rank fit in?</strong></p>
-<ul>
-<li>Notice $r$ i.e rank in above diagram</li>
-<li>You choose it as a parameter, generally $r \ll d$</li>
-</ul>
-<p><strong>But how does it imply parameter efficient training?</strong></p>
-<ul>
-<li>Without LoRA, learnable weights were $d^2$</li>
-<li>With LoRA, we only need to learn $ 2dr = d \times r + r \times d$ weights, such that $r \ll d$</li>
-<li>This reduces number of trainable parameters drastically</li>
-</ul>
-<p><strong>Is Rank calculated during this process?</strong></p>
-<ul>
-<li>NO! rank of matrix is not calculated during LoRA training or inference</li>
-<li>When you choose hyperparameter $r$, you are essentially saying that your matrix $B$ or $A$ will have lower rank than the original matrix $W_0$</li>
-<li>Upon multiplication matrices $B$ and $A$ resultant rank will be $min(rank(A), rank(B))$ which will be smaller than $rank(W_0)$</li>
-<li><strong>Key takeaway</strong>: You have a rank constraint, you do NOT compute it.</li>
-</ul>
-<p><strong>What does rank $r$ determine?</strong></p>
-<ul>
-<li>How much compression you get</li>
-<li>How much expressivity you retain</li>
-<li>How much computation you save</li>
-</ul>
-<h2 id="training-lora">Training: LoRA</h2>
-<h2 id="inference-lora">Inference: LoRA</h2>
-<h1 id="what-does-lora-unlock">What does LoRA unlock?</h1>
-<p>Tell about how lora adapters can be quickly loaded and unloaded, give example of diffusion models which can generate avatars and realistic figures.</p>
-<h1 id="lora-and-a-small-neural-network">LoRA and a small neural network</h1>
-<h1 id="lora-and-trainable-params">LoRA and trainable params</h1>
-<h1 id="references">References</h1>
-<ol>
-<li><a href="https://arxiv.org/abs/2106.09685">LoRA: Low-Rank Adaptation of Large Language Models</a></li>
-<li><a href="https://youtu.be/DhRoTONcyZE?si=OZR7DpcHrqpP_UC_">What is Low-Rank Adaptation (LoRA) | explained by the inventor</a></li>
-</ol>
-
-    
-  </div>
-
-  
-  <div class="back-to-top">
-    <a href="#top">
-      back to top
-    </a>
-  </div>
-  
-
-</div>
-
-
-    </main>
-  </div>
-
-  <footer>
-    <p>ꕀ Powered by caffeine and occasional epiphany. ꕀ </p>
-
-
-<link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
-<script defer
-  src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script>
-
-<script defer
-  src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"
-  onload="renderMathInElement(document.body);"></script>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    renderMathInElement(document.body, {
-      delimiters: [
-        { left: "$$", right: "$$", display: true },
-        { left: "$", right: "$", display: false }
-      ]
-    });
-  });
-</script>
-
-  </footer>
-
-</body>
-
-<script>
-
-  function setTheme(theme) {
-    document.body.classList.remove('light', 'dark', 'auto');
-    document.body.classList.add(theme);
-    localStorage.setItem('theme', theme);
-  }
-
-  function toggleTheme() {
-    const currentTheme = localStorage.getItem('theme') || 'auto';
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-  }
-
-  function initTheme() {
-    const savedTheme = localStorage.getItem('theme') || 'auto';
-    if (savedTheme === 'auto') {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setTheme(prefersDark ? 'dark' : 'light');
-    } else {
-      setTheme(savedTheme);
-    }
-  }
-
-  
-  initTheme();
-
-  
-  document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
-
-  
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-    if (localStorage.getItem('theme') === 'auto') {
-      setTheme(e.matches ? 'dark' : 'light');
-    }
-  });
-
-</script>
-
-</html>
+$$</p><p>With $r \ll d$ (r much smaller than d), making the adaptation parameter-efficient.</p><blockquote><p>Essentially we are trying to learn what $\Delta W$ should be added to existing weights of a model to learn / adapt to a new task.</p></blockquote><p>Visually it looks like this:<figure><img src=/lora/003-lora-diagram.jpg></figure></p><p><strong>Where does rank fit in?</strong></p><ul><li>Notice $r$ i.e rank in above diagram</li><li>You choose it as a parameter, generally $r \ll d$</li><li>Typically $r \in \{8, 16, 32, 64\}$, and is decided empirically</li></ul><p><strong>But how does it imply parameter efficient training?</strong></p><ul><li>Without LoRA, learnable weights were $d^2$</li><li>With LoRA, we only need to learn $ 2dr = (d \times r + r \times d)$ weights</li><li>As $r \ll d$ it reduces number of trainable parameters drastically</li></ul><p><strong>Is Rank calculated during this process?</strong></p><ul><li>NO! rank of matrix is not calculated during LoRA training or inference</li><li>When you choose hyperparameter $r$, you are essentially saying that your matrix $B$ or $A$ will have lower rank than the original matrix $W_0$</li><li>Upon multiplication matrices $B$ and $A$ resultant rank will be $min(rank(A), rank(B))$ which will be smaller than $rank(W_0)$</li><li><strong>Key takeaway</strong>: You have a rank constraint, you do NOT compute it.</li></ul><p><strong>What does rank $r$ determine?</strong></p><ul><li>How much compression you get</li><li>How much expressivity you retain</li><li>How much computation you save</li></ul><h2 id=training-lora>Training: LoRA</h2><p>During training:</p><ul><li>$W_0$ remains frozen (gradients blocked)</li><li>Only $A$ and $B$ matrices are updated via backpropagation</li><li>Forward pass: $h = (W_0 + BA)x$ where $x$ is input</li></ul><div class=mermaid>flowchart TD
+input["Input $x$"]
+subgraph matrices[Weight Matrices]
+frozen["$W_0$ Frozen<br>No Gradients"]
+matrixA["Matrix $A$<br>Trainable"]
+matrixB["Matrix $B$<br>Trainable"]
+end
+subgraph forward[Forward Pass]
+multiply["$B \times A$"]
+add["$W_0 + BA$"]
+output["Output $h$"]
+end
+subgraph backward[Backward Pass]
+gradA["$\nabla A$"]
+gradB["$\nabla B$"]
+blocked["$\nabla W_0 = 0$<br>Blocked"]
+end
+input --> matrices
+matrixB --> multiply
+matrixA --> multiply
+frozen --> add
+multiply --> add
+add --> output
+output --> gradA
+output --> gradB
+output -.-> blocked
+style frozen fill:#E3F2FD,stroke:#1976D2,stroke-width:2px
+style matrixA fill:#FFEBEE,stroke:#D32F2F,stroke-width:2px
+style matrixB fill:#FFEBEE,stroke:#D32F2F,stroke-width:2px
+style multiply fill:#E8F5E9,stroke:#388E3C,stroke-width:2px
+style add fill:#FFF3E0,stroke:#F57C00,stroke-width:2px
+style output fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px
+style gradA fill:#FFCDD2,stroke:#C62828,stroke-width:2px
+style gradB fill:#FFCDD2,stroke:#C62828,stroke-width:2px
+style blocked fill:#ECEFF1,stroke:#455A64,stroke-width:2px,stroke-dasharray: 5 5</div><blockquote><p><strong>Key insight</strong>: The $\nabla W_0 = 0$ means gradients for $W_0$ are blocked/not calculated. $W_0$ remains completely frozen during training - only the small matrices $A$ and $B$ receive gradient updates. The dotted arrow shows this blocked gradient flow.</p></blockquote><h2 id=inference-lora>Inference: LoRA</h2><p>During inference:</p><ul><li><strong>Option 1</strong>: Compute $W_0 + BA$ once and use merged weights</li><li><strong>Option 2</strong>: Keep separate and compute $W_0x + BAx$</li><li><strong>Adapter swapping</strong>: Replace $BA$ with different adapters for different tasks</li></ul><h3 id=option-1-merged-weights>Option 1: Merged Weights</h3><p><em>Pre-compute the combined weights once, then use standard inference</em></p><div class=mermaid>flowchart TD
+input1["Input $x$"]
+subgraph setup["Setup Phase"]
+w0["$W_0$ Base Weights"]
+lora["$BA$ LoRA Weights"]
+merge["Merge: $W = W_0 + BA$"]
+end
+subgraph inference["Inference Phase"]
+forward["Forward: $Wx$"]
+output1["Output $h$"]
+end
+input1 --> setup
+w0 --> merge
+lora --> merge
+merge --> forward
+forward --> output1
+style w0 fill:#E3F2FD,stroke:#1976D2,stroke-width:2px
+style lora fill:#FFEBEE,stroke:#D32F2F,stroke-width:2px
+style merge fill:#E8F5E9,stroke:#388E3C,stroke-width:2px
+style forward fill:#FFF3E0,stroke:#F57C00,stroke-width:2px
+style output1 fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px</div><h3 id=option-2-separate-computation>Option 2: Separate Computation</h3><p><em>Compute base and LoRA paths separately, then add their outputs</em></p><div class=mermaid>flowchart TD
+input2["Input $x$"]
+subgraph paths["Parallel Paths"]
+path1["Base Path: $W_0x$"]
+path2["LoRA Path: $BAx$"]
+end
+subgraph combine["Combination"]
+sum["Sum: $W_0x + BAx$"]
+output2["Output $h$"]
+end
+input2 --> path1
+input2 --> path2
+path1 --> sum
+path2 --> sum
+sum --> output2
+style path1 fill:#E3F2FD,stroke:#1976D2,stroke-width:2px
+style path2 fill:#FFEBEE,stroke:#D32F2F,stroke-width:2px
+style sum fill:#E8F5E9,stroke:#388E3C,stroke-width:2px
+style output2 fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px</div><h3 id=option-3-adapter-swapping>Option 3: Adapter Swapping</h3><p><em>Keep multiple task-specific LoRA adapters and swap them dynamically</em></p><div class=mermaid>flowchart TD
+input3["Input $x$"]
+subgraph base["Base Model"]
+w0_base["$W_0$ Frozen Base"]
+end
+subgraph adapters["Available Adapters"]
+task1["Task 1: $B_1A_1$"]
+task2["Task 2: $B_2A_2$"]
+task3["Task 3: $B_3A_3$"]
+end
+subgraph selection["Dynamic Selection"]
+switch["Select Adapter"]
+selected["Selected: $B_iA_i$"]
+end
+subgraph compute["Computation"]
+final["$W_0 + B_iA_i$"]
+output3["Output $h$"]
+end
+input3 --> base
+adapters --> switch
+switch --> selected
+w0_base --> final
+selected --> final
+final --> output3
+style w0_base fill:#E3F2FD,stroke:#1976D2,stroke-width:2px
+style task1 fill:#E8F5E9,stroke:#388E3C,stroke-width:2px
+style task2 fill:#FFEBEE,stroke:#D32F2F,stroke-width:2px
+style task3 fill:#E1F5FE,stroke:#0277BD,stroke-width:2px
+style switch fill:#FFF9C4,stroke:#F9A825,stroke-width:2px
+style selected fill:#FFCDD2,stroke:#C62828,stroke-width:2px
+style final fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px
+style output3 fill:#E8EAF6,stroke:#3949AB,stroke-width:2px</div><h1 id=what-does-lora-unlock>What does LoRA unlock?</h1><p>Tell about how lora adapters can be quickly loaded and unloaded, give example of diffusion models which can generate avatars and realistic figures.
+Explain dynamic loading.</p><h1 id=lora-backpropagation>LoRA backpropagation</h1><h1 id=lora-and-a-small-neural-network>LoRA and a small neural network</h1><h1 id=lora-and-trainable-params>LoRA and trainable params</h1><h1 id=looking-at-huggingface-library>Looking at huggingface library</h1><h1 id=heading></h1><h1 id=references>References</h1><ol><li><a href=https://arxiv.org/abs/2106.09685>LoRA: Low-Rank Adaptation of Large Language Models</a></li><li><a href="https://youtu.be/DhRoTONcyZE?si=OZR7DpcHrqpP_UC_">What is Low-Rank Adaptation (LoRA) | explained by the inventor</a></li></ol></div><div class=back-to-top><a href=#top>back to top</a></div></div></main></div><footer><p>ꕀ Powered by caffeine and occasional epiphany. ꕀ</p><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js onload=renderMathInElement(document.body)></script><script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}]})})</script></footer></body><script>function setTheme(e){document.body.classList.remove("light","dark","auto"),document.body.classList.add(e),localStorage.setItem("theme",e)}function toggleTheme(){const e=localStorage.getItem("theme")||"auto",t=e==="light"?"dark":"light";setTheme(t)}function initTheme(){const e=localStorage.getItem("theme")||"auto";if(e==="auto"){const e=window.matchMedia("(prefers-color-scheme: dark)").matches;setTheme(e?"dark":"light")}else setTheme(e)}initTheme(),document.getElementById("theme-toggle").addEventListener("click",toggleTheme),window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",e=>{localStorage.getItem("theme")==="auto"&&setTheme(e.matches?"dark":"light")})</script></html>
