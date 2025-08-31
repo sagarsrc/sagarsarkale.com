@@ -1,47 +1,514 @@
-<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width"><meta name=description content="LLaVA = Large Language and Vision assistant ≠ 🌋"><title>It's LLaVA not lava! | Sagar Sarkale
-</title><link rel=shortcut href=/favicon.ico type=image/x-icon><link rel="shortcut icon" href=/favicon.ico type=image/x-icon><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=192x192 href=/android-chrome-192x192.png><link rel=icon type=image/png sizes=512x512 href=/android-chrome-512x512.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=icon type=image/x-icon href=/favicon.ico><meta name=msapplication-TileColor content="#da532c"><meta name=msapplication-TileImage content="/mstile-150x150.png"><meta name=msapplication-config content="/browserconfig.xml"><link rel=manifest href=/site.webmanifest><meta name=theme-color content="#ffffff"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="Sagar Sarkale"><meta name=twitter:description content="Sagar's digital corner"><meta name=twitter:image content="/android-chrome-512x512.png"><script async src="https://www.googletagmanager.com/gtag/js?id=G-J90LP2EWLN"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-J90LP2EWLN")</script><meta property="og:site_name" content="Sagar Sarkale"><meta property="og:type" content="website"><meta property="og:title" content="It's LLaVA not lava!"><meta property="og:description" content="LLaVA = Large Language and Vision assistant ≠ 🌋"><meta property="og:image" content="/android-chrome-512x512.png"><meta property="og:image:secure_url" content="/android-chrome-512x512.png"><meta property="og:url" content="https://sagarsarkale.com/blog/genai/llava/"><link rel=stylesheet href=/assets/combined.min.db8ef8c3a31366f267bea6788a54bde50a233bcc9dea1309d747e786449cb8e7.css media=all><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Silkscreen&family=Pixelify+Sans&display=swap" rel=stylesheet><link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap" rel=stylesheet></head><body class=light><div class=content><header><div class=header><h1 class=header-title>Sagar Sarkale</h1><div class=flex><p class=small><a href=/>/home</a></p><p class=small><a href=/blog>/blog</a></p><p class=small><a href=/work>/work</a></p><p class=small><a href=/random>/random</a></p><p class=small><a href=/about>/about</a></p></div><button id=theme-toggle class=theme-toggle aria-label="Toggle theme"><svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg><svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></button></div></header><main class=main><div class=breadcrumbs><a href=/>Home</a>
-<span class=breadcrumbs-separator>> </span><a href=/blog/>Blog</a>
-<span class=breadcrumbs-separator>> </span><a class=breadcrumbs-current href=/blog/genai/llava/>It's LLaVA not lava!</a></div><div class=autonumber><div class=single-intro-container><h1 class=single-title>It's LLaVA not lava!</h1><p class=single-summary>LLaVA = Large Language and Vision assistant ≠ 🌋</p><p class=single-readtime><time datetime=2024-06-01T00:00:00+00:00>June 1, 2024</time>
-&nbsp; · &nbsp;
-5 min read</p></div><div class=single-tags><span><a href=https://sagarsarkale.com/tags/multimodal/>#Multimodal</a>
-</span><span><a href=https://sagarsarkale.com/tags/transformers/>#Transformers</a></span></div><aside class=toc><p><strong>Table of contents</strong></p><nav id=TableOfContents><ol><li><a href=#llava-paper>LLaVA paper</a></li><li><a href=#data-preparation>Data Preparation</a><ol><li><a href=#caption--brief-description>caption = brief description</a></li><li><a href=#gpt-4--reasoning>gpt-4 = reasoning</a></li></ol></li><li><a href=#teaching-model-to-see>Teaching model to see</a><ol><li><a href=#architecture>Architecture</a></li><li><a href=#stage-1-pretraining-for-feature-alignment>Stage 1: Pretraining for feature alignment</a></li><li><a href=#stage-2--fine-tuning-end-to-end>Stage 2 : Fine tuning end to end</a></li></ol></li><li><a href=#going-through-code--data>Going through code & data</a><ol><li><a href=#llava-model-architecture>LLaVA model architecture</a></li><li><a href=#handle-image-and-text>handle image and text</a></li></ol></li><li><a href=#end-note>End note</a></li><li><a href=#references>References</a></li></ol></nav></aside><div class=single-content><figure><img src=/llava/llava-cover.png></figure><h1 id=llava-paper>LLaVA paper</h1><p>In this blog I try to break down some key points in the LLaVA research paper titled &ldquo;<a href=https://arxiv.org/abs/2304.08485>Visual Instruction Tuning</a>&rdquo;, this is more of me exploring the paper and code/data associated with it and noting it down.</p><p>LLaVA is a large multimodal model that is instruction-tuned to understand images and text. The authors present an end-to-end description of the procedure they follow to build this model. Additionally, with data used for training, they also open-source their model.</p><p>Let us dive into LLaVA, shall we?</p><blockquote><p>No thanks, I’ll pass.</p></blockquote><h1 id=data-preparation>Data Preparation</h1><p>As far as data preparation is concerned, it 2 steps are involved.</p><h2 id=caption--brief-description>caption = brief description</h2><p>Use existing image, caption dataset like CC3M, with caption as an input, create a list of varied questions answers, here answer can be caption or part of catpion. Use this dataset to create instructions of the format:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-python data-lang=python><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1</span><span><span style=color:#f1fa8c>&#34;&#34;&#34;
-</span></span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2</span><span><span style=color:#f1fa8c>Human: &lt;question&gt; &lt;image&gt;
-</span></span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3</span><span><span style=color:#f1fa8c>Assistant: &lt;caption&gt;
-</span></span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4</span><span><span style=color:#f1fa8c>&#34;&#34;&#34;</span>
-</span></span></code></pre></div><p>Though this data is limitting and does not mimic scenarios where a human would ask an AI assistant about the image, it serves as a good objective for pretraining.</p><h2 id=gpt-4--reasoning>gpt-4 = reasoning</h2><p>Image caption instruction data mentioned above lacks in-depth reasoning and diversity. In order to mitigate this authors use GPT4 to create data by just using captions as an input. Below is the prompt mentioned in the paper.</p><figure><img src=https://imgur.com/zdkvz98.png></figure><p>GPT4 is used for:</p><ul><li>Conversational data: Conversation between assistant and person as as if assistant is seeing image.</li><li>Detailed description: Generate detailed description of image using sample set of questions.</li><li>Complex reasoning: Generate complex questions where answering requires logical breakdown of question and multiple steps to arrive at final answer.</li></ul><table><thead><tr><th>type</th><th>num_records</th></tr></thead><tbody><tr><td>conversational data</td><td>58K</td></tr><tr><td>detailed description</td><td>23K</td></tr><tr><td>complex reasoning</td><td>77K</td></tr><tr><td>total instructions</td><td>158K</td></tr></tbody></table><p>One other key aspect to note in this paper is type of context that was provided to GPT4 while generating data. Apart from captions, paper also mentions using bounding boxes as a context to get a rough understanding of location of objects in the image.</p><figure><img src=https://imgur.com/YBdq0hD.png></figure><p>Below is an example of a dummy prompt to GPT4 which includes bounding boxes as input.</p><figure><img src=https://imgur.com/il9rIHi.png></figure><p>We can see GPT4 provides spatial information of desired objects given bounding boxes. This information can be used to create more complex QA pairs for instruction tuning.</p><p><strong>NOTE</strong> : Paper does NOT use image as input to GPT-4, it only utilizes captions and bounding boxes to construct training data. (see Page 3, 23, 24)</p><h1 id=teaching-model-to-see>Teaching model to see</h1><h2 id=architecture>Architecture</h2><p>LLaVA utilizes 2 pretrained models in their architecture:</p><ol><li>Vicuna 13B - which is a fine tuned derivative of Llama2 13B variant</li><li>CLIP embeddings - architecture known for encoding both text and images</li></ol><p>LLaVA training procedure is divided into 2 stages.</p><h2 id=stage-1-pretraining-for-feature-alignment>Stage 1: Pretraining for feature alignment</h2><p>CLIP embeddings are present in different hyperspace, plus they cannot be used as an input to LLMs readily because of different dimensionality. Hence to solve for this a projection of these embeddings is obtained using Linear layers. In this stage we keep CLIP embeddings and LLM weights frozen and only learn the weights of this Linear layer.</p><figure><img src=https://imgur.com/T1v2Gb1.png></figure><p>For training projection layer filtered CC3M image text pairs dataset was used. Each sample was treated as single turn conversation. Learning task was to predict caption given image and a question (generated by GPT4) associated with it.</p><p>Sample of pretraining data:<figure><img src=https://imgur.com/9m3eMmj.png></figure></p><h2 id=stage-2--fine-tuning-end-to-end>Stage 2 : Fine tuning end to end</h2><p>Visual encoder layers are kept frozen, only projection layer and LLM weights are learnt in this stage. Here the instruction tuning data is used conversation, complex reasoning and description instructions which were created using GPT4. As a result of this a multimodal chatbot is obtained.</p><p>Sample of Instruction tuning data:</p><figure><img src=https://imgur.com/5TULhj5.png></figure><h1 id=going-through-code--data>Going through code & data</h1><h2 id=llava-model-architecture>LLaVA model architecture</h2><p>Here is trimmed down architecture of LLaVA model.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-python data-lang=python><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1</span><span>LlavaForConditionalGeneration(
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2</span><span>  (vision_tower): CLIPVisionModel(
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3</span><span>    (vision_model): CLIPVisionTransformer(
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4</span><span>      (embeddings): CLIPVisionEmbeddings(
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5</span><span>        (patch_embedding): Conv2d(<span style=color:#bd93f9>3</span>, <span style=color:#bd93f9>1024</span>, kernel_size<span style=color:#ff79c6>=</span>(<span style=color:#bd93f9>14</span>, <span style=color:#bd93f9>14</span>), stride<span style=color:#ff79c6>=</span>(<span style=color:#bd93f9>14</span>, <span style=color:#bd93f9>14</span>), bias<span style=color:#ff79c6>=</span><span style=color:#ff79c6>False</span>)
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6</span><span>        (position_embedding): Embedding(<span style=color:#bd93f9>577</span>, <span style=color:#bd93f9>1024</span>)
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7</span><span>      )
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8</span><span>		<span style=color:#ff79c6>...</span>
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9</span><span>
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10</span><span>      (post_layernorm): LayerNorm((<span style=color:#bd93f9>1024</span>,), eps<span style=color:#ff79c6>=</span><span style=color:#bd93f9>1e-05</span>, elementwise_affine<span style=color:#ff79c6>=</span><span style=color:#ff79c6>True</span>)
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11</span><span>    )
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12</span><span>  )
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13</span><span>  (multi_modal_projector): LlavaMultiModalProjector(
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14</span><span>    (linear_1): Linear(in_features<span style=color:#ff79c6>=</span><span style=color:#bd93f9>1024</span>, out_features<span style=color:#ff79c6>=</span><span style=color:#bd93f9>4096</span>, bias<span style=color:#ff79c6>=</span><span style=color:#ff79c6>True</span>)
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15</span><span>    (act): GELUActivation()
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16</span><span>
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17</span><span>    (linear_2): Linear(in_features<span style=color:#ff79c6>=</span><span style=color:#bd93f9>4096</span>, out_features<span style=color:#ff79c6>=</span><span style=color:#bd93f9>4096</span>, bias<span style=color:#ff79c6>=</span><span style=color:#ff79c6>True</span>)
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18</span><span>    <span style=color:#6272a4># ^^^^^^^^^^^^ note</span>
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19</span><span>  )
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20</span><span>  (language_model): LlamaForCausalLM(
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21</span><span>    (model): LlamaModel(
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22</span><span>
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23</span><span>      (embed_tokens): Embedding(<span style=color:#bd93f9>32064</span>, <span style=color:#bd93f9>4096</span>)
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24</span><span>      <span style=color:#6272a4># ^^^^^^^^^^^^ note</span>
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25</span><span>      (layers): ModuleList(
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26</span><span>        (<span style=color:#bd93f9>0</span><span style=color:#ff79c6>-</span><span style=color:#bd93f9>31</span>): <span style=color:#bd93f9>32</span> x LlamaDecoderLayer(
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27</span><span>		<span style=color:#ff79c6>...</span>
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28</span><span>
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29</span><span>      )
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30</span><span>      (norm): LlamaRMSNorm()
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31</span><span>    )
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32</span><span>    (lm_head): Linear(in_features<span style=color:#ff79c6>=</span><span style=color:#bd93f9>4096</span>, out_features<span style=color:#ff79c6>=</span><span style=color:#bd93f9>32064</span>, bias<span style=color:#ff79c6>=</span><span style=color:#ff79c6>False</span>)
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33</span><span>  )
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34</span><span>)
-</span></span></code></pre></div><p>Notice how <code>multi_modal_projector</code> is being used to convert 1024 dim CLIP embedding to 4096 dim embedding using linear layers.</p><p><strong>NOTE</strong>: Above is the architecture of LLaVA-1.5 where 2 Linear layers are used in Projector as whereas first version of LLaVA has only 1 Linear layer.</p><h2 id=handle-image-and-text>handle image and text</h2><p>Method <code>_merge_input_ids_with_image_features</code> is crucial in class <code>LlavaForConditionalGeneration</code>. This is where image embeddings are plugged in with text embeddings, and new positions are calculated along with image embedding. Additionally respective attention masks are created to pass down to the model.</p><ul><li><a href=%5Bhttps://github.com/huggingface/transformers/blob/96eb06286b63c9c93334d507e632c175d6ba8b28/src/transformers/models/llava/modeling_llava.py#L439%5D(https://github.com/huggingface/transformers/blob/96eb06286b63c9c93334d507e632c175d6ba8b28/src/transformers/models/llava/modeling_llava.py#L439)>call to function</a></li><li><a href=%5Bhttps://github.com/huggingface/transformers/blob/96eb06286b63c9c93334d507e632c175d6ba8b28/src/transformers/models/llava/modeling_llava.py#L277%5D(https://github.com/huggingface/transformers/blob/96eb06286b63c9c93334d507e632c175d6ba8b28/src/transformers/models/llava/modeling_llava.py#L277)>definition</a></li></ul><p>Example of Instruction to model:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-plaintext data-lang=plaintext><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1</span><span>Human: Provide a brief description of the given image.\n&lt;image&gt; &lt;STOP&gt;
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2</span><span>Assistant: olive oil is a healthy ingredient used liberally. &lt;STOP&gt;
-</span></span></code></pre></div><p>Below is a rough sketch for the same.<figure><img src=https://imgur.com/ALWJ7Mt.png></figure></p><h1 id=end-note>End note</h1><p>This brings us to an end of walkthrough of a multimodal model LLaVA, main takeaway for me was how image features are aligned and integrated into model while accounting for position of image embeddings before passing to the model.</p><p>I hope you enjoyed this blog. Have fun learning!</p><h1 id=references>References</h1><ul><li><a href=https://arxiv.org/pdf/2304.08485>LLaVA arxiv</a></li><li><a href=https://github.com/huggingface/transformers/blob/main/src/transformers/models/llava/modeling_llava.py#L241>github modeling_llava.py</a></li><li><a href="https://huggingface.co/datasets/liuhaotian/LLaVA-CC3M-Pretrain-595K?row=0">huggingface - LLaVA-CC3M-Pretrain-595K</a></li><li><a href=https://huggingface.co/datasets/liuhaotian/LLaVA-Instruct-150K>huggingface - LLaVA-Instruct-150K</a></li></ul><hr><p>Written By</p><blockquote><p><a href=https://linkedin.com/in/sagar-sarkale>Sagar Sarkale</a></p></blockquote></div><div class=back-to-top><a href=#top>back to top</a></div></div></main></div><footer><p>ꕀ Powered by caffeine and occasional epiphany. ꕀ</p><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js onload=renderMathInElement(document.body)></script><script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}]})})</script></footer></body><script>function setTheme(e){document.body.classList.remove("light","dark","auto"),document.body.classList.add(e),localStorage.setItem("theme",e)}function toggleTheme(){const e=localStorage.getItem("theme")||"auto",t=e==="light"?"dark":"light";setTheme(t)}function initTheme(){const e=localStorage.getItem("theme")||"auto";if(e==="auto"){const e=window.matchMedia("(prefers-color-scheme: dark)").matches;setTheme(e?"dark":"light")}else setTheme(e)}initTheme(),document.getElementById("theme-toggle").addEventListener("click",toggleTheme),window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",e=>{localStorage.getItem("theme")==="auto"&&setTheme(e.matches?"dark":"light")})</script></html>
+<!DOCTYPE html>
+<html lang="en-us"
+  dir="ltr">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width"><meta name="description" content="LLaVA = Large Language and Vision assistant ≠ 🌋" />
+
+<title>
+    
+    It&#39;s LLaVA not lava! | Sagar Sarkale
+    
+</title>
+
+
+
+
+<link rel="shortcut" href="/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+
+<link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="/mstile-150x150.png">
+<meta name="msapplication-config" content="/browserconfig.xml">
+
+
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#ffffff">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sagar Sarkale">
+<meta name="twitter:description" content="Sagar's digital corner">
+<meta name="twitter:image" content="/android-chrome-512x512.png">
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J90LP2EWLN"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-J90LP2EWLN');
+</script>
+
+
+<meta property="og:site_name" content="Sagar Sarkale">
+<meta property="og:type" content="website">
+<meta property="og:title" content="It&#39;s LLaVA not lava!">
+<meta property="og:description"
+    content="LLaVA = Large Language and Vision assistant ≠ 🌋">
+<meta property="og:image" content="/android-chrome-512x512.png">
+<meta property="og:image:secure_url" content="/android-chrome-512x512.png">
+<meta property="og:url" content="http://localhost:1313/blog/genai/llava/">
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/assets/combined.min.db8ef8c3a31366f267bea6788a54bde50a233bcc9dea1309d747e786449cb8e7.css" media="all">
+
+
+
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+    href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Silkscreen&family=Pixelify+Sans&display=swap"
+    rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap" rel="stylesheet">
+</head>
+
+
+
+
+
+
+
+<body class="light">
+
+  <div class="content">
+    <header>
+      
+
+<div class="header">
+    <h1 class="header-title">Sagar Sarkale</h1>
+
+    <div class="flex">
+        
+
+        
+        
+        <p class="small ">
+            <a href="/">
+                /home
+            </a>
+        </p>
+        
+        <p class="small ">
+            <a href="/blog">
+                /blog
+            </a>
+        </p>
+        
+        <p class="small ">
+            <a href="/work">
+                /work
+            </a>
+        </p>
+        
+        <p class="small ">
+            <a href="/random">
+                /random
+            </a>
+        </p>
+        
+        <p class="small ">
+            <a href="/about">
+                /about
+            </a>
+        </p>
+        
+        
+    </div>
+
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor">
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+        </svg>
+        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+    </button>
+</div>
+    </header>
+
+    <main class="main">
+      
+
+
+
+
+<div class="breadcrumbs">
+    
+    <a href="/">Home</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a href="/blog/">Blog</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a class="breadcrumbs-current" href="/blog/genai/llava/">It&#39;s LLaVA not lava!</a>
+</div>
+
+
+<div  class="autonumber" >
+
+  <div class="single-intro-container">
+
+    
+
+    <h1 class="single-title">It&#39;s LLaVA not lava!</h1>
+    
+    <p class="single-summary">LLaVA = Large Language and Vision assistant ≠ 🌋</p>
+    
+
+    
+
+    <p class="single-readtime">
+      
+      
+      
+      <time datetime="2024-06-01T00:00:00&#43;00:00">June 1, 2024</time>
+      
+
+      
+      &nbsp; · &nbsp;
+      5 min read
+      
+    </p>
+
+  </div>
+
+  
+
+  
+  
+
+  <div class="single-tags">
+    
+    <span>
+      <a href="http://localhost:1313/tags/multimodal/">#Multimodal</a>
+    </span>
+    
+    
+    <span>
+      <a href="http://localhost:1313/tags/transformers/">#Transformers</a>
+    </span>
+    
+    
+  </div>
+
+  
+  
+
+  
+
+  
+  <aside class="toc">
+    <p><strong>Table of contents</strong></p>
+    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#llava-paper">LLaVA paper</a></li>
+    <li><a href="#data-preparation">Data Preparation</a>
+      <ol>
+        <li><a href="#caption--brief-description">caption = brief description</a></li>
+        <li><a href="#gpt-4--reasoning">gpt-4 = reasoning</a></li>
+      </ol>
+    </li>
+    <li><a href="#teaching-model-to-see">Teaching model to see</a>
+      <ol>
+        <li><a href="#architecture">Architecture</a></li>
+        <li><a href="#stage-1-pretraining-for-feature-alignment">Stage 1: Pretraining for feature alignment</a></li>
+        <li><a href="#stage-2--fine-tuning-end-to-end">Stage 2 : Fine tuning end to end</a></li>
+      </ol>
+    </li>
+    <li><a href="#going-through-code--data">Going through code &amp; data</a>
+      <ol>
+        <li><a href="#llava-model-architecture">LLaVA model architecture</a></li>
+        <li><a href="#handle-image-and-text">handle image and text</a></li>
+      </ol>
+    </li>
+    <li><a href="#end-note">End note</a></li>
+    <li><a href="#references">References</a></li>
+  </ol>
+</nav>
+  </aside>
+  
+
+  
+
+  <div class="single-content">
+    
+    <figure><img src="/llava/llava-cover.png">
+</figure>
+
+<h1 id="llava-paper">LLaVA paper</h1>
+<p>In this blog I try to break down some key points in the LLaVA research paper titled &ldquo;<a href="https://arxiv.org/abs/2304.08485">Visual Instruction Tuning</a>&rdquo;, this is more of me exploring the paper and code/data associated with it and noting it down.</p>
+<p>LLaVA is a large multimodal model that is instruction-tuned to understand images and text. The authors present an end-to-end description of the procedure they follow to build this model. Additionally, with data used for training, they also open-source their model.</p>
+<p>Let us dive into LLaVA, shall we?</p>
+<blockquote>
+<p>No thanks, I’ll pass.</p>
+</blockquote>
+<h1 id="data-preparation">Data Preparation</h1>
+<p>As far as data preparation is concerned, it 2 steps are involved.</p>
+<h2 id="caption--brief-description">caption = brief description</h2>
+<p>Use existing image, caption dataset like CC3M, with caption as an input, create a list of varied questions answers, here answer can be caption or part of catpion. Use this dataset to create instructions of the format:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-python" data-lang="python"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#f1fa8c">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span><span style="color:#f1fa8c">Human: &lt;question&gt; &lt;image&gt;
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span><span style="color:#f1fa8c">Assistant: &lt;caption&gt;
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span><span style="color:#f1fa8c">&#34;&#34;&#34;</span>
+</span></span></code></pre></div><p>Though this data is limitting and does not mimic scenarios where a human would ask an AI assistant about the image, it serves as a good objective for pretraining.</p>
+<h2 id="gpt-4--reasoning">gpt-4 = reasoning</h2>
+<p>Image caption instruction data mentioned above lacks in-depth reasoning and diversity. In order to mitigate this authors use GPT4 to create data by just using captions as an input. Below is the prompt mentioned in the paper.</p>
+<figure><img src="https://imgur.com/zdkvz98.png">
+</figure>
+
+<p>GPT4 is used for:</p>
+<ul>
+<li>Conversational data: Conversation between assistant and person as as if assistant is seeing image.</li>
+<li>Detailed description: Generate detailed description of image using sample set of questions.</li>
+<li>Complex reasoning: Generate complex questions where answering requires logical breakdown of question and multiple steps to arrive at final answer.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>type</th>
+<th>num_records</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>conversational data</td>
+<td>58K</td>
+</tr>
+<tr>
+<td>detailed description</td>
+<td>23K</td>
+</tr>
+<tr>
+<td>complex reasoning</td>
+<td>77K</td>
+</tr>
+<tr>
+<td>total instructions</td>
+<td>158K</td>
+</tr>
+</tbody>
+</table>
+<p>One other key aspect to note in this paper is type of context that was provided to GPT4 while generating data. Apart from captions, paper also mentions using bounding boxes as a context to get a rough understanding of location of objects in the image.</p>
+<figure><img src="https://imgur.com/YBdq0hD.png">
+</figure>
+
+<p>Below is an example of a dummy prompt to GPT4 which includes bounding boxes as input.</p>
+<figure><img src="https://imgur.com/il9rIHi.png">
+</figure>
+
+<p>We can see GPT4 provides spatial information of desired objects given bounding boxes. This information can be used to create more complex QA pairs for instruction tuning.</p>
+<p><strong>NOTE</strong> : Paper does NOT use image as input to GPT-4, it only utilizes captions and bounding boxes to construct training data. (see Page 3, 23, 24)</p>
+<h1 id="teaching-model-to-see">Teaching model to see</h1>
+<h2 id="architecture">Architecture</h2>
+<p>LLaVA utilizes 2 pretrained models in their architecture:</p>
+<ol>
+<li>Vicuna 13B - which is a fine tuned derivative of Llama2 13B variant</li>
+<li>CLIP embeddings - architecture known for encoding both text and images</li>
+</ol>
+<p>LLaVA training procedure is divided into 2 stages.</p>
+<h2 id="stage-1-pretraining-for-feature-alignment">Stage 1: Pretraining for feature alignment</h2>
+<p>CLIP embeddings are present in different hyperspace, plus they cannot be used as an input to LLMs readily because of different dimensionality. Hence to solve for this a projection of these embeddings is obtained using Linear layers. In this stage we keep CLIP embeddings and LLM weights frozen and only learn the weights of this Linear layer.</p>
+<figure><img src="https://imgur.com/T1v2Gb1.png">
+</figure>
+
+<p>For training projection layer filtered CC3M image text pairs dataset was used. Each sample was treated as single turn conversation. Learning task was to predict caption given image and a question (generated by GPT4) associated with it.</p>
+<p>Sample of pretraining data:
+<figure><img src="https://imgur.com/9m3eMmj.png">
+</figure>
+</p>
+<h2 id="stage-2--fine-tuning-end-to-end">Stage 2 : Fine tuning end to end</h2>
+<p>Visual encoder layers are kept frozen, only projection layer and LLM weights are learnt in this stage. Here the instruction tuning data is used conversation, complex reasoning and description instructions which were created using GPT4. As a result of this a multimodal chatbot is obtained.</p>
+<p>Sample of Instruction tuning data:</p>
+<figure><img src="https://imgur.com/5TULhj5.png">
+</figure>
+
+<h1 id="going-through-code--data">Going through code &amp; data</h1>
+<h2 id="llava-model-architecture">LLaVA model architecture</h2>
+<p>Here is trimmed down architecture of LLaVA model.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-python" data-lang="python"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span>LlavaForConditionalGeneration(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span>  (vision_tower): CLIPVisionModel(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span>    (vision_model): CLIPVisionTransformer(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span>      (embeddings): CLIPVisionEmbeddings(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span>        (patch_embedding): Conv2d(<span style="color:#bd93f9">3</span>, <span style="color:#bd93f9">1024</span>, kernel_size<span style="color:#ff79c6">=</span>(<span style="color:#bd93f9">14</span>, <span style="color:#bd93f9">14</span>), stride<span style="color:#ff79c6">=</span>(<span style="color:#bd93f9">14</span>, <span style="color:#bd93f9">14</span>), bias<span style="color:#ff79c6">=</span><span style="color:#ff79c6">False</span>)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span>        (position_embedding): Embedding(<span style="color:#bd93f9">577</span>, <span style="color:#bd93f9">1024</span>)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span>      )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span>		<span style="color:#ff79c6">...</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>      (post_layernorm): LayerNorm((<span style="color:#bd93f9">1024</span>,), eps<span style="color:#ff79c6">=</span><span style="color:#bd93f9">1e-05</span>, elementwise_affine<span style="color:#ff79c6">=</span><span style="color:#ff79c6">True</span>)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span>    )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span><span>  )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13</span><span>  (multi_modal_projector): LlavaMultiModalProjector(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14</span><span>    (linear_1): Linear(in_features<span style="color:#ff79c6">=</span><span style="color:#bd93f9">1024</span>, out_features<span style="color:#ff79c6">=</span><span style="color:#bd93f9">4096</span>, bias<span style="color:#ff79c6">=</span><span style="color:#ff79c6">True</span>)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15</span><span>    (act): GELUActivation()
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17</span><span>    (linear_2): Linear(in_features<span style="color:#ff79c6">=</span><span style="color:#bd93f9">4096</span>, out_features<span style="color:#ff79c6">=</span><span style="color:#bd93f9">4096</span>, bias<span style="color:#ff79c6">=</span><span style="color:#ff79c6">True</span>)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18</span><span>    <span style="color:#6272a4"># ^^^^^^^^^^^^ note</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19</span><span>  )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20</span><span>  (language_model): LlamaForCausalLM(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21</span><span>    (model): LlamaModel(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23</span><span>      (embed_tokens): Embedding(<span style="color:#bd93f9">32064</span>, <span style="color:#bd93f9">4096</span>)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24</span><span>      <span style="color:#6272a4"># ^^^^^^^^^^^^ note</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25</span><span>      (layers): ModuleList(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26</span><span>        (<span style="color:#bd93f9">0</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">31</span>): <span style="color:#bd93f9">32</span> x LlamaDecoderLayer(
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27</span><span>		<span style="color:#ff79c6">...</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29</span><span>      )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30</span><span>      (norm): LlamaRMSNorm()
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31</span><span>    )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32</span><span>    (lm_head): Linear(in_features<span style="color:#ff79c6">=</span><span style="color:#bd93f9">4096</span>, out_features<span style="color:#ff79c6">=</span><span style="color:#bd93f9">32064</span>, bias<span style="color:#ff79c6">=</span><span style="color:#ff79c6">False</span>)
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33</span><span>  )
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34</span><span>)
+</span></span></code></pre></div><p>Notice how <code>multi_modal_projector</code> is being used to convert 1024 dim CLIP embedding to 4096 dim embedding using linear layers.</p>
+<p><strong>NOTE</strong>: Above is the architecture of LLaVA-1.5 where 2 Linear layers are used in Projector as whereas first version of LLaVA has only 1 Linear layer.</p>
+<h2 id="handle-image-and-text">handle image and text</h2>
+<p>Method <code>_merge_input_ids_with_image_features</code> is crucial in class <code>LlavaForConditionalGeneration</code>. This is where image embeddings are plugged in with text embeddings, and new positions are calculated along with image embedding. Additionally respective attention masks are created to pass down to the model.</p>
+<ul>
+<li><a href="%5Bhttps://github.com/huggingface/transformers/blob/96eb06286b63c9c93334d507e632c175d6ba8b28/src/transformers/models/llava/modeling_llava.py#L439%5D(https://github.com/huggingface/transformers/blob/96eb06286b63c9c93334d507e632c175d6ba8b28/src/transformers/models/llava/modeling_llava.py#L439)">call to function </a></li>
+<li><a href="%5Bhttps://github.com/huggingface/transformers/blob/96eb06286b63c9c93334d507e632c175d6ba8b28/src/transformers/models/llava/modeling_llava.py#L277%5D(https://github.com/huggingface/transformers/blob/96eb06286b63c9c93334d507e632c175d6ba8b28/src/transformers/models/llava/modeling_llava.py#L277)">definition</a></li>
+</ul>
+<p>Example of Instruction to model:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-plaintext" data-lang="plaintext"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>Human: Provide a brief description of the given image.\n&lt;image&gt; &lt;STOP&gt;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>Assistant: olive oil is a healthy ingredient used liberally. &lt;STOP&gt;
+</span></span></code></pre></div><p>Below is a rough sketch for the same.
+<figure><img src="https://imgur.com/ALWJ7Mt.png">
+</figure>
+</p>
+<h1 id="end-note">End note</h1>
+<p>This brings us to an end of walkthrough of a multimodal model LLaVA, main takeaway for me was how image features are aligned and integrated into model while accounting for position of image embeddings before passing to the model.</p>
+<p>I hope you enjoyed this blog. Have fun learning!</p>
+<h1 id="references">References</h1>
+<ul>
+<li><a href="https://arxiv.org/pdf/2304.08485">LLaVA arxiv</a></li>
+<li><a href="https://github.com/huggingface/transformers/blob/main/src/transformers/models/llava/modeling_llava.py#L241">github modeling_llava.py</a></li>
+<li><a href="https://huggingface.co/datasets/liuhaotian/LLaVA-CC3M-Pretrain-595K?row=0">huggingface - LLaVA-CC3M-Pretrain-595K</a></li>
+<li><a href="https://huggingface.co/datasets/liuhaotian/LLaVA-Instruct-150K">huggingface - LLaVA-Instruct-150K</a></li>
+</ul>
+<hr>
+<p>Written By</p>
+<blockquote>
+<p><a href="https://linkedin.com/in/sagar-sarkale">Sagar Sarkale</a></p>
+</blockquote>
+
+    
+  </div>
+
+  
+  <div class="back-to-top">
+    <a href="#top">
+      back to top
+    </a>
+  </div>
+  
+
+</div>
+
+
+    </main>
+  </div>
+
+  <footer>
+    <p>ꕀ Powered by caffeine and occasional epiphany. ꕀ </p>
+
+
+<link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script>
+
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body);"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false }
+      ]
+    });
+  });
+</script>
+
+  </footer>
+
+</body>
+
+<script>
+
+  function setTheme(theme) {
+    document.body.classList.remove('light', 'dark', 'auto');
+    document.body.classList.add(theme);
+    localStorage.setItem('theme', theme);
+  }
+
+  function toggleTheme() {
+    const currentTheme = localStorage.getItem('theme') || 'auto';
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+  }
+
+  function initTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'auto';
+    if (savedTheme === 'auto') {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setTheme(prefersDark ? 'dark' : 'light');
+    } else {
+      setTheme(savedTheme);
+    }
+  }
+
+  
+  initTheme();
+
+  
+  document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+
+  
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (localStorage.getItem('theme') === 'auto') {
+      setTheme(e.matches ? 'dark' : 'light');
+    }
+  });
+
+</script>
+
+</html>

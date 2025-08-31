@@ -1,39 +1,381 @@
-<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width"><meta name=description content="Exploring static site builder for quick blogging"><title>Hello super fast blogging! | Sagar Sarkale
-</title><link rel=shortcut href=/favicon.ico type=image/x-icon><link rel="shortcut icon" href=/favicon.ico type=image/x-icon><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=192x192 href=/android-chrome-192x192.png><link rel=icon type=image/png sizes=512x512 href=/android-chrome-512x512.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=icon type=image/x-icon href=/favicon.ico><meta name=msapplication-TileColor content="#da532c"><meta name=msapplication-TileImage content="/mstile-150x150.png"><meta name=msapplication-config content="/browserconfig.xml"><link rel=manifest href=/site.webmanifest><meta name=theme-color content="#ffffff"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="Sagar Sarkale"><meta name=twitter:description content="Sagar's digital corner"><meta name=twitter:image content="/android-chrome-512x512.png"><script async src="https://www.googletagmanager.com/gtag/js?id=G-J90LP2EWLN"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-J90LP2EWLN")</script><meta property="og:site_name" content="Sagar Sarkale"><meta property="og:type" content="website"><meta property="og:title" content="Hello super fast blogging!"><meta property="og:description" content="Exploring static site builder for quick blogging"><meta property="og:image" content="/android-chrome-512x512.png"><meta property="og:image:secure_url" content="/android-chrome-512x512.png"><meta property="og:url" content="https://sagarsarkale.com/blog/web/hello-hugo/"><link rel=stylesheet href=/assets/combined.min.db8ef8c3a31366f267bea6788a54bde50a233bcc9dea1309d747e786449cb8e7.css media=all><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Silkscreen&family=Pixelify+Sans&display=swap" rel=stylesheet><link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap" rel=stylesheet></head><body class=light><div class=content><header><div class=header><h1 class=header-title>Sagar Sarkale</h1><div class=flex><p class=small><a href=/>/home</a></p><p class=small><a href=/blog>/blog</a></p><p class=small><a href=/work>/work</a></p><p class=small><a href=/random>/random</a></p><p class=small><a href=/about>/about</a></p></div><button id=theme-toggle class=theme-toggle aria-label="Toggle theme"><svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg><svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></button></div></header><main class=main><div class=breadcrumbs><a href=/>Home</a>
-<span class=breadcrumbs-separator>> </span><a href=/blog/>Blog</a>
-<span class=breadcrumbs-separator>> </span><a class=breadcrumbs-current href=/blog/web/hello-hugo/>Hello super fast blogging!</a></div><div class=autonumber><div class=single-intro-container><h1 class=single-title>Hello super fast blogging!</h1><p class=single-summary>Exploring static site builder for quick blogging</p><p class=single-readtime><time datetime=2024-04-07T00:00:00+00:00>April 7, 2024</time>
-&nbsp; · &nbsp;
-2 min read</p></div><div class=single-tags><span><a href=https://sagarsarkale.com/tags/web/>#Web</a>
-</span><span><a href=https://sagarsarkale.com/tags/hugo/>#HUGO</a></span></div><aside class=toc><p><strong>Table of contents</strong></p><nav id=TableOfContents><ol><li><a href=#brief>Brief</a></li><li><a href=#commands>Commands</a></li><li><a href=#references>References</a></li></ol></nav></aside><div class=single-content><figure><img src=https://gohugo.io/images/hugo-logo-wide.svg></figure><h1 id=brief>Brief</h1><p>Today i tried to setup static site builder called HUGO, for blogging. It comes in handy once you set up all the parameters. It is a combination of markdown + config files. With few hours of efforts was able to set it up.</p><p>Installing HUGO is very straightforward, you can find instructions for your platform <a href=https://gohugo.io/installation/>here</a>.</p><p>Main problems that one could face are:</p><ul><li>version of HUGO and the reference blogs might be outdated, hence please refer to the latest docs of HUGO</li><li>it is worth spending sometime to go through the <a href=https://gohugo.io/getting-started/directory-structure/>directory structure</a></li><li>images and paths can get pretty cumbersome, i could not setup markdown based rendering in hugo for images</li><li>using <a href=https://gohugo.io/content-management/shortcodes/>shortcodes</a> for rendering images in between the content came in handy</li></ul><p>HUGO needs some additional setup to get started with Math symbols in blogs using Katex, have attached relevant link in the references for the same.</p><p>Below are some commands to get started with HUGO.</p><h1 id=commands>Commands</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-bash data-lang=bash><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1</span><span><span style=color:#6272a4># install HUGO (macOS)</span>
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2</span><span>brew install hugo
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3</span><span>
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4</span><span><span style=color:#6272a4># create HUGO site called &#34;blog&#34;</span>
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5</span><span><span style=color:#6272a4># choose format yaml</span>
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6</span><span>hugo new site blog --format yaml
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7</span><span>
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8</span><span><span style=color:#6272a4># add desired theme as submodule</span>
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9</span><span>git submodule add https://github.com/reorx/hugo-PaperModX.git themes/PaperModX
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10</span><span>
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11</span><span><span style=color:#6272a4># update submodule</span>
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12</span><span>git submodule update --init --recursive
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13</span><span>
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14</span><span><span style=color:#6272a4># go to respective site directory</span>
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15</span><span><span style=color:#8be9fd;font-style:italic>cd</span> blog
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16</span><span>
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17</span><span><span style=color:#6272a4># generate static website</span>
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18</span><span>hugo
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19</span><span>
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20</span><span><span style=color:#6272a4># live rebuild server</span>
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21</span><span>hugo server -D
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22</span><span>
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23</span><span><span style=color:#6272a4># using python http server</span>
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24</span><span>python3 -m http.server -d public
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25</span><span>
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26</span><span><span style=color:#6272a4># before deploy</span>
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27</span><span>hugo --minify
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28</span><span>
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29</span><span><span style=color:#6272a4># pagefind build index</span>
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30</span><span>npx pagefind --site public
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31</span><span>
-</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32</span><span><span style=color:#6272a4># copy public folder to your hosting platform</span>
-</span></span></code></pre></div><h1 id=references>References</h1><ol><li><a href=https://reorx.github.io/hugo-PaperModX/docs/features/#intro>PaperModX features</a></li><li><a href=https://gohugo.io/content-management/shortcodes/>Adding images in HUGO is pain</a></li><li><a href=https://misha.brukman.net/blog/2022/04/writing-math-with-hugo/>Math in HUGO</a></li><li><a href=https://gohugo.io/quick-reference/emojis/>Emoji support</a></li><li><a href=https://www.chrislockard.net/posts/using-local-fonts-hugo-academic-theme/>Using Local fonts HUGO</a></li><li><a href=https://gohugo.io/content-management/shortcodes/>Shortcodes super useful</a></li><li><a href="https://youtu.be/WgoBoX4qTk8?si=4dzhdOu7zq-f4Sv9">Setting up internal search using pagefind</a></li></ol><hr><p>Written By</p><blockquote><p><a href=https://linkedin.com/in/sagar-sarkale>Sagar Sarkale</a></p></blockquote></div><div class=back-to-top><a href=#top>back to top</a></div></div></main></div><footer><p>ꕀ Powered by caffeine and occasional epiphany. ꕀ</p></footer></body><script>function setTheme(e){document.body.classList.remove("light","dark","auto"),document.body.classList.add(e),localStorage.setItem("theme",e)}function toggleTheme(){const e=localStorage.getItem("theme")||"auto",t=e==="light"?"dark":"light";setTheme(t)}function initTheme(){const e=localStorage.getItem("theme")||"auto";if(e==="auto"){const e=window.matchMedia("(prefers-color-scheme: dark)").matches;setTheme(e?"dark":"light")}else setTheme(e)}initTheme(),document.getElementById("theme-toggle").addEventListener("click",toggleTheme),window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",e=>{localStorage.getItem("theme")==="auto"&&setTheme(e.matches?"dark":"light")})</script></html>
+<!DOCTYPE html>
+<html lang="en-us"
+  dir="ltr">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width"><meta name="description" content="Exploring static site builder for quick blogging" />
+
+<title>
+    
+    Hello super fast blogging! | Sagar Sarkale
+    
+</title>
+
+
+
+
+<link rel="shortcut" href="/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+
+<link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="/mstile-150x150.png">
+<meta name="msapplication-config" content="/browserconfig.xml">
+
+
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#ffffff">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sagar Sarkale">
+<meta name="twitter:description" content="Sagar's digital corner">
+<meta name="twitter:image" content="/android-chrome-512x512.png">
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J90LP2EWLN"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-J90LP2EWLN');
+</script>
+
+
+<meta property="og:site_name" content="Sagar Sarkale">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hello super fast blogging!">
+<meta property="og:description"
+    content="Exploring static site builder for quick blogging">
+<meta property="og:image" content="/android-chrome-512x512.png">
+<meta property="og:image:secure_url" content="/android-chrome-512x512.png">
+<meta property="og:url" content="http://localhost:1313/blog/web/hello-hugo/">
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/assets/combined.min.db8ef8c3a31366f267bea6788a54bde50a233bcc9dea1309d747e786449cb8e7.css" media="all">
+
+
+
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+    href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Silkscreen&family=Pixelify+Sans&display=swap"
+    rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap" rel="stylesheet">
+</head>
+
+
+
+
+
+
+
+<body class="light">
+
+  <div class="content">
+    <header>
+      
+
+<div class="header">
+    <h1 class="header-title">Sagar Sarkale</h1>
+
+    <div class="flex">
+        
+
+        
+        
+        <p class="small ">
+            <a href="/">
+                /home
+            </a>
+        </p>
+        
+        <p class="small ">
+            <a href="/blog">
+                /blog
+            </a>
+        </p>
+        
+        <p class="small ">
+            <a href="/work">
+                /work
+            </a>
+        </p>
+        
+        <p class="small ">
+            <a href="/random">
+                /random
+            </a>
+        </p>
+        
+        <p class="small ">
+            <a href="/about">
+                /about
+            </a>
+        </p>
+        
+        
+    </div>
+
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor">
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+        </svg>
+        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+    </button>
+</div>
+    </header>
+
+    <main class="main">
+      
+
+
+
+
+<div class="breadcrumbs">
+    
+    <a href="/">Home</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a href="/blog/">Blog</a>
+    <span class="breadcrumbs-separator"> > </span>
+    
+    <a class="breadcrumbs-current" href="/blog/web/hello-hugo/">Hello super fast blogging!</a>
+</div>
+
+
+<div  class="autonumber" >
+
+  <div class="single-intro-container">
+
+    
+
+    <h1 class="single-title">Hello super fast blogging!</h1>
+    
+    <p class="single-summary">Exploring static site builder for quick blogging</p>
+    
+
+    
+
+    <p class="single-readtime">
+      
+      
+      
+      <time datetime="2024-04-07T00:00:00&#43;00:00">April 7, 2024</time>
+      
+
+      
+      &nbsp; · &nbsp;
+      2 min read
+      
+    </p>
+
+  </div>
+
+  
+
+  
+  
+
+  <div class="single-tags">
+    
+    <span>
+      <a href="http://localhost:1313/tags/web/">#Web</a>
+    </span>
+    
+    
+    <span>
+      <a href="http://localhost:1313/tags/hugo/">#HUGO</a>
+    </span>
+    
+    
+  </div>
+
+  
+  
+
+  
+
+  
+  <aside class="toc">
+    <p><strong>Table of contents</strong></p>
+    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#brief">Brief</a></li>
+    <li><a href="#commands">Commands</a></li>
+    <li><a href="#references">References</a></li>
+  </ol>
+</nav>
+  </aside>
+  
+
+  
+
+  <div class="single-content">
+    
+    <figure><img src="https://gohugo.io/images/hugo-logo-wide.svg">
+</figure>
+
+<h1 id="brief">Brief</h1>
+<p>Today i tried to setup static site builder called HUGO, for blogging. It comes in handy once you set up all the parameters. It is a combination of markdown + config files. With few hours of efforts was able to set it up.</p>
+<p>Installing HUGO is very straightforward, you can find instructions for your platform <a href="https://gohugo.io/installation/">here</a>.</p>
+<p>Main problems that one could face are:</p>
+<ul>
+<li>version of HUGO and the reference blogs might be outdated, hence please refer to the latest docs of HUGO</li>
+<li>it is worth spending sometime to go through the <a href="https://gohugo.io/getting-started/directory-structure/">directory structure</a></li>
+<li>images and paths can get pretty cumbersome, i could not setup markdown based rendering in hugo for images</li>
+<li>using <a href="https://gohugo.io/content-management/shortcodes/">shortcodes</a> for rendering images in between the content came in handy</li>
+</ul>
+<p>HUGO needs some additional setup to get started with Math symbols in blogs using Katex, have attached relevant link in the references for the same.</p>
+<p>Below are some commands to get started with HUGO.</p>
+<h1 id="commands">Commands</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span><span style="color:#6272a4"># install HUGO (macOS)</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span>brew install hugo
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span><span style="color:#6272a4"># create HUGO site called &#34;blog&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span><span style="color:#6272a4"># choose format yaml</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span>hugo new site blog --format yaml
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span><span style="color:#6272a4"># add desired theme as submodule</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span>git submodule add https://github.com/reorx/hugo-PaperModX.git themes/PaperModX
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span><span style="color:#6272a4"># update submodule</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span><span>git submodule update --init --recursive
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14</span><span><span style="color:#6272a4"># go to respective site directory</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15</span><span><span style="color:#8be9fd;font-style:italic">cd</span> blog
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17</span><span><span style="color:#6272a4"># generate static website</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18</span><span>hugo
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20</span><span><span style="color:#6272a4"># live rebuild server</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21</span><span>hugo server -D
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23</span><span><span style="color:#6272a4"># using python http server</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24</span><span>python3 -m http.server -d public
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26</span><span><span style="color:#6272a4"># before deploy</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27</span><span>hugo --minify
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29</span><span><span style="color:#6272a4"># pagefind build index</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30</span><span>npx pagefind --site public
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32</span><span><span style="color:#6272a4"># copy public folder to your hosting platform</span>
+</span></span></code></pre></div><h1 id="references">References</h1>
+<ol>
+<li><a href="https://reorx.github.io/hugo-PaperModX/docs/features/#intro">PaperModX features</a></li>
+<li><a href="https://gohugo.io/content-management/shortcodes/">Adding images in HUGO is pain</a></li>
+<li><a href="https://misha.brukman.net/blog/2022/04/writing-math-with-hugo/">Math in HUGO</a></li>
+<li><a href="https://gohugo.io/quick-reference/emojis/">Emoji support</a></li>
+<li><a href="https://www.chrislockard.net/posts/using-local-fonts-hugo-academic-theme/">Using Local fonts HUGO</a></li>
+<li><a href="https://gohugo.io/content-management/shortcodes/">Shortcodes super useful</a></li>
+<li><a href="https://youtu.be/WgoBoX4qTk8?si=4dzhdOu7zq-f4Sv9">Setting up internal search using pagefind</a></li>
+</ol>
+<hr>
+<p>Written By</p>
+<blockquote>
+<p><a href="https://linkedin.com/in/sagar-sarkale">Sagar Sarkale</a></p>
+</blockquote>
+
+    
+  </div>
+
+  
+  <div class="back-to-top">
+    <a href="#top">
+      back to top
+    </a>
+  </div>
+  
+
+</div>
+
+
+    </main>
+  </div>
+
+  <footer>
+    <p>ꕀ Powered by caffeine and occasional epiphany. ꕀ </p>
+
+
+  </footer>
+
+</body>
+
+<script>
+
+  function setTheme(theme) {
+    document.body.classList.remove('light', 'dark', 'auto');
+    document.body.classList.add(theme);
+    localStorage.setItem('theme', theme);
+  }
+
+  function toggleTheme() {
+    const currentTheme = localStorage.getItem('theme') || 'auto';
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+  }
+
+  function initTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'auto';
+    if (savedTheme === 'auto') {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setTheme(prefersDark ? 'dark' : 'light');
+    } else {
+      setTheme(savedTheme);
+    }
+  }
+
+  
+  initTheme();
+
+  
+  document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+
+  
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (localStorage.getItem('theme') === 'auto') {
+      setTheme(e.matches ? 'dark' : 'light');
+    }
+  });
+
+</script>
+
+</html>

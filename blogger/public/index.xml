@@ -1,4 +1,124 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Home on Sagar Sarkale</title><link>https://sagarsarkale.com/</link><description>Recent content in Home on Sagar Sarkale</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sat, 01 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://sagarsarkale.com/index.xml" rel="self" type="application/rss+xml"/><item><title>KV Caching in LLMs: A Visual Demonstration</title><link>https://sagarsarkale.com/blog/genai/kv-caching-demo/</link><pubDate>Sat, 01 Mar 2025 00:00:00 +0000</pubDate><guid>https://sagarsarkale.com/blog/genai/kv-caching-demo/</guid><description>A visual demonstration of KV caching in language models</description></item><item><title>Inputs to Byte Latent Transformer</title><link>https://sagarsarkale.com/blog/genai/inputs-to-byte-latent-transformer/</link><pubDate>Thu, 06 Feb 2025 00:00:00 +0000</pubDate><guid>https://sagarsarkale.com/blog/genai/inputs-to-byte-latent-transformer/</guid><description>Part 2 of All you need to know to get started with Byte Latent Transformer</description></item><item><title>My playlists</title><link>https://sagarsarkale.com/random/my-playlists/</link><pubDate>Tue, 21 Jan 2025 00:00:00 +0000</pubDate><guid>https://sagarsarkale.com/random/my-playlists/</guid><description>Solace in music</description></item><item><title>Precursors to Byte Latent Transformer</title><link>https://sagarsarkale.com/blog/genai/precursors-to-byte-latent-transformer/</link><pubDate>Sun, 12 Jan 2025 00:00:00 +0000</pubDate><guid>https://sagarsarkale.com/blog/genai/precursors-to-byte-latent-transformer/</guid><description>Part 1 of All you need to know to get started with Byte Latent Transformer</description></item><item><title>Patience is all you need!</title><link>https://sagarsarkale.com/blog/genai/patience-is-all-you-need/</link><pubDate>Thu, 11 Jul 2024 00:00:00 +0000</pubDate><guid>https://sagarsarkale.com/blog/genai/patience-is-all-you-need/</guid><description>Patience is all you need to learn transformers.</description></item><item><title>Another morning</title><link>https://sagarsarkale.com/random/another-morning/</link><pubDate>Sat, 29 Jun 2024 00:00:00 +0000</pubDate><guid>https://sagarsarkale.com/random/another-morning/</guid><description>I was inspired by a character in the book.</description></item><item><title>To Simpler times</title><link>https://sagarsarkale.com/random/to-simpler-times/</link><pubDate>Sat, 15 Jun 2024 00:00:00 +0000</pubDate><guid>https://sagarsarkale.com/random/to-simpler-times/</guid><description>A song led to this&amp;hellip;</description></item><item><title>It all started with the big bang. Bang!</title><link>https://sagarsarkale.com/random/the-big-bang-theory/</link><pubDate>Wed, 12 Jun 2024 00:00:00 +0000</pubDate><guid>https://sagarsarkale.com/random/the-big-bang-theory/</guid><description>If you recognize this from the title, you are in for a treat.</description></item><item><title>It's LLaVA not lava!</title><link>https://sagarsarkale.com/blog/genai/llava/</link><pubDate>Sat, 01 Jun 2024 00:00:00 +0000</pubDate><guid>https://sagarsarkale.com/blog/genai/llava/</guid><description>LLaVA = Large Language and Vision assistant ≠ 🌋</description></item><item><title>Position Encoding in Transformers</title><link>https://sagarsarkale.com/blog/genai/position-encoding/</link><pubDate>Thu, 25 Apr 2024 00:00:00 +0000</pubDate><guid>https://sagarsarkale.com/blog/genai/position-encoding/</guid><description>How do you understand position of token in transformer?</description></item><item><title>Hello super fast blogging!</title><link>https://sagarsarkale.com/blog/web/hello-hugo/</link><pubDate>Sun, 07 Apr 2024 00:00:00 +0000</pubDate><guid>https://sagarsarkale.com/blog/web/hello-hugo/</guid><description>Exploring static site builder for quick blogging</description></item><item><title>LSTM simplified</title><link>https://sagarsarkale.com/blog/seq/lstm-simplified/</link><pubDate>Thu, 21 Sep 2023 00:00:00 +0000</pubDate><guid>https://sagarsarkale.com/blog/seq/lstm-simplified/</guid><description>In depth and intuitive explanation of LSTM architecture</description></item><item><title>RNNs a walkthrough</title><link>https://sagarsarkale.com/blog/seq/rnns-a-walkthrough/</link><pubDate>Tue, 22 Aug 2023 00:00:00 +0000</pubDate><guid>https://sagarsarkale.com/blog/seq/rnns-a-walkthrough/</guid><description>A Brief about Recurrent Neural Networks</description></item><item><title>About</title><link>https://sagarsarkale.com/about/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://sagarsarkale.com/about/</guid><description>Welcome to my digital space! I’m a tech enthusiast who builds and drives a positive change. With a knack for NLP and Gen-AI, I love diving deep into tech.
-This space, it’s more than just a portfolio; it’s a peek into my journey of continuous learning and growth. In this space, you will find some of my tech blogs and notes here at /blog. Beyond my tech musings, I also share my non-work thoughts at /random.</description></item><item><title>My Professional Journey</title><link>https://sagarsarkale.com/work/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://sagarsarkale.com/work/</guid><description>smallstep.ai Founder (Dec 2023 - Present)
-Building Marathi LLM:
-Pretraining and Finetuning of Marathi Llama - Misal 7Bn, 1Bn parameter models. End to end development, evaluation and deployment of Marathi Llama. Open sourced Instruction tuned model here Published a technical blog with entire procedure here Launch : Linkedin Post, Twitter Post Coverage : YourStory, Moneycontrol, ARB Podcast Open Source : Huggingface Space Medpiper AI Consultant (Jan 2024 - Jun 2024)</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Home on Sagar Sarkale</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content in Home on Sagar Sarkale</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 31 Aug 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LoRA: Low Rank Adaptation</title>
+      <link>http://localhost:1313/blog/genai/lora-deepdive/</link>
+      <pubDate>Sun, 31 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/genai/lora-deepdive/</guid>
+      <description>Secret sauce to train large language models</description>
+    </item>
+    <item>
+      <title>KV Caching in LLMs: A Visual Demonstration</title>
+      <link>http://localhost:1313/blog/genai/kv-caching-demo/</link>
+      <pubDate>Sat, 01 Mar 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/genai/kv-caching-demo/</guid>
+      <description>A visual demonstration of KV caching in language models</description>
+    </item>
+    <item>
+      <title>Inputs to Byte Latent Transformer</title>
+      <link>http://localhost:1313/blog/genai/inputs-to-byte-latent-transformer/</link>
+      <pubDate>Thu, 06 Feb 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/genai/inputs-to-byte-latent-transformer/</guid>
+      <description>Part 2 of All you need to know to get started with Byte Latent Transformer</description>
+    </item>
+    <item>
+      <title>My playlists</title>
+      <link>http://localhost:1313/random/my-playlists/</link>
+      <pubDate>Tue, 21 Jan 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/random/my-playlists/</guid>
+      <description>Solace in music</description>
+    </item>
+    <item>
+      <title>Precursors to Byte Latent Transformer</title>
+      <link>http://localhost:1313/blog/genai/precursors-to-byte-latent-transformer/</link>
+      <pubDate>Sun, 12 Jan 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/genai/precursors-to-byte-latent-transformer/</guid>
+      <description>Part 1 of All you need to know to get started with Byte Latent Transformer</description>
+    </item>
+    <item>
+      <title>Patience is all you need!</title>
+      <link>http://localhost:1313/blog/genai/patience-is-all-you-need/</link>
+      <pubDate>Thu, 11 Jul 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/genai/patience-is-all-you-need/</guid>
+      <description>Patience is all you need to learn transformers.</description>
+    </item>
+    <item>
+      <title>Another morning</title>
+      <link>http://localhost:1313/random/another-morning/</link>
+      <pubDate>Sat, 29 Jun 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/random/another-morning/</guid>
+      <description>I was inspired by a character in the book.</description>
+    </item>
+    <item>
+      <title>To Simpler times</title>
+      <link>http://localhost:1313/random/to-simpler-times/</link>
+      <pubDate>Sat, 15 Jun 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/random/to-simpler-times/</guid>
+      <description>A song led to this&amp;hellip;</description>
+    </item>
+    <item>
+      <title>It all started with the big bang. Bang!</title>
+      <link>http://localhost:1313/random/the-big-bang-theory/</link>
+      <pubDate>Wed, 12 Jun 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/random/the-big-bang-theory/</guid>
+      <description>If you recognize this from the title, you are in for a treat.</description>
+    </item>
+    <item>
+      <title>It&#39;s LLaVA not lava!</title>
+      <link>http://localhost:1313/blog/genai/llava/</link>
+      <pubDate>Sat, 01 Jun 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/genai/llava/</guid>
+      <description>LLaVA = Large Language and Vision assistant ≠ 🌋</description>
+    </item>
+    <item>
+      <title>Position Encoding in Transformers</title>
+      <link>http://localhost:1313/blog/genai/position-encoding/</link>
+      <pubDate>Thu, 25 Apr 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/genai/position-encoding/</guid>
+      <description>How do you understand position of token in transformer?</description>
+    </item>
+    <item>
+      <title>Hello super fast blogging!</title>
+      <link>http://localhost:1313/blog/web/hello-hugo/</link>
+      <pubDate>Sun, 07 Apr 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/web/hello-hugo/</guid>
+      <description>Exploring static site builder for quick blogging</description>
+    </item>
+    <item>
+      <title>LSTM simplified</title>
+      <link>http://localhost:1313/blog/seq/lstm-simplified/</link>
+      <pubDate>Thu, 21 Sep 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/seq/lstm-simplified/</guid>
+      <description>In depth and intuitive explanation of LSTM architecture</description>
+    </item>
+    <item>
+      <title>RNNs a walkthrough</title>
+      <link>http://localhost:1313/blog/seq/rnns-a-walkthrough/</link>
+      <pubDate>Tue, 22 Aug 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/seq/rnns-a-walkthrough/</guid>
+      <description>A Brief about Recurrent Neural Networks</description>
+    </item>
+    <item>
+      <title>About</title>
+      <link>http://localhost:1313/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/about/</guid>
+      <description>Welcome to my digital space! I’m a tech enthusiast who builds and drives a positive change. With a knack for NLP and Gen-AI, I love diving deep into tech.&#xA;This space, it’s more than just a portfolio; it’s a peek into my journey of continuous learning and growth. In this space, you will find some of my tech blogs and notes here at /blog. Beyond my tech musings, I also share my non-work thoughts at /random.</description>
+    </item>
+    <item>
+      <title>My Professional Journey</title>
+      <link>http://localhost:1313/work/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/work/</guid>
+      <description>smallstep.ai Founder (Dec 2023 - Present)&#xA;Building Marathi LLM:&#xA;Pretraining and Finetuning of Marathi Llama - Misal 7Bn, 1Bn parameter models. End to end development, evaluation and deployment of Marathi Llama. Open sourced Instruction tuned model here Published a technical blog with entire procedure here Launch : Linkedin Post, Twitter Post Coverage : YourStory, Moneycontrol, ARB Podcast Open Source : Huggingface Space Medpiper AI Consultant (Jan 2024 - Jun 2024)</description>
+    </item>
+  </channel>
+</rss>
