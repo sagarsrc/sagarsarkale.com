@@ -1,5 +1,5 @@
 ---
-title: "LoRA: Low Rank Adaptation"
+title: "Deep Dive into LoRA: A Practical Exploration"
 date: "2025-08-31"
 summary: "Secret sauce to train large language models"
 description: "Secret sauce to train large language models"
@@ -269,6 +269,9 @@ flowchart TD
     style final fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px
     style output3 fill:#E8EAF6,stroke:#3949AB,stroke-width:2px
 {{</mermaid>}}
+todo:
+- write about scaling factor and why it is important
+- how it is initialized
 
 # What does LoRA unlock?
 
@@ -296,20 +299,84 @@ LoRA's flexible inference approaches enable several powerful capabilities:
   - Adapter 3: Photorealistic portraits
   - Switch styles in real-time based on user preference
 
-## Modular AI Systems
-- Mix and match adapters for different capabilities
-- Compose multiple LoRA adapters for complex tasks
-- Enable personalized AI that adapts to user preferences on-demand
-
-## Efficient Model Serving
-- Load base model once, serve multiple specialized versions by swapping small adapters
-- **Storage efficiency**: Keep many task variants without storing full models
-- **Memory usage**: Same GPU memory as base model (adapters are tiny compared to full weights)
-
-
 # LoRA and a small neural network
 
-# LoRA and trainable params
+Let's look at LoRA in action with real experiments on Llama 3.2 1B model. I conducted systematic experiments to demonstrate LoRA's effectiveness compared to traditional fine-tuning approaches.
+
+## Experimental Setup
+- **Model**: meta-llama/Llama-3.2-1B (1.24B parameters)
+- **Task**: Sentiment analysis on IMDB dataset
+- **Hardware**: NVIDIA A10 (23GB VRAM)
+- **Comparison**: Baseline vs LoRA fine-tuning
+
+## The Reality of Training Large Models
+
+**Baseline Approach (Frozen Layers)**:
+```python
+# Had to freeze first 12/22 layers to fit in memory
+for param in model.model.layers[:12].parameters():
+    param.requires_grad = False
+
+Total parameters: 1,235,818,498
+Trainable parameters: 505,960,450 (40.9%)
+Batch size: 16 (maximum possible)
+Test Accuracy: 87.16%
+```
+
+**LoRA Approach**:
+```python
+lora_config = LoraConfig(
+    r=16,                    # Rank
+    lora_alpha=32,          # Scaling factor
+    lora_dropout=0.1,       # Regularization
+    target_modules=["q_proj", "v_proj", "k_proj", "o_proj",
+                   "gate_proj", "up_proj", "down_proj"]
+)
+
+Total parameters: 1,247,090,690
+Trainable parameters: 11,276,290 (0.9%)
+Batch size: 16 (same as baseline, but could go higher)
+Test Accuracy: 93.84%
+```
+
+## The Dramatic Difference
+
+| Metric | Baseline | LoRA | Improvement |
+|--------|----------|------|-------------|
+| **Trainable Params** | 505M (40.9%) | 11M (0.9%) | **97.8% reduction** |
+| **Test Accuracy** | 87.16% | 93.84% | **+6.68%** |
+| **Parameter Efficiency** | 0.0017/M | 0.0832/M | **48.3x better** |
+
+## Memory Reality Check
+
+When I tried **true full fine-tuning** (all 1.24B parameters):
+
+```
+⚠️ CUDA OutOfMemoryError: Tried to allocate 64.00 MiB
+   Even with batch size 2 - FAILED on 23GB GPU!
+```
+
+Meanwhile, LoRA succeeded with **8x larger batch size (16)**:
+```
+✅ Peak Memory: 20.57GB
+✅ Training successful with much larger batches
+```
+
+**Key insight**: LoRA doesn't just make training more efficient - it makes training *possible* where full fine-tuning fails.
+
+
+# Choosing the Right Rank
+
+The rank $r$ is a crucial hyperparameter that controls the parameter-performance trade-off.
+
+| Rank | Use Case | Trade-off |
+|------|----------|-----------|
+| $r = 8$ | Simple tasks, maximum efficiency | May underfit complex tasks |
+| $r = 16$ | **Sweet spot** for most tasks | Good balance |
+| $r = 32$ | Complex tasks requiring more capacity | More parameters, still efficient |
+| $r = 64$ | Very complex tasks | Approaching diminishing returns |
+
+**Rule of thumb**: Start with $r = 16$, increase if underfitting, decrease if overfitting or need more efficiency.
 
 # Looking at huggingface library
 
@@ -317,3 +384,4 @@ LoRA's flexible inference approaches enable several powerful capabilities:
 # References
 1. [LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685)
 1. [What is Low-Rank Adaptation (LoRA) | explained by the inventor](https://youtu.be/DhRoTONcyZE?si=OZR7DpcHrqpP_UC_)
+1. [LoRA - The Diet Pill for Obese Language Models](https://cgnarendiran.github.io/blog/lora-efficient-fine-tuning-llms/)
