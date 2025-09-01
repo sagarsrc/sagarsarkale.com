@@ -380,7 +380,20 @@ The rank $r$ is a crucial hyperparameter that controls the parameter-performance
 
 # End note
 
-This brings us to the end of our deep dive into LoRA, from mathematical foundations to hands-on experiments. The key takeaway for me was understanding how low-rank decomposition enables practical fine-tuning of large models while actually improving performance - something that seemed counterintuitive at first!
+This brings us to the end of our deep dive into LoRA, from mathematical foundations to hands-on experiments.
+
+But why did i cover this topic? While i was Claud-ing to research about LoRA, an interesting statement was passed by the model:
+
+> *"The Manifold Hypothesis states that real-world high-dimensional data lie on low-dimensional manifolds embedded within the high-dimensional space."*
+
+It got me thinking, where else can we see this principle in action?
+- **Facial landmarks**: 68 key points capturing the essence of infinite facial expressions
+- **Image embeddings**: Millions of pixels compressed into meaningful feature vectors
+- **LoRA adapters**: Complex model adaptations expressed through low-rank decompositions
+
+All of these suggest that meaningful changes often happen in lower-dimensional spaces embedded within high-dimensional ones. LoRA's effectiveness might be capturing this fundamental property of how neural networks actually adapt and learn. Beautiful, isn't it?
+
+
 
 All the experiments discussed in this blog have been open-sourced at [https://github.com/sagarsrc/lora-experiments/](https://github.com/sagarsrc/lora-experiments/) for you to reproduce and explore further.
 
