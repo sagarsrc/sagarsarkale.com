@@ -378,10 +378,23 @@ The rank $r$ is a crucial hyperparameter that controls the parameter-performance
 
 **Rule of thumb**: Start with $r = 16$, increase if underfitting, decrease if overfitting or need more efficiency.
 
-# Looking at huggingface library
+# End note
 
+This brings us to the end of our deep dive into LoRA, from mathematical foundations to hands-on experiments. The key takeaway for me was understanding how low-rank decomposition enables practical fine-tuning of large models while actually improving performance - something that seemed counterintuitive at first!
+
+All the experiments discussed in this blog have been open-sourced at [https://github.com/sagarsrc/lora-experiments/](https://github.com/sagarsrc/lora-experiments/) for you to reproduce and explore further.
+
+I hope you enjoyed this blog. Have fun learning!
 
 # References
-1. [LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685)
-1. [What is Low-Rank Adaptation (LoRA) | explained by the inventor](https://youtu.be/DhRoTONcyZE?si=OZR7DpcHrqpP_UC_)
-1. [LoRA - The Diet Pill for Obese Language Models](https://cgnarendiran.github.io/blog/lora-efficient-fine-tuning-llms/)
+
+- [LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685)
+- [What is Low-Rank Adaptation (LoRA) | explained by the inventor](https://youtu.be/DhRoTONcyZE?si=OZR7DpcHrqpP_UC_)
+- [LoRA - The Diet Pill for Obese Language Models](https://cgnarendiran.github.io/blog/lora-efficient-fine-tuning-llms/)
+- [LoRA Experiments Repository](https://github.com/sagarsrc/lora-experiments/)
+
+---
+
+Written By
+
+> [Sagar Sarkale](https://linkedin.com/in/sagar-sarkale)
