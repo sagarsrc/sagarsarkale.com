@@ -113,10 +113,11 @@ During training:
 - Only $A$ and $B$ matrices are updated via backpropagation
 - Forward pass: $h = (W_0 + BA)x$ where $x$ is input
 
+### Visual guide to training LoRA
 {{<mermaid>}}
 flowchart TD
     input["Input $x$"]
-    
+
     subgraph matrices[Weight Matrices]
         frozen["$W_0$ Frozen<br/>No Gradients"]
         matrixA["Matrix $A$<br/>Trainable"]
@@ -171,18 +172,18 @@ During inference:
 {{<mermaid>}}
 flowchart TD
     input1["Input $x$"]
-    
+
     subgraph setup["Setup Phase"]
         w0["$W_0$ Base Weights"]
         lora["$BA$ LoRA Weights"]
         merge["Merge: $W = W_0 + BA$"]
     end
-    
+
     subgraph inference["Inference Phase"]
         forward["Forward: $Wx$"]
         output1["Output $h$"]
     end
-    
+
     input1 --> setup
     w0 --> merge
     lora --> merge
@@ -202,17 +203,17 @@ flowchart TD
 {{<mermaid>}}
 flowchart TD
     input2["Input $x$"]
-    
+
     subgraph paths["Parallel Paths"]
         path1["Base Path: $W_0x$"]
         path2["LoRA Path: $BAx$"]
     end
-    
+
     subgraph combine["Combination"]
         sum["Sum: $W_0x + BAx$"]
         output2["Output $h$"]
     end
-    
+
     input2 --> path1
     input2 --> path2
     path1 --> sum
@@ -231,27 +232,27 @@ flowchart TD
 {{<mermaid>}}
 flowchart TD
     input3["Input $x$"]
-    
+
     subgraph base["Base Model"]
         w0_base["$W_0$ Frozen Base"]
     end
-    
+
     subgraph adapters["Available Adapters"]
         task1["Task 1: $B_1A_1$"]
         task2["Task 2: $B_2A_2$"]
         task3["Task 3: $B_3A_3$"]
     end
-    
+
     subgraph selection["Dynamic Selection"]
         switch["Select Adapter"]
         selected["Selected: $B_iA_i$"]
     end
-    
+
     subgraph compute["Computation"]
         final["$W_0 + B_iA_i$"]
         output3["Output $h$"]
     end
-    
+
     input3 --> base
     adapters --> switch
     switch --> selected
@@ -270,10 +271,41 @@ flowchart TD
 {{</mermaid>}}
 
 # What does LoRA unlock?
-Tell about how lora adapters can be quickly loaded and unloaded, give example of diffusion models which can generate avatars and realistic figures.
-Explain dynamic loading.
 
-# LoRA backpropagation
+LoRA's flexible inference approaches enable several powerful capabilities:
+
+## No Additional Latency
+(Option 1: Merged Weights)
+- Once weights are merged ($W_0 + BA$), inference runs at **original speed**
+- No additional latency introduced during inference
+- Perfect for production deployment where speed matters
+
+## Massive Storage Savings
+- Store one base model + multiple small adapters instead of full fine-tuned models
+- **Example**: Instead of storing 10 different 7B models (70GB total), store 1 base model (7GB) + 10 LoRA adapters (~50MB each = 500MB)
+- **Result**: 70GB → 7.5GB (90% storage reduction)
+
+## Dynamic Task Switching
+(Option 3: Adapter Swapping)
+- Keep multiple LoRA adapters in memory simultaneously
+- Switch between tasks instantly without reloading models
+- **Diffusion model example**:
+  - Same base Stable Diffusion model
+  - Adapter 1: Anime character style
+  - Adapter 2: Oil painting style
+  - Adapter 3: Photorealistic portraits
+  - Switch styles in real-time based on user preference
+
+## Modular AI Systems
+- Mix and match adapters for different capabilities
+- Compose multiple LoRA adapters for complex tasks
+- Enable personalized AI that adapts to user preferences on-demand
+
+## Efficient Model Serving
+- Load base model once, serve multiple specialized versions by swapping small adapters
+- **Storage efficiency**: Keep many task variants without storing full models
+- **Memory usage**: Same GPU memory as base model (adapters are tiny compared to full weights)
+
 
 # LoRA and a small neural network
 
@@ -281,7 +313,6 @@ Explain dynamic loading.
 
 # Looking at huggingface library
 
-#
 
 # References
 1. [LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685)
