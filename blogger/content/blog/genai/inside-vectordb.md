@@ -1,6 +1,6 @@
 ---
 title: "Inside VectorDB"
-date: "2025-09-28"
+date: "2025-01-28"
 summary: "How VectorDBs work under the hood"
 description: "Diving deep into Vector DB and HNSW (Hierarchical Navigable Small World) algorithm"
 toc: true
@@ -18,7 +18,7 @@ mermaid: true
 
 Imagine you are an e-commerce platform with say 10 million products on your website. Your customers are searching for products by name, description, or attributes. You want the ability to find the products that are most similar to the query. How do you go about it? Fuzzy searches / Keyword searches, well it would fail miserably given the scale and nature of the problem.
 
-When semantic search is not an option, we turn to vector similarity search! We all know description of products can be represented as a vector, but how do we store these vectors and query them efficiently at scale? This is where VectorDBs come into play.
+When keyword search is insufficient, we need semantic search powered by vector similarity! Product descriptions can be encoded as vectors using embeddings, but how do we store these vectors and query them efficiently at scale? This is where VectorDBs come into play.
 
 # Traditional route
 
@@ -44,7 +44,7 @@ Let's put this into perspective with some numbers:
 - **Database size**: 10 million product vectors
 - **Vector dimensions**: 768 (typical for text embeddings)
 - **Query time**: For each search, you need 10M distance calculations
-- **Memory**: All vectors must be kept in memory for fast access
+- **Memory**: Vectors are typically memory-mapped or batched for efficient access
 
 > All this with additional overhead of doing cosine similarity calculation which itself is a computationally intensive operation and increases with dimensionality of the vectors.
 
@@ -171,14 +171,19 @@ Notice: In order to find 66, `(HEAD -> 34 -> 47 -> 66)` you jump through just 2 
 **How is this level assigned?**
 
 - Level is assigned using an exponential-like distribution
-- Formula: `max_level = floor(-ln(U) / ln(M))` where `U` is `random_uniform(0,1)`
+- Formula: `max_level = floor(-ln(U) * mL)` where:
+  - `U ~ uniform(0,1)` is a random number
+  - `mL = 1/ln(M)` is the **level multiplier** (normalization factor)
+- The formula `floor(-ln(U) / ln(M))` is equivalent but shows the dependency on M directly
+- Some implementations allow tuning `mL` independently to control hierarchy height
 
 
 **Why is exponential-like distribution used?**
 
-- It naturally favors lower levels
-- Very few vectors exist at higher levels
-- Sampling from this distribution ensures hierarchical structure
+- It naturally favors lower levels - most vectors exist only at L=0
+- Very few vectors exist at higher levels (exponentially decaying probability)
+- Sampling from this distribution ensures hierarchical structure similar to skip lists
+- Setting `mL = 0` would create a single-layer graph (no hierarchy)
 
 
 ### Close friends
@@ -190,7 +195,8 @@ Notice: In order to find 66, `(HEAD -> 34 -> 47 -> 66)` you jump through just 2 
 
 {{<figure src="/vectordb/005-M5-example.jpg" caption="Vector V has M=5 neighbors per node">}}
 
-- dotted lines represent bidirectional edges between vectors
+- Dotted lines represent bidirectional edges between vectors
+- **Note on bidirectionality**: When vector V connects to neighbor N, N must also add V to its neighbor list. If N already has M neighbors, it must prune one neighbor to stay within the limit (potentially V itself if V is the furthest). After pruning, edges are not guaranteed to be perfectly symmetric across the graph.
 
 ### New person in the town
 
@@ -228,7 +234,10 @@ flowchart LR
 - **M** limits the number of edges per node, keeping the graph's connectivity manageable
 - By evaluating K candidates (e.g., 100) but only connecting to M neighbors (e.g., 16), we get better quality connections while maintaining efficient graph structure
 
-> **Parameter naming**: In HNSW literature, K is called `efConstruction` (exploration factor during construction). We use K here for simplicity.
+> **Parameter naming clarification**:
+> - **During construction**: The parameter K is called `efConstruction` - it controls how many candidates to evaluate when inserting a new vector
+> - **During search/query**: The parameter is called `ef` (or `ef_search`) - it controls how many candidates to evaluate when searching for neighbors
+> - Both control exploration breadth, but affect different phases (build time vs query time)
 
 **Key insight**: `K > M`
 - Larger K  -> better neighbor selection (higher recall)
@@ -269,37 +278,53 @@ When new vector **Q** is inserted and gets assigned **Level = 2**:
 
 Now that we understand how HNSW works, let's see how it performs in practice. I ran some tests on 1M documents from the MS MARCO dataset.
 
-> **Important:** These are exploratory tests, not rigorous benchmarks. The comparison between HNSWlib and FAISS is not apples-to-apples due to different parameter configurations.
+> **Important:** These are exploratory tests, not rigorous benchmarks. Full experimental code and configurations are available here: https://github.com/sagarsrc/inside-vectordb
 
 ## Experimental Setup
 
-**Dataset:** MS MARCO (1M documents, 384-dim embeddings, 100 queries)
+**Dataset:** MS MARCO (1M documents, 768-dimensional embeddings)
+
 
 **Methods:**
-- **Brute Force**: sklearn cosine similarity (baseline)
-- **HNSWlib**: M=16, ef_construction=100, ef_search=50
+- **Brute Force**: sklearn cosine similarity (baseline, 100% recall)
+- **HNSWlib**: M=32, ef_construction=100, ef_search=50
 - **FAISS HNSW**: M=32, ef_construction=100, ef_search=50
 
-> **Note on parameters:** FAISS uses M=32 (2x more connections per node) vs HNSWlib's M=16. This means:
-> - FAISS uses **2x more memory** but has better graph connectivity
-> - FAISS's higher recall (0.7683 vs 0.7583) is partly due to this advantage
-> - The speed comparison isn't entirely fair FAISS has more edges to leverage
+**Distance Metric:** Cosine similarity (implemented as L2-normalized inner product)
+
+
 
 ## Results
+
+### Performance Summary
+
+| Method | Implementation | Latency | Throughput | Recall@10 | Speedup |
+|--------|----------------|---------|------------|-----------|---------|
+| Brute Force | sklearn | 699.43 ms | 1.4 QPS | 0.8100 (100%) | 1x |
+| HNSWlib | C++ with Python bindings | 0.46 ms | 2,166 QPS | 0.7433 (91.8%) | 1,515x |
+| FAISS HNSW | IndexHNSWFlat | 0.08 ms | 11,805 QPS | 0.7683 (94.9%) | 8,257x |
+
+### Visual Comparisons
 
 {{<figure src="https://raw.githubusercontent.com/sagarsrc/inside-vectordb/master/reports/summary/latency_comparison.png" caption="Latency comparison: FAISS achieves sub-millisecond queries">}}
 
 {{<figure src="https://raw.githubusercontent.com/sagarsrc/inside-vectordb/master/reports/summary/qps_comparison.png" caption="Throughput: FAISS processes 11,805 queries/second">}}
 
-{{<figure src="https://raw.githubusercontent.com/sagarsrc/inside-vectordb/master/reports/summary/recall_comparison.png" caption="Recall@10: HNSW maintains ~94% of brute-force accuracy">}}
+{{<figure src="https://raw.githubusercontent.com/sagarsrc/inside-vectordb/master/reports/summary/recall_comparison.png" caption="Recall@10: HNSW maintains 91.8-94.9% accuracy relative to brute force">}}
 
-{{<figure src="https://raw.githubusercontent.com/sagarsrc/inside-vectordb/master/reports/summary/speed_vs_accuracy.png" caption="Speed vs Accuracy: 1000x speedup with only 5-7% recall loss">}}
+{{<figure src="https://raw.githubusercontent.com/sagarsrc/inside-vectordb/master/reports/summary/speed_vs_accuracy.png" caption="Speed vs Accuracy: 1500-8000x speedup with 5-8% recall loss">}}
+
+{{<figure src="https://raw.githubusercontent.com/sagarsrc/inside-vectordb/master/reports/summary/build_time_comparison.png" caption="Build time comparison across methods">}}
+
+{{<figure src="https://raw.githubusercontent.com/sagarsrc/inside-vectordb/master/reports/summary/ef_sensitivity_comparison.png" caption="ef_search sensitivity analysis showing recall-latency tradeoffs">}}
 
 ## Key Observations
 
-- **HNSW is dramatically faster**: 1000-8000x speedup over brute force with minimal recall loss
-- **Parameter choices matter**: Different M values mean HNSWlib vs FAISS comparison isn't fair they're optimized for different tradeoffs
-- **The big win**: Both HNSW implementations maintain ~94% recall while achieving sub-millisecond queries on 1M vectors
+- **HNSW delivers massive speedups**: 1500-8000x faster than brute force, sacrificing only 5-8% recall
+- **Fair comparison**: Both implementations use M=32, making this a true apples-to-apples comparison
+- **FAISS optimizations shine**: FAISS's highly optimized C++ implementation gives it 5x better throughput than HNSWlib
+- **Sub-millisecond queries at scale**: Both HNSW methods achieve sub-millisecond latency on 1M vectors
+- **Recall-speed tradeoff**: The ef_search parameter allows fine-tuning between recall and latency based on application needs
 
 
 
@@ -311,7 +336,7 @@ Vector databases power modern AI from semantic search to RAG systems. HNSW's cle
 - **Skip list hierarchy** creates express lanes through vector space
 - **Random level assignment** naturally creates routing nodes
 - **Multi-level neighbors** solve graph connectivity same vector, different connections at each level
-- **Parameters matter**: M (memory), K (build quality), ef_search (query speed)
+- **Parameters matter**: M (memory), efConstruction (build quality), ef_search (query speed)
 - **Approximate wins**: 94% recall with 1000x+ speedup
 
 Full code and experiments on GitHub: https://github.com/sagarsrc/inside-vectordb
@@ -324,3 +349,12 @@ Full code and experiments on GitHub: https://github.com/sagarsrc/inside-vectordb
 1. [Graph Visualization of Skip list](https://csacademy.com/app/graph_editor/)
 1. [Redis and Parameters of HNSW](https://redis.io/blog/how-hnsw-algorithms-can-improve-search/)
 1. [Hierarchical Navigable Small Worlds (HNSW) by Pinecone](https://www.pinecone.io/learn/series/faiss/hnsw/)
+
+
+
+---
+
+
+Written By
+
+> [Sagar Sarkale](https://linkedin.com/in/sagar-sarkale)
