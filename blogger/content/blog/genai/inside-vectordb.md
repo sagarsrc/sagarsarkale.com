@@ -1,6 +1,6 @@
 ---
 title: "Inside VectorDB"
-date: "2025-01-28"
+date: "2025-10-03"
 summary: "How VectorDBs work under the hood"
 description: "Diving deep into Vector DB and HNSW (Hierarchical Navigable Small World) algorithm"
 toc: true
@@ -80,7 +80,7 @@ Here are some approaches to get approximate nearest neighbors:
 - Annoy
 - HNSW
 
-To keep the scope of this blog brief, we will focus on HNSW, which is widely used in practice.
+**We will focus on HNSW in detail to keep the scope brief, it is widely used in practice across industry.**
 
 ## Textbook description of HNSW
 
@@ -177,6 +177,7 @@ Notice: In order to find 66, `(HEAD -> 34 -> 47 -> 66)` you jump through just 2 
 - The formula `floor(-ln(U) / ln(M))` is equivalent but shows the dependency on M directly
 - Some implementations allow tuning `mL` independently to control hierarchy height
 
+{{<figure src="/vectordb/003-layer_distribution_histograms.png" caption="Distribution of levels in HNSW">}}
 
 **Why is exponential-like distribution used?**
 
@@ -303,6 +304,8 @@ Now that we understand how HNSW works, let's see how it performs in practice. I 
 | Brute Force | sklearn | 699.43 ms | 1.4 QPS | 0.8100 (100%) | 1x |
 | HNSWlib | C++ with Python bindings | 0.46 ms | 2,166 QPS | 0.7433 (91.8%) | 1,515x |
 | FAISS HNSW | IndexHNSWFlat | 0.08 ms | 11,805 QPS | 0.7683 (94.9%) | 8,257x |
+
+**NOTE**: The numbers are inflated as we are using 384 dimension vectors, in practice dimensionality is much higher and would affect latency and throughputs.
 
 ### Visual Comparisons
 
