@@ -309,7 +309,7 @@ Well, we are just getting started, the next blog will cover how these patches ar
 
 1. Code for generating diagrams and artifacts in this blog is available on GitHub below:
 
-   - https://github.com/another-learning-experiment/concept-deep-dive
+   - https://github.com/sagarsrc/exp-byte-latent-transformer
    - I will be maintaining this repo for this blog and the upcoming ones.
    - Feel free to experiment with the code and share your thoughts.
 
