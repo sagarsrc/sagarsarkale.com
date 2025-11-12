@@ -1,0 +1,41 @@
+{{ $image := "" }}
+{{ if .Params.image }}
+  {{ $image = .Params.image }}
+{{ else if .Params.images }}
+  {{ $image = index .Params.images 0 }}
+{{ else }}
+  {{ $image = site.Params.ogImage }}
+{{ end }}
+
+{{ if $image }}
+  {{ if not (hasPrefix $image "http") }}
+    {{ $image = (printf "%s%s" site.BaseURL $image) }}
+  {{ end }}
+{{ end }}
+
+<!-- Open Graph -->
+<meta property="og:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }}{{ end }}" />
+<meta property="og:description" content="{{ if .IsHome }}{{ site.Params.description }}{{ else }}{{ .Description | default .Summary }}{{ end }}" />
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}" />
+<meta property="og:url" content="{{ .Permalink }}" />
+{{ with $image }}
+<meta property="og:image" content="{{ . }}" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+{{ end }}
+<meta property="og:site_name" content="{{ site.Title }}" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }}{{ end }}" />
+<meta name="twitter:description" content="{{ if .IsHome }}{{ site.Params.description }}{{ else }}{{ .Description | default .Summary }}{{ end }}" />
+{{ with $image }}
+<meta name="twitter:image" content="{{ . }}" />
+{{ end }}
+{{ with site.Params.social }}
+  {{ range . }}
+    {{ if eq .name "twitter" }}
+<meta name="twitter:site" content="@{{ path.Base .url }}" />
+    {{ end }}
+  {{ end }}
+{{ end }}
