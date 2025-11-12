@@ -663,7 +663,4 @@ Entire codebase is available on [github](https://github.com/sagarsrc/kv-caching)
 
 ---
 
-
-Written By
-
-> [Sagar Sarkale](https://linkedin.com/in/sagar-sarkale)
+{{<author>}}

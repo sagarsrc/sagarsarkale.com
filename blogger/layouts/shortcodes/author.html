@@ -1,0 +1,66 @@
+<!-- Import Caveat font from Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<div class="author-byline">
+    <span class="written-by">Written by</span>
+    <a href="{{ if .Get "url" }}{{ .Get "url" }}{{ else }}https://linkedin.com/in/sagar-sarkale{{ end }}"
+       class="author-name"
+       target="_blank"
+       rel="noopener noreferrer">
+        {{ if .Get "name" }}{{ .Get "name" }}{{ else }}Sagar Sarkale{{ end }}
+    </a>
+</div>
+
+<style>
+.author-byline {
+    margin: 2rem 0;
+    padding: 1.5rem 0;
+    border-top: 1px solid #e0e0e0;
+    text-align: left;
+}
+
+.written-by {
+    display: block;
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+.author-name {
+    display: inline-block;
+    font-family: 'Caveat', cursive;
+    font-size: 2rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+    letter-spacing: 0.01em;
+}
+
+.author-name:hover {
+    color: #0066cc;
+    border-bottom-color: #0066cc;
+}
+
+/* Dark mode support */
+.dark .author-byline {
+    border-top-color: #444;
+}
+
+.dark .written-by {
+    color: #bbb;
+}
+
+.dark .author-name {
+    color: #ffffff;
+}
+
+.dark .author-name:hover {
+    color: #66b3ff;
+    border-bottom-color: #66b3ff;
+}
+</style>

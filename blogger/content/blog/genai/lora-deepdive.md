@@ -408,6 +408,4 @@ I hope you enjoyed this blog. Have fun learning!
 
 ---
 
-Written By
-
-> [Sagar Sarkale](https://linkedin.com/in/sagar-sarkale)
+{{<author>}}

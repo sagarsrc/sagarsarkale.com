@@ -210,6 +210,4 @@ This blog provides a visual mathematical guide to how a small component "positio
 
 ---
 
-Written By
-
-> [Sagar Sarkale](https://linkedin.com/in/sagar-sarkale)
+{{<author>}}

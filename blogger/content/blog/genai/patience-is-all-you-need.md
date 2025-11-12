@@ -339,6 +339,4 @@ Almost all diagrams were drawn on draw.io and few edits on canva.com, feel free 
 
 ---
 
-Written By
-
-> [Sagar Sarkale](https://linkedin.com/in/sagar-sarkale)
+{{<author>}}

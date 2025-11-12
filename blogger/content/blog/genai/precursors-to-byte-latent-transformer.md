@@ -383,6 +383,4 @@ These calculations are based on multiple assumptions:
 
 ---
 
-Written By
-
-> Sagar Sarkale
+{{<author>}}

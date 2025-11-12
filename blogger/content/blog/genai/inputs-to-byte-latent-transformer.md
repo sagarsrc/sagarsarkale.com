@@ -511,6 +511,4 @@ In the next post, we will see how the global transformer and the local decoder w
 
 ---
 
-Written By
-
-> Sagar Sarkale
+{{<author>}}

@@ -354,6 +354,4 @@ graph TD
 
 ---
 
-Written By
-
-> [Sagar Sarkale](https://linkedin.com/in/sagar-sarkale)
+{{<author>}}

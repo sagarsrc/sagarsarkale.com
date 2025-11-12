@@ -358,6 +358,4 @@ Full code and experiments on GitHub: https://github.com/sagarsrc/inside-vectordb
 ---
 
 
-Written By
-
-> [Sagar Sarkale](https://linkedin.com/in/sagar-sarkale)
+{{<author>}}
