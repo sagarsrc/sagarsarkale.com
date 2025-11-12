@@ -12,7 +12,7 @@ showTags: true
 hideBackToTop: false
 mermaid: true
 ---
-{{<figure src="/mcp1/001-cover.jpg">}}
+{{<figure src="/mcp1/000-cover-edited.jpg">}}
 
 # Introduction
 
