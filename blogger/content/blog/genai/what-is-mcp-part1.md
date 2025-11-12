@@ -1,5 +1,5 @@
 ---
-title: "MCP: Why All The Hype? (Part 1)"
+title: "What the MCP? (Part 1)"
 date: "2025-11-12"
 summary: "Understanding Model Context Protocol and why it's different from function calling"
 description: "A deep dive into what makes MCP special and when you should actually use it"
