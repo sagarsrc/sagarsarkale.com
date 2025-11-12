@@ -1,0 +1,22 @@
+{{- $user := .Get "user" -}}
+{{- $id := .Get "id" -}}
+{{- $file := .Get "file" -}}
+{{- $lang := .Get "lang" -}}
+
+{{- $rawURL := printf "https://gist.githubusercontent.com/%s/%s/raw/%s" $user $id $file -}}
+{{- $gistURL := printf "https://gist.github.com/%s/%s" $user $id -}}
+
+<div style="margin: 20px 0;">
+{{- if $lang -}}
+```{{ $lang }}
+{{ getJSON $rawURL }}
+```
+{{- else -}}
+```
+{{ getJSON $rawURL }}
+```
+{{- end -}}
+<p style="text-align: right; font-size: 0.9em; color: #888; margin-top: -10px;">
+<a href="{{ $gistURL }}" style="color: #888; text-decoration: underline;">View Gist</a>
+</p>
+</div>

@@ -1,0 +1,41 @@
+{{- if .IsNamedParams -}}
+{{- $id := .Get "id" -}}
+<div style="margin: 20px auto; display: flex; flex-direction: column; align-items: center; max-width: 550px;">
+<div style="position: relative; width: 100%;">
+<blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none" data-cards="hidden"><a href="https://twitter.com/x/status/{{ $id }}"></a></blockquote>
+{{- `<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>` | safeHTML -}}
+{{- `<style>
+.twitter-tweet iframe {
+  pointer-events: none !important;
+}
+.twitter-tweet * {
+  pointer-events: none !important;
+}
+</style>` | safeHTML -}}
+<div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; cursor: default; z-index: 10;" onclick="event.preventDefault(); return false;"></div>
+</div>
+<p style="text-align: center; font-size: 0.9em; color: #888; margin-top: 10px; position: relative; z-index: 11;">
+source: <a href="https://x.com/i/web/status/{{ $id }}" style="color: #888; text-decoration: underline;">https://x.com/i/web/status/{{ $id }}</a>
+</p>
+</div>
+{{- else -}}
+{{- $id := .Get 0 -}}
+<div style="margin: 20px auto; display: flex; flex-direction: column; align-items: center; max-width: 550px;">
+<div style="position: relative; width: 100%;">
+<blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none" data-cards="hidden"><a href="https://twitter.com/x/status/{{ $id }}"></a></blockquote>
+{{- `<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>` | safeHTML -}}
+{{- `<style>
+.twitter-tweet iframe {
+  pointer-events: none !important;
+}
+.twitter-tweet * {
+  pointer-events: none !important;
+}
+</style>` | safeHTML -}}
+<div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; cursor: default; z-index: 10;" onclick="event.preventDefault(); return false;"></div>
+</div>
+<p style="text-align: center; font-size: 0.9em; color: #888; margin-top: 10px; position: relative; z-index: 11;">
+source: <a href="https://x.com/i/web/status/{{ $id }}" style="color: #888; text-decoration: underline;">https://x.com/i/web/status/{{ $id }}</a>
+</p>
+</div>
+{{- end -}}

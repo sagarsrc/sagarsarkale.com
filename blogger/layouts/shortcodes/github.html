@@ -1,0 +1,79 @@
+{{- $owner := .Get "owner" -}}
+{{- $repo := .Get "repo" -}}
+{{- $path := .Get "path" -}}
+{{- $branch := default "main" (.Get "branch") -}}
+{{- $lang := .Get "lang" -}}
+
+{{- $rawURL := printf "https://raw.githubusercontent.com/%s/%s/%s/%s" $owner $repo $branch $path -}}
+{{- $fileURL := printf "https://github.com/%s/%s/blob/%s/%s" $owner $repo $branch $path -}}
+
+{{- $content := "" -}}
+{{- $opts := dict "method" "GET" -}}
+{{- with resources.GetRemote $rawURL $opts -}}
+  {{- with .Err -}}
+    {{- warnf "Failed to fetch %s: %s" $rawURL . -}}
+  {{- else -}}
+    {{- $content = .Content -}}
+  {{- end -}}
+{{- end -}}
+
+<div style="margin: 20px auto; max-width: 100%;">
+<div style="background: #1e1e1e; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
+<div style="background: #3a3a3a; padding: 6px 12px; border-bottom: 1px solid #4a4a4a;">
+<span style="font-size: 12px; color: #a8a8a8; font-family: 'SF Mono', Monaco, 'Courier New', monospace; font-weight: 500;">{{ $path }}</span>
+</div>
+<div style="overflow-x: auto; overflow-y: auto; max-height: 600px;">
+{{- if $lang -}}
+{{ highlight $content $lang "linenos=inline,style=monokai,linenostart=1" }}
+{{- else -}}
+{{ highlight $content "" "linenos=inline,style=monokai,linenostart=1" }}
+{{- end -}}
+</div>
+</div>
+<p style="text-align: center; font-size: 0.85em; color: #888; margin-top: 12px;">
+source: <a href="{{ $fileURL }}" style="color: #888; text-decoration: underline;">{{ $fileURL }}</a>
+</p>
+</div>
+
+<style>
+.highlight {
+  background: #1e1e1e !important;
+  padding: 16px !important;
+  margin: 0 !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+}
+.highlight pre {
+  background: transparent !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: auto !important;
+  white-space: pre !important;
+}
+.highlight code {
+  font-family: 'SF Mono', Monaco, 'Courier New', monospace !important;
+  white-space: pre !important;
+}
+
+/* Custom scrollbar styling */
+.highlight pre::-webkit-scrollbar {
+  height: 10px;
+}
+.highlight pre::-webkit-scrollbar-track {
+  background: #2d2d2d;
+  border-radius: 4px;
+}
+.highlight pre::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 4px;
+}
+.highlight pre::-webkit-scrollbar-thumb:hover {
+  background: #777;
+}
+
+/* Firefox scrollbar */
+.highlight pre {
+  scrollbar-width: thin;
+  scrollbar-color: #555 #2d2d2d;
+}
+</style>
