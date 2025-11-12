@@ -1,4 +1,6 @@
 <details>
-    <summary>{{ (.Get 0) | markdownify }}</summary>
-    {{ .Inner | markdownify }}
+    <summary>{{ if .Get "summary" }}{{ .Get "summary" }}{{ else if .Get "title" }}{{ .Get "title" }}{{ else }}{{ .Get 0 }}{{ end }}</summary>
+    <div class="details-content">
+        {{ .Inner | .Page.RenderString }}
+    </div>
 </details>
