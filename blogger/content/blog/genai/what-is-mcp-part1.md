@@ -12,17 +12,17 @@ showTags: true
 hideBackToTop: false
 mermaid: true
 ---
-{{<figure src="/mcp1/000-cover.jpg">}}
+{{<figure src="/mcp1/001-cover.jpg">}}
 
 # Introduction
 
-A few days back it was MCP, MCP everywhere, and I was like - **what the MCP**? Why is it hyped so much?
+A few months back it was MCP, MCP everywhere, and I was like - **what the MCP**? Why is it hyped so much?
 
 I mean, we already have function calling in OpenAI, Anthropic, and pretty much every LLM provider. So why do we need another layer? Why should anyone choose MCP over simple function calls?
 
-I finally got some time to read and explore more about it. The more I dug in, the more I realized there's substance behind the hype.
+The more I dug in, the more I realized there's substance behind the hype. I finally got some time to write about it.
 
-Will be writing about it in parts - this part covers fundamentals: what distinguishes MCP from function calling and the basics of architecture associated with it.
+Will be writing about MCP in parts - this part covers fundamentals: what distinguishes MCP from function calling and the basics of architecture associated with it. Let's dive in!
 
 Let's start with the problem that MCP actually solves.
 
@@ -71,14 +71,14 @@ Remember that AI agent that monitors GitHub, updates Notion, and logs to your da
 
 1. Build **3 MCP servers once**: GitHub, Notion, Database
 2. Any MCP-compatible AI (Claude, ChatGPT, Cursor) can now use all three
-3. The AI can **chain operations**: Pull from GitHub → Update Notion → Log to Database
+3. The AI can **chain operations**: Pull from GitHub -> Update Notion -> Log to Database
 4. **Runtime discovery**: The AI automatically discovers available tools
 5. **Stateful sessions**: Context persists across multiple requests
 6. Switch AI platforms? **Zero code changes needed**
 
 You've turned 9 custom integrations into 6 reusable components (3 AI clients + 3 servers), and they work together seamlessly.
 
-*For details on MCP's architecture (Host/Client/Server components), see [Appendix: Architecture Deep Dive](#appendix-architecture-deep-dive).*
+*For details on MCP's architecture (Host/Client/Server components), see [Appendix: MCP architecture](#mcp-architecture).*
 
 # MCP vs Function Calling: The Honest Comparison
 
@@ -223,7 +223,7 @@ When I started researching MCP, I was skeptical. "Just another protocol," I thou
 MCP isn't just another protocol - it's a **standardization moment** for AI integration. Just as USB-C unified hardware connections and HTTP standardized web communication, MCP is unifying how AI applications connect to the world.
 
 **What makes it different?**
-1. It solves the MxN integration problem → M+N solution
+1. It solves the MxN integration problem -> M+N solution
 2. It's not about replacing function calling - it's about standardizing the ecosystem layer
 3. Industry consensus: OpenAI, Anthropic, Microsoft are all aligning
 4. Grassroots momentum: 2,000+ community-built servers in one year
