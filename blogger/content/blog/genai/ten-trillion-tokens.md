@@ -8,6 +8,10 @@ tags: ["GenAI", "NLP", "MultilingualAI"]
 showTags: true
 ---
 
+
+{{<figure src="https://framerusercontent.com/images/CFvU1ruIuo5CrPK7mzoyZvA28.png">}}
+
 *This article was written while working at People+AI*
 
-[Read the full article on People+AI blog →](https://peopleplus.ai/blog/ten-trillion-tokens-making-ai-work-for-every-indian-language)
+
+[Click here to Read the full article on People+AI blog ->](https://peopleplus.ai/blog/ten-trillion-tokens-making-ai-work-for-every-indian-language)

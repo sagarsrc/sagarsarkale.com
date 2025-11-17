@@ -1,1 +1,40 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Random on Sagar Sarkale</title><link>https://sagarsarkale.com/random/</link><description>Recent content in Random on Sagar Sarkale</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Tue, 21 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://sagarsarkale.com/random/index.xml" rel="self" type="application/rss+xml"/><item><title>My playlists</title><link>https://sagarsarkale.com/random/my-playlists/</link><pubDate>Tue, 21 Jan 2025 00:00:00 +0000</pubDate><guid>https://sagarsarkale.com/random/my-playlists/</guid><description>Solace in music</description></item><item><title>Another morning</title><link>https://sagarsarkale.com/random/another-morning/</link><pubDate>Sat, 29 Jun 2024 00:00:00 +0000</pubDate><guid>https://sagarsarkale.com/random/another-morning/</guid><description>I was inspired by a character in the book.</description></item><item><title>To Simpler times</title><link>https://sagarsarkale.com/random/to-simpler-times/</link><pubDate>Sat, 15 Jun 2024 00:00:00 +0000</pubDate><guid>https://sagarsarkale.com/random/to-simpler-times/</guid><description>A song led to this&amp;hellip;</description></item><item><title>It all started with the big bang. Bang!</title><link>https://sagarsarkale.com/random/the-big-bang-theory/</link><pubDate>Wed, 12 Jun 2024 00:00:00 +0000</pubDate><guid>https://sagarsarkale.com/random/the-big-bang-theory/</guid><description>If you recognize this from the title, you are in for a treat.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Random on Sagar Sarkale</title>
+    <link>http://localhost:1313/random/</link>
+    <description>Recent content in Random on Sagar Sarkale</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 21 Jan 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/random/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>My playlists</title>
+      <link>http://localhost:1313/random/my-playlists/</link>
+      <pubDate>Tue, 21 Jan 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/random/my-playlists/</guid>
+      <description>Solace in music</description>
+    </item>
+    <item>
+      <title>Another morning</title>
+      <link>http://localhost:1313/random/another-morning/</link>
+      <pubDate>Sat, 29 Jun 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/random/another-morning/</guid>
+      <description>I was inspired by a character in the book.</description>
+    </item>
+    <item>
+      <title>To Simpler times</title>
+      <link>http://localhost:1313/random/to-simpler-times/</link>
+      <pubDate>Sat, 15 Jun 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/random/to-simpler-times/</guid>
+      <description>A song led to this&amp;hellip;</description>
+    </item>
+    <item>
+      <title>It all started with the big bang. Bang!</title>
+      <link>http://localhost:1313/random/the-big-bang-theory/</link>
+      <pubDate>Wed, 12 Jun 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/random/the-big-bang-theory/</guid>
+      <description>If you recognize this from the title, you are in for a treat.</description>
+    </item>
+  </channel>
+</rss>

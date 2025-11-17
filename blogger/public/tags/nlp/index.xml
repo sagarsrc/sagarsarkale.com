@@ -1,1 +1,33 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>NLP on Sagar Sarkale</title><link>https://sagarsarkale.com/tags/nlp/</link><description>Recent content in NLP on Sagar Sarkale</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 15 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://sagarsarkale.com/tags/nlp/index.xml" rel="self" type="application/rss+xml"/><item><title>Ten Trillion Tokens: Making AI Work for Every Indian Language</title><link>https://sagarsarkale.com/blog/genai/ten-trillion-tokens/</link><pubDate>Thu, 15 Aug 2024 00:00:00 +0000</pubDate><guid>https://sagarsarkale.com/blog/genai/ten-trillion-tokens/</guid><description>Building the largest multilingual LLM dataset for Indian languages at People+AI</description></item><item><title>LSTM simplified</title><link>https://sagarsarkale.com/blog/seq/lstm-simplified/</link><pubDate>Thu, 21 Sep 2023 00:00:00 +0000</pubDate><guid>https://sagarsarkale.com/blog/seq/lstm-simplified/</guid><description>In depth and intuitive explanation of LSTM architecture</description></item><item><title>RNNs a walkthrough</title><link>https://sagarsarkale.com/blog/seq/rnns-a-walkthrough/</link><pubDate>Tue, 22 Aug 2023 00:00:00 +0000</pubDate><guid>https://sagarsarkale.com/blog/seq/rnns-a-walkthrough/</guid><description>A Brief about Recurrent Neural Networks</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>NLP on Sagar Sarkale</title>
+    <link>http://localhost:1313/tags/nlp/</link>
+    <description>Recent content in NLP on Sagar Sarkale</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 15 Aug 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/nlp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ten Trillion Tokens: Making AI Work for Every Indian Language</title>
+      <link>http://localhost:1313/blog/genai/ten-trillion-tokens/</link>
+      <pubDate>Thu, 15 Aug 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/genai/ten-trillion-tokens/</guid>
+      <description>Building the largest multilingual LLM dataset for Indian languages at People+AI</description>
+    </item>
+    <item>
+      <title>LSTM simplified</title>
+      <link>http://localhost:1313/blog/seq/lstm-simplified/</link>
+      <pubDate>Thu, 21 Sep 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/seq/lstm-simplified/</guid>
+      <description>In depth and intuitive explanation of LSTM architecture</description>
+    </item>
+    <item>
+      <title>RNNs a walkthrough</title>
+      <link>http://localhost:1313/blog/seq/rnns-a-walkthrough/</link>
+      <pubDate>Tue, 22 Aug 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/seq/rnns-a-walkthrough/</guid>
+      <description>A Brief about Recurrent Neural Networks</description>
+    </item>
+  </channel>
+</rss>
