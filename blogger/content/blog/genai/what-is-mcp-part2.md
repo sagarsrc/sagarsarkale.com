@@ -1,6 +1,6 @@
 ---
 title: "What the MCP? (Part 2): I Built Quick Call"
-date: "2025-12-05"
+date: "2025-12-10"
 summary: "I set out to write Part 2 about MCP. Instead, I fell into a rabbit hole..."
 description: "I set out to write Part 2 about MCP. Instead, I fell into a rabbit hole and built Quick Call."
 toc: true
