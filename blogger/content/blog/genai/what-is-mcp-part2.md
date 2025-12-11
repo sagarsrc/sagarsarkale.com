@@ -35,13 +35,13 @@ This post is Part 2, but it's not the Part 2 I planned. It's the Part 2 I accide
 
 Quick Call is your AI assistant that doesn't just chat. It actually knows what's going on in your workspace.
 
-Think of it like this: Instead of jumping between GitHub to check commits, Slack to send updates, and your terminal to remember what you did in last 2 days, you just ask Quick Call.
+Think of it like this: Instead of jumping between GitHub to check commits, Slack to send updates, and your terminal to remember what you did in the last 2 days, you just ask Quick Call.
 
 **"Give me my daily update"** -> It fetches your commits, analyzes the diffs, and tells you exactly what you shipped today.
 
 **"Send a summary to #engineering on Slack"** -> Your standup update is already there.
 
-It's not magic. It's **MCP doing the heavy lifting** while Quick Call  orchestrates the tools and figures out what you actually want.
+It's not magic. It's **MCP doing the heavy lifting** while Quick Call orchestrates the tools and figures out what you actually want.
 
 {{<figure src="/mcp2/001-demo-current.gif" caption="Quick Call in action">}}
 
@@ -189,19 +189,7 @@ OpenAI doesn't know how to call GitHub's API. But with MCP:
 
 # Why I Built This
 
-I was tired of jumping between GitHub tabs to check what I shipped and writing standup updates manually every morning. Quick Call scratches my own itch. If it helps you too, awesome we should chat!
-
-# Wrapping Up
-
-So yeah, I never wrote MCP Part 2 as a traditional blog post.
-
-Instead, I built Quick Call. A working example of what MCP enables.
-
-If you care about dev tools, AI orchestration, or just want to stop wasting time on manual status updates, give it a spin.
-
-And if you're curious about the architecture, tool chaining, or how MCP handles multi-step flows, hit me up. I've got battle scars and lessons learned.
-
-Next up? Actually implementing all those future features. And maybe, *maybe*, writing Part 3.
+Quick Call scratches my own itch. If it helps you too, awesome. We should chat!
 
 # Try It Yourself
 
