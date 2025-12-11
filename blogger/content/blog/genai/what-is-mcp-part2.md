@@ -56,13 +56,14 @@ Quick Call plugs into your GitHub via OAuth and gives you conversational access 
 
 **MCP elicitation to get user input for the list_commits tool**
 
-Notice how user did not specify which repo to list commits from. This is where MCP comes in to get the user input for the `list_commits` tool.
+Notice how the user did not specify which repo to list commits from. This is where MCP comes in to get the user input for the `list_commits` tool.
 {{<figure src="/mcp2/002-github-list-commits-01.jpg">}}
 
 **MCP function call in action**
 
-Once MCP tool has all the inputs needed, it completes the function call and returns the result to the user.
+Once the MCP tool has all the inputs needed, it completes the function call and returns the result to the user.
 {{<figure src="/mcp2/002-github-list-commits-02.jpg">}}
+
 ## Slack Integration
 
 Same deal as GitHub. OAuth flow, store your tokens, and now you can:
@@ -115,9 +116,9 @@ Here's where Part 1 theory meets Part 2 practice.
 
 Quick Call is built on **three separate services**:
 
-- **Frontend** : The chat UI you interact with
-- **Backend** : Handles auth, database, and talks to OpenAI
-- **MCP Server** : The bridge to GitHub and Slack
+- **Frontend**: The chat UI you interact with
+- **Backend**: Handles auth, database, and talks to OpenAI
+- **MCP Server**: The bridge to GitHub and Slack
 
 When you ask a question, here's what happens:
 
@@ -187,13 +188,11 @@ OpenAI doesn't know how to call GitHub's API. But with MCP:
 - **GitHub Projects integration**: "Move issue #20 to In Progress" - manage issues without leaving the chat
 - **Export to Notion**: Turn your daily updates into formatted docs
 
-# Why I Built This
-
-Quick Call scratches my own itch. If it helps you too, awesome. We should chat!
-
 # Try It Yourself
 
-Quick Call is live at **[quickcall.dev](https://quickcall.dev)**. Try it out and let me know what you think. Always open to feedback and improvements.
+Quick Call scratches my own itch. If it helps you too, awesome.
+
+It's live at **[quickcall.dev](https://quickcall.dev)**. Try it out and let me know what you think. Always open to feedback.
 
 
 
