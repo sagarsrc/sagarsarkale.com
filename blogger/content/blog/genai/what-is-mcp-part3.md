@@ -136,7 +136,7 @@ I've open-sourced a demo app that showcases Quick Call's elicitation framework: 
 
 The prompt is deliberately vague: "Schedule a meeting" -> no title, no participants, no time. The tool collects what it needs **progressively** through elicitation. One tool call, multiple user inputs, zero extra LLM round-trips.
 
-{{<figure src="/mcp3/quickcall-mcp-elicitation-demo.gif" caption="Meeting scheduler with progressive elicitation">}}
+{{<figure src="/mcp3/light-mcp-elicit.gif" caption="Meeting scheduler with progressive elicitation">}}
 
 Here's how the flow works:
 
