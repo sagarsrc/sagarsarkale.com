@@ -8,13 +8,22 @@ tags: ["work"]
 showTags: false
 hideBackToTop: false
 ---
+# Quickcall.dev
+
+{{<figure src="https://quickcall.dev/logo.png" height="50px">}}
+
+> Founder
+> (Dec 2025 - Present)
+
+- Solving for developer productivity by solving for interruptions in their workflow
+- Building QuickCall, an AI assistant that helps you connect your org tools and workflows without switching context
 
 # Yral
 
 {{<figure src="https://media.licdn.com/dms/image/v2/D4D0BAQGaPIad-eFGDQ/company-logo_200_200/company-logo_200_200/0/1709024239252/yral_app_logo?e=2147483647&v=beta&t=g2EBsipTII2NUhSRAN81G32GvyLOs5_D010l49R3atc" height="50px">}}
 
 > AI Consultant
-> (Jan 2025 - Present)
+> (Jan 2025 - Nov 2025)
 
 - Built RAG based content moderation system (86.8% accuracy, +26%) using Phi-3.5 4B
 - Deployed content moderation system on T4x2 GPU (19K req/USD, 3 req/sec)

@@ -97,6 +97,9 @@ startLevel = 1
 endLevel = 3
 ordered = true
 
+[markup.goldmark.renderer]
+unsafe = true
+
 [params.mermaid]
 theme = "neutral"
 align = "center"
