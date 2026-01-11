@@ -2,7 +2,7 @@
 title: "What the MCP? (Part 3): When Code LLMs Need Help"
 date: "2026-01-08"
 summary: "Everyone's adding MCP servers. Few are thinking about how they'll actually be called correctly."
-description: "Elicitation isn't just UX polish — it's how we help LLMs recover gracefully when tool calls go wrong."
+description: "Elicitation isn't just UX polish - it's how we help LLMs recover gracefully when tool calls go wrong."
 toc: true
 readTime: true
 autonumber: true
