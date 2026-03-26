@@ -5,6 +5,16 @@ import type { Post } from '@/types/content';
 import { ParticleHero } from '@/components/ParticleBackground';
 import { RotatingTitle } from '@/components/RotatingTitle';
 
+const logos = [
+  { name: 'quickcall.dev', src: '/logos/quickcall_48.png' },
+  { name: 'smallstep.ai', src: '/logos/smallstep_48.png' },
+  { name: 'Yral', src: '/logos/yral_48.png' },
+  { name: 'People+AI', src: '/logos/peopleai_48.png' },
+  { name: 'Medpiper', src: '/logos/medpiper_48.png' },
+  { name: 'Tekion', src: '/logos/tekion_48.png' },
+  { name: 'Pratilipi', src: '/logos/pratilipi_48.png' },
+];
+
 export default function Home() {
   const blogPosts = getAllPosts()
     .filter((p: Post) => p.section === 'blog')
@@ -126,14 +136,14 @@ export default function Home() {
       <section>
         <div className="section-label">experience</div>
 
-        <div className="logo-row">
-          <img src="/logos/quickcall_48.png" alt="quickcall.dev" title="quickcall.dev" />
-          <img src="/logos/smallstep_48.png" alt="smallstep.ai" title="smallstep.ai" />
-          <img src="/logos/yral_48.png" alt="Yral" title="Yral" />
-          <img src="/logos/peopleai_48.png" alt="People+AI" title="People+AI" />
-          <img src="/logos/medpiper_48.png" alt="Medpiper" title="Medpiper" />
-          <img src="/logos/tekion_48.png" alt="Tekion" title="Tekion" />
-          <img src="/logos/pratilipi_48.png" alt="Pratilipi" title="Pratilipi" />
+        <div className="overflow-hidden" style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}>
+          <div className="inline-flex w-max animate-scroll py-3">
+            {[...logos, ...logos].map((logo, i) => (
+              <span key={i} className="flex items-center justify-center mx-4 shrink-0">
+                <img src={logo.src} alt={logo.name} title={logo.name} className="h-8 md:h-10 w-auto object-contain opacity-40 hover:opacity-100 transition-opacity grayscale hover:grayscale-0" />
+              </span>
+            ))}
+          </div>
         </div>
 
         <Link href="/work" className="arrow-link">full details</Link>
