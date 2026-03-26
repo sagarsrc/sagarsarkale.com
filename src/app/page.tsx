@@ -62,7 +62,7 @@ export default function Home() {
 
       {/* ── Selected Work ── */}
       <section className="mb-24 max-md:mb-16">
-        <p className="text-xs uppercase tracking-[0.15em] text-[var(--fg-muted)] mb-10">Selected Work</p>
+        <p className="text-xs uppercase tracking-[0.15em] text-[var(--fg-muted)] mb-6 pb-3 border-b border-[var(--border)]">Selected Work</p>
 
         <div className="space-y-10">
           <div>
@@ -108,7 +108,7 @@ export default function Home() {
 
       {/* ── Experience ── */}
       <section className="mb-24 max-md:mb-16">
-        <p className="text-xs uppercase tracking-[0.15em] text-[var(--fg-muted)] mb-10">Experience</p>
+        <p className="text-xs uppercase tracking-[0.15em] text-[var(--fg-muted)] mb-6 pb-3 border-b border-[var(--border)]">Experience</p>
 
         <div className="space-y-4">
           {experience.map((exp) => (
@@ -128,7 +128,7 @@ export default function Home() {
 
       {/* ── Writing ── */}
       <section className="mb-24 max-md:mb-16">
-        <p className="text-xs uppercase tracking-[0.15em] text-[var(--fg-muted)] mb-10">Writing</p>
+        <p className="text-xs uppercase tracking-[0.15em] text-[var(--fg-muted)] mb-6 pb-3 border-b border-[var(--border)]">Writing</p>
 
         <div className="space-y-4">
           {blogPosts.map((post: Post) => (
