@@ -170,7 +170,10 @@ export default function Home() {
         <p style={{ color: 'var(--fg-secondary)', marginBottom: '0.5rem' }}>
           interested in llms, multilingual ai, or dev tooling?
         </p>
-        <a href="mailto:sagar@smallstep.ai" className="arrow-link">sagar@smallstep.ai</a>
+        <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
+          <a href="mailto:sagar@smallstep.ai" className="arrow-link">sagar@smallstep.ai</a>
+          <a href="https://calendar.app.google/z5J1gxmUkQ3vvzjT6" target="_blank" rel="noopener noreferrer" className="arrow-link">book a call</a>
+        </div>
       </section>
     </div>
   );

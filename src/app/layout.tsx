@@ -7,13 +7,41 @@ import { SkipToContent } from '@/components/SkipToContent';
 
 export const metadata: Metadata = {
   title: {
-    default: 'Sagar Sarkale',
+    default: 'Sagar Sarkale — AI/NLP Engineer & Founder',
     template: '%s | Sagar Sarkale',
   },
-  description: "Sagar's digital corner",
-  icons: { icon: '/favicon-32x32.png' },
+  description: 'AI/NLP engineer and founder building language models, retrieval systems, and developer tools. Creator of Misal (Marathi LLM) and QuickCall.dev.',
+  metadataBase: new URL('https://sagarsarkale.com'),
+  icons: {
+    icon: [
+      { url: '/favicon.ico' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: '/apple-touch-icon.png',
+  },
   openGraph: {
-    images: ['/favicon-32x32.png'],
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://sagarsarkale.com',
+    siteName: 'Sagar Sarkale',
+    title: 'Sagar Sarkale — AI/NLP Engineer & Founder',
+    description: 'Building language models, retrieval systems, and AI products. Creator of Misal (Marathi LLM) and QuickCall.dev.',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Sagar Sarkale — AI/NLP Engineer & Founder',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Sagar Sarkale — AI/NLP Engineer & Founder',
+    description: 'Building language models, retrieval systems, and AI products.',
+    images: ['/og-image.png'],
+    creator: '@sagar_sarkale',
   },
 };
 
