@@ -1,0 +1,6 @@
+title: "Universal Session Capture"
+date: "2026-01-03"
+tag: "feature"
+description: "A background daemon that captures AI coding sessions from Claude Code, Codex, Cursor, and Gemini CLI into a single normalized format. Native parsers for JSONL, JSON, and SQLite vscdb. One install, every session preserved."
+image: "https://quickcallstorage.blob.core.windows.net/assets/changelog/02-universal-capture.png"
+context: "**We shipped cross-tool capture five weeks before** Thomas Dohmke (ex-GitHub CEO) **raised $60M at $300M** to do the same thing (Feb 10, 2026). Cursor chats were buried in undocumented SQLite blobs. **The only community extraction tool had been archived.** Simon Willison (Django co-creator) was building his own transcript tools because nothing existed."

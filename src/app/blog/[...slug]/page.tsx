@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { BackToTop } from '@/components/BackToTop';
 import { MDXRenderer } from '@/components/MDXRenderer';
-import { getAllPosts, getPostByPath } from '@/lib/content';
+import { getAllPosts, getPostByPath, getRelatedPosts } from '@/lib/content';
 import { formatDate } from '@/lib/utils';
 import type { Metadata } from 'next';
 
@@ -37,6 +37,7 @@ export default async function BlogPostPage({ params }: Props) {
   if (!post) notFound();
 
   const { frontmatter, content, readingTime } = post;
+  const relatedPosts = getRelatedPosts(urlPath, 3);
 
   return (
     <article>
@@ -64,6 +65,23 @@ export default async function BlogPostPage({ params }: Props) {
       <div className="prose">
         <MDXRenderer content={content} />
       </div>
+
+      {relatedPosts.length > 0 && (
+        <nav className="related-posts">
+          <div className="section-label">read next</div>
+          {relatedPosts.map((rp) => (
+            <div key={rp.path} className="post-item">
+              <span className="post-item-title">
+                <Link href={rp.path}>{rp.frontmatter.title}</Link>
+              </span>
+              <span className="post-item-date">
+                {rp.frontmatter.date ? formatDate(rp.frontmatter.date) : ''}
+              </span>
+            </div>
+          ))}
+          <Link href="/blog" className="arrow-link">all posts</Link>
+        </nav>
+      )}
 
       {!frontmatter.hideBackToTop && <BackToTop />}
     </article>

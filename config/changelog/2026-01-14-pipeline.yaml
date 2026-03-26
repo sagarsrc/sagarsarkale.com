@@ -1,0 +1,6 @@
+title: "Postgres Pipeline & Self-Healing Daemon"
+date: "2026-01-14"
+tag: "feature"
+description: "Production ingestion pipeline with crash recovery, auto-update, and zero-data-loss guarantees. The daemon self-heals across restarts, version updates, and system crashes."
+image: "https://quickcallstorage.blob.core.windows.net/assets/changelog/03-self-healing.png"
+context: "GitHub issues documented ~40% background agent failure rates. Users discovered Claude Code silently deletes sessions after 30 days. One engineer called it 'Groundhog Day - it compacts and wakes up lobotomized.' **Sessions are too valuable to lose.**"

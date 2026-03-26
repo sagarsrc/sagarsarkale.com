@@ -1,0 +1,6 @@
+title: "CLI Launch & Multi-Org Support"
+date: "2026-01-28"
+tag: "feature"
+description: "Shipped the quickcall CLI with real-time status, device auth (RFC 8628), and remote diagnostics. Multi-tenant pipeline with org isolation and per-org dashboards."
+image: "https://quickcallstorage.blob.core.windows.net/assets/changelog/04-cli-multi-org.png"
+context: "GitHub's survey showed **97% of developers had tried AI coding tools** (Apr 2025). Tobi Lütke (Shopify CEO) made AI usage a baseline expectation at Shopify. **ISACA reported 45% of developers using unsanctioned AI tools.** Gergely Orosz (Pragmatic Engineer) predicted engineers would build o11y solutions for AI-generated code."

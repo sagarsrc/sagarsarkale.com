@@ -135,6 +135,10 @@ function parseFile(
     const cleanContent = convertShortcodes(content);
     const stats = readingTime(cleanContent);
 
+    // Extract first image as cover
+    const imgMatch = cleanContent.match(/<img[^>]+src="([^"]+)"/);
+    const coverImage = imgMatch ? imgMatch[1] : undefined;
+
     return {
       slug,
       path: urlPath,
@@ -143,6 +147,7 @@ function parseFile(
       readingTime: stats.text,
       section,
       subsection,
+      coverImage,
     };
   } catch {
     return null;
@@ -241,6 +246,29 @@ export function getPostByPath(urlPath: string): Post | null {
 
 export function getBlogPosts(): Post[] {
   return getPostsBySection("blog");
+}
+
+export function getRelatedPosts(currentPath: string, limit: number = 3): Post[] {
+  const current = getPostByPath(currentPath);
+  if (!current) return [];
+
+  const allPosts = getAllPosts().filter(p => p.path !== currentPath && p.section === 'blog');
+  const currentTags = current.frontmatter.tags?.map(t => t.toLowerCase()) || [];
+
+  // Score by: same subsection (+2), shared tags (+1 each)
+  const scored = allPosts.map(p => {
+    let score = 0;
+    if (p.subsection === current.subsection) score += 2;
+    const pTags = p.frontmatter.tags?.map(t => t.toLowerCase()) || [];
+    for (const tag of pTags) {
+      if (currentTags.includes(tag)) score += 1;
+    }
+    return { post: p, score };
+  });
+
+  scored.sort((a, b) => b.score - a.score || (b.post.frontmatter.date ?? '').localeCompare(a.post.frontmatter.date ?? ''));
+
+  return scored.slice(0, limit).filter(s => s.score > 0).map(s => s.post);
 }
 
 export function getAllTags(): string[] {

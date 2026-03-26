@@ -1,0 +1,6 @@
+title: "SuperTrace: Claude Code Session Viewer"
+date: "2025-12-18"
+tag: "feature"
+description: "Real-time session viewer for Claude Code with hooks-based capture, token tracking, tool usage charts, and shareable HTML exports. Built and open-sourced in 15 days."
+image: "https://quickcallstorage.blob.core.windows.net/assets/changelog/01-supertrace.jpg"
+context: "Andrej Karpathy (ex-Tesla AI, OpenAI co-founder) coined 'vibe coding' (4.5M views, Feb 2025). The latent.space podcast revealed 80% of Claude Code's own code was written by Claude Code (May 2025). **Developers were running hour-long sessions with zero visibility into what happened.**"

@@ -1,0 +1,6 @@
+title: "Per-Developer Reports & Rules Generation"
+date: "2026-03-15"
+tag: "feature"
+description: "Per-repo and per-developer reports delivering 2-3 actionable recommendations per session. Generated rules feed directly into CLAUDE.md, .cursorrules, and AGENTS.md."
+image: "https://quickcallstorage.blob.core.windows.net/assets/changelog/06-rules-gen-report.png"
+context: "Anthropic launched persistent memory for all users (Mar 3, 2026). OpenAI's AGENTS.md was adopted by **60,000+ projects.** awesome-cursorrules hit **36K GitHub stars.** Every tool had a rules file. **All written manually. None of them learned.**"

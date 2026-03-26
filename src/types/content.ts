@@ -21,4 +21,5 @@ export interface Post {
   readingTime: string;
   section: string; // blog, random
   subsection?: string; // genai, seq, web
+  coverImage?: string; // first image in content, extracted automatically
 }

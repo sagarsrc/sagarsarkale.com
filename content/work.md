@@ -10,7 +10,7 @@ hideBackToTop: false
 ---
 # Quickcall.dev
 
-{{<figure src="https://quickcall.dev/logo.png" height="50px">}}
+{{<figure src="https://quickcall.dev/favicon-96x96.png" height="50px">}}
 
 > Founder
 > (Dec 2025 - Present)

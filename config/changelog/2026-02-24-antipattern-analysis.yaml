@@ -1,0 +1,6 @@
+title: "Session Quality Analysis"
+date: "2026-02-24"
+tag: "feature"
+description: "Automated detection of session-level quality signals. The system classifies interaction patterns, scores sessions across multiple dimensions, and flags where developer time is being wasted. Built on thousands of hours of real session data."
+image: "https://quickcallstorage.blob.core.windows.net/assets/changelog/05-session-quality-analysis.png"
+context: "Anthropic's data showed the **99.9th percentile session duration nearly doubled to 45+ minutes** (mid-Feb 2026). The METR study showed **AI makes experienced devs 19% slower while they believed they were 20% faster** (Jul 2025). Longer sessions, bigger blind spots. **No tool existed to detect where sessions go wrong.**"

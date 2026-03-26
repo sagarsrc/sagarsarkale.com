@@ -15,21 +15,29 @@ export default function BlogPage() {
     <div className="list-container">
       <Breadcrumbs />
       <h1>/blog</h1>
-      {posts.map((post: Post) => (
-        <div key={post.path} className="post-item">
-          <span className="post-item-title">
-            <Link href={post.path}>{post.frontmatter.title}</Link>
-          </span>
-          <span className="post-item-date">
-            {post.frontmatter.date ? formatDate(post.frontmatter.date) : ""}
-          </span>
-        </div>
-      ))}
-      {posts.map((post: Post) => (
-        post.frontmatter.summary ? (
-          <span key={`${post.path}-summary`} />
-        ) : null
-      ))}
+      <div className="blog-grid">
+        {posts.map((post: Post) => (
+          <Link key={post.path} href={post.path} className="blog-card">
+            {post.coverImage && (
+              <div className="blog-card-thumb">
+                <img src={post.coverImage} alt="" loading="lazy" />
+              </div>
+            )}
+            <div className="blog-card-body">
+              <h2 className="blog-card-title">{post.frontmatter.title}</h2>
+              {post.frontmatter.summary && (
+                <p className="blog-card-summary">{post.frontmatter.summary}</p>
+              )}
+              <div className="blog-card-meta">
+                <span>{post.readingTime}</span>
+                {post.frontmatter.date && (
+                  <span>{formatDate(post.frontmatter.date)}</span>
+                )}
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }

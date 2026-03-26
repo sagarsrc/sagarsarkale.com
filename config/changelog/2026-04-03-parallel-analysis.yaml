@@ -1,0 +1,6 @@
+title: "Parallel Session Analysis & Org-Specific Pipelines"
+date: "2026-04-03"
+tag: "feature"
+status: "roadmap"
+description: "Analysis engine now handles parallel and concurrent sessions. Specialized pipelines per org, tuned to each team's codebase, tools, and patterns."
+context: "Boris Cherny (Claude Code creator, Anthropic) **runs 10-15 parallel sessions daily, 259 PRs in 30 days** (8.5M views). Claude officially launched Agent Teams. **Developers are running 3-5 concurrent worktrees as standard practice.** When sessions overlap, the patterns multiply. We're building the analysis to match."

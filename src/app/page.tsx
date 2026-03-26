@@ -3,6 +3,8 @@ import { getAllPosts } from '@/lib/content';
 import { formatDate } from '@/lib/utils';
 import type { Post } from '@/types/content';
 import { ParticleHero } from '@/components/ParticleBackground';
+import { RotatingTitle } from '@/components/RotatingTitle';
+import { ExperienceTicker } from '@/components/ExperienceTicker';
 
 export default function Home() {
   const blogPosts = getAllPosts()
@@ -15,31 +17,32 @@ export default function Home() {
       <section className="hero-split">
         <div className="hero-split-text">
           <p className="dim-label">[name]</p>
-          <p style={{ fontSize: '18px', fontWeight: 700, marginBottom: '1rem' }} className="cursor">
+          <p style={{ fontSize: '18px', fontWeight: 700, marginBottom: '1rem' }}>
             sagar sarkale
           </p>
 
           <p className="dim-label">[role]</p>
-          <p style={{ marginBottom: '1rem' }}>ai/nlp engineer. founder.</p>
+          <p style={{ marginBottom: '1rem' }}><RotatingTitle /></p>
 
           <p className="dim-label">[bio]</p>
-          <p style={{ marginBottom: '1rem', color: 'var(--fg-secondary)', lineHeight: 1.6 }}>
-            i build language models, retrieval systems, and ai products.
-            currently building quickcall.dev — an ai assistant for developer
-            productivity. previously built misal, india&apos;s first competitive
-            marathi llm at smallstep.ai.
+          <p style={{ marginBottom: '1.5rem', color: 'var(--fg-secondary)', lineHeight: 1.75 }}>
+            i ship ai products from zero to production &mdash; language models,
+            retrieval pipelines, and the infra around them. trained india&apos;s
+            first competitive marathi llm (beat gpt-3.5 on reading comprehension).
+            now building developer tools at quickcall.dev. i consult for
+            startups and orgs on applied nlp, llm fine-tuning, and ai strategy.
           </p>
 
           <p className="dim-label">[links]</p>
-          <div className="social-links">
+          <div className="social-grid">
             <a href="https://www.linkedin.com/in/sagar-sarkale/" target="_blank" rel="noopener noreferrer">linkedin</a>
-            <span className="sep">&middot;</span>
             <a href="https://x.com/sagar_sarkale" target="_blank" rel="noopener noreferrer">twitter</a>
-            <span className="sep">&middot;</span>
             <a href="https://github.com/sagarsrc" target="_blank" rel="noopener noreferrer">github</a>
-            <span className="sep">&middot;</span>
-            <a href="mailto:sagar@smallstep.ai">email</a>
+            <a href="mailto:sagar@quickcall.dev">email</a>
           </div>
+          <a href="https://calendar.app.google/z5J1gxmUkQ3vvzjT6" target="_blank" rel="noopener noreferrer" className="book-call-link">
+            book a call &rarr;
+          </a>
         </div>
         <div className="hero-split-visual">
           <ParticleHero />
@@ -58,8 +61,8 @@ export default function Home() {
             <span className="entry-meta">founder &middot; 2024–present</span>
           </div>
           <p className="entry-desc">
-            ai assistant that connects your org tools without switching context.
-            built for developers who live in terminals, docs, and code.
+            compounding intelligence for agentic engineering teams. captures
+            what ships and loads what matters &mdash; across every agent, tool, and session.
           </p>
           <div className="entry-links">
             <a href="https://quickcall.dev" target="_blank" rel="noopener noreferrer">quickcall.dev</a>
@@ -72,8 +75,9 @@ export default function Home() {
             <span className="entry-meta">founder &middot; 2023–present</span>
           </div>
           <p className="entry-desc">
-            india&apos;s first competitive marathi llm. 7b/1b models trained on
-            2b marathi tokens. beat chatgpt 3.5 on reading comprehension.
+            india&apos;s first competitive marathi llm. 7b &amp; 1b parameter models
+            trained on 2b+ marathi tokens. outperformed gpt-3.5 on reading
+            comprehension benchmarks.
           </p>
           <div className="entry-links">
             <a href="https://huggingface.co/smallstepai" target="_blank" rel="noopener noreferrer">huggingface</a>
@@ -159,6 +163,8 @@ export default function Home() {
           <span className="exp-date">2020–2022</span>
         </div>
 
+        <ExperienceTicker />
+
         <Link href="/work" className="arrow-link">full details</Link>
       </section>
 
@@ -167,11 +173,11 @@ export default function Home() {
       {/* Connect */}
       <section>
         <div className="section-label">connect</div>
-        <p style={{ color: 'var(--fg-secondary)', marginBottom: '0.5rem' }}>
-          interested in llms, multilingual ai, or dev tooling?
+        <p style={{ color: 'var(--fg-secondary)', marginBottom: '0.75rem', lineHeight: 1.6 }}>
+          i consult for startups and orgs on ai applications and ai strategy.
         </p>
         <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
-          <a href="mailto:sagar@smallstep.ai" className="arrow-link">sagar@smallstep.ai</a>
+          <a href="mailto:sagar@quickcall.dev" className="arrow-link">sagar@quickcall.dev</a>
           <a href="https://calendar.app.google/z5J1gxmUkQ3vvzjT6" target="_blank" rel="noopener noreferrer" className="arrow-link">book a call</a>
         </div>
       </section>
