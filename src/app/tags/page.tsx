@@ -20,17 +20,16 @@ export default function TagsPage() {
   return (
     <div>
       <Breadcrumbs />
-      <h1 className="page-title">Tags</h1>
-      <ul className="tag-list">
+      <h1>Tags</h1>
+      <div className="tag-list">
         {tags.map(([tag, count]) => (
-          <li key={tag}>
+          <span key={tag}>
             <Link href={`/tags/${tag}`} className="tag">
-              {tag}
+              {tag} <span className="tag-count">({count})</span>
             </Link>
-            <span className="tag-count"> ({count})</span>
-          </li>
+          </span>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

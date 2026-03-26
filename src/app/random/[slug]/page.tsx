@@ -4,6 +4,7 @@ import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { BackToTop } from '@/components/BackToTop';
 import { MDXRenderer } from '@/components/MDXRenderer';
 import { getAllPosts, getPostByPath } from '@/lib/content';
+import { formatDate } from '@/lib/utils';
 import type { Metadata } from 'next';
 
 interface Props {
@@ -40,12 +41,15 @@ export default async function RandomPostPage({ params }: Props) {
 
       <div className="post-meta">
         {frontmatter.readTime !== false && (
-          <span className="reading-time">{readingTime}</span>
+          <span>{readingTime}</span>
+        )}
+        {frontmatter.date && (
+          <span>&middot; {formatDate(frontmatter.date)}</span>
         )}
         {frontmatter.showTags !== false && frontmatter.tags && frontmatter.tags.length > 0 && (
           <div className="post-tags">
             {frontmatter.tags.map((tag) => (
-              <Link key={tag} href={`/tags/${tag}`} className="tag">
+              <Link key={tag} href={`/tags/${tag}`}>
                 {tag}
               </Link>
             ))}
@@ -53,7 +57,9 @@ export default async function RandomPostPage({ params }: Props) {
         )}
       </div>
 
-      <MDXRenderer content={content} />
+      <div className="prose">
+        <MDXRenderer content={content} />
+      </div>
 
       {!frontmatter.hideBackToTop && <BackToTop />}
     </article>

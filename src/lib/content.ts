@@ -124,7 +124,7 @@ function parseFile(
     const fm = data as PostFrontmatter;
     if (fm.date) {
       // gray-matter auto-converts dates to Date objects
-      const d = fm.date instanceof Date ? fm.date : new Date(String(fm.date));
+      const d = (fm.date as unknown) instanceof Date ? (fm.date as unknown as Date) : new Date(String(fm.date));
       fm.date = d.toISOString().slice(0, 10);
     }
 

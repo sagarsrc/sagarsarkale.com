@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { ThemeToggle } from './ThemeToggle';
 
 const NAV_LINKS = [
-  { name: 'home', url: '/' },
   { name: 'blog', url: '/blog' },
   { name: 'work', url: '/work' },
   { name: 'random', url: '/random' },
@@ -13,20 +12,16 @@ const NAV_LINKS = [
 
 export function Header() {
   return (
-    <div className="header">
-      <h1 className="header-title">
-        <Link href="/" style={{ textDecoration: 'none' }}>
-          Sagar Sarkale
-        </Link>
-      </h1>
-      <nav className="header-nav" style={{ marginTop: 'var(--header-menu-top-gap)' }}>
+    <header className="header">
+      <div className="header-name">
+        <Link href="/">sagar sarkale</Link>
+      </div>
+      <nav className="header-nav">
         {NAV_LINKS.map(link => (
-          <span key={link.name} className="header-nav-item">
-            <Link href={link.url}>/{link.name}</Link>
-          </span>
+          <Link key={link.name} href={link.url}>{link.name}</Link>
         ))}
         <ThemeToggle />
       </nav>
-    </div>
+    </header>
   );
 }

@@ -1,6 +1,8 @@
 import { getAllPosts } from '@/lib/content';
 import type { MetadataRoute } from 'next';
 
+export const dynamic = 'force-static';
+
 const BASE_URL = 'https://sagarsarkale.com';
 
 export default function sitemap(): MetadataRoute.Sitemap {

@@ -1,5 +1,7 @@
 import { getAllPosts } from '@/lib/content';
 
+export const dynamic = 'force-static';
+
 const BASE_URL = 'https://sagarsarkale.com';
 
 export async function GET() {

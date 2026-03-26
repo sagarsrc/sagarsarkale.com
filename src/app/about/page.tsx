@@ -1,5 +1,5 @@
 import { getAboutContent } from "@/lib/content";
-import { MDXContent } from "@/components/MDXContent";
+import { MDXRenderer } from "@/components/MDXRenderer";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata = {
@@ -12,11 +12,9 @@ export default function AboutPage() {
   return (
     <div>
       <Breadcrumbs />
-      <div className="single-intro-container">
-        <h1 className="single-title">{frontmatter.title}</h1>
-      </div>
-      <div className="single-content">
-        <MDXContent content={content} />
+      <h1 className="single-title">{frontmatter.title}</h1>
+      <div className="prose" style={{ marginTop: '1.5rem' }}>
+        <MDXRenderer content={content} />
       </div>
     </div>
   );
