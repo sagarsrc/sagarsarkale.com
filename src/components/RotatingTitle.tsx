@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-const roles = ['consultant', 'engineer', 'founder'];
+const roles = ['founder', 'engineer', 'consultant', 'contractor'];
 
 export function RotatingTitle() {
   const [index, setIndex] = useState(0);
