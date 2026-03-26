@@ -4,7 +4,6 @@ import { formatDate } from '@/lib/utils';
 import type { Post } from '@/types/content';
 import { ParticleHero } from '@/components/ParticleBackground';
 import { RotatingTitle } from '@/components/RotatingTitle';
-import { ExperienceTicker } from '@/components/ExperienceTicker';
 
 export default function Home() {
   const blogPosts = getAllPosts()
@@ -127,43 +126,15 @@ export default function Home() {
       <section>
         <div className="section-label">experience</div>
 
-        <div className="exp-row">
-          <span className="exp-company">quickcall.dev</span>
-          <span className="exp-role">founder</span>
-          <span className="exp-date">2024–present</span>
+        <div className="logo-row">
+          <img src="/logos/quickcall_48.png" alt="quickcall.dev" title="quickcall.dev" />
+          <img src="/logos/smallstep_48.png" alt="smallstep.ai" title="smallstep.ai" />
+          <img src="/logos/yral_48.png" alt="Yral" title="Yral" />
+          <img src="/logos/peopleai_48.png" alt="People+AI" title="People+AI" />
+          <img src="/logos/medpiper_48.png" alt="Medpiper" title="Medpiper" />
+          <img src="/logos/tekion_48.png" alt="Tekion" title="Tekion" />
+          <img src="/logos/pratilipi_48.png" alt="Pratilipi" title="Pratilipi" />
         </div>
-        <div className="exp-row">
-          <span className="exp-company">smallstep ai</span>
-          <span className="exp-role">founder</span>
-          <span className="exp-date">2023–present</span>
-        </div>
-        <div className="exp-row">
-          <span className="exp-company">yral</span>
-          <span className="exp-role">ai consultant</span>
-          <span className="exp-date">2025</span>
-        </div>
-        <div className="exp-row">
-          <span className="exp-company">people+ai</span>
-          <span className="exp-role">ai consultant</span>
-          <span className="exp-date">2024</span>
-        </div>
-        <div className="exp-row">
-          <span className="exp-company">medpiper</span>
-          <span className="exp-role">ai consultant</span>
-          <span className="exp-date">2024</span>
-        </div>
-        <div className="exp-row">
-          <span className="exp-company">tekion</span>
-          <span className="exp-role">data scientist</span>
-          <span className="exp-date">2022–2023</span>
-        </div>
-        <div className="exp-row">
-          <span className="exp-company">pratilipi</span>
-          <span className="exp-role">data scientist</span>
-          <span className="exp-date">2020–2022</span>
-        </div>
-
-        <ExperienceTicker />
 
         <Link href="/work" className="arrow-link">full details</Link>
       </section>
