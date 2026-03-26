@@ -40,14 +40,18 @@ export default function Home() {
             now building developer tools at quickcall.dev.
           </p>
 
-          <div className="flex items-center gap-5 text-sm">
-            <a href="https://calendar.app.google/z5J1gxmUkQ3vvzjT6" target="_blank" rel="noopener noreferrer" className="inline-flex items-center font-medium border border-[var(--fg)] text-[var(--fg)] px-4 py-2 rounded-lg hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors no-underline">
-              book a call &rarr;
-            </a>
-            <a href="mailto:sagar@quickcall.dev" className="text-[var(--fg-secondary)] hover:text-[var(--fg)] transition-colors no-underline">email</a>
-            <a href="https://www.linkedin.com/in/sagar-sarkale/" target="_blank" rel="noopener noreferrer" className="text-[var(--fg-secondary)] hover:text-[var(--fg)] transition-colors no-underline">linkedin</a>
-            <a href="https://x.com/sagar_sarkale" target="_blank" rel="noopener noreferrer" className="text-[var(--fg-secondary)] hover:text-[var(--fg)] transition-colors no-underline">twitter</a>
-            <a href="https://github.com/sagarsrc" target="_blank" rel="noopener noreferrer" className="text-[var(--fg-secondary)] hover:text-[var(--fg)] transition-colors no-underline">github</a>
+          <a href="https://calendar.app.google/z5J1gxmUkQ3vvzjT6" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-sm font-medium border border-[var(--fg)] text-[var(--fg)] px-4 py-2 rounded-lg hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors no-underline mb-4">
+            book a call &rarr;
+          </a>
+
+          <div className="flex items-center gap-4 text-sm text-[var(--fg-secondary)]">
+            <a href="mailto:sagar@quickcall.dev" className="hover:text-[var(--fg)] transition-colors no-underline">email</a>
+            <span className="text-[var(--fg-muted)]">/</span>
+            <a href="https://www.linkedin.com/in/sagar-sarkale/" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--fg)] transition-colors no-underline">linkedin</a>
+            <span className="text-[var(--fg-muted)]">/</span>
+            <a href="https://x.com/sagar_sarkale" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--fg)] transition-colors no-underline">twitter</a>
+            <span className="text-[var(--fg-muted)]">/</span>
+            <a href="https://github.com/sagarsrc" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--fg)] transition-colors no-underline">github</a>
           </div>
         </div>
 
