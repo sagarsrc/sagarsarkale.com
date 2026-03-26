@@ -5,14 +5,14 @@ import type { Post } from '@/types/content';
 import { ParticleHero } from '@/components/ParticleBackground';
 import { RotatingTitle } from '@/components/RotatingTitle';
 
-const logos = [
-  { name: 'quickcall.dev', src: '/logos/quickcall_48.png' },
-  { name: 'smallstep.ai', src: '/logos/smallstep_48.png' },
-  { name: 'Yral', src: '/logos/yral_48.png' },
-  { name: 'People+AI', src: '/logos/peopleai_48.png' },
-  { name: 'Medpiper', src: '/logos/medpiper_48.png' },
-  { name: 'Tekion', src: '/logos/tekion_48.png' },
-  { name: 'Pratilipi', src: '/logos/pratilipi_48.png' },
+const experience = [
+  { company: 'quickcall.dev', role: 'Founder', period: '2024–now', logo: '/logos/quickcall_48.png' },
+  { company: 'smallstep.ai', role: 'Founder', period: '2023–now', logo: '/logos/smallstep_48.png' },
+  { company: 'Yral', role: 'AI Consultant', period: '2025', logo: '/logos/yral_48.png' },
+  { company: 'People+AI', role: 'AI Consultant', period: '2024', logo: '/logos/peopleai_48.png' },
+  { company: 'Medpiper', role: 'AI Consultant', period: '2024', logo: '/logos/medpiper_48.png' },
+  { company: 'Tekion', role: 'Data Scientist', period: '2022–23', logo: '/logos/tekion_48.png' },
+  { company: 'Pratilipi', role: 'Data Scientist', period: '2020–22', logo: '/logos/pratilipi_48.png' },
 ];
 
 export default function Home() {
@@ -133,13 +133,15 @@ export default function Home() {
       <section>
         <h2 className="text-lg font-bold mb-6 border-b border-[var(--border)] pb-2">Experience</h2>
 
-        <div className="flex flex-wrap items-start gap-5 max-sm:gap-3">
-          {logos.map((logo, i) => (
-            <div key={i} className="flex flex-col items-center gap-1.5 w-16 max-sm:w-14">
-              <div className="flex items-center justify-center w-16 h-16 max-sm:w-14 max-sm:h-14 rounded-xl border border-[var(--code-border)] bg-[var(--surface)] p-2.5 hover:border-[var(--accent)] transition-colors">
-                <img src={logo.src} alt={logo.name} title={logo.name} className="w-full h-full object-contain" />
+        <div className="space-y-2">
+          {experience.map((exp) => (
+            <div key={exp.company} className="flex items-center gap-3 py-1.5">
+              <img src={exp.logo} alt="" className="w-8 h-8 rounded-lg object-contain shrink-0" />
+              <div className="flex-1 min-w-0">
+                <span className="text-sm font-semibold">{exp.company}</span>
+                <span className="text-xs text-[var(--fg-muted)] ml-2">{exp.role}</span>
               </div>
-              <span className="text-[10px] text-[var(--fg-muted)] leading-tight text-center">{logo.name}</span>
+              <span className="text-xs text-[var(--fg-muted)] shrink-0">{exp.period}</span>
             </div>
           ))}
         </div>
