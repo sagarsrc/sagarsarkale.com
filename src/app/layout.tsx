@@ -7,7 +7,7 @@ import { SkipToContent } from '@/components/SkipToContent';
 
 export const metadata: Metadata = {
   title: {
-    default: 'Sagar Sarkale — AI/NLP Engineer & Founder',
+    default: 'Sagar Sarkale',
     template: '%s | Sagar Sarkale',
   },
   description: 'AI/NLP engineer and founder building language models, retrieval systems, and developer tools. Creator of Misal (Marathi LLM) and QuickCall.dev.',
@@ -26,20 +26,20 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://sagarsarkale.com',
     siteName: 'Sagar Sarkale',
-    title: 'Sagar Sarkale — AI/NLP Engineer & Founder',
+    title: 'Sagar Sarkale',
     description: 'Building language models, retrieval systems, and AI products. Creator of Misal (Marathi LLM) and QuickCall.dev.',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Sagar Sarkale — AI/NLP Engineer & Founder',
+        alt: 'Sagar Sarkale',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Sagar Sarkale — AI/NLP Engineer & Founder',
+    title: 'Sagar Sarkale',
     description: 'Building language models, retrieval systems, and AI products.',
     images: ['/og-image.png'],
     creator: '@sagar_sarkale',

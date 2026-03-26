@@ -83,13 +83,13 @@
 .light {
   --bg: #fafafa;
   --fg: #18181b;
-  --fg-secondary: #71717a;
-  --fg-muted: #d4d4d8;
-  --accent: #0891b2;
+  --fg-secondary: #52525b;
+  --fg-muted: #a1a1aa;
+  --accent: #0e7490;
   --border: #e4e4e7;
   --surface: #ffffff;
   --code-background: #f4f4f5;
-  --code-border: #e4e4e7;
+  --code-border: #d4d4d8;
 }
 
 /* =========================================================
