@@ -8,31 +8,21 @@ export function Breadcrumbs() {
 
   if (pathname === '/') return null;
 
+  // Figure out back destination — go up one level
   const segments = pathname.split('/').filter(Boolean);
-
-  const crumbs = [
-    { label: '~', href: '/' },
-    ...segments.map((seg, i) => ({
-      label: seg.replace(/-/g, ' '),
-      href: '/' + segments.slice(0, i + 1).join('/'),
-    })),
-  ];
+  const parentPath = segments.length > 1
+    ? '/' + segments.slice(0, -1).join('/')
+    : '/';
 
   return (
-    <nav className="text-[12px] mb-4 text-[var(--fg-muted)] [&_a]:text-[var(--fg-secondary)] [&_a]:no-underline hover:[&_a]:text-[var(--accent)]" aria-label="breadcrumb">
-      {crumbs.map((crumb, i) => {
-        const isLast = i === crumbs.length - 1;
-        return (
-          <span key={crumb.href}>
-            {i > 0 && <span className="mx-[0.3em] text-[var(--fg-muted)]">/</span>}
-            {isLast ? (
-              <span className="text-[var(--fg-secondary)]">{crumb.label}</span>
-            ) : (
-              <Link href={crumb.href}>{crumb.label}</Link>
-            )}
-          </span>
-        );
-      })}
-    </nav>
+    <div className="flex justify-between items-center mb-6">
+      <div />
+      <Link
+        href={parentPath}
+        className="text-xs text-[var(--fg-secondary)] no-underline hover:text-[var(--accent)] transition-colors"
+      >
+        &larr; back
+      </Link>
+    </div>
   );
 }
