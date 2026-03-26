@@ -110,16 +110,18 @@ export default function Home() {
       <section className="mb-24 max-md:mb-16">
         <p className="text-xs uppercase tracking-[0.15em] text-[var(--fg-muted)] mb-6 pb-3 border-b border-[var(--border)]">Experience</p>
 
-        <div className="space-y-4">
-          {experience.map((exp) => (
-            <div key={exp.company} className="flex items-center gap-3">
-              <img src={exp.logo} alt="" className="w-7 h-7 rounded-md object-contain shrink-0" />
-              <span className="text-sm font-semibold flex-1">{exp.company}</span>
-              <span className="text-xs text-[var(--fg-secondary)] shrink-0 hidden sm:block">{exp.role}</span>
-              <span className="text-xs text-[var(--fg-muted)] shrink-0 tabular-nums">{exp.period}</span>
-            </div>
-          ))}
-        </div>
+        <table className="w-full text-sm border-collapse">
+          <tbody>
+            {experience.map((exp) => (
+              <tr key={exp.company} className="border-b border-[var(--border)]/30">
+                <td className="py-2.5 pr-3 w-8"><img src={exp.logo} alt="" className="w-7 h-7 rounded-md object-contain" /></td>
+                <td className="py-2.5 font-semibold">{exp.company}</td>
+                <td className="py-2.5 text-[var(--fg-secondary)] text-right max-sm:hidden">{exp.role}</td>
+                <td className="py-2.5 text-[var(--fg-muted)] text-right tabular-nums pl-6 whitespace-nowrap">{exp.period}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
 
         <Link href="/work" className="inline-block mt-8 text-sm text-[var(--accent)] underline underline-offset-4 decoration-[var(--accent)]/40 hover:decoration-[var(--accent)] font-medium">
           full details
