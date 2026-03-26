@@ -145,11 +145,11 @@ footer {
 }
 
 /* =========================================================
-   Section label (uses ::before pseudo)
+   Section label (still used on work page)
    ========================================================= */
 
 .section-label {
-  font-size: 0.6875rem; /* 11px */
+  font-size: 0.6875rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -160,68 +160,6 @@ footer {
 .section-label::before {
   content: '> ';
   color: var(--accent);
-}
-
-/* =========================================================
-   Arrow link (uses ::before pseudo)
-   ========================================================= */
-
-.arrow-link {
-  font-size: 0.8125rem; /* 13px */
-  color: var(--accent);
-  text-decoration: none;
-  display: inline-block;
-  margin-top: 1rem;
-}
-
-.arrow-link:hover { text-decoration: underline; }
-.arrow-link::before { content: '\2192\00a0'; }
-
-/* =========================================================
-   Social grid + Book a call
-   ========================================================= */
-
-.social-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.4rem;
-  font-size: 0.8125rem;
-  max-width: 240px;
-}
-
-.social-grid a {
-  color: var(--fg);
-  text-decoration: none;
-  padding: 0.35rem 0.7rem;
-  border: 1px solid var(--code-border);
-  border-radius: 6px;
-  text-align: center;
-  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
-}
-
-.social-grid a:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 8%, transparent);
-  text-decoration: none;
-}
-
-.book-call-link {
-  display: inline-block;
-  margin-top: 0.6rem;
-  font-size: 0.8125rem;
-  color: var(--accent);
-  text-decoration: none;
-  padding: 0.4rem 1rem;
-  border: 1px solid var(--accent);
-  border-radius: 6px;
-  transition: background 0.2s ease, color 0.2s ease;
-}
-
-.book-call-link:hover {
-  background: var(--accent);
-  color: var(--bg);
-  text-decoration: none;
 }
 
 /* =========================================================

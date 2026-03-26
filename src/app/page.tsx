@@ -21,143 +21,143 @@ export default function Home() {
     .slice(0, 5);
 
   return (
-    <div>
-      {/* Hero / Intro */}
-      <section className="flex items-center gap-4 mb-12 min-h-[240px] max-md:flex-col-reverse max-md:gap-1 max-md:min-h-0 max-md:mb-8">
+    <div className="space-y-16 max-md:space-y-10">
+
+      {/* ── Hero ── */}
+      <section className="flex items-center gap-6 min-h-[260px] max-md:flex-col-reverse max-md:gap-2 max-md:min-h-0">
         <div className="flex-[1.4] min-w-0 z-[1]">
-          <h1 className="text-2xl font-bold tracking-tight mb-0.5">
+          <h1 className="text-3xl font-bold tracking-tight mb-1 max-md:text-2xl">
             sagar sarkale
           </h1>
-
-          <p className="text-sm font-medium text-[var(--fg-secondary)] mb-3"><RotatingTitle /></p>
-
-          <a href="https://calendar.app.google/z5J1gxmUkQ3vvzjT6" target="_blank" rel="noopener noreferrer" className="book-call-link mb-4 inline-block">
-            book a call &rarr;
-          </a>
-
-          <p className="mb-4 font-serif text-sm text-[var(--fg-secondary)] leading-relaxed">
-            i ship ai products from zero to production &mdash; language models,
-            retrieval pipelines, and the infra around them. trained india&apos;s
-            first competitive marathi llm (beat gpt-3.5 on reading comprehension).
-            now building developer tools at quickcall.dev. i consult for
-            startups and orgs on applied nlp, llm fine-tuning, and ai strategy.
+          <p className="text-lg text-[var(--fg-secondary)] mb-4 max-md:text-base">
+            <RotatingTitle />
           </p>
 
-          <div className="social-grid">
-            <a href="https://www.linkedin.com/in/sagar-sarkale/" target="_blank" rel="noopener noreferrer">linkedin</a>
-            <a href="https://x.com/sagar_sarkale" target="_blank" rel="noopener noreferrer">twitter</a>
-            <a href="https://github.com/sagarsrc" target="_blank" rel="noopener noreferrer">github</a>
-            <a href="mailto:sagar@quickcall.dev">email</a>
+          <p className="font-serif text-base text-[var(--fg-secondary)] leading-relaxed mb-5 max-w-[52ch]">
+            i ship ai products from zero to production — language models,
+            retrieval pipelines, and the infra around them. trained india&apos;s
+            first competitive marathi llm (beat gpt-3.5 on reading comprehension).
+            now building developer tools at quickcall.dev.
+          </p>
+
+          <div className="flex items-center gap-3 flex-wrap">
+            <a href="https://calendar.app.google/z5J1gxmUkQ3vvzjT6" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--bg)] bg-[var(--accent)] px-4 py-2 rounded-lg hover:opacity-90 transition-opacity no-underline">
+              book a call &rarr;
+            </a>
+            <a href="mailto:sagar@quickcall.dev" className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--accent)] border border-[var(--accent)] px-4 py-2 rounded-lg hover:bg-[var(--accent)] hover:text-[var(--bg)] transition-colors no-underline">
+              email me
+            </a>
+          </div>
+
+          <div className="flex items-center gap-4 mt-4 text-sm text-[var(--fg-muted)]">
+            <a href="https://www.linkedin.com/in/sagar-sarkale/" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--fg)] transition-colors no-underline">linkedin</a>
+            <a href="https://x.com/sagar_sarkale" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--fg)] transition-colors no-underline">twitter</a>
+            <a href="https://github.com/sagarsrc" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--fg)] transition-colors no-underline">github</a>
           </div>
         </div>
-        <div className="flex-none w-[240px] h-[240px] relative overflow-visible max-md:hidden">
+
+        <div className="flex-none w-[260px] h-[260px] relative overflow-visible max-md:hidden">
           <ParticleHero />
         </div>
       </section>
 
-      <hr className="border-t border-[var(--border)] my-8 max-md:my-5" />
-
-      {/* Work */}
+      {/* ── Work ── */}
       <section>
-        <div className="section-label">work</div>
+        <h2 className="text-lg font-bold mb-6 border-b border-[var(--border)] pb-2">Work</h2>
 
-        <div className="mb-6">
-          <div className="flex justify-between items-baseline gap-4">
-            <span className="font-semibold text-sm">quickcall.dev</span>
-            <span className="text-xs text-[var(--fg-secondary)] whitespace-nowrap shrink-0">founder &middot; 2024–present</span>
+        <div className="space-y-6">
+          <div>
+            <div className="flex justify-between items-baseline gap-4 mb-1">
+              <h3 className="text-base font-bold">quickcall.dev</h3>
+              <span className="text-xs text-[var(--fg-muted)] whitespace-nowrap">founder · 2024–present</span>
+            </div>
+            <p className="text-sm text-[var(--fg-secondary)] leading-relaxed mb-2">
+              compounding intelligence for agentic engineering teams. captures
+              what ships and loads what matters — across every agent, tool, and session.
+            </p>
+            <a href="https://quickcall.dev" target="_blank" rel="noopener noreferrer" className="text-sm text-[var(--accent)] no-underline hover:underline font-medium">quickcall.dev &rarr;</a>
           </div>
-          <p className="text-[13px] text-[var(--fg-secondary)] leading-normal mt-1 pl-4">
-            compounding intelligence for agentic engineering teams. captures
-            what ships and loads what matters &mdash; across every agent, tool, and session.
-          </p>
-          <div className="text-[13px] mt-[0.35rem] pl-4">
-            <a href="https://quickcall.dev" target="_blank" rel="noopener noreferrer" className="text-[var(--accent)] no-underline hover:underline">quickcall.dev</a>
-          </div>
-        </div>
 
-        <div className="mb-6">
-          <div className="flex justify-between items-baseline gap-4">
-            <span className="font-semibold text-sm">misal — marathi llm</span>
-            <span className="text-xs text-[var(--fg-secondary)] whitespace-nowrap shrink-0">founder &middot; 2023–present</span>
+          <div>
+            <div className="flex justify-between items-baseline gap-4 mb-1">
+              <h3 className="text-base font-bold">misal — marathi llm</h3>
+              <span className="text-xs text-[var(--fg-muted)] whitespace-nowrap">founder · 2023–present</span>
+            </div>
+            <p className="text-sm text-[var(--fg-secondary)] leading-relaxed mb-2">
+              india&apos;s first competitive marathi llm. 7b &amp; 1b parameter models
+              trained on 2b+ marathi tokens. outperformed gpt-3.5 on reading comprehension.
+            </p>
+            <div className="flex gap-3 text-sm">
+              <a href="https://huggingface.co/smallstepai" target="_blank" rel="noopener noreferrer" className="text-[var(--accent)] no-underline hover:underline font-medium">huggingface &rarr;</a>
+              <Link href="/blog" className="text-[var(--accent)] no-underline hover:underline font-medium">blog &rarr;</Link>
+            </div>
           </div>
-          <p className="text-[13px] text-[var(--fg-secondary)] leading-normal mt-1 pl-4">
-            india&apos;s first competitive marathi llm. 7b &amp; 1b parameter models
-            trained on 2b+ marathi tokens. outperformed gpt-3.5 on reading
-            comprehension benchmarks.
-          </p>
-          <div className="text-[13px] mt-[0.35rem] pl-4">
-            <a href="https://huggingface.co/smallstepai" target="_blank" rel="noopener noreferrer" className="text-[var(--accent)] no-underline hover:underline">huggingface</a>
-            <span className="text-[var(--fg-muted)] mx-[0.4rem]">&middot;</span>
-            <Link href="/blog" className="text-[var(--accent)] no-underline hover:underline">blog</Link>
-          </div>
-        </div>
 
-        <div className="mb-6">
-          <div className="flex justify-between items-baseline gap-4">
-            <span className="font-semibold text-sm">mcp deep dive</span>
-            <span className="text-xs text-[var(--fg-secondary)] whitespace-nowrap shrink-0">blog series &middot; 2025</span>
-          </div>
-          <p className="text-[13px] text-[var(--fg-secondary)] leading-normal mt-1 pl-4">
-            3-part technical deep dive into model context protocol — from
-            primitives to elicitation.
-          </p>
-          <div className="text-[13px] mt-[0.35rem] pl-4">
-            <Link href="/blog/genai/what-is-mcp-part1" className="text-[var(--accent)] no-underline hover:underline">start reading</Link>
+          <div>
+            <div className="flex justify-between items-baseline gap-4 mb-1">
+              <h3 className="text-base font-bold">mcp deep dive</h3>
+              <span className="text-xs text-[var(--fg-muted)] whitespace-nowrap">blog series · 2025</span>
+            </div>
+            <p className="text-sm text-[var(--fg-secondary)] leading-relaxed mb-2">
+              3-part technical deep dive into model context protocol — from
+              primitives to elicitation.
+            </p>
+            <Link href="/blog/genai/what-is-mcp-part1" className="text-sm text-[var(--accent)] no-underline hover:underline font-medium">start reading &rarr;</Link>
           </div>
         </div>
       </section>
 
-      <hr className="border-t border-[var(--border)] my-8 max-md:my-5" />
-
-      {/* Writing */}
+      {/* ── Writing ── */}
       <section>
-        <div className="section-label">writing</div>
+        <h2 className="text-lg font-bold mb-6 border-b border-[var(--border)] pb-2">Writing</h2>
 
-        {blogPosts.map((post: Post) => (
-          <div key={post.path} className="flex justify-between items-baseline py-[0.35rem] gap-4">
-            <span className="text-sm">
-              <Link href={post.path}>{post.frontmatter.title}</Link>
-            </span>
-            <span className="text-xs text-[var(--fg-secondary)] whitespace-nowrap shrink-0">
-              {post.frontmatter.date ? formatDate(post.frontmatter.date) : ''}
-            </span>
-          </div>
-        ))}
-
-        <Link href="/blog" className="arrow-link">all posts</Link>
-      </section>
-
-      <hr className="border-t border-[var(--border)] my-8 max-md:my-5" />
-
-      {/* Experience */}
-      <section>
-        <div className="section-label">experience</div>
-
-        <div className="flex flex-wrap items-start gap-4 py-3">
-          {logos.map((logo, i) => (
-            <div key={i} className="flex flex-col items-center gap-1 w-14 max-sm:w-12">
-              <div className="flex items-center justify-center w-14 h-14 max-sm:w-12 max-sm:h-12 rounded-xl border border-[var(--code-border)] bg-[var(--surface)] p-2">
-                <img src={logo.src} alt={logo.name} title={logo.name} className="w-full h-full object-contain" />
-              </div>
-              <span className="text-[9px] text-[var(--fg-muted)] leading-tight text-center truncate w-full">{logo.name}</span>
+        <div className="space-y-3">
+          {blogPosts.map((post: Post) => (
+            <div key={post.path} className="flex justify-between items-baseline gap-4">
+              <Link href={post.path} className="text-[15px] font-medium hover:text-[var(--accent)] transition-colors no-underline">
+                {post.frontmatter.title}
+              </Link>
+              <span className="text-xs text-[var(--fg-muted)] whitespace-nowrap shrink-0">
+                {post.frontmatter.date ? formatDate(post.frontmatter.date) : ''}
+              </span>
             </div>
           ))}
         </div>
 
-        <Link href="/work" className="arrow-link">full details</Link>
+        <Link href="/blog" className="inline-block mt-4 text-sm text-[var(--accent)] font-medium no-underline hover:underline">
+          all posts &rarr;
+        </Link>
       </section>
 
-      <hr className="border-t border-[var(--border)] my-8 max-md:my-5" />
-
-      {/* Connect */}
+      {/* ── Experience ── */}
       <section>
-        <div className="section-label">connect</div>
-        <p className="text-[var(--fg-secondary)] mb-3 leading-relaxed">
+        <h2 className="text-lg font-bold mb-6 border-b border-[var(--border)] pb-2">Experience</h2>
+
+        <div className="flex flex-wrap items-start gap-5 max-sm:gap-3">
+          {logos.map((logo, i) => (
+            <div key={i} className="flex flex-col items-center gap-1.5 w-16 max-sm:w-14">
+              <div className="flex items-center justify-center w-16 h-16 max-sm:w-14 max-sm:h-14 rounded-xl border border-[var(--code-border)] bg-[var(--surface)] p-2.5 hover:border-[var(--accent)] transition-colors">
+                <img src={logo.src} alt={logo.name} title={logo.name} className="w-full h-full object-contain" />
+              </div>
+              <span className="text-[10px] text-[var(--fg-muted)] leading-tight text-center">{logo.name}</span>
+            </div>
+          ))}
+        </div>
+
+        <Link href="/work" className="inline-block mt-4 text-sm text-[var(--accent)] font-medium no-underline hover:underline">
+          full details &rarr;
+        </Link>
+      </section>
+
+      {/* ── Connect ── */}
+      <section>
+        <h2 className="text-lg font-bold mb-4 border-b border-[var(--border)] pb-2">Connect</h2>
+        <p className="text-sm text-[var(--fg-secondary)] leading-relaxed mb-3">
           i consult for startups and orgs on ai applications and ai strategy.
         </p>
-        <div className="flex gap-6 flex-wrap items-center">
-          <a href="mailto:sagar@quickcall.dev" className="arrow-link">sagar@quickcall.dev</a>
-        </div>
+        <a href="mailto:sagar@quickcall.dev" className="text-sm text-[var(--accent)] font-medium no-underline hover:underline">
+          sagar@quickcall.dev &rarr;
+        </a>
       </section>
     </div>
   );
