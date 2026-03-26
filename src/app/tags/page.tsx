@@ -21,11 +21,11 @@ export default function TagsPage() {
     <div>
       <Breadcrumbs />
       <h1>Tags</h1>
-      <div className="tag-list">
+      <div className="flex flex-wrap gap-y-2 gap-x-4 mt-4">
         {tags.map(([tag, count]) => (
           <span key={tag}>
-            <Link href={`/tags/${tag}`} className="tag">
-              {tag} <span className="tag-count">({count})</span>
+            <Link href={`/tags/${tag}`} className="text-[var(--fg-secondary)] no-underline text-sm before:content-['#'] before:text-[var(--fg-muted)] hover:text-[var(--accent)]">
+              {tag} <span className="text-[var(--fg-muted)] text-xs">({count})</span>
             </Link>
           </span>
         ))}

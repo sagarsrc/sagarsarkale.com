@@ -7,7 +7,7 @@ export const metadata = {
 
 function RoleLabel({ role, type }: { role: string; type: string }) {
   return (
-    <span className="work-role-label">
+    <span className="text-sm text-[var(--fg-secondary)] font-normal">
       {role}
     </span>
   );
@@ -133,42 +133,45 @@ export default function WorkPage() {
   return (
     <div>
       <Breadcrumbs />
-      <h1 className="single-title">work</h1>
-      <p style={{ color: 'var(--fg-secondary)', fontSize: '14px', marginBottom: '2rem' }}>
+      <h1 className="single-title text-2xl font-bold font-mono mb-2 leading-[1.3]">work</h1>
+      <p className="text-[var(--fg-secondary)] text-sm mb-8">
         what i&apos;ve built, where, and why.
       </p>
 
-      <div className="changelog">
-        {workEntries.map((entry) => (
-          <div key={entry.company} className="changelog-entry">
-            <div className="changelog-date-col">
-              <time className="changelog-date">{entry.period}</time>
+      <div className="flex flex-col">
+        {workEntries.map((entry, idx) => (
+          <div key={entry.company} className={`grid grid-cols-[130px_1fr] max-sm:grid-cols-1 gap-8 max-sm:gap-2 py-6 border-t border-[var(--code-border)] ${idx === 0 ? 'border-t-0 pt-0' : ''}`}>
+            <div className="sticky top-16 self-start max-sm:static">
+              <time className="font-mono text-xs text-[var(--fg-muted)]">{entry.period}</time>
               {entry.logo && (
                 <img
                   src={entry.logo}
                   alt=""
-                  style={{ width: 28, height: 28, borderRadius: 6, marginTop: '0.5rem', objectFit: 'contain' }}
+                  className="w-14 h-14 rounded-xl mt-2 object-contain"
                   loading="lazy"
                 />
               )}
             </div>
 
-            <div className="changelog-content-col">
-              <div className="changelog-title-row">
-                <h2 className="changelog-title">{entry.company}</h2>
-                <span className="work-role-sep">/</span>
+            <div className="min-w-0">
+              <div className="flex items-center gap-[0.6rem] mb-2 flex-wrap">
+                <h2 className="font-mono text-base font-semibold m-0 leading-[1.3]">{entry.company}</h2>
+                <span className="text-[var(--fg-muted)] mx-[0.15rem] text-sm">/</span>
                 <RoleLabel role={entry.role} type={entry.type} />
               </div>
 
-              <ul className="work-highlights">
+              <ul className="m-0 pl-0 list-none text-sm text-[var(--fg-secondary)] leading-[1.7] space-y-1">
                 {entry.highlights.map((h, i) => (
-                  <li key={i}>{h}</li>
+                  <li key={i} className="ml-0 flex gap-2">
+                    <span className="text-[var(--fg-muted)] shrink-0">—</span>
+                    <span>{h}</span>
+                  </li>
                 ))}
               </ul>
 
               {entry.context && (
                 <p
-                  className="changelog-context"
+                  className="mt-2 text-xs text-[var(--fg-muted)] leading-[1.5] [&_strong]:text-[var(--fg-secondary)] [&_strong]:font-medium"
                   dangerouslySetInnerHTML={{
                     __html: entry.context.replace(
                       /\*\*(.+?)\*\*/g,
@@ -179,10 +182,10 @@ export default function WorkPage() {
               )}
 
               {entry.links && (
-                <div className="work-links">
+                <div className="mt-2 text-xs [&_a]:text-[var(--accent)] [&_a]:no-underline hover:[&_a]:underline">
                   {entry.links.map((link, i) => (
                     <span key={i}>
-                      {i > 0 && <span style={{ color: 'var(--fg-muted)', margin: '0 0.4rem' }}>&middot;</span>}
+                      {i > 0 && <span className="text-[var(--fg-muted)] mx-[0.4rem]">&middot;</span>}
                       {link.href.startsWith('/') ? (
                         <Link href={link.href}>{link.label}</Link>
                       ) : (

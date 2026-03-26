@@ -31,12 +31,12 @@ export default async function TagPage({ params }: Props) {
   return (
     <div>
       <Breadcrumbs />
-      <h1 className="page-title">#{tag}</h1>
-      <ul className="post-list">
+      <h1 className="text-xl font-bold mb-6">#{tag}</h1>
+      <ul className="list-none p-0 my-4">
         {posts.map((post) => (
-          <li key={post.path} className="post-list-item">
-            <span className="post-date">{formatDate(post.frontmatter.date)}</span>
-            <span className="post-title-link">
+          <li key={post.path} className="!ml-0 flex items-baseline gap-4 py-[0.35rem] max-sm:flex-col max-sm:gap-[0.15rem]">
+            <span className="text-xs text-[var(--fg-secondary)] whitespace-nowrap shrink-0 min-w-[90px]">{formatDate(post.frontmatter.date)}</span>
+            <span className="text-sm [&_a]:text-[var(--fg)] [&_a]:no-underline [&_a:hover]:text-[var(--accent)]">
               <Link href={post.path}>{post.frontmatter.title}</Link>
             </span>
           </li>

@@ -37,9 +37,9 @@ export default async function RandomPostPage({ params }: Props) {
   return (
     <article>
       <Breadcrumbs />
-      <h1 className="single-title">{frontmatter.title}</h1>
+      <h1 className="single-title text-2xl font-bold font-mono mb-2 leading-[1.3]">{frontmatter.title}</h1>
 
-      <div className="post-meta">
+      <div className="text-xs text-[var(--fg-secondary)] mb-8 flex items-center gap-3 flex-wrap">
         {frontmatter.readTime !== false && (
           <span>{readingTime}</span>
         )}
@@ -47,7 +47,7 @@ export default async function RandomPostPage({ params }: Props) {
           <span>&middot; {formatDate(frontmatter.date)}</span>
         )}
         {frontmatter.showTags !== false && frontmatter.tags && frontmatter.tags.length > 0 && (
-          <div className="post-tags">
+          <div className="flex gap-2 flex-wrap [&_a]:text-[var(--fg-secondary)] [&_a]:no-underline [&_a]:text-xs">
             {frontmatter.tags.map((tag) => (
               <Link key={tag} href={`/tags/${tag}`}>
                 {tag}

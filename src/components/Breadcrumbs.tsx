@@ -19,14 +19,14 @@ export function Breadcrumbs() {
   ];
 
   return (
-    <nav className="breadcrumbs" aria-label="breadcrumb">
+    <nav className="text-[12px] mb-4 text-[var(--fg-muted)] [&_a]:text-[var(--fg-secondary)] [&_a]:no-underline hover:[&_a]:text-[var(--accent)]" aria-label="breadcrumb">
       {crumbs.map((crumb, i) => {
         const isLast = i === crumbs.length - 1;
         return (
           <span key={crumb.href}>
-            {i > 0 && <span style={{ margin: '0 0.3em', color: 'var(--fg-muted)' }}>/</span>}
+            {i > 0 && <span className="mx-[0.3em] text-[var(--fg-muted)]">/</span>}
             {isLast ? (
-              <span style={{ color: 'var(--fg-secondary)' }}>{crumb.label}</span>
+              <span className="text-[var(--fg-secondary)]">{crumb.label}</span>
             ) : (
               <Link href={crumb.href}>{crumb.label}</Link>
             )}

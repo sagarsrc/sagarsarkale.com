@@ -42,9 +42,9 @@ export default async function BlogPostPage({ params }: Props) {
   return (
     <article>
       <Breadcrumbs />
-      <h1 className="single-title">{frontmatter.title}</h1>
+      <h1 className="text-2xl font-bold font-mono mb-2 leading-[1.3]">{frontmatter.title}</h1>
 
-      <div className="post-meta">
+      <div className="text-xs text-[var(--fg-secondary)] mb-8 flex items-center gap-3 flex-wrap">
         {frontmatter.readTime !== false && (
           <span>{readingTime}</span>
         )}
@@ -67,14 +67,14 @@ export default async function BlogPostPage({ params }: Props) {
       </div>
 
       {relatedPosts.length > 0 && (
-        <nav className="related-posts">
+        <nav className="mt-12 pt-8 border-t border-[var(--code-border)]">
           <div className="section-label">read next</div>
           {relatedPosts.map((rp) => (
-            <div key={rp.path} className="post-item">
-              <span className="post-item-title">
+            <div key={rp.path} className="flex justify-between items-baseline py-[0.35rem] gap-4 max-sm:flex-col max-sm:gap-[0.15rem]">
+              <span className="text-sm">
                 <Link href={rp.path}>{rp.frontmatter.title}</Link>
               </span>
-              <span className="post-item-date">
+              <span className="text-xs text-[var(--fg-secondary)] whitespace-nowrap shrink-0">
                 {rp.frontmatter.date ? formatDate(rp.frontmatter.date) : ''}
               </span>
             </div>

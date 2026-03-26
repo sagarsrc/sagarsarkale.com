@@ -23,18 +23,19 @@ export default function Home() {
   return (
     <div>
       {/* Hero / Intro */}
-      <section className="hero-split">
-        <div className="hero-split-text">
-          <p className="dim-label">[name]</p>
-          <p style={{ fontSize: '18px', fontWeight: 700, marginBottom: '1rem' }}>
+      <section className="flex items-center gap-4 mb-12 min-h-[240px] max-sm:min-h-0 max-md:flex-col-reverse max-md:gap-2">
+        <div className="flex-[1.4] min-w-0 z-[1]">
+          <h1 className="text-3xl font-extrabold tracking-tight mb-1">
             sagar sarkale
-          </p>
+          </h1>
 
-          <p className="dim-label">[role]</p>
-          <p style={{ marginBottom: '1rem' }}><RotatingTitle /></p>
+          <p className="text-base font-semibold text-[var(--fg-secondary)] mb-3"><RotatingTitle /></p>
 
-          <p className="dim-label">[bio]</p>
-          <p style={{ marginBottom: '1.5rem', color: 'var(--fg-secondary)', lineHeight: 1.75 }}>
+          <a href="https://calendar.app.google/z5J1gxmUkQ3vvzjT6" target="_blank" rel="noopener noreferrer" className="book-call-link mb-4 inline-block">
+            book a call &rarr;
+          </a>
+
+          <p className="mb-4 font-serif text-[var(--fg-secondary)] leading-[1.75]">
             i ship ai products from zero to production &mdash; language models,
             retrieval pipelines, and the infra around them. trained india&apos;s
             first competitive marathi llm (beat gpt-3.5 on reading comprehension).
@@ -42,86 +43,82 @@ export default function Home() {
             startups and orgs on applied nlp, llm fine-tuning, and ai strategy.
           </p>
 
-          <p className="dim-label">[links]</p>
           <div className="social-grid">
             <a href="https://www.linkedin.com/in/sagar-sarkale/" target="_blank" rel="noopener noreferrer">linkedin</a>
             <a href="https://x.com/sagar_sarkale" target="_blank" rel="noopener noreferrer">twitter</a>
             <a href="https://github.com/sagarsrc" target="_blank" rel="noopener noreferrer">github</a>
             <a href="mailto:sagar@quickcall.dev">email</a>
           </div>
-          <a href="https://calendar.app.google/z5J1gxmUkQ3vvzjT6" target="_blank" rel="noopener noreferrer" className="book-call-link">
-            book a call &rarr;
-          </a>
         </div>
-        <div className="hero-split-visual">
+        <div className="flex-none w-[240px] h-[240px] relative overflow-visible max-md:w-full max-md:h-[160px] max-sm:h-[120px]">
           <ParticleHero />
         </div>
       </section>
 
-      <div className="divider">────────────────────────────────────────────────</div>
+      <hr className="border-t border-[var(--border)] my-8" />
 
       {/* Work */}
       <section>
         <div className="section-label">work</div>
 
-        <div className="entry">
-          <div className="entry-header">
-            <span className="entry-title">quickcall.dev</span>
-            <span className="entry-meta">founder &middot; 2024–present</span>
+        <div className="mb-6">
+          <div className="flex justify-between items-baseline gap-4">
+            <span className="font-semibold text-sm">quickcall.dev</span>
+            <span className="text-xs text-[var(--fg-secondary)] whitespace-nowrap shrink-0">founder &middot; 2024–present</span>
           </div>
-          <p className="entry-desc">
+          <p className="text-[13px] text-[var(--fg-secondary)] leading-normal mt-1 pl-4">
             compounding intelligence for agentic engineering teams. captures
             what ships and loads what matters &mdash; across every agent, tool, and session.
           </p>
-          <div className="entry-links">
-            <a href="https://quickcall.dev" target="_blank" rel="noopener noreferrer">quickcall.dev</a>
+          <div className="text-[13px] mt-[0.35rem] pl-4">
+            <a href="https://quickcall.dev" target="_blank" rel="noopener noreferrer" className="text-[var(--accent)] no-underline hover:underline">quickcall.dev</a>
           </div>
         </div>
 
-        <div className="entry">
-          <div className="entry-header">
-            <span className="entry-title">misal — marathi llm</span>
-            <span className="entry-meta">founder &middot; 2023–present</span>
+        <div className="mb-6">
+          <div className="flex justify-between items-baseline gap-4">
+            <span className="font-semibold text-sm">misal — marathi llm</span>
+            <span className="text-xs text-[var(--fg-secondary)] whitespace-nowrap shrink-0">founder &middot; 2023–present</span>
           </div>
-          <p className="entry-desc">
+          <p className="text-[13px] text-[var(--fg-secondary)] leading-normal mt-1 pl-4">
             india&apos;s first competitive marathi llm. 7b &amp; 1b parameter models
             trained on 2b+ marathi tokens. outperformed gpt-3.5 on reading
             comprehension benchmarks.
           </p>
-          <div className="entry-links">
-            <a href="https://huggingface.co/smallstepai" target="_blank" rel="noopener noreferrer">huggingface</a>
-            <span style={{ color: 'var(--fg-muted)', margin: '0 0.4rem' }}>&middot;</span>
-            <Link href="/blog">blog</Link>
+          <div className="text-[13px] mt-[0.35rem] pl-4">
+            <a href="https://huggingface.co/smallstepai" target="_blank" rel="noopener noreferrer" className="text-[var(--accent)] no-underline hover:underline">huggingface</a>
+            <span className="text-[var(--fg-muted)] mx-[0.4rem]">&middot;</span>
+            <Link href="/blog" className="text-[var(--accent)] no-underline hover:underline">blog</Link>
           </div>
         </div>
 
-        <div className="entry">
-          <div className="entry-header">
-            <span className="entry-title">mcp deep dive</span>
-            <span className="entry-meta">blog series &middot; 2025</span>
+        <div className="mb-6">
+          <div className="flex justify-between items-baseline gap-4">
+            <span className="font-semibold text-sm">mcp deep dive</span>
+            <span className="text-xs text-[var(--fg-secondary)] whitespace-nowrap shrink-0">blog series &middot; 2025</span>
           </div>
-          <p className="entry-desc">
+          <p className="text-[13px] text-[var(--fg-secondary)] leading-normal mt-1 pl-4">
             3-part technical deep dive into model context protocol — from
             primitives to elicitation.
           </p>
-          <div className="entry-links">
-            <Link href="/blog/genai/what-is-mcp-part1">start reading</Link>
+          <div className="text-[13px] mt-[0.35rem] pl-4">
+            <Link href="/blog/genai/what-is-mcp-part1" className="text-[var(--accent)] no-underline hover:underline">start reading</Link>
           </div>
         </div>
       </section>
 
-      <div className="divider">────────────────────────────────────────────────</div>
+      <hr className="border-t border-[var(--border)] my-8" />
 
       {/* Writing */}
       <section>
         <div className="section-label">writing</div>
 
         {blogPosts.map((post: Post) => (
-          <div key={post.path} className="post-item">
-            <span className="post-item-title">
+          <div key={post.path} className="flex justify-between items-baseline py-[0.35rem] gap-4">
+            <span className="text-sm">
               <Link href={post.path}>{post.frontmatter.title}</Link>
             </span>
-            <span className="post-item-date">
+            <span className="text-xs text-[var(--fg-secondary)] whitespace-nowrap shrink-0">
               {post.frontmatter.date ? formatDate(post.frontmatter.date) : ''}
             </span>
           </div>
@@ -130,36 +127,36 @@ export default function Home() {
         <Link href="/blog" className="arrow-link">all posts</Link>
       </section>
 
-      <div className="divider">────────────────────────────────────────────────</div>
+      <hr className="border-t border-[var(--border)] my-8" />
 
       {/* Experience */}
       <section>
         <div className="section-label">experience</div>
 
-        <div className="overflow-hidden" style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}>
-          <div className="inline-flex w-max animate-scroll py-3">
-            {[...logos, ...logos].map((logo, i) => (
-              <span key={i} className="flex items-center justify-center mx-4 shrink-0">
-                <img src={logo.src} alt={logo.name} title={logo.name} className="h-8 md:h-10 w-auto object-contain opacity-40 hover:opacity-100 transition-opacity grayscale hover:grayscale-0" />
-              </span>
-            ))}
-          </div>
+        <div className="flex items-center gap-4 py-3">
+          {logos.map((logo, i) => (
+            <div key={i} className="flex flex-col items-center gap-1.5 shrink-0">
+              <div className="flex items-center justify-center w-16 h-16 rounded-xl border border-[var(--code-border)] bg-[var(--surface)] p-2.5">
+                <img src={logo.src} alt={logo.name} title={logo.name} className="w-full h-full object-contain" />
+              </div>
+              <span className="text-[10px] text-[var(--fg-secondary)] leading-tight text-center">{logo.name}</span>
+            </div>
+          ))}
         </div>
 
         <Link href="/work" className="arrow-link">full details</Link>
       </section>
 
-      <div className="divider">────────────────────────────────────────────────</div>
+      <hr className="border-t border-[var(--border)] my-8" />
 
       {/* Connect */}
       <section>
         <div className="section-label">connect</div>
-        <p style={{ color: 'var(--fg-secondary)', marginBottom: '0.75rem', lineHeight: 1.6 }}>
+        <p className="text-[var(--fg-secondary)] mb-3 leading-relaxed">
           i consult for startups and orgs on ai applications and ai strategy.
         </p>
-        <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
+        <div className="flex gap-6 flex-wrap items-center">
           <a href="mailto:sagar@quickcall.dev" className="arrow-link">sagar@quickcall.dev</a>
-          <a href="https://calendar.app.google/z5J1gxmUkQ3vvzjT6" target="_blank" rel="noopener noreferrer" className="arrow-link">book a call</a>
         </div>
       </section>
     </div>

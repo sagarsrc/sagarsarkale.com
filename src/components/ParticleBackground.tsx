@@ -196,7 +196,7 @@ export function ParticleHero() {
       } else {
         sizes[i] = sizeRoll < 0.2 ? (Math.random() * 1 + 0.5) : sizeRoll < 0.7 ? (Math.random() * 1.5 + 1.5) : (Math.random() * 2 + 3); // tiny, medium, or big
       }
-      particleOpacities[i] = isCore[i] ? (Math.random() * 0.15 + 0.85) : (Math.random() * 0.25 + 0.55);
+      particleOpacities[i] = isCore[i] ? (Math.random() * 0.1 + 0.9) : (Math.random() * 0.2 + 0.7);
       colorIndices[i] = Math.random(); // 0-1 for color palette mixing
     }
 
@@ -209,14 +209,15 @@ export function ParticleHero() {
     function getColors() {
       const isDark = document.documentElement.classList.contains('dark');
       return {
-        color1: isDark ? new THREE.Color(0x3b82f6) : new THREE.Color(0x2563eb), // blue
-        color2: isDark ? new THREE.Color(0xef4444) : new THREE.Color(0xdc2626), // red
-        color3: isDark ? new THREE.Color(0x818cf8) : new THREE.Color(0x6366f1), // indigo (blend)
-        muted:  isDark ? new THREE.Color(0x475569) : new THREE.Color(0x94a3b8),
+        color1: isDark ? new THREE.Color(0x3b82f6) : new THREE.Color(0x1d4ed8), // blue
+        color2: isDark ? new THREE.Color(0xef4444) : new THREE.Color(0xb91c1c), // red
+        color3: isDark ? new THREE.Color(0x818cf8) : new THREE.Color(0x4338ca), // indigo (blend)
+        muted:  isDark ? new THREE.Color(0x475569) : new THREE.Color(0x6b7280),
       };
     }
 
     const initialColors = getColors();
+    const initialIsDark = document.documentElement.classList.contains('dark');
 
     const material = new THREE.ShaderMaterial({
       uniforms: {
@@ -226,6 +227,7 @@ export function ParticleHero() {
         uMutedColor: { value: initialColors.muted },
         uPixelRatio: { value: renderer.getPixelRatio() },
         uTime: { value: 0 },
+        uOpacityMult: { value: initialIsDark ? 0.85 : 1.2 },
       },
       vertexShader: `
         attribute float aSize;
@@ -254,6 +256,7 @@ export function ParticleHero() {
         uniform vec3 uColor3;
         uniform vec3 uMutedColor;
         uniform float uTime;
+        uniform float uOpacityMult;
         varying float vOpacity;
         varying float vDepth;
         varying float vIsCore;
@@ -283,12 +286,12 @@ export function ParticleHero() {
           vec3 color = mix(baseColor, uMutedColor, depthMix * 0.3);
           color = mix(color, vec3(1.0), core * vIsCore * 0.4);
 
-          gl_FragColor = vec4(color, glow * vOpacity * 0.85);
+          gl_FragColor = vec4(color, glow * vOpacity * uOpacityMult);
         }
       `,
       transparent: true,
       depthWrite: false,
-      blending: THREE.AdditiveBlending,
+      blending: initialIsDark ? THREE.AdditiveBlending : THREE.NormalBlending,
     });
 
     const points = new THREE.Points(geometry, material);
@@ -362,11 +365,15 @@ export function ParticleHero() {
     }
 
     const themeObserver = new MutationObserver(() => {
+      const isDark = document.documentElement.classList.contains('dark');
       const c = getColors();
       material.uniforms.uColor1.value = c.color1;
       material.uniforms.uColor2.value = c.color2;
       material.uniforms.uColor3.value = c.color3;
       material.uniforms.uMutedColor.value = c.muted;
+      material.uniforms.uOpacityMult.value = isDark ? 0.85 : 1.2;
+      material.blending = isDark ? THREE.AdditiveBlending : THREE.NormalBlending;
+      material.needsUpdate = true;
       lineMat.color = c.muted;
     });
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });

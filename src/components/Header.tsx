@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { ThemeToggle } from './ThemeToggle';
 
 const NAV_LINKS = [
@@ -11,14 +12,22 @@ const NAV_LINKS = [
 ];
 
 export function Header() {
+  const pathname = usePathname();
+
   return (
-    <header className="header">
-      <div className="header-name">
+    <header className="flex justify-between items-center py-4 border-b border-[var(--border)] mb-12 sticky top-0 z-100 bg-[var(--bg)] backdrop-blur-[8px]">
+      <div className="text-[13px] font-bold lowercase">
         <Link href="/">sagar sarkale</Link>
       </div>
-      <nav className="header-nav">
+      <nav className="flex items-center gap-5 max-sm:gap-3 text-[13px] max-sm:text-xs [&_a]:no-underline hover:[&_a]:text-[var(--accent)]">
         {NAV_LINKS.map(link => (
-          <Link key={link.name} href={link.url}>{link.name}</Link>
+          <Link
+            key={link.name}
+            href={link.url}
+            className={pathname === link.url || pathname.startsWith(link.url + '/') ? 'text-[var(--fg)]' : 'text-[var(--fg-secondary)]'}
+          >
+            {link.name}
+          </Link>
         ))}
         <ThemeToggle />
       </nav>

@@ -12,8 +12,8 @@ export default function AboutPage() {
   return (
     <div>
       <Breadcrumbs />
-      <h1 className="single-title">{frontmatter.title}</h1>
-      <div className="prose" style={{ marginTop: '1.5rem' }}>
+      <h1 className="single-title text-2xl font-bold font-mono mb-2 leading-[1.3]">{frontmatter.title}</h1>
+      <div className="prose mt-6">
         <MDXRenderer content={content} />
       </div>
     </div>
