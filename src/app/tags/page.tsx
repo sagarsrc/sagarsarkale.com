@@ -19,8 +19,10 @@ export default function TagsPage() {
 
   return (
     <div>
-      <Breadcrumbs />
-      <h1>Tags</h1>
+      <div className="flex items-baseline justify-between mb-6">
+        <h1 className="text-xl font-bold">Tags</h1>
+        <Breadcrumbs />
+      </div>
       <div className="flex flex-wrap gap-y-2 gap-x-4 mt-4">
         {tags.map(([tag, count]) => (
           <span key={tag}>

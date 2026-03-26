@@ -13,8 +13,10 @@ export default function BlogPage() {
 
   return (
     <div className="pb-8">
-      <Breadcrumbs />
-      <h1 className="text-xl font-bold mb-6">/blog</h1>
+      <div className="flex items-baseline justify-between mb-6">
+        <h1 className="text-xl font-bold">/blog</h1>
+        <Breadcrumbs />
+      </div>
       <div className="flex flex-col gap-3 mt-6">
         {posts.map((post: Post) => (
           <Link key={post.path} href={post.path} className="flex items-center gap-3 p-2 border border-[var(--code-border)] rounded-lg no-underline text-inherit transition-[border-color,background] duration-200 max-h-20 overflow-hidden hover:border-[var(--accent)] hover:bg-[color-mix(in_srgb,var(--code-border)_15%,transparent)]">

@@ -132,8 +132,10 @@ const workEntries: WorkEntry[] = [
 export default function WorkPage() {
   return (
     <div>
-      <Breadcrumbs />
-      <h1 className="single-title text-2xl font-bold font-mono mb-2 leading-[1.3]">work</h1>
+      <div className="flex items-baseline justify-between mb-2">
+        <h1 className="text-2xl font-bold font-mono leading-[1.3]">work</h1>
+        <Breadcrumbs />
+      </div>
       <p className="text-[var(--fg-secondary)] text-sm mb-8">
         what i&apos;ve built, where, and why.
       </p>

@@ -36,8 +36,10 @@ export default async function RandomPostPage({ params }: Props) {
 
   return (
     <article>
-      <Breadcrumbs />
-      <h1 className="single-title text-2xl font-bold font-mono mb-2 leading-[1.3]">{frontmatter.title}</h1>
+      <div className="flex items-start justify-between gap-4 mb-2">
+        <h1 className="text-2xl font-bold font-mono leading-[1.3]">{frontmatter.title}</h1>
+        <Breadcrumbs />
+      </div>
 
       <div className="text-xs text-[var(--fg-secondary)] mb-8 flex items-center gap-3 flex-wrap">
         {frontmatter.readTime !== false && (

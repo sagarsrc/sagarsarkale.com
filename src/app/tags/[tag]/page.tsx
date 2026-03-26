@@ -30,8 +30,10 @@ export default async function TagPage({ params }: Props) {
 
   return (
     <div>
-      <Breadcrumbs />
-      <h1 className="text-xl font-bold mb-6">#{tag}</h1>
+      <div className="flex items-baseline justify-between mb-6">
+        <h1 className="text-xl font-bold">#{tag}</h1>
+        <Breadcrumbs />
+      </div>
       <ul className="list-none p-0 my-4">
         {posts.map((post) => (
           <li key={post.path} className="!ml-0 flex items-baseline gap-4 py-[0.35rem] max-sm:flex-col max-sm:gap-[0.15rem]">

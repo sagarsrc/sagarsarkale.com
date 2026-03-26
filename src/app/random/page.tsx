@@ -13,8 +13,10 @@ export default function RandomPage() {
 
   return (
     <div className="pb-8">
-      <Breadcrumbs />
-      <h1 className="text-xl font-bold mb-6">/random</h1>
+      <div className="flex items-baseline justify-between mb-6">
+        <h1 className="text-xl font-bold">/random</h1>
+        <Breadcrumbs />
+      </div>
       {posts.map((post: Post) => (
         <div key={post.path} className="flex justify-between items-baseline py-[0.35rem] gap-4">
           <span className="text-sm [&_a]:text-[var(--fg)] [&_a]:no-underline hover:[&_a]:text-[var(--accent)]">
