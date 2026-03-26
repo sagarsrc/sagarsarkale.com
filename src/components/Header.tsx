@@ -15,8 +15,8 @@ export function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="flex justify-between items-center py-4 border-b border-[var(--border)] mb-12 sticky top-0 z-100 bg-[var(--bg)] backdrop-blur-[8px]">
-      <div className="text-[13px] font-bold lowercase">
+    <header className="flex justify-between items-center py-4 border-b border-[var(--border)] mb-14 sticky top-0 z-100 bg-[color-mix(in_srgb,var(--bg)_95%,transparent)] backdrop-blur-sm">
+      <div className="text-[13px] font-semibold lowercase tracking-tight">
         <Link href="/">sagar sarkale</Link>
       </div>
       <nav className="flex items-center gap-5 max-sm:gap-3 text-[13px] max-sm:text-xs [&_a]:no-underline hover:[&_a]:text-[var(--accent)]">

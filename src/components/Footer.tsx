@@ -1,7 +1,7 @@
 export function Footer() {
   return (
     <footer>
-      <p className="text-[12px] text-[var(--fg-secondary)] mb-3">
+      <p className="text-[11px] text-[var(--fg-muted)] mb-3 tracking-wide">
         sagar sarkale &middot; 2024–2026 &middot; powered by caffeine and occasional epiphany
       </p>
       <div className="flex justify-center gap-5 [&_a]:text-[var(--fg-muted)] [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-150 hover:[&_a]:text-[var(--accent)] [&_svg]:w-4 [&_svg]:h-4">

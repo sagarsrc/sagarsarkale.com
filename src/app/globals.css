@@ -39,7 +39,7 @@
 @font-face {
   font-family: 'Monaspace';
   src: url('/fonts/Monaspace/MonaspaceArgon-Regular.woff') format('woff');
-  font-weight: normal;
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
@@ -47,7 +47,7 @@
 @font-face {
   font-family: 'Monaspace';
   src: url('/fonts/Monaspace/MonaspaceArgon-SemiBold.woff') format('woff');
-  font-weight: bold;
+  font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
@@ -69,8 +69,8 @@
 :root {
   --bg: #121215;
   --fg: #ededf0;
-  --fg-secondary: #a0a0ab;
-  --fg-muted: #63636e;
+  --fg-secondary: #b8b8c4;
+  --fg-muted: #85858f;
   --accent: #22d3ee;
   --border: #32323a;
   --surface: #1a1a1e;
@@ -82,10 +82,10 @@
 
 .light {
   --bg: #fafafa;
-  --fg: #18181b;
+  --fg: #1a1a1e;
   --fg-secondary: #52525b;
   --fg-muted: #a1a1aa;
-  --accent: #0e7490;
+  --accent: #0d7490;
   --border: #e4e4e7;
   --surface: #ffffff;
   --code-background: #f4f4f5;
@@ -108,16 +108,19 @@ html {
 
 body {
   font-family: var(--font-mono);
-  font-size: 0.9375rem; /* 15px base */
-  line-height: 1.6;
+  font-size: 0.875rem; /* 14px base — tighter mono */
+  line-height: 1.65;
   background: var(--bg);
   color: var(--fg);
   word-break: break-word;
   transition: background-color 0.2s ease, color 0.2s ease;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a, button, h1, h2, h3, h4, h5, h6 { color: var(--fg); }
-h1, h2, h3, h4, h5, h6 { line-height: 1.3; margin: 0; }
+h1, h2, h3, h4, h5, h6 { line-height: 1.3; margin: 0; font-weight: 600; }
 p { margin: 0; }
 ul { padding: 0; margin: 0; }
 li { margin-left: 1.5rem; }
@@ -139,8 +142,8 @@ img { display: block; max-width: 100%; }
 
 footer {
   border-top: 1px solid var(--border);
-  padding: 2rem 0;
-  margin-top: 4rem;
+  padding: 2.5rem 0;
+  margin-top: 5rem;
   text-align: center;
 }
 
@@ -149,12 +152,12 @@ footer {
    ========================================================= */
 
 .section-label {
-  font-size: 0.6875rem;
+  font-size: 0.8125rem; /* 13px */
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: var(--fg-secondary);
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
 }
 
 .section-label::before {
@@ -185,7 +188,7 @@ footer {
 
 .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
   font-family: var(--font-mono);
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.25;
   letter-spacing: -0.02em;
 }
@@ -293,10 +296,10 @@ figcaption { color: var(--fg-secondary); font-size: 12px; margin-top: 0.5rem; ma
    Tables (blog content)
    ========================================================= */
 
-table { border-collapse: collapse; margin-top: 1.5rem; margin-bottom: 1.5rem; font-size: 14px; line-height: 1.6; color: var(--fg); }
-th, td { padding: 0.5rem; border: 1px solid var(--code-border); text-align: left; }
-th { background-color: var(--code-background); font-weight: 600; }
-table code { background-color: var(--code-background); border-radius: 2px; padding: 2px; }
+.prose table { border-collapse: collapse; margin-top: 1.5rem; margin-bottom: 1.5rem; font-size: 14px; line-height: 1.6; color: var(--fg); }
+.prose th, .prose td { padding: 0.5rem; border: 1px solid var(--code-border); text-align: left; }
+.prose th { background-color: var(--code-background); font-weight: 600; }
+.prose table code { background-color: var(--code-background); border-radius: 2px; padding: 2px; }
 
 blockquote { margin: 1.5rem 0; padding-left: 1rem; border-left: 2px solid var(--border); color: var(--fg-secondary); }
 blockquote p { margin: 0.5rem 0; }
@@ -313,11 +316,5 @@ blockquote p { margin: 0.5rem 0; }
    Rotating Title
    ========================================================= */
 
-.rotating-title { display: inline-block; min-width: 10ch; }
+.rotating-title { display: inline-block; min-width: 11ch; }
 
-/* =========================================================
-   Particle Hero canvas
-   ========================================================= */
-
-.particle-hero-container { width: 100%; height: 100%; }
-.particle-hero-container canvas { display: block; }

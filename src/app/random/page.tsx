@@ -14,15 +14,15 @@ export default function RandomPage() {
   return (
     <div className="pb-8">
       <div className="flex items-baseline justify-between mb-6">
-        <h1 className="text-xl font-bold">/random</h1>
+        <h1 className="text-xl font-semibold">random</h1>
         <Breadcrumbs />
       </div>
       {posts.map((post: Post) => (
         <div key={post.path} className="flex justify-between items-baseline py-[0.35rem] gap-4">
-          <span className="text-sm [&_a]:text-[var(--fg)] [&_a]:no-underline hover:[&_a]:text-[var(--accent)]">
+          <span className="text-[13px] [&_a]:text-[var(--fg)] [&_a]:no-underline hover:[&_a]:text-[var(--accent)]">
             <Link href={post.path}>{post.frontmatter.title}</Link>
           </span>
-          <span className="text-xs text-[var(--fg-secondary)] whitespace-nowrap shrink-0">
+          <span className="text-xs text-[var(--fg-muted)] whitespace-nowrap shrink-0 tabular-nums">
             {post.frontmatter.date ? formatDate(post.frontmatter.date) : ""}
           </span>
         </div>

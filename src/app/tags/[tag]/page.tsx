@@ -31,7 +31,7 @@ export default async function TagPage({ params }: Props) {
   return (
     <div>
       <div className="flex items-baseline justify-between mb-6">
-        <h1 className="text-xl font-bold">#{tag}</h1>
+        <h1 className="text-xl font-semibold">#{tag}</h1>
         <Breadcrumbs />
       </div>
       <ul className="list-none p-0 my-4">

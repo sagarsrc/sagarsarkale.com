@@ -42,7 +42,7 @@ export default async function BlogPostPage({ params }: Props) {
   return (
     <article>
       <div className="flex items-start justify-between gap-4 mb-2">
-        <h1 className="text-xl font-bold leading-snug">{frontmatter.title}</h1>
+        <h1 className="text-xl font-semibold leading-snug">{frontmatter.title}</h1>
         <Breadcrumbs />
       </div>
 
@@ -81,7 +81,7 @@ export default async function BlogPostPage({ params }: Props) {
               </span>
             </div>
           ))}
-          <Link href="/blog" className="arrow-link">all posts</Link>
+          <Link href="/blog" className="inline-block mt-5 text-[13px] text-[var(--accent)] underline underline-offset-4 decoration-[var(--accent)]/40 hover:decoration-[var(--accent)] font-medium">all posts</Link>
         </nav>
       )}
 

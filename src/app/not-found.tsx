@@ -7,8 +7,8 @@ export default function NotFound() {
       <p className="text-[var(--fg-secondary)] text-sm mb-6">
         This page wandered off. Maybe it&apos;s exploring a latent space somewhere.
       </p>
-      <p className="[&_a]:text-[var(--accent)]">
-        <Link href="/">Back to home</Link>
+      <p>
+        <Link href="/" className="text-[13px] text-[var(--accent)] underline underline-offset-4 decoration-[var(--accent)]/40 hover:decoration-[var(--accent)] font-medium">back to home</Link>
       </p>
     </div>
   );

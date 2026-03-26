@@ -14,7 +14,7 @@ export default function BlogPage() {
   return (
     <div className="pb-8">
       <div className="flex items-baseline justify-between mb-6">
-        <h1 className="text-xl font-bold">/blog</h1>
+        <h1 className="text-xl font-semibold">blog</h1>
         <Breadcrumbs />
       </div>
       <div className="flex flex-col gap-3 mt-6">

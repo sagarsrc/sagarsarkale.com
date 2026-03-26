@@ -37,7 +37,7 @@ export default async function RandomPostPage({ params }: Props) {
   return (
     <article>
       <div className="flex items-start justify-between gap-4 mb-2">
-        <h1 className="text-xl font-bold leading-snug">{frontmatter.title}</h1>
+        <h1 className="text-xl font-semibold leading-snug">{frontmatter.title}</h1>
         <Breadcrumbs />
       </div>
 

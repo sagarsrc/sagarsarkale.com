@@ -133,7 +133,7 @@ export default function WorkPage() {
   return (
     <div>
       <div className="flex items-baseline justify-between mb-2">
-        <h1 className="text-xl font-bold leading-snug">work</h1>
+        <h1 className="text-xl font-semibold leading-snug">work</h1>
         <Breadcrumbs />
       </div>
       <p className="text-[var(--fg-secondary)] text-sm mb-8">
@@ -144,7 +144,7 @@ export default function WorkPage() {
         {workEntries.map((entry, idx) => (
           <div key={entry.company} className={`grid grid-cols-[130px_1fr] max-sm:grid-cols-1 gap-8 max-sm:gap-2 py-6 border-t border-[var(--code-border)] ${idx === 0 ? 'border-t-0 pt-0' : ''}`}>
             <div className="sticky top-16 self-start max-sm:static">
-              <time className="font-mono text-xs text-[var(--fg-muted)]">{entry.period}</time>
+              <time className="text-xs text-[var(--fg-muted)] tabular-nums">{entry.period}</time>
               {entry.logo && (
                 <img
                   src={entry.logo}
@@ -157,7 +157,7 @@ export default function WorkPage() {
 
             <div className="min-w-0">
               <div className="flex items-center gap-[0.6rem] mb-2 flex-wrap">
-                <h2 className="font-mono text-base font-semibold m-0 leading-[1.3]">{entry.company}</h2>
+                <h2 className="text-sm font-semibold m-0 leading-[1.3]">{entry.company}</h2>
                 <span className="text-[var(--fg-muted)] mx-[0.15rem] text-sm">/</span>
                 <RoleLabel role={entry.role} type={entry.type} />
               </div>
