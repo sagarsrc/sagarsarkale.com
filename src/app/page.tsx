@@ -33,7 +33,7 @@ export default function Home() {
             <RotatingTitle />
           </p>
 
-          <p className="font-serif text-base text-[var(--fg-secondary)] leading-relaxed mb-6 max-w-[52ch]">
+          <p className="font-serif text-base text-[var(--fg-secondary)] leading-relaxed mb-8 max-w-[52ch]">
             i ship ai products from zero to production — language models,
             retrieval pipelines, and the infra around them. trained india&apos;s
             first competitive marathi llm (beat gpt-3.5 on reading comprehension).
