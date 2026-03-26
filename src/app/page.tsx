@@ -23,7 +23,7 @@ export default function Home() {
   return (
     <div>
       {/* Hero / Intro */}
-      <section className="flex items-center gap-4 mb-12 min-h-[240px] max-sm:min-h-0 max-md:flex-col-reverse max-md:gap-2">
+      <section className="flex items-center gap-4 mb-12 min-h-[240px] max-md:flex-col-reverse max-md:gap-1 max-md:min-h-0 max-md:mb-8">
         <div className="flex-[1.4] min-w-0 z-[1]">
           <h1 className="text-2xl font-bold tracking-tight mb-0.5">
             sagar sarkale
@@ -50,12 +50,12 @@ export default function Home() {
             <a href="mailto:sagar@quickcall.dev">email</a>
           </div>
         </div>
-        <div className="flex-none w-[240px] h-[240px] relative overflow-visible max-md:w-full max-md:h-[160px] max-sm:h-[120px]">
+        <div className="flex-none w-[240px] h-[240px] relative overflow-visible max-md:hidden">
           <ParticleHero />
         </div>
       </section>
 
-      <hr className="border-t border-[var(--border)] my-8" />
+      <hr className="border-t border-[var(--border)] my-8 max-md:my-5" />
 
       {/* Work */}
       <section>
@@ -107,7 +107,7 @@ export default function Home() {
         </div>
       </section>
 
-      <hr className="border-t border-[var(--border)] my-8" />
+      <hr className="border-t border-[var(--border)] my-8 max-md:my-5" />
 
       {/* Writing */}
       <section>
@@ -127,19 +127,19 @@ export default function Home() {
         <Link href="/blog" className="arrow-link">all posts</Link>
       </section>
 
-      <hr className="border-t border-[var(--border)] my-8" />
+      <hr className="border-t border-[var(--border)] my-8 max-md:my-5" />
 
       {/* Experience */}
       <section>
         <div className="section-label">experience</div>
 
-        <div className="flex items-center gap-4 py-3">
+        <div className="flex flex-wrap items-start gap-4 py-3">
           {logos.map((logo, i) => (
-            <div key={i} className="flex flex-col items-center gap-1.5 shrink-0">
-              <div className="flex items-center justify-center w-16 h-16 rounded-xl border border-[var(--code-border)] bg-[var(--surface)] p-2.5">
+            <div key={i} className="flex flex-col items-center gap-1 w-14 max-sm:w-12">
+              <div className="flex items-center justify-center w-14 h-14 max-sm:w-12 max-sm:h-12 rounded-xl border border-[var(--code-border)] bg-[var(--surface)] p-2">
                 <img src={logo.src} alt={logo.name} title={logo.name} className="w-full h-full object-contain" />
               </div>
-              <span className="text-[10px] text-[var(--fg-secondary)] leading-tight text-center">{logo.name}</span>
+              <span className="text-[9px] text-[var(--fg-muted)] leading-tight text-center truncate w-full">{logo.name}</span>
             </div>
           ))}
         </div>
@@ -147,7 +147,7 @@ export default function Home() {
         <Link href="/work" className="arrow-link">full details</Link>
       </section>
 
-      <hr className="border-t border-[var(--border)] my-8" />
+      <hr className="border-t border-[var(--border)] my-8 max-md:my-5" />
 
       {/* Connect */}
       <section>
