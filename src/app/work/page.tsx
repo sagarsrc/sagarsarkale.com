@@ -133,7 +133,7 @@ export default function WorkPage() {
   return (
     <div>
       <div className="flex items-baseline justify-between mb-2">
-        <h1 className="text-2xl font-bold font-mono leading-[1.3]">work</h1>
+        <h1 className="text-xl font-bold leading-snug">work</h1>
         <Breadcrumbs />
       </div>
       <p className="text-[var(--fg-secondary)] text-sm mb-8">

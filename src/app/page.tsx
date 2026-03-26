@@ -25,17 +25,17 @@ export default function Home() {
       {/* Hero / Intro */}
       <section className="flex items-center gap-4 mb-12 min-h-[240px] max-sm:min-h-0 max-md:flex-col-reverse max-md:gap-2">
         <div className="flex-[1.4] min-w-0 z-[1]">
-          <h1 className="text-3xl font-extrabold tracking-tight mb-1">
+          <h1 className="text-2xl font-bold tracking-tight mb-0.5">
             sagar sarkale
           </h1>
 
-          <p className="text-base font-semibold text-[var(--fg-secondary)] mb-3"><RotatingTitle /></p>
+          <p className="text-sm font-medium text-[var(--fg-secondary)] mb-3"><RotatingTitle /></p>
 
           <a href="https://calendar.app.google/z5J1gxmUkQ3vvzjT6" target="_blank" rel="noopener noreferrer" className="book-call-link mb-4 inline-block">
             book a call &rarr;
           </a>
 
-          <p className="mb-4 font-serif text-[var(--fg-secondary)] leading-[1.75]">
+          <p className="mb-4 font-serif text-sm text-[var(--fg-secondary)] leading-relaxed">
             i ship ai products from zero to production &mdash; language models,
             retrieval pipelines, and the infra around them. trained india&apos;s
             first competitive marathi llm (beat gpt-3.5 on reading comprehension).
