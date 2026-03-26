@@ -1,0 +1,18 @@
+---
+title: "Ten Trillion Tokens: Making AI Work for Every Indian Language"
+date: "2025-01-29"
+
+summary: "Building the largest multilingual LLM dataset for Indian languages at People+AI"
+description: "How we're democratizing AI for India's linguistic diversity through massive-scale data collection and processing"
+external_url: "https://peopleplus.ai/blog/ten-trillion-tokens-making-ai-work-for-every-indian-language"
+tags: ["GenAI", "NLP", "MultilingualAI"]
+showTags: true
+---
+
+
+{{<figure src="https://framerusercontent.com/images/CFvU1ruIuo5CrPK7mzoyZvA28.png">}}
+
+*This article was written while working at People+AI*
+
+
+[Click here to Read the full article on People+AI blog ->](https://peopleplus.ai/blog/ten-trillion-tokens-making-ai-work-for-every-indian-language)
