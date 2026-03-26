@@ -24,7 +24,7 @@ export default function Home() {
     <div>
 
       {/* ── Hero ── */}
-      <section className="flex items-center gap-6 mb-20 min-h-[260px] max-md:flex-col-reverse max-md:gap-2 max-md:min-h-0 max-md:mb-14">
+      <section className="flex items-center gap-6 mb-24 min-h-[260px] max-md:flex-col-reverse max-md:gap-2 max-md:min-h-0 max-md:mb-16">
         <div className="flex-[1.4] min-w-0 z-[1]">
           <h1 className="text-3xl font-bold tracking-tight mb-1 max-md:text-2xl">
             sagar sarkale
@@ -62,92 +62,90 @@ export default function Home() {
       </section>
 
       {/* ── Selected Work ── */}
-      <section className="mb-20 max-md:mb-14">
-        <h2 className="text-sm font-semibold uppercase tracking-wider text-[var(--fg-muted)] mb-8">Selected Work</h2>
+      <section className="mb-24 max-md:mb-16">
+        <p className="text-xs uppercase tracking-[0.15em] text-[var(--fg-muted)] mb-10">Selected Work</p>
 
-        <div className="space-y-8">
+        <div className="space-y-10">
           <div>
-            <div className="flex justify-between items-baseline gap-4 mb-1.5">
-              <h3 className="text-base font-bold">quickcall.dev</h3>
+            <div className="flex justify-between items-baseline gap-4 mb-2">
+              <h3 className="text-lg font-bold">quickcall.dev</h3>
               <span className="text-xs text-[var(--fg-muted)] whitespace-nowrap">2024–present</span>
             </div>
-            <p className="text-sm text-[var(--fg-secondary)] leading-relaxed mb-2">
+            <p className="font-serif text-sm text-[var(--fg-secondary)] leading-relaxed mb-3">
               compounding intelligence for agentic engineering teams. captures
               what ships and loads what matters — across every agent, tool, and session.
             </p>
-            <a href="https://quickcall.dev" target="_blank" rel="noopener noreferrer" className="text-sm text-[var(--accent)] no-underline hover:underline font-medium">quickcall.dev &rarr;</a>
+            <a href="https://quickcall.dev" target="_blank" rel="noopener noreferrer" className="text-sm text-[var(--accent)] underline underline-offset-4 decoration-[var(--accent)]/40 hover:decoration-[var(--accent)] font-medium">quickcall.dev</a>
           </div>
 
           <div>
-            <div className="flex justify-between items-baseline gap-4 mb-1.5">
-              <h3 className="text-base font-bold">misal — marathi llm</h3>
+            <div className="flex justify-between items-baseline gap-4 mb-2">
+              <h3 className="text-lg font-bold">misal — marathi llm</h3>
               <span className="text-xs text-[var(--fg-muted)] whitespace-nowrap">2023–present</span>
             </div>
-            <p className="text-sm text-[var(--fg-secondary)] leading-relaxed mb-2">
+            <p className="font-serif text-sm text-[var(--fg-secondary)] leading-relaxed mb-3">
               india&apos;s first competitive marathi llm. 7b &amp; 1b parameter models
               trained on 2b+ marathi tokens. outperformed gpt-3.5 on reading comprehension.
             </p>
-            <div className="flex gap-4 text-sm">
-              <a href="https://huggingface.co/smallstepai" target="_blank" rel="noopener noreferrer" className="text-[var(--accent)] no-underline hover:underline font-medium">huggingface &rarr;</a>
-              <Link href="/blog" className="text-[var(--accent)] no-underline hover:underline font-medium">blog &rarr;</Link>
+            <div className="flex gap-5 text-sm">
+              <a href="https://huggingface.co/smallstepai" target="_blank" rel="noopener noreferrer" className="text-[var(--accent)] underline underline-offset-4 decoration-[var(--accent)]/40 hover:decoration-[var(--accent)] font-medium">huggingface</a>
+              <Link href="/blog" className="text-[var(--accent)] underline underline-offset-4 decoration-[var(--accent)]/40 hover:decoration-[var(--accent)] font-medium">blog</Link>
             </div>
           </div>
 
           <div>
-            <div className="flex justify-between items-baseline gap-4 mb-1.5">
-              <h3 className="text-base font-bold">mcp deep dive</h3>
+            <div className="flex justify-between items-baseline gap-4 mb-2">
+              <h3 className="text-lg font-bold">mcp deep dive</h3>
               <span className="text-xs text-[var(--fg-muted)] whitespace-nowrap">2025</span>
             </div>
-            <p className="text-sm text-[var(--fg-secondary)] leading-relaxed mb-2">
+            <p className="font-serif text-sm text-[var(--fg-secondary)] leading-relaxed mb-3">
               3-part technical deep dive into model context protocol — from
               primitives to elicitation.
             </p>
-            <Link href="/blog/genai/what-is-mcp-part1" className="text-sm text-[var(--accent)] no-underline hover:underline font-medium">start reading &rarr;</Link>
+            <Link href="/blog/genai/what-is-mcp-part1" className="text-sm text-[var(--accent)] underline underline-offset-4 decoration-[var(--accent)]/40 hover:decoration-[var(--accent)] font-medium">start reading</Link>
           </div>
         </div>
       </section>
 
       {/* ── Experience ── */}
-      <section className="mb-20 max-md:mb-14">
-        <h2 className="text-sm font-semibold uppercase tracking-wider text-[var(--fg-muted)] mb-8">Experience</h2>
+      <section className="mb-24 max-md:mb-16">
+        <p className="text-xs uppercase tracking-[0.15em] text-[var(--fg-muted)] mb-10">Experience</p>
 
-        <div className="grid grid-cols-[auto_1fr_auto] gap-x-4 gap-y-3 items-center max-sm:grid-cols-[auto_1fr] max-sm:gap-y-4">
+        <div className="space-y-4">
           {experience.map((exp) => (
-            <>
-              <img key={`img-${exp.company}`} src={exp.logo} alt="" className="w-9 h-9 rounded-lg object-contain" />
-              <div key={`info-${exp.company}`}>
-                <span className="text-sm font-semibold block">{exp.company}</span>
-                <span className="text-xs text-[var(--fg-secondary)]">{exp.role}</span>
-              </div>
-              <span key={`period-${exp.company}`} className="text-xs text-[var(--fg-muted)] max-sm:col-start-2 max-sm:-mt-2">{exp.period}</span>
-            </>
+            <div key={exp.company} className="flex items-center gap-3">
+              <img src={exp.logo} alt="" className="w-7 h-7 rounded-md object-contain shrink-0" />
+              <span className="text-sm font-semibold flex-1">{exp.company}</span>
+              <span className="text-xs text-[var(--fg-secondary)] shrink-0 hidden sm:block">{exp.role}</span>
+              <span className="text-xs text-[var(--fg-muted)] shrink-0 tabular-nums">{exp.period}</span>
+            </div>
           ))}
         </div>
 
-        <Link href="/work" className="inline-block mt-6 text-sm text-[var(--accent)] font-medium no-underline hover:underline">
-          full details &rarr;
+        <Link href="/work" className="inline-block mt-8 text-sm text-[var(--accent)] underline underline-offset-4 decoration-[var(--accent)]/40 hover:decoration-[var(--accent)] font-medium">
+          full details
         </Link>
       </section>
 
       {/* ── Writing ── */}
-      <section className="mb-20 max-md:mb-14">
-        <h2 className="text-sm font-semibold uppercase tracking-wider text-[var(--fg-muted)] mb-8">Writing</h2>
+      <section className="mb-24 max-md:mb-16">
+        <p className="text-xs uppercase tracking-[0.15em] text-[var(--fg-muted)] mb-10">Writing</p>
 
-        <div className="space-y-3">
+        <div className="space-y-4">
           {blogPosts.map((post: Post) => (
-            <div key={post.path} className="flex justify-between items-baseline gap-4">
-              <Link href={post.path} className="text-[15px] font-medium hover:text-[var(--accent)] transition-colors no-underline">
+            <div key={post.path} className="flex justify-between items-baseline gap-6">
+              <Link href={post.path} className="text-sm hover:text-[var(--accent)] transition-colors no-underline">
                 {post.frontmatter.title}
               </Link>
-              <span className="text-xs text-[var(--fg-muted)] whitespace-nowrap shrink-0">
+              <span className="text-xs text-[var(--fg-muted)] whitespace-nowrap shrink-0 tabular-nums">
                 {post.frontmatter.date ? formatDate(post.frontmatter.date) : ''}
               </span>
             </div>
           ))}
         </div>
 
-        <Link href="/blog" className="inline-block mt-6 text-sm text-[var(--accent)] font-medium no-underline hover:underline">
-          all posts &rarr;
+        <Link href="/blog" className="inline-block mt-8 text-sm text-[var(--accent)] underline underline-offset-4 decoration-[var(--accent)]/40 hover:decoration-[var(--accent)] font-medium">
+          all posts
         </Link>
       </section>
     </div>
