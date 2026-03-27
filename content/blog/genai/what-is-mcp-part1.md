@@ -179,7 +179,7 @@ Here's what you'll build:
 
 This takes just 5 minutes to build. Here's the complete code:
 
-{{<github owner="sagarsrc" repo="exploring-mcp" path="src/000_dumb_mcp.py" branch="master" lang="python">}}
+{{<github owner="sagarsrc" repo="exploring-mcp" path="examples/000_dumb_mcp.py" branch="master" lang="python">}}
 
 ## Connecting to Claude Desktop
 

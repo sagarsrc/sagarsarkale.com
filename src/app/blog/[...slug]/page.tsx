@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { BackToTop } from '@/components/BackToTop';
 import { MDXRenderer } from '@/components/MDXRenderer';
+import { TocSidebar } from '@/components/TocSidebar';
 import { getAllPosts, getPostByPath, getRelatedPosts, extractToc } from '@/lib/content';
 import { formatDate } from '@/lib/utils';
 import type { Metadata } from 'next';
@@ -78,23 +79,7 @@ export default async function BlogPostPage({ params }: Props) {
         )}
       </div>
 
-      {frontmatter.toc && (() => {
-        const toc = extractToc(content);
-        if (toc.length === 0) return null;
-        const minDepth = Math.min(...toc.map(e => e.depth));
-        return (
-          <nav className="toc">
-            <div className="section-label">contents</div>
-            <ol className="list-decimal pl-5">
-              {toc.map((entry, i) => (
-                <li key={i} style={{ marginLeft: `${(entry.depth - minDepth) * 1}rem` }}>
-                  <a href={`#${entry.id}`}>{entry.text}</a>
-                </li>
-              ))}
-            </ol>
-          </nav>
-        );
-      })()}
+      {frontmatter.toc && <TocSidebar entries={extractToc(content)} />}
 
       <div className="prose">
         <MDXRenderer content={content} />

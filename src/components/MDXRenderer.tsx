@@ -4,6 +4,7 @@ import remarkMath from 'remark-math';
 import rehypeSlug from 'rehype-slug';
 import rehypeKatex from 'rehype-katex';
 import rehypeRaw from 'rehype-raw';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrettyCode from 'rehype-pretty-code';
 import { MermaidInit } from './Mermaid';
 import { CopyCodeButton } from './CopyCodeButton';
@@ -37,6 +38,16 @@ export function MDXRenderer({ content }: Props) {
               }],
               rehypeRaw,
               rehypeSlug,
+              [rehypeAutolinkHeadings, {
+                behavior: 'prepend',
+                properties: { className: ['heading-anchor'], ariaLabel: 'Link to section' },
+                content: {
+                  type: 'element',
+                  tagName: 'span',
+                  properties: { className: ['heading-anchor-icon'] },
+                  children: [{ type: 'text', value: '#' }],
+                },
+              }],
               rehypeKatex,
             ],
             format: 'md',

@@ -126,13 +126,27 @@ export function convertShortcodes(content: string): string {
     const repoMatch = attrs.match(/repo="([^"]+)"/);
     const pathMatch = attrs.match(/path="([^"]+)"/);
     const branchMatch = attrs.match(/branch="([^"]+)"/);
+    const langMatch = attrs.match(/lang="([^"]+)"/);
     if (ownerMatch && repoMatch && pathMatch) {
       const owner = ownerMatch[1];
       const repo = repoMatch[1];
-      const path = pathMatch[1];
+      const filePath = pathMatch[1];
       const branch = branchMatch ? branchMatch[1] : 'main';
-      const url = `https://github.com/${owner}/${repo}/blob/${branch}/${path}`;
-      return `\n\n> 📄 [${path}](${url}) on GitHub\n\n`;
+      const lang = langMatch ? langMatch[1] : '';
+      const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${filePath}`;
+      const fileUrl = `https://github.com/${owner}/${repo}/blob/${branch}/${filePath}`;
+
+      let code = '';
+      try {
+        const { execSync } = require('child_process');
+        code = execSync(`curl -sL "${rawUrl}"`, { encoding: 'utf-8', timeout: 10000 }).trim();
+      } catch {
+        return `\n\n> [${filePath}](${fileUrl}) on GitHub\n\n`;
+      }
+
+      // Escape backticks in the code to prevent breaking the markdown fence
+      const fence = '```';
+      return `\n\n<div style="font-size:12px;color:var(--fg-muted);font-family:var(--font-mono);margin-bottom:4px">${filePath}</div>\n\n${fence}${lang}\n${code}\n${fence}\n\n<p style="font-size:12px;color:var(--fg-muted);margin-top:4px">source: <a href="${fileUrl}" style="color:var(--accent)">${fileUrl}</a></p>\n\n`;
     }
     return '';
   });
