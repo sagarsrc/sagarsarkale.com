@@ -16,6 +16,7 @@ export function Breadcrumbs() {
   if (pathname === '/') return null;
 
   const segments = pathname.split('/').filter(Boolean);
+  if (segments.length <= 1) return null;
   const parentPath = segments.length > 1
     ? '/' + segments.slice(0, -1).join('/')
     : '/';

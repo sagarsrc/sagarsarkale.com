@@ -7,7 +7,7 @@ toc: true
 readTime: true
 autonumber: true
 math: false
-tags: ["Web", "HUGO"]
+tags: []
 showTags: true
 hideBackToTop: false
 ---

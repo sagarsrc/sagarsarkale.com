@@ -7,7 +7,7 @@ toc: true
 readTime: true
 autonumber: true
 math: false
-tags: ["GenAI", "MCP", "AI Integration"]
+tags: ["MCP"]
 showTags: true
 hideBackToTop: false
 mermaid: true

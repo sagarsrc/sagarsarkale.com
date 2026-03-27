@@ -7,7 +7,7 @@ toc: true
 readTime: true
 autonumber: true
 math: true
-tags: ["NLP", "DeepLearning", "Foundations"]
+tags: ["Foundations"]
 showTags: true
 hideBackToTop: false
 ---

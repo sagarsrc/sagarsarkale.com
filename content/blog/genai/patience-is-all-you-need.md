@@ -7,7 +7,7 @@ toc: true
 readTime: true
 autonumber: true
 math: true
-tags: ["Transformers", "Attention", "DeepDive", "Foundations"]
+tags: ["Foundations", "Transformers", "DeepDive"]
 showTags: true
 hideBackToTop: false
 ---

@@ -7,7 +7,7 @@ toc: true
 readTime: true
 autonumber: true
 math: true
-tags: ["GenAI", "LLM", "Training"]
+tags: ["DeepDive"]
 showTags: true
 hideBackToTop: false
 mermaid: true

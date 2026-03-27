@@ -8,7 +8,8 @@ readTime: true
 autonumber: true
 math: false
 mermaid: true
-tags: ["GenAI", "MCP", "AI Integration", "Elicitation", "Claude Code"]
+tags: ["MCP"]
+cover: "/images/covers/mcp3-cover.png"
 showTags: true
 hideBackToTop: false
 ---

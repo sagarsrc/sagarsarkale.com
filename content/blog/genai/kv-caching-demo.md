@@ -7,7 +7,7 @@ toc: true
 readTime: true
 autonumber: true
 math: true
-tags: ["GenAI", "Transformers", "DeepDive"]
+tags: ["Transformers", "DeepDive"]
 showTags: true
 mermaid: true
 hideBackToTop: false

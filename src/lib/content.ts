@@ -210,9 +210,9 @@ function parseFile(
     const cleanContent = convertShortcodes(content);
     const stats = readingTime(cleanContent);
 
-    // Extract first image as cover
-    const imgMatch = cleanContent.match(/<img[^>]+src="([^"]+)"/);
-    const coverImage = imgMatch ? imgMatch[1] : undefined;
+    // Cover image: prefer frontmatter `cover`, else extract first static image
+    const imgMatch = cleanContent.match(/<img[^>]+src="([^"]+\.(?:png|jpg|jpeg|webp|svg))"/i);
+    const coverImage = fm.cover || (imgMatch ? imgMatch[1] : undefined);
 
     return {
       slug,
