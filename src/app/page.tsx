@@ -51,9 +51,12 @@ const highlights = [
     role: 'Founder, smallstep.ai',
     period: '2023 – 2024',
     desc: 'india\'s first competitive marathi llm. 7B & 1B params trained on 2B+ tokens. custom tokenizer that fixed llama\'s 3-5x inefficiency. beat gpt-3.5 on reading comprehension. open-sourced everything.',
-    href: 'https://huggingface.co/smallstepai',
-    linkLabel: 'huggingface',
-    secondaryLink: { href: '/blog', label: 'deep dive' },
+    href: 'https://smallstep.ai',
+    linkLabel: 'smallstep.ai',
+    extraLinks: [
+      { href: 'https://huggingface.co/smallstepai', label: 'huggingface' },
+      { href: '/blog', label: 'deep dive' },
+    ],
     current: false,
   },
 ];
@@ -167,6 +170,13 @@ export default function Home() {
                 {h.secondaryLink && (
                   <Link href={h.secondaryLink.href} className="text-[var(--accent)] underline underline-offset-4 decoration-[var(--accent)]/40 hover:decoration-[var(--accent)] font-medium">{h.secondaryLink.label}</Link>
                 )}
+                {h.extraLinks?.map((link) => (
+                  link.href.startsWith('/') ? (
+                    <Link key={link.label} href={link.href} className="text-[var(--accent)] underline underline-offset-4 decoration-[var(--accent)]/40 hover:decoration-[var(--accent)] font-medium">{link.label}</Link>
+                  ) : (
+                    <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer" className="text-[var(--accent)] underline underline-offset-4 decoration-[var(--accent)]/40 hover:decoration-[var(--accent)] font-medium">{link.label}</a>
+                  )
+                ))}
               </div>
             </div>
           ))}
