@@ -2,6 +2,8 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import readingTime from "reading-time";
+import { execSync } from "child_process";
+import crypto from "crypto";
 import type { Post, PostFrontmatter } from "@/types/content";
 
 const CONTENT_DIR = path.join(process.cwd(), "content");
@@ -97,11 +99,38 @@ export function convertShortcodes(content: string): string {
     return '';
   });
 
-  // {{< mermaid >}} ... {{< /mermaid >}}
+  // {{< mermaid >}} ... {{< /mermaid >}} — render to static SVG at build time
   content = content.replace(
     /\{\{<\s*mermaid\s*>\s*\}\}([\s\S]*?)\{\{<\s*\/mermaid\s*>\s*\}\}/g,
     (_: string, inner: string) => {
-      return `<pre class="mermaid">${inner.trim()}</pre>`;
+      const src = inner.trim();
+      const hash = crypto.createHash('md5').update(src).digest('hex').slice(0, 10);
+      const cacheDir = path.join(process.cwd(), '.mermaid-cache');
+      const svgPath = path.join(cacheDir, `${hash}.svg`);
+
+      if (!fs.existsSync(svgPath)) {
+        fs.mkdirSync(cacheDir, { recursive: true });
+        const tmpIn = path.join(cacheDir, `${hash}.mmd`);
+        fs.writeFileSync(tmpIn, src);
+        try {
+          execSync(`npx mmdc -i ${tmpIn} -o ${svgPath} --quiet`, {
+            timeout: 15000,
+            stdio: 'pipe',
+          });
+        } catch (e) {
+          console.warn('Mermaid build-time render failed:', e);
+          return `<pre class="mermaid">${src}</pre>`;
+        } finally {
+          fs.unlinkSync(tmpIn);
+        }
+      }
+
+      let svg = fs.readFileSync(svgPath, 'utf-8');
+      // Strip XML header if present
+      svg = svg.replace(/<\?xml[^?]*\?>\s*/, '');
+      // Make SVG responsive
+      svg = svg.replace(/<svg /, '<svg style="max-width:100%;height:auto" ');
+      return `<div class="mermaid-diagram">${svg}</div>`;
     }
   );
 

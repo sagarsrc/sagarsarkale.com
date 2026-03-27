@@ -6,7 +6,6 @@ import rehypeKatex from 'rehype-katex';
 import rehypeRaw from 'rehype-raw';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrettyCode from 'rehype-pretty-code';
-import { MermaidInit } from './Mermaid';
 import { CopyCodeButton } from './CopyCodeButton';
 
 interface Props {
@@ -20,8 +19,6 @@ const mdxComponents = {
 };
 
 export function MDXRenderer({ content }: Props) {
-  const hasMermaid = content.includes('class="mermaid"') || content.includes('pre class="mermaid"');
-
   return (
     <div className="prose">
       <MDXRemote
@@ -31,15 +28,15 @@ export function MDXRenderer({ content }: Props) {
           mdxOptions: {
             remarkPlugins: [remarkGfm, remarkMath],
             rehypePlugins: [
+              rehypeRaw,
               [rehypePrettyCode, {
                 theme: { dark: 'one-dark-pro', light: 'light-plus' },
                 keepBackground: false,
                 defaultLang: 'plaintext',
               }],
-              rehypeRaw,
               rehypeSlug,
               [rehypeAutolinkHeadings, {
-                behavior: 'prepend',
+                behavior: 'append',
                 properties: { className: ['heading-anchor'], ariaLabel: 'Link to section' },
                 content: {
                   type: 'element',
@@ -55,7 +52,6 @@ export function MDXRenderer({ content }: Props) {
         }}
       />
       <CopyCodeButton />
-      {hasMermaid && <MermaidInit />}
     </div>
   );
 }

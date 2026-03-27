@@ -368,21 +368,18 @@ blockquote p { margin: 0.5rem 0; }
    Mermaid Diagrams
    ========================================================= */
 
-pre.mermaid {
-  max-width: 100%;
+.mermaid-diagram {
+  margin: 1.5rem 0;
+  padding: 1rem 0;
+  text-align: center;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  padding: 1rem 0;
-  margin: 1.5rem 0;
-  background: transparent;
-  border: none;
-  display: block;
-  text-align: left;
 }
 
-pre.mermaid svg {
+.mermaid-diagram svg {
+  max-width: 100%;
   height: auto;
-  display: block;
+  display: inline-block;
 }
 
 /* =========================================================
