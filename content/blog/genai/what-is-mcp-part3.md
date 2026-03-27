@@ -9,7 +9,7 @@ autonumber: true
 math: false
 mermaid: true
 tags: ["MCP"]
-cover: "/images/covers/mcp3-cover.png"
+cover: "https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/mcp3/000-cover.png"
 showTags: true
 hideBackToTop: false
 ---
