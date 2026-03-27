@@ -34,9 +34,9 @@ Reference in markdown: `https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/{pos
 - Can be overridden via frontmatter `cover:` field
 - Cover images should be named `000-cover.png` in the R2 folder
 
-## Never put images in `public/`
+## Local backups
 
-All images go to R2. The `public/` directory is only for site assets (favicon, fonts, og-image).
+Save images to `public/images/` as a local backup, but **never commit them** — they are gitignored. All production references must point to R2 URLs.
 
 # Blog Tags
 
