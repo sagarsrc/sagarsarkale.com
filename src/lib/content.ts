@@ -303,6 +303,33 @@ export function getRelatedPosts(currentPath: string, limit: number = 3): Post[] 
   return scored.slice(0, limit).filter(s => s.score > 0).map(s => s.post);
 }
 
+export interface TocEntry {
+  depth: number;
+  text: string;
+  id: string;
+}
+
+export function extractToc(content: string): TocEntry[] {
+  const entries: TocEntry[] = [];
+  const lines = content.split('\n');
+  for (const line of lines) {
+    const match = line.match(/^(#{1,3})\s+(.+)$/);
+    if (match) {
+      const depth = match[1].length;
+      const text = match[2].replace(/\*\*(.+?)\*\*/g, '$1').replace(/`(.+?)`/g, '$1').trim();
+      // Match rehype-slug: lowercase, remove non-alphanumeric (keep spaces/hyphens), spaces to hyphens
+      const id = text
+        .toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-|-$/g, '');
+      entries.push({ depth, text, id });
+    }
+  }
+  return entries;
+}
+
 export function getAllTags(): string[] {
   const tags = new Set<string>();
   getAllPosts().forEach((p) =>

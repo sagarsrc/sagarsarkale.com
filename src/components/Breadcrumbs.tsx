@@ -29,7 +29,7 @@ export function Breadcrumbs() {
           router.back();
         }
       }}
-      className="text-xs text-[var(--fg-secondary)] no-underline hover:text-[var(--accent)] transition-colors"
+      className="text-xs text-[var(--fg-secondary)] no-underline hover:text-[var(--accent)] transition-colors whitespace-nowrap shrink-0"
     >
       &larr; back
     </Link>
