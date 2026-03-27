@@ -23,9 +23,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const urlPath = '/blog/' + slug.join('/');
   const post = getPostByPath(urlPath);
   if (!post) return {};
+  const ogImages = post.coverImage
+    ? [{ url: post.coverImage, width: 1200, height: 630, alt: post.frontmatter.title }]
+    : [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Sagar Sarkale' }];
   return {
     title: post.frontmatter.title,
     description: post.frontmatter.description || post.frontmatter.summary,
+    openGraph: {
+      title: post.frontmatter.title,
+      description: post.frontmatter.description || post.frontmatter.summary,
+      images: ogImages,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.frontmatter.title,
+      description: post.frontmatter.description || post.frontmatter.summary,
+      images: ogImages.map((img) => img.url),
+    },
   };
 }
 
