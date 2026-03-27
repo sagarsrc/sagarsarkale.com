@@ -105,8 +105,18 @@ export function convertShortcodes(content: string): string {
     }
   );
 
-  // {{<author>}}
+  // ---\n{{<author>}} (absorb preceding hr)
+  content = content.replace(/\n---\s*\n+\{\{<\s*author\s*>\s*\}\}/g, () => {
+    return `\n\n<div style="margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);font-family:var(--font-sans);font-size:14px;color:var(--fg-muted)">Written by <a href="https://linkedin.com/in/sagar-sarkale" style="color:var(--accent);text-decoration:none">Sagar Sarkale</a></div>\n\n`;
+  });
+
+  // standalone {{<author>}} (no preceding hr)
   content = content.replace(/\{\{<\s*author\s*>\s*\}\}/g, () => {
+    return `\n\n<div style="margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);font-family:var(--font-sans);font-size:14px;color:var(--fg-muted)">Written by <a href="https://linkedin.com/in/sagar-sarkale" style="color:var(--accent);text-decoration:none">Sagar Sarkale</a></div>\n\n`;
+  });
+
+  // manual "Written By" blocks from old Hugo posts (absorb preceding hr)
+  content = content.replace(/\n---\s*\n+Written By\s*\n+>\s*\[Sagar Sarkale\]\([^)]+\)/gi, () => {
     return `\n\n<div style="margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);font-family:var(--font-sans);font-size:14px;color:var(--fg-muted)">Written by <a href="https://linkedin.com/in/sagar-sarkale" style="color:var(--accent);text-decoration:none">Sagar Sarkale</a></div>\n\n`;
   });
 
