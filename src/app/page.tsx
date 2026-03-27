@@ -167,9 +167,6 @@ export default function Home() {
               </p>
               <div className="flex gap-5 text-[0.8125rem]">
                 <a href={h.href} target="_blank" rel="noopener noreferrer" className="text-[var(--accent)] underline underline-offset-4 decoration-[var(--accent)]/40 hover:decoration-[var(--accent)] font-medium">{h.linkLabel}</a>
-                {h.secondaryLink && (
-                  <Link href={h.secondaryLink.href} className="text-[var(--accent)] underline underline-offset-4 decoration-[var(--accent)]/40 hover:decoration-[var(--accent)] font-medium">{h.secondaryLink.label}</Link>
-                )}
                 {h.extraLinks?.map((link) => (
                   link.href.startsWith('/') ? (
                     <Link key={link.label} href={link.href} className="text-[var(--accent)] underline underline-offset-4 decoration-[var(--accent)]/40 hover:decoration-[var(--accent)] font-medium">{link.label}</Link>

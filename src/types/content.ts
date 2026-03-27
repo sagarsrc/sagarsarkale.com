@@ -11,6 +11,7 @@ export interface PostFrontmatter {
   mermaid?: boolean;
   showTags?: boolean;
   hideBackToTop?: boolean;
+  cover?: string;
 }
 
 export interface Post {
