@@ -56,7 +56,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-J90LP2EWLN" />
         <script dangerouslySetInnerHTML={{ __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-J90LP2EWLN');` }} />
       </head>
-      <body className="mx-auto max-w-3xl px-5">
+      <body className="mx-auto max-w-3xl px-5 font-sans text-[15px] leading-relaxed tracking-[-0.011em] font-normal">
         <ThemeProvider>
           <SkipToContent />
           <Header />

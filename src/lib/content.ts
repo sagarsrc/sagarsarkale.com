@@ -34,7 +34,7 @@ export function convertShortcodes(content: string): string {
     const styleAttr = styles.length ? ` style="${styles.join(';')}"` : '';
     const alt = captionMatch ? captionMatch[1] : '';
     const caption = captionMatch ? `<figcaption>${captionMatch[1]}</figcaption>` : '';
-    return `<figure style="display:flex;flex-direction:column;align-items:center"><img src="${src}" alt="${alt}"${styleAttr} />${caption}</figure>`;
+    return `<figure style="display:flex;flex-direction:column;align-items:center"><img src="${src}" alt="${alt}"${styleAttr} />${caption}</figure>\n\n`;
   });
 
   // {{< customfont font="..." weight="..." size="..." >}} ... {{< /customfont >}}
@@ -104,6 +104,28 @@ export function convertShortcodes(content: string): string {
       return `<pre class="mermaid">${inner.trim()}</pre>`;
     }
   );
+
+  // {{<author>}}
+  content = content.replace(/\{\{<\s*author\s*>\s*\}\}/g, () => {
+    return `\n\n<div style="margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);font-family:var(--font-sans);font-size:14px;color:var(--fg-muted)">Written by <a href="https://linkedin.com/in/sagar-sarkale" style="color:var(--accent);text-decoration:none">Sagar Sarkale</a></div>\n\n`;
+  });
+
+  // {{<github owner="..." repo="..." path="..." branch="..." lang="...">}}
+  content = content.replace(/\{\{<\s*github\s+([^>]*?)>\s*\}\}/g, (_: string, attrs: string) => {
+    const ownerMatch = attrs.match(/owner="([^"]+)"/);
+    const repoMatch = attrs.match(/repo="([^"]+)"/);
+    const pathMatch = attrs.match(/path="([^"]+)"/);
+    const branchMatch = attrs.match(/branch="([^"]+)"/);
+    if (ownerMatch && repoMatch && pathMatch) {
+      const owner = ownerMatch[1];
+      const repo = repoMatch[1];
+      const path = pathMatch[1];
+      const branch = branchMatch ? branchMatch[1] : 'main';
+      const url = `https://github.com/${owner}/${repo}/blob/${branch}/${path}`;
+      return `\n\n> 📄 [${path}](${url}) on GitHub\n\n`;
+    }
+    return '';
+  });
 
   // Clean up any remaining unhandled shortcodes
   content = content.replace(/\{\{<\s*[^>]*>\s*\}\}/g, '');

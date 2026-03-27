@@ -1,10 +1,12 @@
 export function Footer() {
   return (
-    <footer>
-      <p className="text-[11px] text-[var(--fg-muted)] mb-3 tracking-wide">
-        sagar sarkale &middot; 2024–2026 &middot; powered by caffeine and occasional epiphany
-      </p>
-      <div className="flex justify-center gap-5 [&_a]:text-[var(--fg-muted)] [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-150 hover:[&_a]:text-[var(--accent)] [&_svg]:w-4 [&_svg]:h-4">
+    <footer className="border-t border-[var(--border)] mt-16">
+      <div className="pt-8 pb-4 text-center">
+        <p className="text-[11px] text-[var(--fg-muted)] tracking-wide">
+          sagar sarkale &middot; 2024–2026 &middot; powered by caffeine and occasional epiphany
+        </p>
+      </div>
+      <div className="pb-8 flex justify-center gap-6 [&_a]:text-[var(--fg-muted)] [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-150 hover:[&_a]:text-[var(--accent)] [&_svg]:w-4 [&_svg]:h-4">
         <a href="https://www.linkedin.com/in/sagar-sarkale/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />

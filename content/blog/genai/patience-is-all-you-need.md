@@ -1,5 +1,5 @@
 ---
-title: "Patience is all you need!"
+title: "Attention is all you need"
 date: "2024-07-11"
 summary: "Patience is all you need to learn transformers."
 description: "Transformer architecture intuitive deep dive."
@@ -7,7 +7,7 @@ toc: true
 readTime: true
 autonumber: true
 math: true
-tags: ["Transformers", "Attention", "DeepDive"]
+tags: ["Transformers", "Attention", "DeepDive", "Foundations"]
 showTags: true
 hideBackToTop: false
 ---

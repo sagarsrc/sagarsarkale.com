@@ -23,11 +23,7 @@ export function RotatingTitle() {
     <span>
       ai{' '}
       <span
-        className="rotating-title"
-        style={{
-          opacity: fade ? 1 : 0,
-          transition: 'opacity 0.3s ease',
-        }}
+        className={`inline-block min-w-[11ch] transition-opacity duration-300 ease-in-out ${fade ? 'opacity-100' : 'opacity-0'}`}
       >
         {roles[index]}
       </span>
