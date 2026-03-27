@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ThemeToggle } from './ThemeToggle';
+import { ReadingProgress } from './ReadingProgress';
 
 const NAV_LINKS = [
   { name: 'blog', url: '/blog' },
@@ -15,7 +16,7 @@ export function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="flex justify-between items-center py-4 border-b border-[var(--border)] mb-8 sticky top-0 z-100 bg-[var(--bg)] -mx-5 px-5">
+    <header className="relative flex justify-between items-center py-4 border-b border-[var(--border)] mb-8 sticky top-0 z-100 bg-[var(--bg)] -mx-5 px-5">
       <div className="text-[0.8125rem] font-semibold lowercase tracking-tight">
         <Link href="/">sagar sarkale</Link>
       </div>
@@ -31,6 +32,7 @@ export function Header() {
         ))}
         <ThemeToggle />
       </nav>
+      <ReadingProgress />
     </header>
   );
 }

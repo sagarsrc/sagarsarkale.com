@@ -395,15 +395,15 @@ blockquote p { margin: 0.5rem 0; }
 .heading-anchor {
   text-decoration: none;
   color: var(--fg-muted);
-  opacity: 0;
+  opacity: 0.25;
   transition: opacity 0.15s ease;
-  margin-right: 0.3rem;
+  margin-left: 0.3rem;
   font-weight: 400;
 }
 h1:hover .heading-anchor,
 h2:hover .heading-anchor,
 h3:hover .heading-anchor,
-h4:hover .heading-anchor { opacity: 1; }
-.heading-anchor:hover { color: var(--accent); }
+h4:hover .heading-anchor { opacity: 0.5; }
+.heading-anchor:hover { color: var(--accent); opacity: 1; }
 
 

@@ -81,9 +81,7 @@ export default async function BlogPostPage({ params }: Props) {
 
       {frontmatter.toc && <TocSidebar entries={extractToc(content)} />}
 
-      <div className="prose">
-        <MDXRenderer content={content} />
-      </div>
+      <MDXRenderer content={content} />
 
       {relatedPosts.length > 0 && (
         <nav className="mt-12 pt-8 border-t border-[var(--code-border)]">
