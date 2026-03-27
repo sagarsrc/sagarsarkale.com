@@ -135,7 +135,7 @@ export default function Home() {
             <div className="rounded-lg overflow-hidden bg-[var(--surface)]" aria-hidden="true">
               <img src="/wave-hero.png" alt="" className="w-full h-auto object-cover rounded-lg" loading="lazy" />
             </div>
-            <div className="flex items-center gap-4 [&_a]:text-[var(--fg-muted)] [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-150 hover:[&_a]:text-[var(--accent)] [&_svg]:w-[18px] [&_svg]:h-[18px]">
+            <div className="flex items-center justify-between w-full [&_a]:text-[var(--fg-muted)] [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-150 hover:[&_a]:text-[var(--accent)] [&_svg]:w-[18px] [&_svg]:h-[18px]">
               <SocialIcons />
             </div>
           </div>
