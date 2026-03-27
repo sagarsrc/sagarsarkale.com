@@ -62,5 +62,5 @@ public/personal/
 public/pos-enc/
 public/rnns/
 public/vectordb/
-.mermaid-cache
+# .mermaid-cache is committed — mmdc needs Chromium which isn't available on Cloudflare Pages
 public/images/
