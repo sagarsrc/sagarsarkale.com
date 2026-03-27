@@ -4,6 +4,7 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { SkipToContent } from '@/components/SkipToContent';
+import { ScrollToTop } from '@/components/ScrollToTop';
 
 export const metadata: Metadata = {
   title: {
@@ -58,6 +59,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="mx-auto max-w-3xl px-5 font-sans text-[15px] leading-relaxed tracking-[-0.011em] font-normal">
         <ThemeProvider>
+          <ScrollToTop />
           <SkipToContent />
           <Header />
           <main id="main-content" className="main-content">

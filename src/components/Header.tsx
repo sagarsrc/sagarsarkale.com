@@ -25,6 +25,7 @@ export function Header() {
           <Link
             key={link.name}
             href={link.url}
+            onClick={() => { if (pathname === link.url || pathname.startsWith(link.url + '/')) window.scrollTo(0, 0); }}
             className={pathname === link.url || pathname.startsWith(link.url + '/') ? 'text-[var(--fg)] border-b border-[var(--accent)] pb-0.5' : 'text-[var(--fg-secondary)] border-b border-transparent pb-0.5'}
           >
             {link.name}
