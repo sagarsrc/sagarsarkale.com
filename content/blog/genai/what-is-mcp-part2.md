@@ -13,7 +13,7 @@ hideBackToTop: false
 mermaid: true
 ---
 
-{{<figure src="/mcp2/000-cover.png">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/mcp2/000-cover.png">}}
 
 # Introduction
 
@@ -43,7 +43,7 @@ Think of it like this: Instead of jumping between GitHub to check commits, Slack
 
 It's not magic. It's **MCP doing the heavy lifting** while Quick Call orchestrates the tools and figures out what you actually want.
 
-{{<figure src="/mcp2/001-demo-current.gif" caption="Quick Call in action">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/mcp2/001-demo-current.gif" caption="Quick Call in action">}}
 
 # The Two Superpowers (For Now)
 
@@ -57,12 +57,12 @@ Quick Call plugs into your GitHub via OAuth and gives you conversational access 
 **MCP elicitation to get user input for the list_commits tool**
 
 Notice how the user did not specify which repo to list commits from. This is where MCP comes in to get the user input for the `list_commits` tool.
-{{<figure src="/mcp2/002-github-list-commits-01.jpg">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/mcp2/002-github-list-commits-01.jpg">}}
 
 **MCP function call in action**
 
 Once the MCP tool has all the inputs needed, it completes the function call and returns the result to the user.
-{{<figure src="/mcp2/002-github-list-commits-02.jpg">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/mcp2/002-github-list-commits-02.jpg">}}
 
 ## Slack Integration
 
@@ -72,13 +72,13 @@ Same deal as GitHub. OAuth flow, store your tokens, and now you can:
 - **Send messages**: "Post 'Deploy successful' to #devops"
 
 **Sending messages via Quick Call**
-{{<figure src="/mcp2/003-send-slack-01.jpg">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/mcp2/003-send-slack-01.jpg">}}
 
 **Function call to send the message**
-{{<figure src="/mcp2/003-send-slack-02.jpg">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/mcp2/003-send-slack-02.jpg">}}
 
 **Sent message via Quick Call**
-{{<figure src="/mcp2/003-send-slack-03.jpg">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/mcp2/003-send-slack-03.jpg">}}
 
 ## Tool Chaining: Where It Gets Interesting
 
@@ -95,10 +95,10 @@ Individual tools are useful. But the real power is when they work together.
 You asked one question. Quick Call made multiple tool calls, chained them together, and gave you the result. The AI decides which tools to call and in what order.
 
 **Workflow in action for a Developer**
-{{<figure src="/mcp2/004-workflow-dev.jpg">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/mcp2/004-workflow-dev.jpg">}}
 
 **Workflow in action for a Product Manager**
-{{<figure src="/mcp2/004-workflow-pm.jpg">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/mcp2/004-workflow-pm.jpg">}}
 
 
 

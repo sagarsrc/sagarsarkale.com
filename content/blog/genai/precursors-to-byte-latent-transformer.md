@@ -12,7 +12,7 @@ showTags: true
 hideBackToTop: false
 ---
 
-{{<figure src="/blt1/000-cover.jpg">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/blt1/000-cover.jpg">}}
 
 # Introduction
 
@@ -45,11 +45,11 @@ The fundamental difference between tokenizer-free architectures and token-based 
 
 Tokenizers need to be trained with multiple preprocessing steps on a large corpus to come up with a fixed set of vocabulary (~30K-50K items) for the model. To expand this vocabulary you need to re-train the tokenizer.
 
-{{< figure src="/blt1/000-tokenizer.png">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/blt1/000-tokenizer.png">}}
 
 Whereas in the case of Byte-based systems, there is no concept of vocabulary as such. The real tricky part in tokenizer-free systems is how we make splits between the raw byte streams, more on that later.
 
-{{< figure src="/blt1/001-byte-based.png">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/blt1/001-byte-based.png">}}
 
 For now here are some major differences between these two systems:
 
@@ -83,7 +83,7 @@ Multiple architectural changes have gone into this paper, which has resulted in 
 
 **But before we dive into technicalities, let’s talk about this diagram for a bit.**
 
-{{< figure src="/blt1/002-byte-stream-parts.png">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/blt1/002-byte-stream-parts.png">}}
 
 Training of tokenizers inherently teaches them the patterns of words and subwords, so we exactly know where the splits will occur when we use a tokenizer, whereas what if you are given a series of integers as an input?
 
@@ -100,7 +100,7 @@ Let us look into the type of patching where each one falls short and how BLT sol
 
 As the name suggests, after every K bytes we create a patch and move to create the next patch.
 
-{{< figure src="/blt1/003-fixed-patching.png">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/blt1/003-fixed-patching.png">}}
 
 - We can see this leads to inconsistent and non-contextual patching of similar byte sequences - for example, the same word could be split differently in different contexts
 - The fixed stride is simpler to implement and provides a straightforward mechanism for controlling FLOP cost, as patch size directly determines the compute required
@@ -110,7 +110,7 @@ As the name suggests, after every K bytes we create a patch and move to create t
 
 Similarly here irrespective of the number of bytes each patch holds, you make a split where a space occurs.
 
-{{< figure src="/blt1/004-space-patching.png">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/blt1/004-space-patching.png">}}
 
 - This type of patching gives more coherent patching as words stay together and are segmented consistently across sequences
 - However, it has limited control over patch size and therefore compute costs, as patch lengths vary based on word lengths
@@ -174,7 +174,7 @@ The entropy equation $(1)$ helps us measure how likely a byte sequence is. Just 
 Researchers trained a small model to predict the entropy $H(x_i)$ of the next byte given a byte sequence. So let's try to visualize and understand how this entropy model works with a diagram.
 
 `"I walked to the store and bought a book"`.
-{{< figure src="/blt1/005-entropy-diagram-1.0.png">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/blt1/005-entropy-diagram-1.0.png">}}
 
 Key components of the diagram:
 
@@ -186,13 +186,13 @@ Key components of the diagram:
 - **X-axis**: Individual bytes converted to characters in the sentence
 
 Let's look more closely at this diagram now:
-{{< figure src="/blt1/005-entropy-diagram-1.1.jpeg">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/blt1/005-entropy-diagram-1.1.jpeg">}}
 
 You can see that after every word there is a spike in entropy. And as you progress through a certain word, the entropy decreases gradually. **A word can be bounded by dashed lines and can be considered as a patch**.
 
 Similarly, you can notice abnormalities in entropy values when you look at some unusual words and symbols in sentences, like `"I WALKED to the store and bought @ BOOK!"` in the diagram below.
 
-{{< figure src="/blt1/006-entropy-diagram-2.png">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/blt1/006-entropy-diagram-2.png">}}
 
 **Methods mentioned in the paper for patching**
 
@@ -220,7 +220,7 @@ Similarly, you can notice abnormalities in entropy values when you look at some 
 Let's try to see what patches are created using these methods seen in the previous section.
 I trained a small model (n-gram model with n=2) here to predict the entropy of the next byte given a byte sequence and plotted the patches created using the global constraint method and approximate monotonic constraint method.
 
-{{< figure src="/blt1/008-patches-1.png">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/blt1/008-patches-1.png">}}
 
 {{< details "Outputs Global Threshold Patches" >}}
 
@@ -285,14 +285,14 @@ If you closely look at the outputs of both monotonic and global threshold patchi
 
 While the previous outputs may not have provided complete clarity, here is another interesting result worth considering!
 Input sentence: `"Sherlock Holmes is a smart detective."`
-{{< figure src="/blt1/008-patches-2.png">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/blt1/008-patches-2.png">}}
 
 - Notice how the word `"Sherlock Holmes"` is being combined into a single patch, this is because the entropy values are very low for the word `"Sherlock Holmes"` and the bytes forming this word frequently occur together in the corpus.
 - This is a good example of how entropy-based patching can create coherent patches, even for complex words.
 
 The entropy values diagram for the above sentence are shown below.
 
-{{< figure src="/blt1/008-patches-3.png">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/blt1/008-patches-3.png">}}
 
 **NOTE**: This result was obtained using a better next-byte entropy prediction model using 3,4,5-gram models.
 
@@ -301,7 +301,7 @@ The entropy values diagram for the above sentence are shown below.
 Additionally, this paper uses smart hacks to convert these dynamic patches to embeddings. It was important to establish the fact that patches of dynamic sizes can be created with entropy-based patching, and this can be achieved with simple models. The entropy-based patching model serves as an essential building block for BLT to achieve its performance.
 
 Byte Latent Transformer architecture is shown below:
-{{< figure src="/blt1/009-we-are-here.png">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/blt1/009-we-are-here.png">}}
 
 Well, we are just getting started, the next blog will cover how these patches are converted to embeddings how BLT, and how the inputs for the model are generated. It is going to be fun!
 

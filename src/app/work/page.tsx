@@ -7,7 +7,7 @@ export const metadata = {
 
 function RoleLabel({ role, type }: { role: string; type: string }) {
   return (
-    <span className="text-sm text-[var(--fg-secondary)] font-normal">
+    <span className="text-xs text-[var(--fg-muted)] font-normal uppercase tracking-wide">
       {role}
     </span>
   );
@@ -133,7 +133,7 @@ export default function WorkPage() {
   return (
     <div>
       <div className="flex items-baseline justify-between mb-2">
-        <h1 className="text-xl font-semibold leading-snug">work</h1>
+        <h1 className="text-2xl font-semibold leading-snug">work</h1>
         <Breadcrumbs />
       </div>
       <p className="text-[var(--fg-secondary)] text-sm mb-8">
@@ -149,7 +149,7 @@ export default function WorkPage() {
                 <img
                   src={entry.logo}
                   alt=""
-                  className="w-14 h-14 rounded-xl mt-2 object-contain"
+                  className="w-14 h-14 rounded-xl mt-2 object-contain bg-[var(--surface)]"
                   loading="lazy"
                 />
               )}
@@ -162,7 +162,7 @@ export default function WorkPage() {
                 <RoleLabel role={entry.role} type={entry.type} />
               </div>
 
-              <ul className="m-0 pl-0 list-none text-sm text-[var(--fg-secondary)] leading-[1.7] space-y-1">
+              <ul className="m-0 pl-0 list-none text-[0.8125rem] text-[var(--fg-secondary)] leading-[1.7] space-y-1">
                 {entry.highlights.map((h, i) => (
                   <li key={i} className="ml-0 flex gap-2">
                     <span className="text-[var(--fg-muted)] shrink-0">—</span>

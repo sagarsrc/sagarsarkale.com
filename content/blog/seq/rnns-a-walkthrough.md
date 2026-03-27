@@ -12,7 +12,7 @@ showTags: true
 hideBackToTop: false
 ---
 
-{{<figure src="/rnns/09-cover.png">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/rnns/09-cover.png">}}
 
 # Introduction
 
@@ -64,7 +64,7 @@ Say you want to classify text into 3 sentiments - positive, negative and neutral
 
 We can clearly see that each sentence has different number of words. It would hence change the dimensionality of vector representation for each sentence. If we truncate the sentence we lose meaning of the sentence, if we pad a sentence with dummy vectors we are increasing complexity of the network by increasing dimensionality.
 
-{{< figure src="/rnns/00-simple-nn.png">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/rnns/00-simple-nn.png">}}
 
 To summarise we need a network which can:
 
@@ -80,7 +80,7 @@ Some points to note before we begin this:
 
 When you read about recurrent networks, this is a common diagram that you will stumble upon. Shown below is a simple recurrent cell.
 
-{{< figure src="/rnns/01-rnn-unit-cell.png"  width="70%" height="50%">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/rnns/01-rnn-unit-cell.png"  width="70%" height="50%">}}
 
 Let us call this recurrent unit as cell $Q$. Think of $Q$ as a computation unit, it consumes some input $x$ and generates output $o$. This cell $Q$ is building block of recurrent neural network.
 
@@ -90,19 +90,19 @@ The loop shown above allows the network to carry previous information. Let us se
 
 At timestep 0 we do not have any previous information, hence a dotted line shown here indicates initialization of previous state.
 
-{{< figure src="/rnns/02-break-rnn-unit-cell.png"  width="100%" height="100%">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/rnns/02-break-rnn-unit-cell.png"  width="100%" height="100%">}}
 
 `t=1`
 
 At timestep 1 we do have previous information from timestep 0, we can consume this previous information to generate new output. For now let us not get into details as to what information is being passed, we will cover it in next section.
 
-{{< figure src="/rnns/03-break-rnn-unit-cell.png"  width="100%" height="100%">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/rnns/03-break-rnn-unit-cell.png"  width="100%" height="100%">}}
 
 `t=2`
 
 At timestep 2 we have previous information from timestep 1, we consume the same, and generate output in the similar way.
 
-{{< figure src="/rnns/04-break-rnn-unit-cell.png"  width="100%" height="100%">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/rnns/04-break-rnn-unit-cell.png"  width="100%" height="100%">}}
 
 The same process continues for subsequent timesteps, until we run out of input.
 
@@ -112,7 +112,7 @@ Now that we have some understanding of how information is being passed from prev
 
 Simplified view of RNN cell
 
-{{< figure src="/rnns/05-simplified-rnn.png"  width="100%" height="100%">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/rnns/05-simplified-rnn.png"  width="100%" height="100%">}}
 | | |
 |--|--|
 | $x_{t}$ = input at timestep t | $c_{t}$ = current cell state |
@@ -143,7 +143,7 @@ There are 3 major weight matrices involved with RNNs. These weights are essentia
 3. $W_o$ - Hidden to Output Weights
    - It determines the output based on current cell state
 
-{{< figure src="/rnns/06-simplified-rnn-weights.png"  width="100%" height="100%">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/rnns/06-simplified-rnn-weights.png"  width="100%" height="100%">}}
 
 > :bulb: Again it is worth noting that, same 3 weights are shared across all timesteps.
 
@@ -157,7 +157,7 @@ Where $f$ is tanh and $g$ is softmax activation.
 
 # Back propagation through time
 
-{{< figure src="/rnns/07-bptt-intro.png"  width="100%" height="100%">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/rnns/07-bptt-intro.png"  width="100%" height="100%">}}
 
 We will look at back propagation for one of the weights $W_h$ i.e the weight matrix associated with previous state. This is the most crucial set of parameters in case of RNNs.
 
@@ -207,7 +207,7 @@ Similar calculations will be done for $\frac{\partial{L_2}}{\partial{W_h}} , \fr
 
 As we can see here BPTT (Back propagation through time) is nothing but sum of back propagations for each time step.
 
-{{< figure src="/rnns/08-bptt-end.png"  width="100%" height="100%">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/rnns/08-bptt-end.png"  width="100%" height="100%">}}
 
 # Limitations of RNNs
 

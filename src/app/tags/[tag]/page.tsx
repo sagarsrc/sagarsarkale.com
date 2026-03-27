@@ -31,19 +31,17 @@ export default async function TagPage({ params }: Props) {
   return (
     <div>
       <div className="flex items-baseline justify-between mb-6">
-        <h1 className="text-xl font-semibold">#{tag}</h1>
+        <h1 className="text-2xl font-semibold">#{tag}</h1>
         <Breadcrumbs />
       </div>
-      <ul className="list-none p-0 my-4">
+      <div className="flex flex-col gap-3 mt-6">
         {posts.map((post) => (
-          <li key={post.path} className="!ml-0 flex items-baseline gap-4 py-[0.35rem] max-sm:flex-col max-sm:gap-[0.15rem]">
-            <span className="text-xs text-[var(--fg-secondary)] whitespace-nowrap shrink-0 min-w-[90px]">{formatDate(post.frontmatter.date)}</span>
-            <span className="text-sm [&_a]:text-[var(--fg)] [&_a]:no-underline [&_a:hover]:text-[var(--accent)]">
-              <Link href={post.path}>{post.frontmatter.title}</Link>
-            </span>
-          </li>
+          <Link key={post.path} href={post.path} className="flex items-center justify-between gap-4 p-2 border border-[var(--code-border)] rounded-lg no-underline text-inherit transition-[border-color,background] duration-200 hover:border-[var(--accent)] hover:bg-[color-mix(in_srgb,var(--code-border)_15%,transparent)]">
+            <span className="text-sm font-semibold text-[var(--fg)]">{post.frontmatter.title}</span>
+            <span className="text-xs text-[var(--fg-muted)] whitespace-nowrap shrink-0 tabular-nums">{formatDate(post.frontmatter.date)}</span>
+          </Link>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

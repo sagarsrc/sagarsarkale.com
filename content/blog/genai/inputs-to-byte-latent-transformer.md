@@ -13,7 +13,7 @@ mermaid: true
 hideBackToTop: false
 ---
 
-{{<figure src="/blt2/000-cover.png">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/blt2/000-cover.png">}}
 
 # Introduction
 
@@ -28,13 +28,13 @@ In the last post we converted the input text into a sequence of bytes. Let's rec
 2. Using entropy-based patching, we broke the sentence into patches of bytes.
 3. As seen in the figure below, the sentence was broken into patches using 4 variants of entropy-based patching.
 
-{{< figure src="/blt1/008-patches-2.png" >}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/blt1/008-patches-2.png" >}}
 
 ## What are we going to cover today?
 
 In this post, we will discuss about how these patches are further processed in BLT. Let us have a look at the architecture of BLT and see which areas we are going to cover in this post.
 
-{{< figure src="/blt2/001-upnext-and-where-are-we.png">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/blt2/001-upnext-and-where-are-we.png">}}
 
 # Embeddings
 
@@ -342,7 +342,7 @@ Here, $e_i$ is the embedding for the $i^{th}$ byte, $x_i$ is the byte embedding,
 
 To summarize this section pictorially:
 
-{{<figure src="/blt2/002-rollpoly-hash.png">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/blt2/002-rollpoly-hash.png">}}
 
 ## Position Embeddings
 
@@ -470,7 +470,7 @@ graph LR
 
 We get queries from patch space, keys and values are derived from the outputs of the local encoder. Let us pictorially look at how these are used in the local encoder to get attention scores.
 
-{{<figure src="/blt2/003-attention-scores.png">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/blt2/003-attention-scores.png">}}
 
 Here, $a_{m,n}$ denotes the attention score for the $m^{th}$ patch and $n^{th}$ byte.
 
@@ -480,7 +480,7 @@ Here, $a_{m,n}$ denotes the attention score for the $m^{th}$ patch and $n^{th}$ 
 - We apply a masking operation to ensure that patches do not attend to bytes that are to be predicted next (area sketched in red in the above figure).
 - Once we have the attention scores $(QK^T)$, we do a scaled softmax, which is later multiplied by $V$ to get the final attention output.
 
-{{<figure src="/blt2/004-attention-detail-res.png">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/blt2/004-attention-detail-res.png">}}
 
 - All weight matrices are colored in yellow.
 - Arrows moving into weight matrices denote matrix multiplications between weight matrices and incoming input matrix.
@@ -500,7 +500,7 @@ Most importantly, we have seen how BLT uses a lightweight local encoder to compr
 
 **Progress Report!**
 
-{{<figure src="/blt2/005-progress.png">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/blt2/005-progress.png">}}
 
 In the next post, we will see how the global transformer and the local decoder work to generate the final output. We are nearing the end of this series, so stay tuned!
 

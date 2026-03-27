@@ -13,7 +13,7 @@ mermaid: true
 hideBackToTop: false
 ---
 
-{{<figure src="/kvcache/000-cover.png" width="90%">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/kvcache/000-cover.png" width="90%">}}
 
 # KV Caching in Language Models
 
@@ -364,9 +364,9 @@ K1 shape after squeeze: torch.Size([32, 256])
 V1 shape after squeeze: torch.Size([32, 256])
 ```
 
-{{<figure src="/kvcache/000-visualize-raw-kv.png">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/kvcache/000-visualize-raw-kv.png">}}
 
-{{<figure src="/kvcache/001-visualize-raw-kv.png">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/kvcache/001-visualize-raw-kv.png">}}
 
 # Computing Attention Patterns
 
@@ -439,9 +439,9 @@ visualize_gqa_attention(attention_msg2, title_prefix="Message 2 -")
 ```
 
 Output:
-{{<figure src="/kvcache/002-visualize-attn.png">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/kvcache/002-visualize-attn.png">}}
 
-{{<figure src="/kvcache/003-visualize-attn.png">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/kvcache/003-visualize-attn.png">}}
 
 # Implementing KV Caching
 
@@ -593,7 +593,7 @@ By caching KV for the common prefix, you save:
  - 61.4% of attention computations
 ```
 
-{{<figure src="/kvcache/004-visualize-attn-diff.png">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/kvcache/004-visualize-attn-diff.png">}}
 
 # Visualizing Individual KV Vectors
 
@@ -638,9 +638,9 @@ if common_prefix_length > 0:
 ```
 Output:
 
-{{<figure src="/kvcache/005-verify-kv-vectors.png">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/kvcache/005-verify-kv-vectors.png">}}
 
-{{<figure src="/kvcache/006-verify-kv-vectors.png">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/kvcache/006-verify-kv-vectors.png">}}
 
 # Conclusion
 

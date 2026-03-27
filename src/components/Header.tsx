@@ -16,15 +16,15 @@ export function Header() {
 
   return (
     <header className="flex justify-between items-center py-4 border-b border-[var(--border)] mb-8 sticky top-0 z-100 bg-[color-mix(in_srgb,var(--bg)_95%,transparent)] backdrop-blur-sm">
-      <div className="text-[13px] font-semibold lowercase tracking-tight">
+      <div className="text-[0.8125rem] font-semibold lowercase tracking-tight">
         <Link href="/">sagar sarkale</Link>
       </div>
-      <nav className="flex items-center gap-5 max-sm:gap-3 text-[13px] max-sm:text-xs [&_a]:no-underline hover:[&_a]:text-[var(--accent)]">
+      <nav className="flex items-center gap-5 max-sm:gap-3 text-[0.8125rem] max-sm:text-xs [&_a]:no-underline hover:[&_a]:text-[var(--accent)]">
         {NAV_LINKS.map(link => (
           <Link
             key={link.name}
             href={link.url}
-            className={pathname === link.url || pathname.startsWith(link.url + '/') ? 'text-[var(--fg)]' : 'text-[var(--fg-secondary)]'}
+            className={pathname === link.url || pathname.startsWith(link.url + '/') ? 'text-[var(--fg)] border-b border-[var(--accent)] pb-0.5' : 'text-[var(--fg-secondary)] border-b border-transparent pb-0.5'}
           >
             {link.name}
           </Link>

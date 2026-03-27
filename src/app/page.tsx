@@ -149,7 +149,7 @@ export default function Home() {
         <div className="flex items-baseline gap-3 mt-5">
           {prior.map((p) => (
             <span key={p.company} className="text-[0.8125rem] text-[var(--fg-muted)]">
-              {p.company} <span className="opacity-60">({p.period})</span>
+              {p.company} <span>({p.period})</span>
             </span>
           ))}
           <span className="text-[var(--fg-muted)] text-[0.8125rem]">&middot;</span>

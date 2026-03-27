@@ -42,7 +42,7 @@ export default async function BlogPostPage({ params }: Props) {
   return (
     <article>
       <div className="flex items-start justify-between gap-4 mb-2">
-        <h1 className="text-xl font-semibold leading-snug">{frontmatter.title}</h1>
+        <h1 className="text-2xl font-semibold leading-snug">{frontmatter.title}</h1>
         <Breadcrumbs />
       </div>
 
@@ -72,7 +72,7 @@ export default async function BlogPostPage({ params }: Props) {
         <nav className="mt-12 pt-8 border-t border-[var(--code-border)]">
           <div className="section-label">read next</div>
           {relatedPosts.map((rp) => (
-            <div key={rp.path} className="flex justify-between items-baseline py-[0.35rem] gap-4 max-sm:flex-col max-sm:gap-[0.15rem]">
+            <div key={rp.path} className="flex justify-between items-baseline py-2 gap-4 max-sm:flex-col max-sm:gap-1">
               <span className="text-sm">
                 <Link href={rp.path}>{rp.frontmatter.title}</Link>
               </span>
@@ -81,7 +81,7 @@ export default async function BlogPostPage({ params }: Props) {
               </span>
             </div>
           ))}
-          <Link href="/blog" className="inline-block mt-5 text-[13px] text-[var(--accent)] underline underline-offset-4 decoration-[var(--accent)]/40 hover:decoration-[var(--accent)] font-medium">all posts</Link>
+          <Link href="/blog" className="inline-block mt-5 text-[0.8125rem] text-[var(--accent)] underline underline-offset-4 decoration-[var(--accent)]/40 hover:decoration-[var(--accent)] font-medium">all posts</Link>
         </nav>
       )}
 

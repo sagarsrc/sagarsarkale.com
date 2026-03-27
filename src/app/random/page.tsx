@@ -14,19 +14,19 @@ export default function RandomPage() {
   return (
     <div className="pb-8">
       <div className="flex items-baseline justify-between mb-6">
-        <h1 className="text-xl font-semibold">random</h1>
+        <h1 className="text-2xl font-semibold">random</h1>
         <Breadcrumbs />
       </div>
-      {posts.map((post: Post) => (
-        <div key={post.path} className="flex justify-between items-baseline py-[0.35rem] gap-4">
-          <span className="text-[13px] [&_a]:text-[var(--fg)] [&_a]:no-underline hover:[&_a]:text-[var(--accent)]">
-            <Link href={post.path}>{post.frontmatter.title}</Link>
-          </span>
-          <span className="text-xs text-[var(--fg-muted)] whitespace-nowrap shrink-0 tabular-nums">
-            {post.frontmatter.date ? formatDate(post.frontmatter.date) : ""}
-          </span>
-        </div>
-      ))}
+      <div className="flex flex-col gap-3 mt-6">
+        {posts.map((post: Post) => (
+          <Link key={post.path} href={post.path} className="flex items-center justify-between gap-4 p-2 border border-[var(--code-border)] rounded-lg no-underline text-inherit transition-[border-color,background] duration-200 hover:border-[var(--accent)] hover:bg-[color-mix(in_srgb,var(--code-border)_15%,transparent)]">
+            <span className="text-sm font-semibold text-[var(--fg)]">{post.frontmatter.title}</span>
+            <span className="text-xs text-[var(--fg-muted)] whitespace-nowrap shrink-0 tabular-nums">
+              {post.frontmatter.date ? formatDate(post.frontmatter.date) : ""}
+            </span>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }

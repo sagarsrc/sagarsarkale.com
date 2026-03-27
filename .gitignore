@@ -1,5 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+*.env
+secrets/
+
 # dependencies
 /node_modules
 /.pnp
@@ -43,3 +46,19 @@ next-env.d.ts
 # test artifacts
 test-results/
 test-site.mjs
+
+# blog images (served from R2)
+public/attn/
+public/blt1/
+public/blt2/
+public/kvcache/
+public/llava/
+public/lora/
+public/lstm/
+public/mcp1/
+public/mcp2/
+public/mcp3/
+public/personal/
+public/pos-enc/
+public/rnns/
+public/vectordb/

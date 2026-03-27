@@ -14,14 +14,14 @@ export default function BlogPage() {
   return (
     <div className="pb-8">
       <div className="flex items-baseline justify-between mb-6">
-        <h1 className="text-xl font-semibold">blog</h1>
+        <h1 className="text-2xl font-semibold">blog</h1>
         <Breadcrumbs />
       </div>
       <div className="flex flex-col gap-3 mt-6">
         {posts.map((post: Post) => (
           <Link key={post.path} href={post.path} className="flex items-center gap-3 p-2 border border-[var(--code-border)] rounded-lg no-underline text-inherit transition-[border-color,background] duration-200 hover:border-[var(--accent)] hover:bg-[color-mix(in_srgb,var(--code-border)_15%,transparent)] max-sm:flex-col max-sm:items-start max-sm:gap-2">
             {post.coverImage && (
-              <div className="flex-[0_0_64px] w-16 h-12 max-sm:w-full max-sm:h-32 rounded overflow-hidden bg-[var(--code-background)]">
+              <div className="flex-[0_0_120px] w-[120px] h-[80px] max-sm:w-full max-sm:h-32 rounded overflow-hidden bg-[var(--code-background)]">
                 <img src={post.coverImage} alt="" loading="lazy" className="block w-full h-full object-cover" />
               </div>
             )}

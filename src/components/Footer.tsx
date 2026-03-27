@@ -2,7 +2,7 @@ export function Footer() {
   return (
     <footer className="border-t border-[var(--border)] mt-16">
       <div className="pt-8 pb-4 text-center">
-        <p className="text-[11px] text-[var(--fg-muted)] tracking-wide">
+        <p className="text-xs text-[var(--fg-muted)] tracking-wide">
           sagar sarkale &middot; 2024–2026 &middot; powered by caffeine and occasional epiphany
         </p>
       </div>

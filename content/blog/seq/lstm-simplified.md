@@ -12,7 +12,7 @@ showTags: true
 hideBackToTop: false
 ---
 
-{{<figure src="/lstm/00-cover.png">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/lstm/00-cover.png">}}
 
 # Introduction
 
@@ -22,15 +22,15 @@ This is my effort to simplify each of the blocks of LSTM piece by piece. In the 
 
 # The Gate
 
-{{< figure src="/lstm/01-the-gate.png" >}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/lstm/01-the-gate.png" >}}
 
 Believe me or not, the image above is the key to understanding the fundamental blocks of LSTM. This guard is protecting the gate above. For now let us assume that you will not be allowed through the gate without a small cost. Consider the same scenario with vectors. A vector cannot pass through certain path without a small cost. In the diagram below you can see that each value is reduced by some factor when it passes through the gate.
 
-{{< figure src="/lstm/02-the-gate.png">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/lstm/02-the-gate.png">}}
 
 How do we mathematically achieve this? Simple, using a sigmoid layer. Range of Sigmoid function is between 0 and 1. (For now let us not worry about what is the input to this sigmoid layer)
 
-{{< figure src="/lstm/03-the-gate-sigmoid-intro.png">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/lstm/03-the-gate-sigmoid-intro.png">}}
 
 Notice how each element in the input vector $v$ is being multiplied with corresponding element in vector $t$ which is output of sigmoid layer to give resultant vector $v{'}$. This operation is called **point wise operation**. In this case we are performing point wise multiplication operation. This operation depicted above allows partial passage to the input vector.
 
@@ -44,7 +44,7 @@ What if we want input vector to pass without any change?
 
 # How do we concisely represent this “Gate”?
 
-{{< figure src="/lstm/04-point-wise-and-sigmoid.png" height="500">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/lstm/04-point-wise-and-sigmoid.png" height="500">}}
 
 1. vectors $v$ and $t$ have $d$ dimensions
 2. ⓧ here is the gate
@@ -55,25 +55,25 @@ This procedure is critical to understand the gravity of the underlying structure
 
 # Some notations before we begin
 
-{{< figure src="/lstm/05-notations.png">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/lstm/05-notations.png">}}
 
 # Lego pieces
 
 An LSTM unit consists of 4 blocks, 3 blocks adjacent to each other and 1 block that connects them all each block has its own significance. In order to get an functional understanding let’s first look at each lego block individually, then we can club these pieces to form a complete LSTM unit.
 
-{{< figure src="/lstm/06-separate-lego-lstm.png" caption="Separate Lego blocks of an LSTM" width="50%" height="50%">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/lstm/06-separate-lego-lstm.png" caption="Separate Lego blocks of an LSTM" width="50%" height="50%">}}
 
-{{< figure src="/lstm/07-joined-lego-lstm.png" caption="Joined Lego blocks of an LSTM" width="50%" height="50%">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/lstm/07-joined-lego-lstm.png" caption="Joined Lego blocks of an LSTM" width="50%" height="50%">}}
 
 # A Glimpse of an LSTM cell
 
-{{< figure src="/lstm/08-glimpse-lstm.png">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/lstm/08-glimpse-lstm.png">}}
 
 While LSTM cell is similar to vanilla RNN cell, one of the key distinction is that each state has 2 inputs from the previous time step, “cell state” $c_{t-1}$ and “hidden state” $h_{t-1}$. All other concepts like unrolling a recurrent neural network, back propagation through time remain the same.
 
 Unrolling LSTM cell for 3 timesteps - recursively consume outputs of previous state and current input to generate new state for current time step.
 
-{{< figure src="/lstm/09-unrolling-lstm.png">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/lstm/09-unrolling-lstm.png">}}
 
 NOTE : it is the same LSTM cell that is being viewed at 3 time steps
 
@@ -106,7 +106,7 @@ Though a trivial problem, it is important to list these steps down while trying 
 
 ## Gate #1 - Forget Gate
 
-{{< figure src="/lstm/10-forgetgate.png" height="200">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/lstm/10-forgetgate.png" height="200">}}
 
 What would your initial steps be while solving the **BANANAS** problem in exam?
 
@@ -122,7 +122,7 @@ What would your initial steps be while solving the **BANANAS** problem in exam?
 
 Now let us impose this analogy on LSTMs.
 
-{{< figure src="/lstm/11-forgetgate.png">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/lstm/11-forgetgate.png">}}
 
 |                   |                                                      |
 | ----------------- | ---------------------------------------------------- |
@@ -171,7 +171,7 @@ Now that we have passed through Gate #1 let us close it behind us and move to th
 
 ## Gate #2 - Input Gate
 
-{{< figure src="/lstm/12-inputgate.png" height="200">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/lstm/12-inputgate.png" height="200">}}
 
 Again let us ask the same question now that you remember how to solve the problem, also you understand that it is a problem that involves calculating cost of single unit, what would your next step be?
 
@@ -186,7 +186,7 @@ Again let us ask the same question now that you remember how to solve the proble
 
 Now let us try to see what LSTM does in this second stage.
 
-{{< figure src="/lstm/13-inputgate.png">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/lstm/13-inputgate.png">}}
 | | |
 | ----------------- | ----------------------------------------------- |
 | $F_{t}$ | output of Forget gate |
@@ -240,7 +240,7 @@ Notice how we are _adding_ to previous knowledge $F_t$ using point wise operatio
 
 ## Gate #3 - Output Gate
 
-{{< figure src="/lstm/14-outputgate.png" height="200">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/lstm/14-outputgate.png" height="200">}}
 
 Now we have the equation set up for us all we need to do is plug in the value and get the answer for our bananas problem.
 
@@ -255,7 +255,7 @@ Now we have the equation set up for us all we need to do is plug in the value an
 
 Let us look how LSTMs generate final output.
 
-{{< figure src="/lstm/15-outputgate.png">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/lstm/15-outputgate.png">}}
 | | |
 | - | - |
 | $W_{o}$ | weights associated with Output gate |
@@ -307,13 +307,13 @@ All these transformations are good but what exactly makes LSTM so special? For t
 
 # The missing link
 
-{{< figure src="/lstm/16-missing-link.png">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/lstm/16-missing-link.png">}}
 
 In this section we will try to answer how does LSTM solve for “long term dependencies”. The easiest way to explain the piece that binds it all would be using how gates can be utilised in order to retain long term information.
 
 For now we are concerned with two gates forget gate and input gate. **Clearing rest of the paths in LSTM for ease of explaining.**
 
-{{< figure src="/lstm/17-missing-link.png">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/lstm/17-missing-link.png">}}
 
 Equations of LSTM at various timesteps
 
@@ -398,7 +398,7 @@ $\therefore I_t = [0,0,0,0,0]$
 
 Consider this simplified diagram where 3 time steps of LSTM are shown - let us view how information flows with respect to time step $t+1$. The stickman figure at time step $t+1$ needs some information from previous time along the **blue** path shown below, let us see if LSTM is able to provide the same.
 
-{{< figure src="/lstm/18-missing-link.png">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/lstm/18-missing-link.png">}}
 
 For ease of explanation
 
@@ -411,9 +411,9 @@ where $c = 0$ or $1$
 
 - $f_t = 1, i_t = 0$
 
-{{< figure src="/lstm/19-case1.png">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/lstm/19-case1.png">}}
 
-{{< figure src="/lstm/20-stickman.png" height="100">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/lstm/20-stickman.png" height="100">}}
 
 > 💬 i ONLY need $c_{t-1}$ NOT $c_t$
 
@@ -433,15 +433,15 @@ Imagine we need cell state from time step $(t-w)$, all the intermediate gates be
 
 Following diagram illustrates the same with
 
-{{< figure src="/lstm/21-case1.png">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/lstm/21-case1.png">}}
 
 ## Case #2
 
 - $f_t = 0, i_t = 1$
 
-{{< figure src="/lstm/22-case2.png">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/lstm/22-case2.png">}}
 
-{{< figure src="/lstm/20-stickman.png" height="100">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/lstm/20-stickman.png" height="100">}}
 
 > 💬 i do NOT need cell states before time step $t$
 
@@ -462,9 +462,9 @@ Here we can see that no vector passes through the _forget gate_ and we use ONLY 
 
 - $f_t = 0, i_t = 0$
 
-{{< figure src="/lstm/23-case3.png">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/lstm/23-case3.png">}}
 
-{{< figure src="/lstm/20-stickman.png" height="100">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/lstm/20-stickman.png" height="100">}}
 
 > 💬 i need a break
 
@@ -490,9 +490,9 @@ Here we can see that we allow both the vectors $c_{t-1}, \tilde{c_t}$ to pass th
 
 - $f_t = 1, i_t = 1$
 
-{{< figure src="/lstm/24-case4.png">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/lstm/24-case4.png">}}
 
-{{< figure src="/lstm/20-stickman.png" height="100">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/lstm/20-stickman.png" height="100">}}
 
 > 💬 i need gist of all the cell states in previous time steps
 >
@@ -519,7 +519,7 @@ One final “diagrammatic” takeaway before ending this blog
 
 > This is how LSTMs keep a track of both _long_ and _short_ term memory
 
-{{< figure src="/lstm/25-end-note.png">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/lstm/25-end-note.png">}}
 
 # References
 

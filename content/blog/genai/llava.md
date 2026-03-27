@@ -12,7 +12,7 @@ showTags: true
 hideBackToTop: false
 ---
 
-{{<figure src="/llava/llava-cover.png">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/llava/llava-cover.png">}}
 
 # LLaVA paper
 

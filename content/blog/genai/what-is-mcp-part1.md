@@ -12,7 +12,7 @@ showTags: true
 hideBackToTop: false
 mermaid: true
 ---
-{{<figure src="/mcp1/000-cover-edited.jpg">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/mcp1/000-cover-edited.jpg">}}
 
 # Introduction
 
@@ -32,7 +32,7 @@ Before we talk about MCP, let's understand what life looks like without it.
 
 **Imagine this scenario**: You want Claude, ChatGPT, and Cursor to all access GitHub, Notion, and your database. How many custom integrations do you need?
 
-{{<figure src="/mcp1/001-mcp-problem.jpg">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/mcp1/001-mcp-problem.jpg">}}
 
 
 This is the **MxN integration problem**:
@@ -210,11 +210,11 @@ This takes just 5 minutes to build. Here's the complete code:
 
 3. Restart Claude Desktop - your server is now accessible!
 
-{{<figure src="/mcp1/003-claude-dev-settings.jpg" caption="Claude Desktop developer settings showing configured MCP server">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/mcp1/003-claude-dev-settings.jpg" caption="Claude Desktop developer settings showing configured MCP server">}}
 
 Once configured, you'll see your MCP server's logs in Claude Desktop log files:
 
-{{<figure src="/mcp1/004-claude-logs.jpg" caption="MCP server successfully connected in Claude Desktop">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/mcp1/004-claude-logs.jpg" caption="MCP server successfully connected in Claude Desktop">}}
 
 # Final Thoughts
 

@@ -31,7 +31,7 @@ Same request. Two very different execution paths.
 
 ## Quick Call (with elicitation)
 
-{{<figure src="/mcp3/quickcall-send-hi-slack-channel.gif" caption="Quick Call: one tool call, user picks channel inline">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/mcp3/quickcall-send-hi-slack-channel.gif" caption="Quick Call: one tool call, user picks channel inline">}}
 
 **What happens:**
 1. User: "Send hi to Slack"
@@ -46,7 +46,7 @@ Same request. Two very different execution paths.
 
 ## Claude Code (without elicitation)
 
-{{<figure src="/mcp3/claude-send-hi-slack-channel.gif" caption="Claude Code: two tool calls, extra round-trip">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/mcp3/claude-send-hi-slack-channel.gif" caption="Claude Code: two tool calls, extra round-trip">}}
 
 **What happens:**
 1. User: "Send hi to Slack"
@@ -136,7 +136,7 @@ I've open-sourced a demo app that showcases Quick Call's elicitation framework: 
 
 The prompt is deliberately vague: "Schedule a meeting" -> no title, no participants, no time. The tool collects what it needs **progressively** through elicitation. One tool call, multiple user inputs, zero extra LLM round-trips.
 
-{{<figure src="/mcp3/light-mcp-elicit.gif" caption="Meeting scheduler with progressive elicitation">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/mcp3/light-mcp-elicit.gif" caption="Meeting scheduler with progressive elicitation">}}
 
 Here's how the flow works:
 

@@ -12,7 +12,7 @@ export default function AboutPage() {
   return (
     <div>
       <div className="flex items-baseline justify-between mb-2">
-        <h1 className="text-xl font-semibold leading-snug">{frontmatter.title}</h1>
+        <h1 className="text-2xl font-semibold leading-snug">{frontmatter.title}</h1>
         <Breadcrumbs />
       </div>
       <div className="prose mt-6">

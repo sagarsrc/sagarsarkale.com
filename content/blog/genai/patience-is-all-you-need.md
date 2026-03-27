@@ -12,7 +12,7 @@ showTags: true
 hideBackToTop: false
 ---
 
-{{<figure src="/attn/patience-cover.png">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/attn/patience-cover.png">}}
 
 # Introduction
 
@@ -26,7 +26,7 @@ At first, there will be too many moving pieces, make sure you spend some time wi
 
 By now you might have seen the image below multiple times.
 
-{{<figure src="/attn/unedited-transformer.png" height="400">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/attn/unedited-transformer.png" height="400">}}
 
 At its core, the Transformer consists of two main components: the encoder (represented by the grey block on the left) and the decoder (the grey block on the right).
 
@@ -39,7 +39,7 @@ Let us deep dive into decoder only architecture. Why?
 
 After removing encoder from the picture our architecture looks something like the image below. Let us try to break down how this kind of model works step by step.
 
-{{<figure src="/attn/edited-transformer.png" height="auto">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/attn/edited-transformer.png" height="auto">}}
 
 # Notations
 
@@ -58,7 +58,7 @@ Through all the steps below batch_size = 1 for simplicity. Additionally, each ma
 
 # Step 1 - Representing a sequence
 
-[![Representing a sequence](/attn/step-1-emb-pos.png)](/attn/step-1-emb-pos.png)
+[![Representing a sequence](https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/attn/step-1-emb-pos.png)](https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/attn/step-1-emb-pos.png)
 
 ## Inputs (Step 1)
 
@@ -72,7 +72,7 @@ Vectors representing tokens of input sequence and respective positions.
 
 # Step 2 - QKV matrices and splits
 
-[![QKV splits](/attn/qkv-splits.png)](/attn/qkv-splits.png)
+[![QKV splits](https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/attn/qkv-splits.png)](https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/attn/qkv-splits.png)
 
 ## Inputs (Step 2)
 
@@ -123,7 +123,7 @@ How did we identify that? - Given a word “kid” we got corresponding relevant
 
 Now observe the heatmap below, it is a representation of how Query and Key matrices are collectively used to capture these relevance scores.
 
-{{<figure src="/attn/unmasked-attn.png">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/attn/unmasked-attn.png">}}
 
 On the Y axis of this heatmap we have **Queries**, and on the X axis we have **Keys**, as you might have noticed there is some score associated between the words of sentence itself. Now you know why the term “_Self_” in “_Self-Attention_”. But wait we are not there yet “Attention” is not far away.
 
@@ -139,7 +139,7 @@ Some comments:
 
 On multiplying Query and Key matrix we have pairwise relevance score, but these scores need to be converted into word representation with “modified relevance”. That is where **Value** matrix comes into picture.
 
-{{<figure src="/attn/qkv-mult-eg.png">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/attn/qkv-mult-eg.png">}}
 
 So, essentially **Value** matrix is a projection to bring relevance scores to word representation with additional information of relevance. Above diagram only shows the overall transformation of matrix, there are additional operations that happen while calculating attention
 
@@ -151,7 +151,7 @@ $\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right) 
 
 Let’s break down this equation anyways.
 
-{{<figure src="/attn/attn-eqn-explained.png">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/attn/attn-eqn-explained.png">}}
 
 Let us see a block diagram for the same and understand how the shapes of matrices change.
 
@@ -164,7 +164,7 @@ Let us see a block diagram for the same and understand how the shapes of matrice
 Each of the above QKV matrices can be though of as 12 groups of `[6 x 64]` matrices.
 Let’s do operations on q, k, v each of shape [6 x 64].
 
-[![Single-head attention](/attn/single-head-attn.png)](/attn/single-head-attn.png)
+[![Single-head attention](https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/attn/single-head-attn.png)](https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/attn/single-head-attn.png)
 
 1. Multiply $q$ and $k^T$
 2. Scale it by multiplying with : ${1}/{\sqrt{ndim}}$
@@ -184,11 +184,11 @@ On multiplying $q$ and $k^T$ we might get extremely large values in order to avo
 
 Well this is a neat trick to not allow our model to cheat while doing causal language modelling. As most of the language models predict next token given a bunch of tokens, masking attention scores tokens in future allow us to not attend to tokens that our model has not seen yet.
 
-{{<figure src="/attn/masked-attn.png">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/attn/masked-attn.png">}}
 
 Objective while training is given tokens `["Cur", "ious", "kid"]` predict `["picked"]`. By masking attention scores we avoid model to learn from the attention scores of the tokens that are yet to be seen by model.
 
-{{<figure src="/attn/masked-attn-pred.png">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/attn/masked-attn-pred.png">}}
 
 Same applies for other rows in the matrix, given tokens `["Cur", "ious", "kid", "picked"]` predict `["the"]` , and so on. One thing to note here is unline RNN or LSTM, calculation of losses can happen parallely (without having to wait for each timestep).
 
@@ -220,13 +220,13 @@ A `[6 x 64]` - single head raw attention output.
 
 Inputs are same as inputs in Step 3
 
-[![Multi-head attention](/attn/multi-head-attn.png)](/attn/multi-head-attn.png)
+[![Multi-head attention](https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/attn/multi-head-attn.png)](https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/attn/multi-head-attn.png)
 
 ## Process
 
 In this step we stack all the $attn$ matrices i.e all “raw attention outputs” into one large matrix.
 
-![Multi-head attention](/attn/stack-attn.png)
+![Multi-head attention](https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/attn/stack-attn.png)
 
 This further is multiplied by a projection matrix to get final output of Attention block.
 
@@ -250,7 +250,7 @@ Now one might argue why do we not use the entire Q, K, V matrix instead of break
 
 In this step we get **A(Q,K,V)\*** [6 x 768] output which we can finally call “final attention ouptut”, hush!
 
-{{<figure src="/attn/output-of-attn.png" height="200" caption="Output of Attention Block">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/attn/output-of-attn.png" height="200" caption="Output of Attention Block">}}
 
 **NOTE** - One important thing to notice here is the output of attention block is of the same shape that we began with [6 x 768].
 
@@ -258,7 +258,7 @@ In this step we get **A(Q,K,V)\*** [6 x 768] output which we can finally call �
 
 ## Where are we now?
 
-[![Where are we now?](/attn/where-are-we.png)](/attn/where-are-we.png)
+[![Where are we now?](https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/attn/where-are-we.png)](https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/attn/where-are-we.png)
 
 We have covered quite some ground now, **we are currently at** `output of Attention Block` it is important that you look at `input to Attention Block` as well, as both of these will be used in this step, it is the `skip connection` that enables usage of previous information.
 
@@ -266,7 +266,7 @@ We have covered quite some ground now, **we are currently at** `output of Attent
 
 Output of Attention Block **A(Q,K,V)\*** [6 x 768] serves as input to this MLP block.
 
-[![MLP block](/attn/mlp-block.png)](/attn/mlp-block.png)
+[![MLP block](https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/attn/mlp-block.png)](https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/attn/mlp-block.png)
 
 Here both the inputs (here $x$) and outputs of Attention Block (here $Attention(x)$) are combined together using a skip connection as below. The Add and Norm block of decoder architecture can be given by this equation.
 
@@ -282,7 +282,7 @@ $$
 
 This gives the `output of MLP block #` denoted by $z$ above, notice the shape of MLP block it is same shape that we started with [6 x 768], this shape enables us to further pass this $z$ back to the transformer. The small `Nx` in the diagram denotes repetion of the Attention and MLP block block (hidden module) as shown below.
 
-{{<figure src="/attn/expand-nx.png" caption="Expanded Attention and NLP block">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/attn/expand-nx.png" caption="Expanded Attention and NLP block">}}
 
 ## Outputs (Step 5)
 
@@ -296,13 +296,13 @@ In this step we look at final transformations to generate output probabilities.
 
 Outputs of hidden layers - N x (Attention and MLP blocks) serve as input to this step.
 
-[![MLP block](/attn/lm-head.png)](/attn/lm-head.png)
+[![MLP block](https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/attn/lm-head.png)](https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/attn/lm-head.png)
 
 ## Process
 
 MLP Output goes through another projection here to get `output` which holds logits before they are converted into final probability scores. Each row of the in matrix [6 x 768] is probability distribution of which words are most likely to come next in the sequence. We can interpret the final output as follows.
 
-{{<figure src="/attn/softmax-op-prob.png" caption="Softmax and output probabilities while training">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/attn/softmax-op-prob.png" caption="Softmax and output probabilities while training">}}
 
 ## Ouptut
 

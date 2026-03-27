@@ -12,7 +12,7 @@ showTags: true
 hideBackToTop: false
 ---
 
-{{<figure src="/pos-enc/000-cover-pe.png">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/pos-enc/000-cover-pe.png">}}
 
 # Introduction
 
@@ -31,7 +31,7 @@ As we can see by swapping 2 words in the sentence, the whole meaning changes.
 
 Model uses these words as embeddings, our goal is to make these embeddings carry additional position information, here the corresponding index associated with each word.
 
-{{< figure src="/pos-enc/000-words-to-emb-pos.png" height="300">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/pos-enc/000-words-to-emb-pos.png" height="300">}}
 
 # Proposed method
 
@@ -50,8 +50,8 @@ Understanding variables:
 | $pos$              | position of word in sequence |
 | $d$                | embedding dimension of model |
 
-{{< figure src="/pos-enc/003-pos-and-i-desc.png" height="250">}}
-{{< figure src="/pos-enc/002-pos-enc-add.png" height="250">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/pos-enc/003-pos-and-i-desc.png" height="250">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/pos-enc/002-pos-enc-add.png" height="250">}}
 
 $$fig\ 1$$
 
@@ -135,8 +135,8 @@ One can observe similar patterns in both $fig\ 5.1$ and $fig\ 5.2$:
 
 Let's revisit the older diagram we began with. In the above steps, we saw how each position $pos$ can be represented uniquely. Now we have the "orange" vector which has positional information in it.
 
-{{< figure src="/pos-enc/003-pos-and-i-desc.png" height="250">}}
-{{< figure src="/pos-enc/002-pos-enc-add.png" height="250">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/pos-enc/003-pos-and-i-desc.png" height="250">}}
+{{< figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/pos-enc/002-pos-enc-add.png" height="250">}}
 
 We add each word embedding at $pos=n$ with corresponding position encoding.
 

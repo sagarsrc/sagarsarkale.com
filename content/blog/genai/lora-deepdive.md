@@ -12,7 +12,7 @@ showTags: true
 hideBackToTop: false
 mermaid: true
 ---
-{{<figure src="/lora/000-lora-cover.jpg">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/lora/000-lora-cover.jpg">}}
 
 # Introduction
 LoRA or Low Rank Adaptation is one of the techniques which was introduced to train large language model efficiently. To quote it in numbers, using this technique while training GPT3 175B number of trainable parameters can be reduced by 10000x, all while keeping the performance at par or better than fully finetuned model. In this blog i try to condense multiple resources and the nuances that come with this technique.
@@ -29,7 +29,7 @@ What is the simplest 3D system that would be linearly independent? Identity matr
 $$I_3 = \begin{bmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 1 \end{bmatrix}$$
 
 Though this matrix is made of 9 numbers it's information lies across 3 dimensions. In the following representation we can clearly see each vector is linearly independent of each other.
-{{<figure src="/lora/000-identity-matrix-repr.jpg">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/lora/000-identity-matrix-repr.jpg">}}
 - Rank of this matrix is 3
 - No row can be expressed as a linear combination of the other rows
 
@@ -38,7 +38,7 @@ Though this matrix is made of 9 numbers it's information lies across 3 dimension
 
 Similarly a set of linearly dependent vectors looks like this:
 $$M_{1} = \begin{bmatrix} 1 & 0 & 0 \\\\ 3 & 0 & 0 \\\\ 0 & 0 & 0 \end{bmatrix}$$
-{{<figure src="/lora/001-linearly-dependent.jpg">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/lora/001-linearly-dependent.jpg">}}
 - Rank of this matrix is 1
 - Row $r_2$ is 3 times Row $r_1$
 
@@ -47,7 +47,7 @@ $$M_{1} = \begin{bmatrix} 1 & 0 & 0 \\\\ 3 & 0 & 0 \\\\ 0 & 0 & 0 \end{bmatrix}$
 
 Extending the same concept further we can have a matrix with rank 2:
 $$M_{2} = \begin{bmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 1 \\\\ 0 & 0 & 0 \end{bmatrix}$$
-{{<figure src="/lora/002-rank2-matrix.jpg">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/lora/002-rank2-matrix.jpg">}}
 - Rank of this matrix is 2
 - Only the first two rows are linearly independent, the third row is zero
 
@@ -84,7 +84,7 @@ With $r \ll d$ (r much smaller than d), making the adaptation parameter-efficien
 > Essentially we are trying to learn what $\Delta W$ should be added to existing weights of a model to learn / adapt to a new task.
 
 Visually it looks like this:
-{{<figure src="/lora/003-lora-diagram.jpg">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/lora/003-lora-diagram.jpg">}}
 
 **Where does rank fit in?**
 - Notice $r$ i.e rank in above diagram

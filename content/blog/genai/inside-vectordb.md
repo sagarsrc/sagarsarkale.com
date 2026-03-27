@@ -12,7 +12,7 @@ showTags: true
 hideBackToTop: false
 mermaid: true
 ---
-{{<figure src="/vectordb/000-cover.png">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/vectordb/000-cover.png">}}
 
 # Introduction
 
@@ -35,7 +35,7 @@ The most straightforward approach to find similar vectors is the **K-Nearest Nei
 3. Calculate distance (cosine, euclidean, etc.) for each comparison
 4. Sort all distances and return the K closest vectors
 
-{{<figure src="/vectordb/001-knn.jpg" caption="KNN exact search: Query vector compared against all N vectors in database">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/vectordb/001-knn.jpg" caption="KNN exact search: Query vector compared against all N vectors in database">}}
 
 ## Why This Doesn't Scale
 
@@ -100,7 +100,7 @@ Goal: navigate from one state to another.
 - **Dashed arrows**: Long-distance connections that can be skipped
 - Navigate from $S_1$  -> $S_2$ ...  -> $S_k$ using the most efficient interstate route
 
-{{<figure src="/vectordb/002-analogy1.jpg" caption="Level 2: State-to-State travel using Interstate roads">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/vectordb/002-analogy1.jpg" caption="Level 2: State-to-State travel using Interstate roads">}}
 
 **Level 1 - Regional Travel (Inter-City)**
 
@@ -111,7 +111,7 @@ Goal: navigate through cities.
 - **Blue circle**: Target destination in state $S_k$
 - Search within the relevant regions, skip irrelevant areas
 
-{{<figure src="/vectordb/002-analogy2.jpg" caption="Level 1: Inter-city travel within states">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/vectordb/002-analogy2.jpg" caption="Level 1: Inter-city travel within states">}}
 
 **Level 0 - Local Navigation (Village-to-Village)**
 
@@ -121,7 +121,7 @@ Goal: navigate through villages.
 - **Blue dotted connections**: Final local connections to reach destination
 - Navigate through local connections to find the exact target vector
 
-{{<figure src="/vectordb/002-analogy3.jpg" caption="Level 0: Village-to-village local navigation">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/vectordb/002-analogy3.jpg" caption="Level 0: Village-to-village local navigation">}}
 
 ## Why This Works
 
@@ -139,7 +139,7 @@ Here we will dive deep into internals of how HNSW works.
 ## Skip lists and HNSW
 In order to simulate "skipping of vectors" we use a special data structure like skip list. This enables us to skip some of the vectors and still get approximate nearest neighbors.
 
-{{<figure src="/vectordb/003-skiplist.jpg" caption="Visualization of a skip list">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/vectordb/003-skiplist.jpg" caption="Visualization of a skip list">}}
 In the diagram:
 - Bottom level: All nodes (4, 7, 22, 34, 39, 47, 66, 69, 74, 91)
 - Higher levels: Progressively fewer "hub" nodes (34, 47, 74 at top)
@@ -154,7 +154,7 @@ Here are some properties of a skip list that align very well with HNSW:
 - Efficient skipping: Can bypass many irrelevant nodes during search
 
 The same skip list can be represented as a graph as shown below:
-{{<figure src="/vectordb/004-skiplist-graph-annotated.jpg" caption="Equivalent graph representation of a skip list">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/vectordb/004-skiplist-graph-annotated.jpg" caption="Equivalent graph representation of a skip list">}}
 
 Notice: In order to find 66, `(HEAD -> 34 -> 47 -> 66)` you jump through just 2 nodes, this is the power of skip list.
 
@@ -177,7 +177,7 @@ Notice: In order to find 66, `(HEAD -> 34 -> 47 -> 66)` you jump through just 2 
 - The formula `floor(-ln(U) / ln(M))` is equivalent but shows the dependency on M directly
 - Some implementations allow tuning `mL` independently to control hierarchy height
 
-{{<figure src="/vectordb/003-layer_distribution_histograms.png" caption="Distribution of levels in HNSW">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/vectordb/003-layer_distribution_histograms.png" caption="Distribution of levels in HNSW">}}
 
 **Why is exponential-like distribution used?**
 
@@ -194,7 +194,7 @@ Notice: In order to find 66, `(HEAD -> 34 -> 47 -> 66)` you jump through just 2 
 - Each vector is allowed to keep `M` number of close friends
 - Close friends = Nearest neighbors
 
-{{<figure src="/vectordb/005-M5-example.jpg" caption="Vector V has M=5 neighbors per node">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/vectordb/005-M5-example.jpg" caption="Vector V has M=5 neighbors per node">}}
 
 - Dotted lines represent bidirectional edges between vectors
 - **Note on bidirectionality**: When vector V connects to neighbor N, N must also add V to its neighbor list. If N already has M neighbors, it must prune one neighbor to stay within the limit (potentially V itself if V is the furthest). After pruning, edges are not guaranteed to be perfectly symmetric across the graph.
@@ -251,7 +251,7 @@ flowchart LR
 
 **Example: Vector Q gets assigned Level = 2**
 
-{{<figure src="/vectordb/006-hub-node.jpg" caption="Vector Q exists on multiple levels after being assigned max_level = 2">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/vectordb/006-hub-node.jpg" caption="Vector Q exists on multiple levels after being assigned max_level = 2">}}
 
 When new vector **Q** is inserted and gets assigned **Level = 2**:
 
