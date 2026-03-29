@@ -85,7 +85,7 @@ const workEntries: WorkEntry[] = [
       'Beat GPT-3.5 on reading comprehension',
       'Open-sourced models, tokenizer, configs, eval framework',
     ],
-    context: 'Covered by **YourStory**, **Moneycontrol**, and **ARB Podcast**. Models on **Hugging Face** with open weights.',
+    context: 'Covered by <a href="https://yourstory.com/2024/05/for-the-love-of-misal-smallstepai-is-building-an-llm-for-marathi" target="_blank" rel="noopener noreferrer">**YourStory**</a>, <a href="https://www.moneycontrol.com/news/technology/bootstrapped-ai-startup-smallstep-serves-up-misal-a-marathi-llm-12693311.html" target="_blank" rel="noopener noreferrer">**Moneycontrol**</a>, and <a href="https://www.youtube.com/watch?v=YHVFgb0RTVg" target="_blank" rel="noopener noreferrer">**ARB Podcast**</a>. Models on **Hugging Face** with open weights.',
     links: [
       { label: 'huggingface', href: 'https://huggingface.co/smallstepai' },
       { label: 'blog', href: '/blog' },
@@ -173,7 +173,7 @@ export default function WorkPage() {
 
               {entry.context && (
                 <p
-                  className="mt-2 text-xs text-[var(--fg-muted)] leading-[1.5] [&_strong]:text-[var(--fg-secondary)] [&_strong]:font-medium"
+                  className="mt-2 text-xs text-[var(--fg-muted)] leading-[1.5] [&_strong]:text-[var(--fg-secondary)] [&_strong]:font-medium [&_a]:text-[var(--fg-muted)] [&_a]:underline [&_a]:underline-offset-4 [&_a]:decoration-[var(--border)] hover:[&_a]:decoration-[var(--fg-muted)] [&_a]:transition-colors"
                   dangerouslySetInnerHTML={{
                     __html: entry.context.replace(
                       /\*\*(.+?)\*\*/g,

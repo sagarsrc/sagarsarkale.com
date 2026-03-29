@@ -34,7 +34,11 @@ function SocialIcons() {
   );
 }
 
-const press = ['YourStory', 'Moneycontrol', 'ARB Podcast'];
+const press = [
+  { name: 'YourStory', href: 'https://yourstory.com/2024/05/for-the-love-of-misal-smallstepai-is-building-an-llm-for-marathi' },
+  { name: 'Moneycontrol', href: 'https://www.moneycontrol.com/news/technology/bootstrapped-ai-startup-smallstep-serves-up-misal-a-marathi-llm-12693311.html' },
+  { name: 'ARB Podcast', href: 'https://www.youtube.com/watch?v=YHVFgb0RTVg' },
+];
 
 const highlights = [
   {
@@ -101,7 +105,7 @@ export default function Home() {
             <div className="max-w-[52ch] mb-4">
               <p className="font-serif text-lg text-[var(--fg-secondary)] leading-[1.75] mb-4 max-md:text-base">
                 I&apos;ve trained LLMs from scratch, built agentic systems that ship,
-                and optimized inference pipelines that run in production.
+                and optimized inference pipelines that run in production — served and supported 20M+ user base.
               </p>
               <p className="font-serif text-lg text-[var(--fg-secondary)] leading-[1.75] max-md:text-base">
                 Currently building{' '}
@@ -111,9 +115,13 @@ export default function Home() {
                 Previously built India&apos;s first competitive <a href="https://smallstep.ai/making-misal" target="_blank" rel="noopener noreferrer" className="text-[var(--fg)] font-medium no-underline border-b border-[var(--border)] hover:border-[var(--fg)] transition-colors">Marathi LLM</a>.<br />
                 <span className="text-[0.8125rem] text-[var(--fg-muted)] font-mono font-normal">
                   covered by {press.map((p, i) => (
-                    <span key={p}>
+                    <span key={p.name}>
                       {i > 0 && (i === press.length - 1 ? ' & ' : ', ')}
-                      <span className="text-[var(--fg-secondary)] font-semibold">{p}</span>
+                      {p.href ? (
+                        <a href={p.href} target="_blank" rel="noopener noreferrer" className="text-[var(--fg-secondary)] font-semibold no-underline border-b border-[var(--border)] hover:border-[var(--fg-secondary)] transition-colors">{p.name}</a>
+                      ) : (
+                        <span className="text-[var(--fg-secondary)] font-semibold">{p.name}</span>
+                      )}
                     </span>
                   ))}
                 </span>
