@@ -133,6 +133,11 @@ brew install stats                 # RAM, CPU, GPU, network monitor in menu bar
 - Trackpad: max speed in System Settings
 - Brightness: turn off auto
 - Accessibility → Reduce Motion: on
+- Stop Dock icon bouncing on notifications:
+
+```bash
+defaults write com.apple.dock no-bouncing -bool true && killall Dock
+```
 
 # 9. Communication & Media
 
