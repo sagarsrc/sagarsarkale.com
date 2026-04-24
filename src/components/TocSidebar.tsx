@@ -98,7 +98,7 @@ export function TocSidebar({ entries }: { entries: TocEntry[] }) {
         <summary className="cursor-pointer text-[var(--fg-secondary)] font-semibold uppercase tracking-wide text-[0.75rem]">
           Contents
         </summary>
-        <ol className="list-decimal pl-5 mt-2 space-y-1">
+        <ul className="list-none pl-2 mt-2 space-y-1">
           {filtered.map((entry, i) => (
             <li key={i} style={{ marginLeft: `${(entry.depth - minDepth) * 0.75}rem` }}>
               <a href={`#${entry.id}`} className="text-[var(--fg-muted)] no-underline hover:text-[var(--accent)]">
@@ -106,7 +106,7 @@ export function TocSidebar({ entries }: { entries: TocEntry[] }) {
               </a>
             </li>
           ))}
-        </ol>
+        </ul>
       </details>
     </>
   );

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import './globals.css';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -52,10 +53,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en-us" suppressHydrationWarning>
       <head>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossOrigin="anonymous" />
+        {/* Theme must run before paint to avoid flash */}
         <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('theme');var cls=(t==='dark'||t==='light')?t:(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.classList.add(cls);}catch(e){}})();` }} />
-        <script dangerouslySetInnerHTML={{ __html: `console.log('%c\\u{1f44b} Hey there, curious one!','font-size:16px;font-weight:bold;');console.log('%cIf you\\'re reading this, we should talk \\u2192 sagar@quickcall.dev','font-size:12px;color:#22d3ee;');` }} />
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-J90LP2EWLN" />
-        <script dangerouslySetInnerHTML={{ __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-J90LP2EWLN');` }} />
       </head>
       <body className="mx-auto max-w-3xl px-5 font-sans text-[15px] leading-relaxed tracking-[-0.011em] font-normal">
         <ThemeProvider>
@@ -67,6 +66,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </main>
           <Footer />
         </ThemeProvider>
+
+        {/* Console easter egg */}
+        <Script id="console-egg" strategy="afterInteractive">{`console.log('%c\u{1f44b} Hey there, curious one!','font-size:16px;font-weight:bold;');console.log('%cIf you\\'re reading this, we should talk → sagar@quickcall.dev','font-size:12px;color:#22d3ee;');`}</Script>
+
+        {/* Google Analytics */}
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-J90LP2EWLN" strategy="afterInteractive" />
+        <Script id="gtag-init" strategy="afterInteractive">{`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-J90LP2EWLN');`}</Script>
+
+        {/* react-grab: dev-only element picker for Claude Code */}
+        {process.env.NODE_ENV === 'development' && (
+          <Script src="//unpkg.com/react-grab/dist/index.global.js" strategy="afterInteractive" />
+        )}
       </body>
     </html>
   );

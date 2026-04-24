@@ -104,6 +104,7 @@ html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -187,10 +188,10 @@ img { display: block; max-width: 100%; }
 .prose code { font-family: var(--font-mono); font-size: 0.85em; }
 .prose p { margin-top: 1rem; margin-bottom: 1rem; line-height: 1.75; }
 .prose ul, .prose ol { margin-top: 1rem; margin-bottom: 1rem; }
-.prose h1 { font-size: 1.625rem; margin-top: 2.5rem; margin-bottom: 0.75rem; }
-.prose h2 { font-size: 1.3rem; margin-top: 2rem; margin-bottom: 0.75rem; }
-.prose h3 { font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem; }
-.prose h4 { font-size: 0.95rem; margin-top: 1.25rem; margin-bottom: 0.5rem; }
+.prose h1 { font-size: 1.625rem; margin-top: 2.5rem; margin-bottom: 0.75rem; scroll-margin-top: 5rem; }
+.prose h2 { font-size: 1.3rem; margin-top: 2rem; margin-bottom: 0.75rem; scroll-margin-top: 5rem; }
+.prose h3 { font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem; scroll-margin-top: 5rem; }
+.prose h4 { font-size: 0.95rem; margin-top: 1.25rem; margin-bottom: 0.5rem; scroll-margin-top: 5rem; }
 
 .prose a {
   color: var(--accent);
@@ -243,8 +244,9 @@ pre code { background: none; border: none; padding: 0; border-radius: 0; }
    rehype-pretty-code
    ========================================================= */
 
-[data-rehype-pretty-code-figure] {
-  margin: 1rem 0;
+/* Block code figures only (contain a <pre>) */
+[data-rehype-pretty-code-figure]:has(pre) {
+  margin: 0 0 1rem 0;
   background: var(--code-background);
   border: 1px solid var(--code-border);
   border-radius: 2px;

@@ -363,9 +363,8 @@ export function extractToc(content: string): TocEntry[] {
       // Match rehype-slug: lowercase, remove non-alphanumeric (keep spaces/hyphens), spaces to hyphens
       const id = text
         .toLowerCase()
-        .replace(/[^a-z0-9\s-]/g, '')
-        .replace(/\s+/g, '-')
-        .replace(/-+/g, '-')
+        .replace(/[^a-z0-9 -]/g, '')
+        .replace(/ /g, '-')
         .replace(/^-|-$/g, '');
       entries.push({ depth, text, id });
     }
