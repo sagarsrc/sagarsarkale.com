@@ -88,7 +88,7 @@ const workEntries: WorkEntry[] = [
     context: 'Covered by <a href="https://yourstory.com/2024/05/for-the-love-of-misal-smallstepai-is-building-an-llm-for-marathi" target="_blank" rel="noopener noreferrer">**YourStory**</a>, <a href="https://www.moneycontrol.com/news/technology/bootstrapped-ai-startup-smallstep-serves-up-misal-a-marathi-llm-12693311.html" target="_blank" rel="noopener noreferrer">**Moneycontrol**</a>, and <a href="https://www.youtube.com/watch?v=YHVFgb0RTVg" target="_blank" rel="noopener noreferrer">**ARB Podcast**</a>. Models on **Hugging Face** with open weights.',
     links: [
       { label: 'huggingface', href: 'https://huggingface.co/smallstepai' },
-      { label: 'blog', href: '/blog' },
+      { label: 'making misal — blog', href: '/blog/genai/making-misal' },
     ],
   },
   {

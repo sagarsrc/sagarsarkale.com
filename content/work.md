@@ -61,7 +61,7 @@ hideBackToTop: false
 - Conducted systematic evaluation across reading comprehension, translation, sentiment analysis using internal QA dataset
 - Achieved superior performance vs ChatGPT 3.5 on reading comprehension tasks, establishing first competitive Marathi LLM
 - Open-sourced [models](https://huggingface.co/smallstep/Misal-7B-base-v0.1), tokenizer, pretraining configs, and evaluation framework for regional language LLMs
-- Published a technical blog with entire procedure [here](https://smallstep.ai/making-misal)
+- Published a technical blog with entire procedure: [Making Misal](/blog/genai/making-misal) (mirror of [smallstep.ai/making-misal](https://smallstep.ai/making-misal))
 - Launch : [Linkedin Post](https://www.linkedin.com/posts/sagar-sarkale_misal-activity-7184874193405038594-lgkE?utm_source=share&utm_medium=member_desktop), [Twitter Post](https://x.com/smallstepai/status/1779108646263423307)
 - Coverage : [YourStory](https://yourstory.com/2024/05/for-the-love-of-misal-smallstepai-is-building-an-llm-for-marathi), [Moneycontrol](https://www.moneycontrol.com/news/technology/bootstrapped-ai-startup-smallstep-serves-up-misal-a-marathi-llm-12693311.html), [ARB Podcast](https://www.youtube.com/watch?v=YHVFgb0RTVg)
 - Open Source : [Huggingface Space](https://huggingface.co/smallstepai)

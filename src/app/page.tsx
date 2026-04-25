@@ -112,7 +112,7 @@ export default function Home() {
                 <a href="https://quickcall.dev" target="_blank" rel="noopener noreferrer" className="text-[var(--fg)] font-medium no-underline border-b border-[var(--border)] hover:border-[var(--fg)] transition-colors">QuickCall</a>.
               </p>
               <p className="font-serif text-lg text-[var(--fg-secondary)] leading-[1.75] max-md:text-base">
-                Previously built India&apos;s first competitive <a href="https://smallstep.ai/making-misal" target="_blank" rel="noopener noreferrer" className="text-[var(--fg)] font-medium no-underline border-b border-[var(--border)] hover:border-[var(--fg)] transition-colors">Marathi LLM</a>.<br />
+                Previously built India&apos;s first competitive <a href="/blog/genai/making-misal" className="text-[var(--fg)] font-medium no-underline border-b border-[var(--border)] hover:border-[var(--fg)] transition-colors">Marathi LLM</a>.<br />
                 <span className="text-[0.8125rem] text-[var(--fg-muted)] font-mono font-normal">
                   covered by {press.map((p, i) => (
                     <span key={p.name}>
