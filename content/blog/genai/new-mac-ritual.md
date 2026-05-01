@@ -119,6 +119,7 @@ brew install --cask raycast
 brew install --cask rectangle
 ```
 
+- **Shortcat** — click any UI element without the mouse. Trigger with a hotkey, type the label, hit Enter. Replaces reaching for the trackpad 90% of the time. `brew install --cask shortcat`
 - **AltTab** — windows/linux style app switcher, switches by each open window (not just app). Way better than Cmd+Tab for heavy multitaskers. `brew install --cask alt-tab`
 - **Contexts** — https://contexts.co/ (save license file → double-click in Finder to activate)
 - **KeepingYouAwake** — https://keepingyouawake.app/
