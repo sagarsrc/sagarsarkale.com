@@ -363,6 +363,137 @@ blockquote p { margin: 0.5rem 0; }
 .single-content table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
 
 /* =========================================================
+   Social Icons — double-click to copy
+   ========================================================= */
+
+.social-icon-link {
+  position: relative;
+  display: inline-flex;
+  transition: color 0.2s ease, transform 0.15s ease;
+}
+
+/* Copied feedback label */
+.social-icon-copied {
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: var(--accent);
+  color: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: lowercase;
+  padding: 2px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease, transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.social-icon-copied::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 3px solid transparent;
+  border-top-color: var(--accent);
+}
+
+.social-icon-link.is-copied {
+  color: var(--accent) !important;
+}
+
+.social-icon-link.is-copied .social-icon-copied {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* =========================================================
+   Cover Reveal — fade with micro-interactions
+   ========================================================= */
+
+.cover-reveal-wrapper {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  /* hover lift */
+  transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1),
+              filter 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+}
+
+.cover-reveal-wrapper:hover {
+  transform: scale(1.03);
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.25));
+}
+
+.cover-reveal-wrapper.is-pressed {
+  transform: scale(0.97);
+  transition-duration: 0.1s;
+}
+
+.cover-reveal-inner {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 280 / 366;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.cover-reveal-inner img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Profile image behind */
+.cover-reveal-profile {
+  object-position: center 30%;
+  transform: scale(1.3);
+}
+
+/* Cover image on top — fades out on reveal */
+.cover-reveal-cover {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+              transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  opacity: 1;
+  transform: scale(1);
+}
+
+.cover-reveal-cover.is-revealed {
+  opacity: 0;
+  transform: scale(1.05);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cover-reveal-wrapper,
+  .cover-reveal-cover {
+    transition-duration: 0.01ms !important;
+  }
+  .cover-reveal-wrapper:hover {
+    transform: none;
+    filter: none;
+  }
+  .cover-reveal-wrapper.is-pressed {
+    transform: none;
+  }
+}
+
+/* =========================================================
    Giscus
    ========================================================= */
 
