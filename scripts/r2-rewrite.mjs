@@ -44,7 +44,7 @@ if (!R2_URL) {
 const IMAGE_DIRS = [
   'attn', 'blt1', 'blt2', 'kvcache', 'llava', 'lora',
   'lstm', 'mcp1', 'mcp2', 'mcp3', 'personal', 'pos-enc',
-  'rnns', 'vectordb',
+  'rnns', 'vectordb', 'macbook',
 ];
 
 // Patterns to match: /dirname/filename.ext or dirname/filename.ext

@@ -11,6 +11,7 @@ tags: ["DeepDive"]
 showTags: true
 hideBackToTop: false
 mermaid: false
+cover: "https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/macbook/mac-setup-cover.jpeg"
 ---
 
 Personal reference. Every time i get a new Mac i waste half a day remembering what to install and in what order. This is the log.
