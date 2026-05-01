@@ -1,5 +1,5 @@
 ---
-title: "My MacBook Setup"
+title: "The New Mac Ritual: A Dev Setup Playbook"
 date: "2026-04-24"
 summary: "Personal log for setting up a fresh MacBook — so I don't have to think about it next time"
 description: "Personal reference: every tool, config, and command I need on a fresh Mac"
