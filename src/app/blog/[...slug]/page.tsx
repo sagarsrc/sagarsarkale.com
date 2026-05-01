@@ -79,6 +79,16 @@ export default async function BlogPostPage({ params }: Props) {
         )}
       </div>
 
+      {post.coverImage && (
+        <div className="mb-6 rounded-lg overflow-hidden">
+          <img
+            src={post.coverImage}
+            alt={frontmatter.title}
+            className="w-full h-auto object-cover"
+          />
+        </div>
+      )}
+
       {frontmatter.toc && <TocSidebar entries={extractToc(content)} />}
 
       <MDXRenderer content={content} />
