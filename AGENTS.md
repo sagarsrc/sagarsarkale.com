@@ -1,56 +1,101 @@
-<!-- BEGIN:nextjs-agent-rules -->
-# This is NOT the Next.js you know
+# site/ — sagarsarkale.com
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
-<!-- END:nextjs-agent-rules -->
+Next.js 16 static-export blog. Content lives in `content/`, rendered from `src/app/blog/[...slug]/page.tsx`.
 
-# Image Assets
+## Structure
 
-All blog images are hosted on Cloudflare R2, not in `public/`.
-
-## R2 Bucket
-
-- **Bucket**: `sagarsarkale-assets`
-- **Public URL**: `https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev`
-- **Credentials**: `secrets/.cloudflare.env`
-
-## Upload pattern
-
-Images are organized by post: `{post-slug}/000-cover.png`, `{post-slug}/001-name.png`, etc.
-
-```bash
-source secrets/.cloudflare.env
-AWS_ACCESS_KEY_ID=$CF_ACCESS_KEY_ID \
-AWS_SECRET_ACCESS_KEY=$CF_SECRET_ACCESS_KEY \
-aws s3 cp local-file.png s3://$R2_BUCKET/{post-slug}/filename.png \
-  --endpoint-url $CF_ENDPOINT --content-type image/png --region auto
+```
+site/
+  content/          # Markdown source of truth
+    blog/
+      genai/        # AI/ML posts
+      seq/          # Sequence models
+      web/          # Web dev
+    random/         # Non-tech writing
+    about.md        # /about
+    work.md         # /work
+  src/
+    app/            # Next.js App Router pages
+    components/     # React components
+    lib/content.ts  # ALL content loading + shortcode parsing
+    types/content.ts
+  public/           # Static assets (favicons, fonts, logos)
+  scripts/          # r2-upload.sh, r2-rewrite.mjs
+  secrets/          # .cloudflare.env (gitignored)
 ```
 
-Reference in markdown: `https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/{post-slug}/filename.png`
+## Content format
 
-## Cover images
+Markdown with YAML frontmatter:
 
-- Auto-extracted from first `<img>` in post content (skips GIFs)
-- Can be overridden via frontmatter `cover:` field
-- Cover images should be named `000-cover.png` in the R2 folder
+```yaml
+---
+title: "Post Title"
+date: "2026-04-24"
+summary: "Short description for listings"
+description: "Meta description"
+toc: true
+readTime: true
+tags: ["DeepDive", "MCP", "Transformers"]
+cover: "https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/slug/000-cover.png"
+---
+```
 
-## Local backups
+Tags: stick to existing ones (`Foundations`, `Transformers`, `MCP`, `DeepDive`, `LLM`, `GenAI`).
 
-Save images to `public/images/` as a local backup, but **never commit them** — they are gitignored. All production references must point to R2 URLs.
+## Shortcodes (Hugo → custom parser)
 
-# Blog Tags
+`src/lib/content.ts::convertShortcodes()` handles these at build time:
 
-Tags are consolidated to 4 categories matching the homepage writing cards:
+- `{{<figure src="..." width="..." caption="...">}}`
+- `{{<mermaid>}}...{{</mermaid>}}` — renders to SVG at build time via `mmdc`
+- `{{<details title="...">}}...{{</details>}}`
+- `{{<author>}}` — author byline
+- `{{<github owner="..." repo="..." path="...">}}` — inline code from GitHub
+- `{{<spotify type="track" id="...">}}`
+- `{{<tweet id="...">}}`
 
-- **Foundations** — RNNs, LSTMs, attention fundamentals
-- **Transformers** — position encoding, KV caching, BLT, multimodal
-- **MCP** — model context protocol series
-- **DeepDive** — long-form breakdowns (vectorDB, LoRA, etc.)
+## Images
 
-Do not create new tags without checking if an existing one fits. Keep the total under 6.
+**All blog images are hosted on Cloudflare R2.** Never reference `/public/` paths in markdown.
 
-# Mermaid Diagrams
+- Public URL base: `https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev`
+- Upload: `bash scripts/r2-upload.sh` (reads credentials from `secrets/.cloudflare.env`)
+- Cover images: name them `000-cover.{ext}` in the post's R2 folder
+- `cover:` frontmatter field overrides auto-extracted first image
 
-Mermaid diagrams are rendered at **build time** via `@mermaid-js/mermaid-cli` (`mmdc`). Do NOT use client-side mermaid rendering — it has a font measurement bug that produces 16,000px viewBoxes in some browsers. See `docs/rca-mermaid-diagram-rendering.md` for details.
+## Rendering pipeline
 
-SVGs are cached in `.mermaid-cache/` (gitignored). Delete this directory to force re-render.
+1. `lib/content.ts` reads `.md` files from `content/`
+2. Parses frontmatter with `gray-matter`
+3. Converts Hugo shortcodes to HTML
+4. Renders mermaid diagrams to SVG (cached in `.mermaid-cache/`)
+5. `next-mdx-remote` renders markdown → JSX in the page component
+6. Rehype plugins: `rehype-slug`, `rehype-autolink-headings`, `rehype-pretty-code` (Shiki)
+
+## Styling
+
+- Tailwind CSS v4
+- Custom CSS variables in `src/app/globals.css`
+- No component library
+
+## Build
+
+```bash
+npm run build   # Static export to out/
+npm run dev     # localhost:3000
+```
+
+Output is `out/` (configured in `next.config.ts`). Deployed via GitHub Actions → FTP to Hostinger.
+
+## Where to look for issues
+
+| Task | File |
+|------|------|
+| Content loading / parsing | `src/lib/content.ts` |
+| Blog post rendering | `src/app/blog/[...slug]/page.tsx` |
+| Blog listing | `src/app/blog/page.tsx`, `src/components/BlogList.tsx` |
+| TOC sidebar | `src/app/blog/[...slug]/page.tsx` (extractToc) |
+| Styling | `src/app/globals.css` |
+| Mermaid rendering | `src/lib/content.ts` (convertShortcodes), `docs/rca-mermaid-diagram-rendering.md` |
+| New post | Add `.md` to `content/blog/{subsection}/` |
