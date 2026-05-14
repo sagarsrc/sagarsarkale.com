@@ -10,7 +10,7 @@ hideBackToTop: false
 ---
 # Quickcall.dev
 
-{{<figure src="https://quickcall.dev/favicon-96x96.png" height="50px">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/work/quickcall.png" height="50px">}}
 
 > Founder
 > (Dec 2025 - Present)
@@ -20,7 +20,7 @@ hideBackToTop: false
 
 # Yral
 
-{{<figure src="https://media.licdn.com/dms/image/v2/D4D0BAQGaPIad-eFGDQ/company-logo_200_200/company-logo_200_200/0/1709024239252/yral_app_logo?e=2147483647&v=beta&t=g2EBsipTII2NUhSRAN81G32GvyLOs5_D010l49R3atc" height="50px">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/work/yral.png" height="50px">}}
 
 > AI Consultant
 > (Jan 2025 - Nov 2025)
@@ -34,7 +34,7 @@ hideBackToTop: false
 
 # People+AI
 
-{{<figure src="https://pbs.twimg.com/profile_images/1705160569756479489/2b-7UAQ8_400x400.jpg" height="50px">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/work/peopleai.jpg" height="50px">}}
 
 > AI Consultant
 > (Nov 2024 - Dec 2024)
@@ -48,7 +48,7 @@ hideBackToTop: false
 
 # smallstep.ai
 
-{{<figure src="https://framerusercontent.com/images/cm62IqDlxSYtaLaLmTfJGnJz0C4.png" height="120px">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/work/smallstep.png" height="120px">}}
 
 > Founder
 > (Dec 2023 - Present)
@@ -68,7 +68,7 @@ hideBackToTop: false
 
 # Medpiper
 
-{{<figure src="https://media.licdn.com/dms/image/v2/C560BAQHmTHY953vBpg/company-logo_200_200/company-logo_200_200/0/1630655040749/medpiper_logo?e=2147483647&v=beta&t=9L60d9u1Uu154a9qALEEbBEZ6PAunUqHNBguq_7O1eQ" height="50px">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/work/medpiper.png" height="50px">}}
 
 > AI Consultant
 > (Jan 2024 - Jun 2024)
@@ -81,7 +81,7 @@ hideBackToTop: false
 
 # Tekion
 
-{{<figure src="https://logowik.com/content/uploads/images/tekion662.logowik.com.webp" height="120px">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/work/tekion.webp" height="120px">}}
 
 > Data Scientist
 > (Aug 2022 - Jul 2023)
@@ -101,7 +101,7 @@ hideBackToTop: false
 
 # Pratilipi
 
-{{<figure src="https://cdn6.aptoide.com/imgs/c/3/9/c398854c8d038e8871111a74ff0ccda5_icon.png" height="100px">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/work/pratilipi.png" height="100px">}}
 
 > Data Scientist
 > (Dec 2020 - Aug 2022)
