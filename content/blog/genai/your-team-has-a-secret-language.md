@@ -14,7 +14,7 @@ mermaid: false
 cover: "https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/your-team-has-a-secret-language/000-cover.png"
 ---
 
-### The Naur Problem
+# The Naur Problem
 
 Peter Naur figured this out in 1985.
 
@@ -24,7 +24,7 @@ For forty years this was a slow problem. Companies lost knowledge when seniors r
 
 Then AI agents arrived. And the problem stopped being slow.
 
-### The Stranger Problem
+# The Stranger Problem
 
 Here's what changed. Every time you open a coding agent, you don't just hire a new junior. You hire a stranger. They know every open source pattern on GitHub. They don't know that your team stopped using a certain retry strategy eight months ago because it blew up production at 3 AM on a Saturday. They don't know that three different developers all append a request ID to every log line in the exact same format, none of them aware the others are doing it, none of them able to explain why they started. They don't know that your team's taste shifted last quarter from verbose types to inferred ones because the build times were killing flow state.
 
@@ -32,31 +32,31 @@ The agent has zero theory of your code. Every session starts from zero. And here
 
 I didn't understand this until I started watching traces from teams where we'd deployed QuickCall. By traces I mean the actual human-AI coding sessions. The back-and-forth between a developer and their coding agent. The prompts, the corrections, the rejections, the patterns that emerge when you watch enough of them.
 
-### What the Traces Revealed
+# What the Traces Revealed
 
 I spent the last year looking at how engineering teams actually use AI. Not what they say in retros. Not what's in their wiki. The actual sessions. What gets built. What gets corrected. What patterns repeat until they become invisible.
 
 Here's what I found.
 
-#### The Convergence Paradox
+## The Convergence Paradox
 
 One team had three developers who all wrapped API errors in the same custom shape. None of them knew the others were doing it. It wasn't in the style guide. It wasn't in onboarding. Each of them had hit the same production failure six months apart and arrived at the same solution independently. The pattern lived in their fingers, not their words.
 
 An AI agent reading their documentation would have suggested the standard library default. Every time. And every time, one of them would have corrected it. The team had developed a shared immune response to a specific failure mode. But the immune system had no central nervous system. No one could name what they were doing.
 
-#### The Temporal Drift
+## The Temporal Drift
 
 Another team had a convention that evolved in real time. In January they were all about explicit types. Verbose, clear, bulletproof. By March they'd shifted to heavy inference because build times had become unbearable. The change was never documented. It spread through code review, through pair sessions, through osmosis.
 
 An AI agent trained on their January codebase would suggest the verbose style in April. And someone would fix it. Again. The agent wasn't wrong in January. It was just living in the past. The team's taste had moved on. The documents hadn't.
 
-#### The Scar Tissue Pattern
+## The Scar Tissue Pattern
 
 A third team had what I call a scar pattern. Every developer avoided a specific caching strategy. No one mentioned it in docs. No one flagged it in linters. But if you watched their sessions, the pattern was unmistakable. The AI suggested it occasionally. It got rejected immediately. No explanation. Just a correction and a move on.
 
 The team's collective memory of a 2 AM outage lived in those rejections. It was their meta-intelligence at work. Distributed. Unspoken. Completely invisible to anyone who wasn't watching.
 
-### The Documentation Trap
+# The Documentation Trap
 
 We tried to solve this the way engineers always do. We wrote it down.
 
@@ -66,7 +66,7 @@ Staleness isn't a bug in documentation. It's the nature of the medium. Documents
 
 The HN thread had a phrase I keep coming back to. Some juniors get it. Others don't. The ones who get it are going at the physics. The others are following recipes. Every static document is a recipe. Every AI agent reading one is following it without tasting.
 
-### What Actually Works
+# What Actually Works
 
 Apprenticeship works. Not because the master explains well. Because the apprentice sees the work.
 
@@ -74,7 +74,7 @@ One comment in that thread stopped me cold. It said that seeing the work reveals
 
 That's the whole argument. Nobody can talk better about what they do than while they're doing it. So why are we still trying to write it down?
 
-### The Meta-Intelligence Argument
+# The Meta-Intelligence Argument
 
 Here's what I think now. Meta-intelligence is a team asset that compounds. Every corrected mistake, every accepted pattern, every rejected bad idea adds to it. But it only compounds if it's captured. Not in documents. Documents decay. It has to be captured from the work itself. From the traces. From the actual behavior of the team in the actual moments when they're making actual decisions.
 
