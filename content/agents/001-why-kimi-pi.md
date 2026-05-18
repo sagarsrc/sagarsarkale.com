@@ -131,6 +131,8 @@ I ran a full 18-worker fleet on Kimi K2.6. Total cost: **\$0.78**. Eighteen para
 | **Procedural tasks** | Good | Excellent (risk-aware) |
 | **Blended cost per 1M tokens** | ~\$10.00 [15] | **~\$1.71** [15] |
 
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/agents/001-why-kimi-pi/benchlm-swe-pro.png" caption="SWE-Bench Pro rankings — Claude Opus 4.7 at #2, Kimi K2.6 tied at #4" >}}
+
 Opus 4.7 wins on raw benchmark scores, but the gap is narrow, and you pay 6x for it. Where K2.6 wins is **speed**: Claude Opus feels sluggish by comparison. The tradeoff is context burns fast, but Pi's minimal prompt overhead offsets this.
 
 For my actual work, infrastructure ops, bash scripting, fleet orchestration, K2.6 matches or exceeds what I got from Claude at a fraction of the cost.
