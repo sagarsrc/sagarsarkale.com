@@ -1,13 +1,14 @@
 export function Footer() {
   return (
     <footer className="border-t border-[var(--border)] mt-16">
-      <div className="pt-8 pb-4 text-center">
-        <p className="text-xs text-[var(--fg-muted)] tracking-wide">
-          sagar sarkale &middot; 2024–2026 &middot; powered by caffeine and occasional epiphany
-        </p>
-      </div>
-      <div className="pb-8 flex justify-center gap-6 [&_a]:text-[var(--fg-muted)] [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-150 hover:[&_a]:text-[var(--accent)] [&_svg]:w-4 [&_svg]:h-4">
-        <a href="https://www.linkedin.com/in/sagar-sarkale/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+      <div className="mx-auto max-w-3xl px-5">
+        <div className="pt-8 pb-4 text-center">
+          <p className="text-xs text-[var(--fg-muted)] tracking-wide">
+            sagar sarkale &middot; 2024–2026 &middot; powered by caffeine and occasional epiphany
+          </p>
+        </div>
+        <div className="pb-8 flex justify-center gap-6 [&_a]:text-[var(--fg-muted)] [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-150 hover:[&_a]:text-[var(--accent)] [&_svg]:w-4 [&_svg]:h-4">
+          <a href="https://www.linkedin.com/in/sagar-sarkale/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
             <rect x="2" y="9" width="4" height="12" />
@@ -30,6 +31,7 @@ export function Footer() {
             <polyline points="22,6 12,13 2,6" />
           </svg>
         </a>
+      </div>
       </div>
     </footer>
   );

@@ -114,7 +114,7 @@ brew install --cask obsidian
 ```
 
 - **Goodnotes** — [App Store](https://apps.apple.com/in/app/goodnotes-ai-notes-docs-pdf/id1444383602)
-- **Presentify** (screen annotation) — [App Store](https://apps.apple.com/in/app/presentify-screen-annotation/id1507246666?mt=12)
+- **Presentify** — free screen annotation tool. Draw on screen anywhere, highlight cursor, spotlight, whiteboard overlay. Best free option for presentations, demos, pair programming. [App Store](https://apps.apple.com/in/app/presentify-screen-annotation/id1507246666?mt=12)
 
 # 7. Productivity & Window Management
 

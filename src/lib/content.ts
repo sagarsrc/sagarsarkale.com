@@ -18,6 +18,7 @@ const SECTIONS: ContentSection[] = [
   { section: "blog", subsection: "genai", dir: "blog/genai" },
   { section: "blog", subsection: "seq", dir: "blog/seq" },
   { section: "blog", subsection: "web", dir: "blog/web" },
+  { section: "agents", dir: "agents" },
   { section: "random", dir: "random" },
 ];
 
@@ -327,7 +328,7 @@ export function getRelatedPosts(currentPath: string, limit: number = 3): Post[] 
   const current = getPostByPath(currentPath);
   if (!current) return [];
 
-  const allPosts = getAllPosts().filter(p => p.path !== currentPath && p.section === 'blog');
+  const allPosts = getAllPosts().filter(p => p.path !== currentPath && p.section === current.section);
   const currentTags = current.frontmatter.tags?.map(t => t.toLowerCase()) || [];
 
   // Score by: same subsection (+2), shared tags (+1 each)

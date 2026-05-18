@@ -56,7 +56,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Theme must run before paint to avoid flash */}
         <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('theme');var cls=(t==='dark'||t==='light')?t:(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.classList.add(cls);}catch(e){}})();` }} />
       </head>
-      <body className="mx-auto max-w-3xl px-5 font-sans text-[15px] leading-relaxed tracking-[-0.011em] font-normal">
+      <body className="font-sans text-[15px] leading-relaxed tracking-[-0.011em] font-normal">
         <ThemeProvider>
           <ScrollToTop />
           <SkipToContent />
