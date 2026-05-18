@@ -1,3 +1,4 @@
+import Script from 'next/script';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
@@ -19,8 +20,12 @@ const mdxComponents = {
 };
 
 export function MDXRenderer({ content }: Props) {
+  const hasTweet = content.includes('twitter-tweet');
   return (
     <div className="prose">
+      {hasTweet && (
+        <Script src="https://platform.twitter.com/widgets.js" strategy="lazyOnload" />
+      )}
       <MDXRemote
         source={content}
         components={mdxComponents}

@@ -1,0 +1,1 @@
+(function(){try{var t=localStorage.getItem('theme');var cls=(t==='dark'||t==='light')?t:(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.classList.add(cls);}catch(e){}})();

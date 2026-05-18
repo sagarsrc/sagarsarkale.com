@@ -54,7 +54,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossOrigin="anonymous" />
         {/* Theme must run before paint to avoid flash */}
-        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('theme');var cls=(t==='dark'||t==='light')?t:(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.classList.add(cls);}catch(e){}})();` }} />
+        <Script src="/theme-init.js" strategy="beforeInteractive" />
+        {/* React Grab - development only */}
+        {process.env.NODE_ENV === 'development' && (
+          <Script src="//unpkg.com/react-grab/dist/index.global.js" crossOrigin="anonymous" strategy="beforeInteractive" />
+        )}
       </head>
       <body className="font-sans text-[15px] leading-relaxed tracking-[-0.011em] font-normal">
         <ThemeProvider>
@@ -74,10 +78,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-J90LP2EWLN" strategy="afterInteractive" />
         <Script id="gtag-init" strategy="afterInteractive">{`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-J90LP2EWLN');`}</Script>
 
-        {/* react-grab: dev-only element picker for Claude Code */}
-        {process.env.NODE_ENV === 'development' && (
-          <Script src="//unpkg.com/react-grab/dist/index.global.js" strategy="afterInteractive" />
-        )}
+
       </body>
     </html>
   );

@@ -54,7 +54,7 @@ export default async function AgentsPostPage({ params }: Props) {
   const relatedPosts = getRelatedPosts(post.path, 3);
 
   return (
-    <div className="max-w-[1100px] mx-auto">
+    <div className="max-w-3xl mx-auto">
       <article className="px-6 py-10 lg:py-14">
         {/* Post header */}
         <header className="mb-10 pb-8 border-b border-[var(--border)]">

@@ -10,20 +10,19 @@ export default function AgentsPage() {
   const posts = getAllPosts().filter((p: Post) => p.section === "agents");
 
   return (
-    <div className="max-w-[1100px] mx-auto">
+    <div className="max-w-3xl mx-auto">
       {/* Hero */}
       <section className="border-b border-[var(--border)]">
         <div className="px-6 py-16 lg:py-24">
-          <span className="font-mono text-xs tracking-widest uppercase text-[var(--fg-muted)] mb-4 block">
+          <span className="font-mono text-xs tracking-widest uppercase text-[var(--fg-muted)] mb-3 block">
             /Series
           </span>
           <h1 className="text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.1] mb-4">
             AGENTS.md
           </h1>
-          <p className="text-lg text-[var(--fg-secondary)] leading-relaxed max-w-xl mb-8">
+          <p className="text-lg text-[var(--fg-secondary)] leading-relaxed max-w-xl mb-10">
             A running log on agentic tools, workflows, and whatever comes next.
           </p>
-          <br /><br />
           {posts.length > 0 && (
             <Link
               href={posts[0].path}
@@ -37,7 +36,7 @@ export default function AgentsPage() {
 
       {/* About */}
       <section className="border-b border-[var(--border)]">
-        <div className="px-6 py-14">
+        <div className="px-6 py-12">
           <span className="font-mono text-xs tracking-widest uppercase text-[var(--fg-muted)] mb-4 block">
             /About
           </span>
@@ -45,14 +44,14 @@ export default function AgentsPage() {
             I am going all-in on agentic coding. This is where I document what works, what breaks, and where the real productivity gains are.
           </p>
           <p className="text-sm text-[var(--fg-muted)] leading-relaxed max-w-xl">
-            Covering Pi, Kimi, and whatever agent shows up next. Workflow integrations, prompt patterns, failure modes, skills, and honest opinions. Not a benchmark — a journal.
+            Covering Pi, Kimi, and whatever agent shows up next. Workflow integrations, prompt patterns, failure modes, skills, and honest opinions. Sharing learnings as I go.
           </p>
         </div>
       </section>
 
       {/* Table of Contents */}
       <section>
-        <div className="px-6 py-14">
+        <div className="px-6 py-12">
           <span className="font-mono text-xs tracking-widest uppercase text-[var(--fg-muted)] mb-6 block">
             /Table of Contents
           </span>

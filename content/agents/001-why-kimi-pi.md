@@ -6,10 +6,8 @@ description: "Personal account of leaving Claude Code after regressions, switchi
 toc: true
 readTime: true
 tags: ["Agents", "Kimi", "Pi", "Claude Code"]
-cover: ""
+cover: "https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/agents/001-why-kimi-pi/000-cover.png"
 ---
-
-# Why I Switched to Kimi + Pi - And Never Looked Back at Claude Code
 
 This probably feels like my decision to switch from Windows to Linux in my first year of college and never going back to Windows, but a grown-up version of it.
 
@@ -19,7 +17,7 @@ Moving from Claude to Kimi was that kind of decision for me, but the reasons wer
 
 ---
 
-## The Breaking Point
+# The Breaking Point
 
 I experienced regressions in Claude Code firsthand. Severe ones. I was screaming through my keyboard to make it work. It did not.
 
@@ -55,7 +53,7 @@ To give you a hint: i have been whipping Kimi to do more, trying to squeeze as m
 
 ---
 
-## The "Claude-Lash": I Wasn't Alone
+# The "Claude-Lash": I Wasn't Alone
 
 By early 2026, a full-blown user revolt was playing out across Reddit, GitHub, Hacker News, Twitter, and LinkedIn. Developers who had evangelized Claude Code were publicly canceling subscriptions and documenting regressions with screenshots, session logs, and side-by-side diffs.
 
@@ -77,7 +75,7 @@ This is current state of Claude code: Sad.
 
 ---
 
-## Why Pi? Because It's Linux, Not Windows
+# Why Pi? Because It's Linux, Not Windows
 
 I didn't just need a new model. I needed a new harness. One that wouldn't trap me again.
 
@@ -93,7 +91,7 @@ Claude Code is a polished product. Pi is a platform you adapt to your workflow.
 
 ---
 
-## What Claude Code Is Missing
+# What Claude Code Is Missing
 
 | | Claude Code | Pi |
 |---|---|---|
@@ -108,7 +106,7 @@ Claude Code is a polished product. Pi is a platform you adapt to your workflow.
 
 ---
 
-## Cost Reality: The Numbers Don't Lie
+# Cost Reality: The Numbers Don't Lie
 
 | | Claude Code | Pi + Kimi K2.6 |
 |---|---|---|
@@ -122,7 +120,7 @@ I ran a full 18-worker fleet on Kimi K2.6. Total cost: **\$0.78**. Eighteen para
 
 ---
 
-## Intelligence: The Model Matters
+# Intelligence: The Model Matters
 
 | | Claude Opus 4.7 | Kimi K2.6 |
 |---|---|---|
@@ -150,7 +148,7 @@ The numbers don't capture the feeling. I haven't waited more than 30 seconds for
 
 ---
 
-## References
+# References
 
 1. [GitHub issue #42796 — AMD analysis of Claude Code regressions](https://github.com/anthropics/claude-code/issues/42796)
 2. [The Register — "Claude Code has become dumber, lazier"](https://www.theregister.com/software/2026/04/06/claude-code-has-become-dumber-lazier-amd-director/5228799)

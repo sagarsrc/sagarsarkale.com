@@ -85,7 +85,7 @@ export function convertShortcodes(content: string): string {
   content = content.replace(/\{\{<\s*tweet\s+([^>]*?)>\s*\}\}/g, (_: string, attrs: string) => {
     const idMatch = attrs.match(/id="([^"]+)"/);
     if (idMatch) {
-      return `<blockquote class="twitter-tweet"><a href="https://twitter.com/x/status/${idMatch[1]}">Tweet</a></blockquote><script async src="https://platform.twitter.com/widgets.js"></script>`;
+      return `<blockquote class="twitter-tweet"><a href="https://twitter.com/x/status/${idMatch[1]}">Tweet</a></blockquote>`;
     }
     return '';
   });

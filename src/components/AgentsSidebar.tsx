@@ -54,10 +54,10 @@ export function AgentsSidebar({ posts }: Props) {
           href={post.path}
           onClick={() => setOpen(false)}
           className={[
-            'flex items-start gap-2 px-2 py-1.5 text-sm rounded-md transition-colors duration-100 no-underline',
+            'flex items-start gap-2 text-sm transition-colors duration-100 no-underline',
             active
-              ? 'text-[var(--fg)] font-medium bg-[var(--code-background)]'
-              : 'text-[var(--fg-secondary)] hover:text-[var(--fg)] hover:bg-[var(--code-background)]/60',
+              ? 'text-[var(--fg)] font-medium'
+              : 'text-[var(--fg-secondary)] hover:text-[var(--fg)]',
           ].join(' ')}
         >
           <span className="font-mono text-[11px] text-[var(--fg-muted)] mt-0.5 shrink-0 w-5">
@@ -71,7 +71,7 @@ export function AgentsSidebar({ posts }: Props) {
 
   const SidebarContent = () => (
     <>
-      <div className="px-4 h-[57px] border-b border-[var(--border)] flex items-center">
+      <div className="px-4 py-4 border-b border-[var(--border)] flex items-center">
         <Link
           href="/agents"
           className="block text-[0.8125rem] font-semibold text-[var(--fg)] no-underline hover:text-[var(--accent)] transition-colors"
@@ -80,8 +80,8 @@ export function AgentsSidebar({ posts }: Props) {
           AGENTS.md
         </Link>
       </div>
-      <nav className="py-3 px-3 flex-1 overflow-y-auto">
-        <ul className="space-y-0.5">{navItems}</ul>
+      <nav className="py-4 flex-1 overflow-y-auto">
+        <ul className="space-y-2">{navItems}</ul>
       </nav>
 
     </>
