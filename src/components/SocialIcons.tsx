@@ -51,12 +51,37 @@ const links: LinkItem[] = [
 ];
 
 const DOUBLE_CLICK_MS = 350;
+const LONG_PRESS_MS = 500;
+const MOVE_THRESHOLD = 10;
 
 export function SocialIcons() {
   const [copiedLabel, setCopiedLabel] = useState<string | null>(null);
   const lastClickRef = useRef<{ label: string; time: number } | null>(null);
   const navTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  // Mobile long-press state
+  const touchTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const touchStartPosRef = useRef<{ x: number; y: number } | null>(null);
+  const isLongPressRef = useRef(false);
+
+  const showCopied = useCallback((label: string) => {
+    setCopiedLabel(label);
+    setTimeout(() => setCopiedLabel(null), 1200);
+  }, []);
+
+  const copyToClipboard = useCallback(async (href: string, label: string) => {
+    try {
+      await navigator.clipboard.writeText(href);
+      showCopied(label);
+      if (typeof navigator !== "undefined" && navigator.vibrate) {
+        navigator.vibrate(50);
+      }
+    } catch {
+      // silently fail
+    }
+  }, [showCopied]);
+
+  // Desktop: double-click detection
   const handleClick = useCallback(
     async (href: string, label: string, e: React.MouseEvent) => {
       e.preventDefault();
@@ -71,13 +96,7 @@ export function SocialIcons() {
 
       if (last && last.label === label && now - last.time < DOUBLE_CLICK_MS) {
         lastClickRef.current = null;
-        try {
-          await navigator.clipboard.writeText(href);
-          setCopiedLabel(label);
-          setTimeout(() => setCopiedLabel(null), 1200);
-        } catch {
-          // silently fail
-        }
+        await copyToClipboard(href, label);
       } else {
         lastClickRef.current = { label, time: now };
         navTimeoutRef.current = setTimeout(() => {
@@ -86,8 +105,60 @@ export function SocialIcons() {
         }, DOUBLE_CLICK_MS);
       }
     },
+    [copyToClipboard]
+  );
+
+  // Mobile: long-press detection
+  const handleTouchStart = useCallback(
+    (href: string, label: string, e: React.TouchEvent) => {
+      const touch = e.touches[0];
+      touchStartPosRef.current = { x: touch.clientX, y: touch.clientY };
+      isLongPressRef.current = false;
+
+      touchTimerRef.current = setTimeout(() => {
+        isLongPressRef.current = true;
+        copyToClipboard(href, label);
+      }, LONG_PRESS_MS);
+    },
+    [copyToClipboard]
+  );
+
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    if (!touchStartPosRef.current || !touchTimerRef.current) return;
+
+    const touch = e.touches[0];
+    const dx = Math.abs(touch.clientX - touchStartPosRef.current.x);
+    const dy = Math.abs(touch.clientY - touchStartPosRef.current.y);
+
+    if (dx > MOVE_THRESHOLD || dy > MOVE_THRESHOLD) {
+      clearTimeout(touchTimerRef.current);
+      touchTimerRef.current = null;
+    }
+  }, []);
+
+  const handleTouchEnd = useCallback(
+    (href: string, e: React.TouchEvent) => {
+      if (touchTimerRef.current) {
+        clearTimeout(touchTimerRef.current);
+        touchTimerRef.current = null;
+      }
+
+      // If it was a long press, prevent navigation
+      if (isLongPressRef.current) {
+        e.preventDefault();
+        isLongPressRef.current = false;
+        return;
+      }
+
+      // Normal tap → navigate
+      window.open(href, "_blank", "noopener,noreferrer");
+    },
     []
   );
+
+  const handleContextMenu = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+  }, []);
 
   return (
     <>
@@ -96,6 +167,10 @@ export function SocialIcons() {
           key={link.label}
           href={link.href}
           onClick={(e) => handleClick(link.href, link.label, e)}
+          onTouchStart={(e) => handleTouchStart(link.href, link.label, e)}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={(e) => handleTouchEnd(link.href, e)}
+          onContextMenu={handleContextMenu}
           aria-label={link.label}
           className={`social-icon-link ${copiedLabel === link.label ? "is-copied" : ""}`}
           title={link.label}

@@ -50,6 +50,10 @@ Ditch the default browser, this is probably the very first step most of us do.
 
 - **Brave** — install manually from brave.com
 
+## Browser Extensions
+
+- **[Quick Tab](https://chromewebstore.google.com/detail/ldlghkoiihaelfnggonhjnfiabmaficg)** — command palette for tabs. Cmd+Shift+K, type a few chars, jump. Replaces frantic Cmd+Tab hunting when you have 40 tabs open.
+
 # 3. Developer Tools
 
 ```bash
