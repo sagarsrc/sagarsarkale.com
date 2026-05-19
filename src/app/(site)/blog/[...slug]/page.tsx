@@ -29,10 +29,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = post.frontmatter.title;
   const description = post.frontmatter.description || post.frontmatter.summary || '';
 
-  // Posts with explicit cover image override the generated OG image
-  const coverImages = post.coverImage
-    ? [{ url: post.coverImage, width: 1200, height: 630, alt: title }]
-    : undefined;
+  const ogImageUrl = post.coverImage
+    ? post.coverImage
+    : `/og/blog/${slug.join('/')}.png`;
+  const ogImages = [{ url: ogImageUrl, width: 1200, height: 630, alt: title }];
 
   return {
     title,
@@ -48,13 +48,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: 'Sagar Sarkale',
       title,
       description,
-      images: coverImages,
+      images: ogImages,
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
-      images: coverImages?.map((img) => img.url),
+      images: ogImages.map((img) => img.url),
     },
   };
 }
