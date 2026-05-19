@@ -12,11 +12,9 @@ export default function AgentsLayout({
     .map(({ slug, path, frontmatter }) => ({ slug, path, frontmatter: { title: frontmatter.title, date: frontmatter.date, summary: frontmatter.summary } }));
 
   return (
-    <div className="pb-20 lg:pb-0">
+    <div className="lg:pl-64">
       <AgentsSidebar posts={posts} />
-      <main className="lg:pl-64">
-        {children}
-      </main>
+      {children}
     </div>
   );
 }

@@ -15,18 +15,14 @@ const NAV_LINKS = [
 
 export function Header() {
   const pathname = usePathname();
-  const isAgents = pathname === '/agents' || pathname.startsWith('/agents/');
 
   return (
-    <header className="sticky top-0 z-100 bg-[var(--bg)] border-b border-[var(--border)] mb-8">
-      <div className={[
-        'flex justify-between items-center py-4',
-        isAgents ? 'lg:pl-72 pr-5' : 'mx-auto max-w-3xl px-5',
-      ].join(' ')}>
+    <header className="sticky top-0 z-50 bg-[var(--bg)] border-b border-[var(--border)]">
+      <div className="mx-auto max-w-3xl px-5 flex justify-between items-center h-14">
         <div className="text-[0.8125rem] font-semibold lowercase tracking-tight shrink-0">
           <Link href="/">sagar sarkale</Link>
         </div>
-        <nav className="flex items-center gap-5 max-sm:gap-2.5 text-[0.8125rem] max-sm:text-[11px] [&_a]:no-underline hover:[&_a]:text-[var(--accent)] overflow-x-auto scrollbar-hide">
+        <nav className="flex items-center gap-5 max-sm:gap-3 text-[0.8125rem] max-sm:text-xs [&_a]:no-underline hover:[&_a]:text-[var(--accent)]">
           {NAV_LINKS.map(link => {
             const isActive = pathname === link.url || pathname.startsWith(link.url + '/');
             return (

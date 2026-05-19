@@ -45,48 +45,6 @@ export function AgentsSidebar({ posts }: Props) {
 
   const isActive = (path: string) => pathname === path || pathname === path + '/';
 
-  const navItems = posts.map((post, i) => {
-    const active = isActive(post.path);
-    const num = String(i + 1).padStart(2, '0');
-    return (
-      <li key={post.slug}>
-        <Link
-          href={post.path}
-          onClick={() => setOpen(false)}
-          className={[
-            'flex items-start gap-2 text-sm transition-colors duration-100 no-underline',
-            active
-              ? 'text-[var(--fg)] font-medium'
-              : 'text-[var(--fg-secondary)] hover:text-[var(--fg)]',
-          ].join(' ')}
-        >
-          <span className="font-mono text-[11px] text-[var(--fg-muted)] mt-0.5 shrink-0 w-5">
-            {num}
-          </span>
-          <span className="leading-snug">{post.frontmatter.title}</span>
-        </Link>
-      </li>
-    );
-  });
-
-  const SidebarContent = () => (
-    <>
-      <div className="px-4 py-4 border-b border-[var(--border)] flex items-center">
-        <Link
-          href="/agents"
-          className="block text-[0.8125rem] font-semibold text-[var(--fg)] no-underline hover:text-[var(--accent)] transition-colors"
-          onClick={() => setOpen(false)}
-        >
-          AGENTS.md
-        </Link>
-      </div>
-      <nav className="py-4 flex-1 overflow-y-auto">
-        <ul className="space-y-2">{navItems}</ul>
-      </nav>
-
-    </>
-  );
-
   return (
     <>
       {/* Mobile toggle */}
@@ -119,19 +77,89 @@ export function AgentsSidebar({ posts }: Props) {
         />
       )}
 
-      {/* Desktop sidebar — full height, fixed left, overlays header */}
-      <aside className="hidden lg:flex flex-col fixed top-0 left-0 h-screen w-64 bg-[var(--surface)] border-r border-[var(--border)] z-[101] overflow-y-auto">
-        <SidebarContent />
+      {/* Desktop sidebar */}
+      <aside className="hidden lg:flex flex-col fixed top-0 left-0 h-screen w-64 bg-[var(--surface)] border-r border-[var(--border)] z-40 overflow-y-auto">
+        <div className="px-4 h-14 border-b border-[var(--border)] flex items-center shrink-0">
+          <Link
+            href="/agents"
+            className="text-[0.8125rem] font-semibold text-[var(--fg)] no-underline hover:text-[var(--accent)] transition-colors"
+            onClick={() => setOpen(false)}
+          >
+            AGENTS.md
+          </Link>
+        </div>
+        <nav className="py-4 flex-1 overflow-y-auto">
+          <ul className="space-y-2">
+            {posts.map((post, i) => {
+              const active = isActive(post.path);
+              const num = String(i + 1).padStart(2, '0');
+              return (
+                <li key={post.slug}>
+                  <Link
+                    href={post.path}
+                    onClick={() => setOpen(false)}
+                    className={[
+                      'flex items-start gap-2 px-3 py-1.5 text-sm transition-colors duration-100 no-underline',
+                      active
+                        ? 'text-[var(--fg)] font-medium'
+                        : 'text-[var(--fg-secondary)] hover:text-[var(--fg)]',
+                    ].join(' ')}
+                  >
+                    <span className="font-mono text-[11px] text-[var(--fg-muted)] mt-0.5 shrink-0 w-5">
+                      {num}
+                    </span>
+                    <span className="leading-snug">{post.frontmatter.title}</span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
       </aside>
 
-      {/* Mobile sidebar — fixed overlay */}
+      {/* Mobile sidebar */}
       <aside
         className={[
           'lg:hidden fixed top-0 left-0 z-40 h-screen w-64 bg-[var(--surface)] border-r border-[var(--border)] overflow-y-auto transition-transform duration-200',
           open ? 'translate-x-0' : '-translate-x-full',
         ].join(' ')}
       >
-        <SidebarContent />
+        <div className="px-4 h-14 border-b border-[var(--border)] flex items-center shrink-0">
+          <Link
+            href="/agents"
+            className="text-[0.8125rem] font-semibold text-[var(--fg)] no-underline hover:text-[var(--accent)] transition-colors"
+            onClick={() => setOpen(false)}
+          >
+            AGENTS.md
+          </Link>
+        </div>
+        <nav className="py-4 flex-1 overflow-y-auto">
+          <ul className="space-y-2">
+            {posts.map((post, i) => {
+              const active = isActive(post.path);
+              const num = String(i + 1).padStart(2, '0');
+              return (
+                <li key={post.slug}>
+                  <Link
+                    href={post.path}
+                    onClick={() => setOpen(false)}
+                    className={[
+                      'flex items-start gap-2 px-3 py-1.5 text-sm transition-colors duration-100 no-underline',
+                      active
+                        ? 'text-[var(--fg)] font-medium'
+                        : 'text-[var(--fg-secondary)] hover:text-[var(--fg)]',
+                    ].join(' ')}
+                  >
+                    <span className="font-mono text-[11px] text-[var(--fg-muted)] mt-0.5 shrink-0 w-5">
+                      {num}
+                    </span>
+                    <span className="leading-snug">{post.frontmatter.title}</span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
       </aside>
     </>
   );
