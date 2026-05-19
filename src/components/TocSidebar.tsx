@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import type { TocEntry } from '@/lib/content';
 
-export function TocSidebar({ entries }: { entries: TocEntry[] }) {
+export function TocSidebar({ entries, autonumber }: { entries: TocEntry[]; autonumber?: boolean }) {
   const [activeId, setActiveId] = useState('');
 
   useEffect(() => {
@@ -23,7 +23,30 @@ export function TocSidebar({ entries }: { entries: TocEntry[] }) {
     return () => observer.disconnect();
   }, []);
 
-  const filtered = entries.filter(e => e.depth <= 2);
+  // Compute section numbers for autonumbered TOC
+  const numberedEntries = autonumber
+    ? entries.map((entry, i) => {
+        if (entry.depth === 1) {
+          const h1Index = entries.slice(0, i).filter(e => e.depth === 1).length + 1;
+          return { ...entry, number: `${h1Index}.` };
+        } else if (entry.depth === 2) {
+          const prevH1 = [...entries.slice(0, i)].reverse().find(e => e.depth === 1);
+          const h1Index = prevH1 ? entries.slice(0, i).filter(e => e.depth === 1).length : 0;
+          const h2Index = entries.slice(0, i).filter(e => e.depth === 2 && (!prevH1 || entries.indexOf(e) > entries.indexOf(prevH1))).length + 1;
+          return { ...entry, number: `${h1Index}.${h2Index}.` };
+        } else if (entry.depth === 3) {
+          const prevH1 = [...entries.slice(0, i)].reverse().find(e => e.depth === 1);
+          const prevH2 = [...entries.slice(0, i)].reverse().find(e => e.depth === 2);
+          const h1Index = prevH1 ? entries.slice(0, i).filter(e => e.depth === 1).length : 0;
+          const h2Index = prevH2 ? entries.slice(0, entries.indexOf(prevH2) + 1).filter(e => e.depth === 2 && (!prevH1 || entries.indexOf(e) > entries.indexOf(prevH1))).length : 0;
+          const h3Index = entries.slice(0, i).filter(e => e.depth === 3 && (!prevH2 || entries.indexOf(e) > entries.indexOf(prevH2))).length + 1;
+          return { ...entry, number: `${h1Index}.${h2Index}.${h3Index}.` };
+        }
+        return { ...entry, number: undefined };
+      })
+    : entries.map(e => ({ ...e, number: undefined }));
+
+  const filtered = numberedEntries.filter(e => e.depth <= 2);
   if (filtered.length === 0) return null;
   const minDepth = Math.min(...filtered.map(e => e.depth));
 

@@ -9,7 +9,6 @@ export const metadata = {
 
 export default function BlogPage() {
   const posts = getAllPosts().filter((p: Post) => p.section === "blog");
-  const tags = [...new Set(posts.flatMap((p: Post) => p.frontmatter.tags || []))].sort();
   const postsForClient = posts.map(({ content, ...rest }) => rest);
 
   return (
@@ -18,7 +17,7 @@ export default function BlogPage() {
         <h1 className="text-2xl font-semibold">blog</h1>
         <Breadcrumbs />
       </div>
-      <BlogList posts={postsForClient} tags={tags} />
+      <BlogList posts={postsForClient} />
     </div>
   );
 }

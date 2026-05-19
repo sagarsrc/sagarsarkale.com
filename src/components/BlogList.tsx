@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+
 import { formatDate } from '@/lib/utils';
 
 interface BlogPost {
@@ -18,17 +18,10 @@ interface BlogPost {
 
 interface Props {
   posts: BlogPost[];
-  tags: string[];
 }
 
-export function BlogList({ posts, tags }: Props) {
-  const [activeTag, setActiveTag] = useState<string | null>(null);
-
-  const filtered = activeTag
-    ? posts.filter((p) => p.frontmatter.tags?.includes(activeTag))
-    : posts;
-
-  const [featured, ...rest] = filtered;
+export function BlogList({ posts }: Props) {
+  const [featured, ...rest] = posts;
 
   return (
     <>
@@ -109,33 +102,4 @@ export function BlogList({ posts, tags }: Props) {
   );
 }
 
-function FilterPill({
-  label,
-  isActive,
-  onClick,
-}: {
-  label: string;
-  isActive: boolean;
-  onClick: () => void;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      className={`
-        whitespace-nowrap shrink-0 cursor-pointer
-        rounded-full border
-        transition-all duration-150
-        text-[11px] sm:text-[13px]
-        px-2.5 py-1 sm:px-3.5 sm:py-1.5
-        ${isActive
-          ? 'border-[var(--accent)] bg-[color-mix(in_srgb,var(--accent)_12%,transparent)] text-[var(--accent)] font-medium'
-          : 'border-[var(--border)] bg-transparent text-[var(--fg-muted)] hover:border-[var(--fg-secondary)] hover:text-[var(--fg-secondary)]'
-        }
-      `}
-      style={{ fontFamily: 'var(--font-mono)' }}
-    >
-      {isActive && <span className="inline-block w-1 h-1 rounded-full bg-[var(--accent)] mr-1.5 align-middle" />}
-      {label}
-    </button>
-  );
-}
+

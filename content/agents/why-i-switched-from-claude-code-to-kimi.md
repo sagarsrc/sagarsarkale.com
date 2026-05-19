@@ -4,6 +4,7 @@ date: "2026-05-18"
 summary: "From Claude Code dependency to Kimi K2.6 + Pi harness. What broke, what I switched to, and why it was worth it."
 description: "Personal account of leaving Claude Code after regressions, switching to Kimi K2.6 via Pi coding agent harness, and the cost + control wins."
 toc: true
+autonumber: true
 readTime: true
 tags: ["Agents", "Kimi", "Pi", "Claude Code"]
 cover: "https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/agents/why-i-switched-from-claude-code-to-kimi/000-cover.png"
@@ -21,17 +22,9 @@ Moving from Claude to Kimi was that kind of decision for me, but the reasons wer
 
 I experienced regressions in Claude Code firsthand. Severe ones. I was screaming through my keyboard to make it work. It did not.
 
-Back then it was just not me. Stella Laurenzo, Senior Director of AI at AMD, filed GitHub issue #42796 [1] after analyzing **6,852 Claude Code sessions**, **234,760 tool calls**, and **17,871 thinking blocks** across her engineering team. Her findings:
+Then I found I wasn't alone. Stella Laurenzo, Senior Director of AI at AMD, filed GitHub issue #42796 [1]. Her conclusion: *"Claude cannot be trusted to perform complex engineering tasks."* AMD switched providers. The issue hit 2,077 reactions and was covered by The Register [2].
 
-| Metric | Before Mar 8 | After Mar 8 | Change |
-|--------|--------------|-------------|--------|
-| Reads per edit | 6.6 | 2.0 | **-70%** |
-| Edits without prior read | 6.2% | 33.7% | **+443%** |
-| Full-file rewrites | 4.9% | 11.1% | **+127%** |
-| User interrupts / 1K tool calls | 0.9 | 11.4 | **+1,167%** |
-| Monthly AWS Bedrock cost | \$345 | \$42,121 | **+122x** |
-
-Her conclusion: *"Claude cannot be trusted to perform complex engineering tasks."* AMD switched providers. The issue hit 2,077 reactions and was covered by The Register [2].
+{{< embed url="https://github.com/anthropics/claude-code/issues/42796" title="AMD: Claude Code has become dumber, lazier, and more expensive over time" description="Analysis of 6,852 Claude Code sessions, 234,760 tool calls, and 17,871 thinking blocks across an engineering team. Regression observed March 8, 2026." >}}
 
 What was once achievable using low thinking effort Claude Opus 4.6 was no longer possible. I had to default to medium effort and at times high to achieve the results that i once did. Even then regressions did not stop. At a certain point Claude went into loops and kept thinking for very long durations without producing any results at all.
 
@@ -75,7 +68,7 @@ This is current state of Claude code: Sad.
 
 ---
 
-# Why Pi? Because It's Linux, Not Windows
+# Why Pi?
 
 I didn't just need a new model. I needed a new harness. One that wouldn't trap me again.
 
@@ -91,7 +84,7 @@ Claude Code is a polished product. Pi is a platform you adapt to your workflow.
 
 ---
 
-# What Claude Code Is Missing
+# The Lock-In
 
 | | Claude Code | Pi |
 |---|---|---|
@@ -106,7 +99,7 @@ Claude Code is a polished product. Pi is a platform you adapt to your workflow.
 
 ---
 
-# Cost Reality: The Numbers Don't Lie
+# Cost Reality
 
 | | Claude Code | Pi + Kimi K2.6 |
 |---|---|---|
@@ -114,13 +107,13 @@ Claude Code is a polished product. Pi is a platform you adapt to your workflow.
 | **API input** | \$5/1M tokens (Opus 4.7) [12] | \$0.95/1M tokens [13] |
 | **API output** | \$25/1M tokens (Opus 4.7) [12] | \$4.00/1M tokens [13] |
 | **Same workload** | Often hits 5hr limit | **~5-6x cheaper** |
-| **My fleet (18 workers)** | Would cost \$20-40 | **\$0.78** |
+| **My fleet (18 agent workers)** | Would cost \$20-40 | **\$0.78** |
 
-I ran a full 18-worker fleet on Kimi K2.6. Total cost: **\$0.78**. Eighteen parallel workers, all running, fetching content, executing tasks. For less than a dollar.
+I ran a full 18 agent worker fleet on Kimi K2.6. Total cost: **\$0.78**. Eighteen parallel agent workers, all running, fetching content, executing tasks. For less than a dollar.
 
 ---
 
-# Intelligence: The Model Matters
+# Performance
 
 | | Claude Opus 4.7 | Kimi K2.6 |
 |---|---|---|
@@ -143,9 +136,9 @@ The numbers don't capture the feeling. I haven't waited more than 30 seconds for
 
 *This is the first part in a series of my experiments with Pi-Kimi. Here's what's coming:*
 
-- **Setting up Kimi:** Why I chose some tools over others, my Kimi Code CLI setup, and the extensions I actually use daily
+- **Setting up Pi harness with Kimi:** Why I chose some tools over others, my Pi harness setup, and the extensions I actually use daily
 - **Porting from Claude Code to Pi Skills:** How I moved my fleet of autonomous research agents to Pi, what broke, and what worked
-- **My experiments with Kimi:** Real workflows, real failures, and the quirks nobody tells you about
+- **My experiments with Pi and Kimi:** Real workflows, real failures, and the quirks nobody tells you about
 - **And more:** Cost tracking, context management, and building a setup that doesn't trap you
 
 ---

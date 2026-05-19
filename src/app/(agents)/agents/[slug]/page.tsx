@@ -102,7 +102,7 @@ export default async function AgentsPostPage({ params }: Props) {
 
       {frontmatter.toc && <TocSidebar entries={extractToc(content)} />}
 
-      <MDXRenderer content={content} />
+      <MDXRenderer content={content} autonumber={frontmatter.autonumber !== false} />
 
       {relatedPosts.length > 0 && (
         <nav className="mt-12 pt-8 border-t border-[var(--code-border)]">

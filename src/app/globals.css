@@ -166,6 +166,10 @@ img { display: block; max-width: 100%; }
 .post-tags a::before { content: '#'; color: var(--fg-muted); }
 .post-tags a:hover { color: var(--accent); }
 
+/* Embed cards ({{< embed >}} shortcode) */
+.embed-card { transition: border-color .15s, background .15s; }
+.embed-card:hover { border-color: var(--accent) !important; }
+
 /* =========================================================
    Prose — blog/MDX content
    ========================================================= */

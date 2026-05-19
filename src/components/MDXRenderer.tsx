@@ -11,6 +11,7 @@ import { CopyCodeButton } from './CopyCodeButton';
 
 interface Props {
   content: string;
+  autonumber?: boolean;
 }
 
 const mdxComponents = {
@@ -19,10 +20,10 @@ const mdxComponents = {
   li: (props: any) => <li className="ml-0" {...props} />,
 };
 
-export function MDXRenderer({ content }: Props) {
+export function MDXRenderer({ content, autonumber }: Props) {
   const hasTweet = content.includes('twitter-tweet');
   return (
-    <div className="prose">
+    <div className={autonumber ? 'prose autonumber' : 'prose'}>
       {hasTweet && (
         <Script src="https://platform.twitter.com/widgets.js" strategy="lazyOnload" />
       )}
