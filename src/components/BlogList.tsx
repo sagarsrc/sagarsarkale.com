@@ -33,31 +33,51 @@ export function BlogList({ posts, tags }: Props) {
   return (
     <>
       {/* Tag filter pills — scrollable on mobile, wrap on desktop */}
-      <div
-        className="flex gap-2 mb-6 sm:flex-wrap overflow-x-auto sm:overflow-visible pb-1 sm:pb-0 scrollbar-hide"
-        style={{ fontFamily: 'var(--font-mono)' }}
-      >
-        {[null, ...tags].map((tag) => {
-          const isActive = activeTag === tag;
-          return (
-            <button
-              key={tag ?? '__all'}
-              onClick={() => setActiveTag(tag === activeTag ? null : tag)}
-              className={`
-                whitespace-nowrap shrink-0 cursor-pointer transition-colors duration-150
-                text-[11px] sm:text-xs
-                px-2.5 py-1 sm:px-3 sm:py-1
-                rounded-full border
-                ${isActive
-                  ? 'border-[var(--accent)] text-[var(--accent)] bg-[color-mix(in_srgb,var(--accent)_10%,transparent)]'
-                  : 'border-[var(--code-border)] text-[var(--fg-muted)] hover:border-[var(--fg-secondary)] hover:text-[var(--fg-secondary)]'
-                }
-              `}
-            >
-              {tag ?? 'All'}
-            </button>
-          );
-        })}
+      <div className="mb-6">
+        <span className="text-[10px] sm:text-xs uppercase tracking-wider text-[var(--fg-muted)] mb-1.5 block">
+          Filter by tag
+        </span>
+        <div
+          className="flex gap-2 sm:flex-wrap overflow-x-auto sm:overflow-visible pb-1 sm:pb-0 scrollbar-hide"
+          style={{ fontFamily: 'var(--font-mono)' }}
+        >
+          <button
+            onClick={() => setActiveTag(null)}
+            className={`
+              whitespace-nowrap shrink-0 cursor-pointer transition-colors duration-150
+              text-[11px] sm:text-xs
+              px-2.5 py-1 sm:px-3 sm:py-1
+              rounded-full border
+              ${activeTag === null
+                ? 'border-[var(--accent)] text-[var(--accent)] bg-[color-mix(in_srgb,var(--accent)_10%,transparent)]'
+                : 'border-[var(--code-border)] text-[var(--fg-muted)] hover:border-[var(--fg-secondary)] hover:text-[var(--fg-secondary)]'
+              }
+            `}
+          >
+            All
+          </button>
+          {tags.map((tag) => {
+            const isActive = activeTag === tag;
+            return (
+              <button
+                key={tag}
+                onClick={() => setActiveTag(tag === activeTag ? null : tag)}
+                className={`
+                  whitespace-nowrap shrink-0 cursor-pointer transition-colors duration-150
+                  text-[11px] sm:text-xs
+                  px-2.5 py-1 sm:px-3 sm:py-1
+                  rounded-full border
+                  ${isActive
+                    ? 'border-[var(--accent)] text-[var(--accent)] bg-[color-mix(in_srgb,var(--accent)_10%,transparent)]'
+                    : 'border-[var(--code-border)] text-[var(--fg-muted)] hover:border-[var(--fg-secondary)] hover:text-[var(--fg-secondary)]'
+                  }
+                `}
+              >
+                #{tag}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* Post list */}

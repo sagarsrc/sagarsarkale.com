@@ -6,7 +6,7 @@ description: "Personal account of leaving Claude Code after regressions, switchi
 toc: true
 readTime: true
 tags: ["Agents", "Kimi", "Pi", "Claude Code"]
-cover: "https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/agents/001-why-kimi-pi/000-cover.png"
+cover: "https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/agents/why-i-switched-from-claude-code-to-kimi/000-cover.png"
 ---
 
 This probably feels like my decision to switch from Windows to Linux in my first year of college and never going back to Windows, but a grown-up version of it.
@@ -131,7 +131,7 @@ I ran a full 18-worker fleet on Kimi K2.6. Total cost: **\$0.78**. Eighteen para
 | **Procedural tasks** | Good | Excellent (risk-aware) |
 | **Blended cost per 1M tokens** | ~\$10.00 [15] | **~\$1.71** [15] |
 
-{{<figure src="/agents/001-why-kimi-pi/benchlm-swe-pro-v2.png" caption="SWE-Bench Pro rankings — Claude Opus 4.7 at #2, Kimi K2.6 tied at #4" >}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/agents/why-i-switched-from-claude-code-to-kimi/benchlm-swe-pro-v2.png" caption="SWE-Bench Pro rankings — Claude Opus 4.7 at #2, Kimi K2.6 tied at #4" >}}
 
 Opus 4.7 wins on raw benchmark scores, but the gap is narrow, and you pay 6x for it. Where K2.6 wins is **speed**: Claude Opus feels sluggish by comparison. The tradeoff is context burns fast, but Pi's minimal prompt overhead offsets this.
 
