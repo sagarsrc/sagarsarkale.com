@@ -32,36 +32,27 @@ export function BlogList({ posts, tags }: Props) {
 
   return (
     <>
-      {/* Tag filter pills */}
-      <div className="flex flex-wrap gap-2 mb-6" style={{ fontFamily: 'var(--font-mono)' }}>
+      {/* Tag filter pills — scrollable on mobile, wrap on desktop */}
+      <div
+        className="flex gap-2 mb-6 sm:flex-wrap overflow-x-auto sm:overflow-visible pb-1 sm:pb-0 scrollbar-hide"
+        style={{ fontFamily: 'var(--font-mono)' }}
+      >
         {[null, ...tags].map((tag) => {
           const isActive = activeTag === tag;
           return (
             <button
               key={tag ?? '__all'}
               onClick={() => setActiveTag(tag === activeTag ? null : tag)}
-              style={{
-                padding: '4px 12px',
-                fontSize: '0.75rem',
-                borderRadius: '9999px',
-                border: `1px solid ${isActive ? 'var(--accent)' : 'var(--code-border)'}`,
-                color: isActive ? 'var(--accent)' : 'var(--fg-muted)',
-                backgroundColor: isActive ? 'color-mix(in srgb, var(--accent) 10%, transparent)' : 'transparent',
-                cursor: 'pointer',
-                transition: 'border-color 150ms, color 150ms, background-color 150ms',
-              }}
-              onMouseEnter={(e) => {
-                if (!isActive) {
-                  e.currentTarget.style.borderColor = 'var(--fg-secondary)';
-                  e.currentTarget.style.color = 'var(--fg-secondary)';
+              className={`
+                whitespace-nowrap shrink-0 cursor-pointer transition-colors duration-150
+                text-[11px] sm:text-xs
+                px-2.5 py-1 sm:px-3 sm:py-1
+                rounded-full border
+                ${isActive
+                  ? 'border-[var(--accent)] text-[var(--accent)] bg-[color-mix(in_srgb,var(--accent)_10%,transparent)]'
+                  : 'border-[var(--code-border)] text-[var(--fg-muted)] hover:border-[var(--fg-secondary)] hover:text-[var(--fg-secondary)]'
                 }
-              }}
-              onMouseLeave={(e) => {
-                if (!isActive) {
-                  e.currentTarget.style.borderColor = 'var(--code-border)';
-                  e.currentTarget.style.color = 'var(--fg-muted)';
-                }
-              }}
+              `}
             >
               {tag ?? 'All'}
             </button>

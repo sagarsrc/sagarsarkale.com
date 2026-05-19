@@ -8,6 +8,7 @@ readTime: true
 tags: ["DeepDive"]
 showTags: true
 hideBackToTop: false
+cover: "/og/blog/genai/making-misal.png"
 ---
 
 > Originally published on **smallstep.ai** on April 13, 2024. Read the full post here:
