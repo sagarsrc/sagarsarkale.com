@@ -78,7 +78,7 @@ export function AgentsSidebar({ posts }: Props) {
       )}
 
       {/* Desktop sidebar */}
-      <aside className="hidden lg:flex flex-col fixed top-0 left-0 h-screen w-64 bg-[var(--surface)] border-r border-[var(--border)] z-40 overflow-y-auto">
+      <aside className="hidden lg:flex flex-col fixed top-14 left-0 h-[calc(100vh-3.5rem)] w-64 bg-[var(--surface)] border-r border-[var(--border)] z-40 overflow-y-auto">
         <div className="px-4 h-14 border-b border-[var(--border)] flex items-center shrink-0">
           <Link
             href="/agents"

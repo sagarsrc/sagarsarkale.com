@@ -7,7 +7,8 @@
     "prebuild": "node scripts/generate-og-images.mjs",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "share": "ngrok http 3000"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
@@ -33,6 +34,7 @@
   },
   "devDependencies": {
     "@mermaid-js/mermaid-cli": "^11.12.0",
+    "@playwright/test": "^1.60.0",
     "@resvg/resvg-js": "^2.6.2",
     "@tailwindcss/postcss": "^4",
     "@types/mdx": "^2.0.13",

@@ -13,7 +13,11 @@ export const metadata: Metadata = {
     template: '%s | Sagar Sarkale',
   },
   description: 'AI/NLP engineer and founder building language models, retrieval systems, and developer tools. Creator of Misal (Marathi LLM) and QuickCall.dev.',
-  metadataBase: new URL('https://sagarsarkale.com'),
+  metadataBase: new URL(
+    process.env.NODE_ENV === 'development'
+      ? 'http://localhost:3000'
+      : 'https://sagarsarkale.com'
+  ),
   icons: {
     icon: [
       { url: '/favicon.svg', type: 'image/svg+xml' },

@@ -37,7 +37,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title,
     description,
-    metadataBase: new URL('https://sagarsarkale.com'),
+    metadataBase: new URL(
+      process.env.NODE_ENV === 'development'
+        ? 'http://localhost:3000'
+        : 'https://sagarsarkale.com'
+    ),
     alternates: {
       canonical: urlPath,
     },
