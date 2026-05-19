@@ -12,8 +12,9 @@ export default function AgentsLayout({
     .map(({ slug, path, frontmatter }) => ({ slug, path, frontmatter: { title: frontmatter.title, date: frontmatter.date, summary: frontmatter.summary } }));
 
   return (
-    <div className="lg:pl-64">
-      <AgentsSidebar posts={posts} />
+    <div>
+      {/* AgentsSidebar disabled - layout too crowded on mobile */}
+      {/* <AgentsSidebar posts={posts} /> */}
       {children}
     </div>
   );

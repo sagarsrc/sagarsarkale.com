@@ -27,9 +27,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const title = post.frontmatter.title;
   const description = post.frontmatter.description || post.frontmatter.summary || '';
-  const ogImages = post.coverImage
-    ? [{ url: post.coverImage, width: 1200, height: 630, alt: title }]
-    : [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Sagar Sarkale' }];
+  const ogUrl = post.coverImage
+    ? post.coverImage
+    : `/og/agents/${slug}.png`;
+  const ogImages = [{ url: ogUrl, width: 1200, height: 630, alt: title }];
 
   return {
     title,

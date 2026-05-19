@@ -136,7 +136,7 @@ async function main() {
       const fm = parseFrontmatter(raw);
       const slug = file.replace(/\.(md|mdx)$/, '');
 
-      if (fm.cover) continue;
+      if (section === 'blog' && fm.cover) continue;
 
       posts.push({
         section,
