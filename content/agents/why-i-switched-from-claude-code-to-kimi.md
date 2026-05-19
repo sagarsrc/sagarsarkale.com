@@ -38,6 +38,8 @@ I was trapped. Claude had become a dependency I couldn't shake, not a tool, a cr
 
 Last 8 days of my Claude code. Cut to April 26, 2026. I pulled the plug.
 
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/agents/why-i-switched-from-claude-code-to-kimi/claude-cancellation.png" caption="The confirmation email. April 25, 2026." width="70%">}}
+
 Immense sense of helplessness passed my mind. How do i even operate now? How do i even trust another model? Will that model be able to pull off what regressed Claude Code pulled off?
 
 Now after ~3 weeks later i can confidently say my decision was worth it.
