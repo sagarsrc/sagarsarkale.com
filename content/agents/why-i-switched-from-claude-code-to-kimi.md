@@ -132,7 +132,7 @@ Opus 4.7 wins on raw benchmark scores, but the gap is narrow, and you pay 6x for
 
 For my actual work, infrastructure ops, bash scripting, fleet orchestration, K2.6 matches or exceeds what I got from Claude at a fraction of the cost.
 
-The numbers don't capture the feeling. I haven't waited more than 30 seconds for Kimi to respond in three weeks. With Claude, I used to check my phone while it thought.
+The numbers don't capture the feeling. I switched QuickCall's entire pipeline to Kimi K2.6. It has been faring well.
 
 ---
 
