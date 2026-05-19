@@ -13,6 +13,7 @@ const SECTIONS = [
   { section: 'blog', subsection: 'seq', dir: 'blog/seq' },
   { section: 'blog', subsection: 'web', dir: 'blog/web' },
   { section: 'agents', subsection: null, dir: 'agents' },
+  { section: 'random', subsection: null, dir: 'random' },
 ];
 
 function loadInterFont() {
@@ -43,7 +44,9 @@ function parseFrontmatter(raw) {
 function getMdFiles(dir) {
   const fullDir = path.join(CONTENT_DIR, dir);
   if (!fs.existsSync(fullDir)) return [];
-  return fs.readdirSync(fullDir).filter(f => f.endsWith('.md') || f.endsWith('.mdx'));
+  return fs.readdirSync(fullDir).filter(f =>
+    (f.endsWith('.md') || f.endsWith('.mdx')) && !f.startsWith('_')
+  );
 }
 
 async function generateOgImage(title, description, outputPath, label) {

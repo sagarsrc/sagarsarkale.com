@@ -20,9 +20,33 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = getPostByPath('/random/' + slug);
   if (!post) return {};
+
+  const title = post.frontmatter.title;
+  const description = post.frontmatter.description || post.frontmatter.summary || '';
+  const ogImages = [{ url: `/og/random/${slug}.png`, width: 1200, height: 630, alt: title }];
+
   return {
-    title: post.frontmatter.title,
-    description: post.frontmatter.description || post.frontmatter.summary,
+    title,
+    description,
+    metadataBase: new URL('https://sagarsarkale.com'),
+    alternates: {
+      canonical: post.path,
+    },
+    openGraph: {
+      type: 'article',
+      locale: 'en_US',
+      url: post.path,
+      siteName: 'Sagar Sarkale',
+      title,
+      description,
+      images: ogImages,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ogImages.map((img) => img.url),
+    },
   };
 }
 
