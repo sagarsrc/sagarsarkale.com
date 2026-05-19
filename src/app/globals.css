@@ -335,9 +335,9 @@ hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
 .autonumber h1:not(.single-title) { counter-increment: section; counter-reset: subsection; }
 .autonumber h2 { counter-increment: subsection; counter-reset: subsubsection; }
 .autonumber h3 { counter-increment: subsubsection; }
-.autonumber h1:not(.single-title):before { content: counter(section) ".\00a0\00a0"; }
-.autonumber h2:before { content: counter(section) "." counter(subsection) ".\00a0\00a0"; }
-.autonumber h3:before { content: counter(section) "." counter(subsection) "." counter(subsubsection) ".\00a0\00a0"; }
+.autonumber h1:not(.single-title):before { content: counter(section) ".\00a0"; }
+.autonumber h2:before { content: counter(section) "." counter(subsection) ".\00a0"; }
+.autonumber h3:before { content: counter(section) "." counter(subsection) "." counter(subsubsection) ".\00a0"; }
 
 /* =========================================================
    Images / Figures

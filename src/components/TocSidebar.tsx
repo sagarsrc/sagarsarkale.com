@@ -52,7 +52,7 @@ export function TocSidebar({ entries, autonumber }: Props) {
   );
 
   const fmt = (e: NumEntry) =>
-    e.num ? `${e.num}\u00a0\u00a0${e.text}` : e.text;
+    e.num ? `${e.num}\u00a0${e.text}` : e.text;
 
   return (
     <>
