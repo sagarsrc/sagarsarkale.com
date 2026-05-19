@@ -145,7 +145,9 @@ The numbers don't capture the feeling. I haven't waited more than 30 seconds for
 
 ---
 
-# References
+# End Note
+
+Next posts: my Pi harness setup, the extensions I use, and how I run 18 agent workers for under a dollar.
 
 1. [GitHub issue #42796 — AMD analysis of Claude Code regressions](https://github.com/anthropics/claude-code/issues/42796)
 2. [The Register — "Claude Code has become dumber, lazier"](https://www.theregister.com/software/2026/04/06/claude-code-has-become-dumber-lazier-amd-director/5228799)
