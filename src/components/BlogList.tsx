@@ -32,54 +32,6 @@ export function BlogList({ posts, tags }: Props) {
 
   return (
     <>
-      {/* Tag filter pills — scrollable on mobile, wrap on desktop */}
-      <div className="mb-6">
-        <span className="text-[10px] sm:text-xs uppercase tracking-wider text-[var(--fg-muted)] mb-1.5 block">
-          Filter by tag
-        </span>
-        <div
-          className="flex gap-2 sm:flex-wrap overflow-x-auto sm:overflow-visible pb-1 sm:pb-0 scrollbar-hide"
-          style={{ fontFamily: 'var(--font-mono)' }}
-        >
-          <button
-            onClick={() => setActiveTag(null)}
-            className={`
-              whitespace-nowrap shrink-0 cursor-pointer transition-colors duration-150
-              text-[11px] sm:text-xs
-              px-2.5 py-1 sm:px-3 sm:py-1
-              rounded-full border
-              ${activeTag === null
-                ? 'border-[var(--accent)] text-[var(--accent)] bg-[color-mix(in_srgb,var(--accent)_10%,transparent)]'
-                : 'border-[var(--code-border)] text-[var(--fg-muted)] hover:border-[var(--fg-secondary)] hover:text-[var(--fg-secondary)]'
-              }
-            `}
-          >
-            All
-          </button>
-          {tags.map((tag) => {
-            const isActive = activeTag === tag;
-            return (
-              <button
-                key={tag}
-                onClick={() => setActiveTag(tag === activeTag ? null : tag)}
-                className={`
-                  whitespace-nowrap shrink-0 cursor-pointer transition-colors duration-150
-                  text-[11px] sm:text-xs
-                  px-2.5 py-1 sm:px-3 sm:py-1
-                  rounded-full border
-                  ${isActive
-                    ? 'border-[var(--accent)] text-[var(--accent)] bg-[color-mix(in_srgb,var(--accent)_10%,transparent)]'
-                    : 'border-[var(--code-border)] text-[var(--fg-muted)] hover:border-[var(--fg-secondary)] hover:text-[var(--fg-secondary)]'
-                  }
-                `}
-              >
-                #{tag}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
       {/* Post list */}
       <div className="flex flex-col gap-3">
         {/* Featured card */}
@@ -154,5 +106,36 @@ export function BlogList({ posts, tags }: Props) {
         ))}
       </div>
     </>
+  );
+}
+
+function FilterPill({
+  label,
+  isActive,
+  onClick,
+}: {
+  label: string;
+  isActive: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className={`
+        whitespace-nowrap shrink-0 cursor-pointer
+        rounded-full border
+        transition-all duration-150
+        text-[11px] sm:text-[13px]
+        px-2.5 py-1 sm:px-3.5 sm:py-1.5
+        ${isActive
+          ? 'border-[var(--accent)] bg-[color-mix(in_srgb,var(--accent)_12%,transparent)] text-[var(--accent)] font-medium'
+          : 'border-[var(--border)] bg-transparent text-[var(--fg-muted)] hover:border-[var(--fg-secondary)] hover:text-[var(--fg-secondary)]'
+        }
+      `}
+      style={{ fontFamily: 'var(--font-mono)' }}
+    >
+      {isActive && <span className="inline-block w-1 h-1 rounded-full bg-[var(--accent)] mr-1.5 align-middle" />}
+      {label}
+    </button>
   );
 }
