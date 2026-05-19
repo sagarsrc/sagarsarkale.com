@@ -6,12 +6,13 @@ import { Resvg } from '@resvg/resvg-js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CONTENT_DIR = path.join(__dirname, '..', 'content');
-const OUTPUT_DIR = path.join(__dirname, '..', 'public', 'og', 'blog');
+const OUTPUT_DIR = path.join(__dirname, '..', 'public', 'og');
 
 const SECTIONS = [
-  { subsection: 'genai', dir: 'blog/genai' },
-  { subsection: 'seq', dir: 'blog/seq' },
-  { subsection: 'web', dir: 'blog/web' },
+  { section: 'blog', subsection: 'genai', dir: 'blog/genai' },
+  { section: 'blog', subsection: 'seq', dir: 'blog/seq' },
+  { section: 'blog', subsection: 'web', dir: 'blog/web' },
+  { section: 'agents', subsection: null, dir: 'agents' },
 ];
 
 function loadInterFont() {
@@ -45,9 +46,9 @@ function getMdFiles(dir) {
   return fs.readdirSync(fullDir).filter(f => f.endsWith('.md') || f.endsWith('.mdx'));
 }
 
-async function generateOgImage(title, description, outputPath) {
+async function generateOgImage(title, description, outputPath, label) {
   const fontData = loadInterFont();
-  
+
   const svg = await satori(
     {
       type: 'div',
@@ -103,7 +104,7 @@ async function generateOgImage(title, description, outputPath) {
                 },
                 {
                   type: 'span',
-                  props: { style: { fontSize: '18px', color: '#85858f' }, children: 'blog' },
+                  props: { style: { fontSize: '18px', color: '#85858f' }, children: label },
                 },
               ],
             },
@@ -127,17 +128,18 @@ async function generateOgImage(title, description, outputPath) {
 
 async function main() {
   const posts = [];
-  for (const { subsection, dir } of SECTIONS) {
+  for (const { section, subsection, dir } of SECTIONS) {
     const files = getMdFiles(dir);
     for (const file of files) {
       const filePath = path.join(CONTENT_DIR, dir, file);
       const raw = fs.readFileSync(filePath, 'utf-8');
       const fm = parseFrontmatter(raw);
       const slug = file.replace(/\.(md|mdx)$/, '');
-      
-      if (fm.cover) continue; // Skip posts with explicit cover images
-      
+
+      if (fm.cover) continue;
+
       posts.push({
+        section,
         subsection,
         slug,
         title: fm.title || slug,
@@ -147,16 +149,20 @@ async function main() {
   }
 
   console.log(`Generating OG images for ${posts.length} posts without covers...`);
-  
+
   for (const post of posts) {
-    const outputPath = path.join(OUTPUT_DIR, post.subsection, `${post.slug}.png`);
+    const relPath = post.subsection
+      ? path.join(post.section, post.subsection, `${post.slug}.png`)
+      : path.join(post.section, `${post.slug}.png`);
+    const outputPath = path.join(OUTPUT_DIR, relPath);
+
     if (fs.existsSync(outputPath)) {
       console.log(`Skipping (exists): ${outputPath}`);
       continue;
     }
-    await generateOgImage(post.title, post.description, outputPath);
+    await generateOgImage(post.title, post.description, outputPath, post.section);
   }
-  
+
   console.log('Done.');
 }
 
