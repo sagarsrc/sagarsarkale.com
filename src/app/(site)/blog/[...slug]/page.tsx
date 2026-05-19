@@ -108,7 +108,7 @@ export default async function BlogPostPage({ params }: Props) {
         </div>
       )}
 
-      {frontmatter.toc && <TocSidebar entries={extractToc(content)} />}
+      {frontmatter.toc && <TocSidebar entries={extractToc(content)} autonumber={frontmatter.autonumber !== false} />}
 
       <MDXRenderer content={content} autonumber={frontmatter.autonumber !== false} />
 

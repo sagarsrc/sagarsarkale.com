@@ -19,7 +19,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 bg-[var(--bg)] border-b border-[var(--border)]">
       <div className="mx-auto max-w-3xl px-5 flex justify-between items-center h-14 gap-4">
-        <div className="text-[0.8125rem] font-semibold lowercase tracking-tight shrink-0">
+        <div className="text-[0.8125rem] font-semibold lowercase tracking-tight shrink-0 pb-0.5">
           <Link href="/">sagar sarkale</Link>
         </div>
         <nav className="flex items-center gap-5 max-sm:gap-3 text-[0.8125rem] max-sm:text-xs [&_a]:no-underline hover:[&_a]:text-[var(--accent)] overflow-x-auto scrollbar-hide">
