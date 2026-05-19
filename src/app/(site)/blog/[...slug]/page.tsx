@@ -25,22 +25,36 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const urlPath = '/blog/' + slug.join('/');
   const post = getPostByPath(urlPath);
   if (!post) return {};
-  const ogImages = post.coverImage
-    ? [{ url: post.coverImage, width: 1200, height: 630, alt: post.frontmatter.title }]
-    : [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Sagar Sarkale' }];
+
+  const title = post.frontmatter.title;
+  const description = post.frontmatter.description || post.frontmatter.summary || '';
+
+  // Posts with explicit cover image override the generated OG image
+  const coverImages = post.coverImage
+    ? [{ url: post.coverImage, width: 1200, height: 630, alt: title }]
+    : undefined;
+
   return {
-    title: post.frontmatter.title,
-    description: post.frontmatter.description || post.frontmatter.summary,
+    title,
+    description,
+    metadataBase: new URL('https://sagarsarkale.com'),
+    alternates: {
+      canonical: urlPath,
+    },
     openGraph: {
-      title: post.frontmatter.title,
-      description: post.frontmatter.description || post.frontmatter.summary,
-      images: ogImages,
+      type: 'article',
+      locale: 'en_US',
+      url: urlPath,
+      siteName: 'Sagar Sarkale',
+      title,
+      description,
+      images: coverImages,
     },
     twitter: {
       card: 'summary_large_image',
-      title: post.frontmatter.title,
-      description: post.frontmatter.description || post.frontmatter.summary,
-      images: ogImages.map((img) => img.url),
+      title,
+      description,
+      images: coverImages?.map((img) => img.url),
     },
   };
 }

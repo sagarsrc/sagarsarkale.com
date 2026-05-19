@@ -23,33 +23,33 @@ export function Header() {
         'flex justify-between items-center py-4',
         isAgents ? 'lg:pl-72 pr-5' : 'mx-auto max-w-3xl px-5',
       ].join(' ')}>
-        <div className="text-[0.8125rem] font-semibold lowercase tracking-tight">
+        <div className="text-[0.8125rem] font-semibold lowercase tracking-tight shrink-0">
           <Link href="/">sagar sarkale</Link>
         </div>
-        <nav className="flex items-center gap-5 max-sm:gap-3 text-[0.8125rem] max-sm:text-xs [&_a]:no-underline hover:[&_a]:text-[var(--accent)]">
-        {NAV_LINKS.map(link => {
-          const isActive = pathname === link.url || pathname.startsWith(link.url + '/');
-          return (
-            <Link
-              key={link.name}
-              href={link.url}
-              onClick={() => { if (isActive) window.scrollTo(0, 0); }}
-              className={[
-                'pb-0.5 border-b',
-                isActive
-                  ? 'text-[var(--fg)] border-[var(--accent)]'
-                  : link.highlight
-                    ? 'text-[var(--accent)] border-transparent'
-                    : 'text-[var(--fg-secondary)] border-transparent',
-              ].join(' ')}
-            >
-              {link.name}
-            </Link>
-          );
-        })}
-        <ThemeToggle />
-      </nav>
-      <ReadingProgress />
+        <nav className="flex items-center gap-5 max-sm:gap-2.5 text-[0.8125rem] max-sm:text-[11px] [&_a]:no-underline hover:[&_a]:text-[var(--accent)] overflow-x-auto scrollbar-hide">
+          {NAV_LINKS.map(link => {
+            const isActive = pathname === link.url || pathname.startsWith(link.url + '/');
+            return (
+              <Link
+                key={link.name}
+                href={link.url}
+                onClick={() => { if (isActive) window.scrollTo(0, 0); }}
+                className={[
+                  'pb-0.5 border-b whitespace-nowrap',
+                  isActive
+                    ? 'text-[var(--fg)] border-[var(--accent)]'
+                    : link.highlight
+                      ? 'text-[var(--accent)] border-transparent'
+                      : 'text-[var(--fg-secondary)] border-transparent',
+                ].join(' ')}
+              >
+                {link.name}
+              </Link>
+            );
+          })}
+          <ThemeToggle />
+        </nav>
+        <ReadingProgress />
       </div>
     </header>
   );

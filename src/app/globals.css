@@ -540,3 +540,12 @@ h4:hover .heading-anchor { opacity: 0.5; }
 .heading-anchor:hover { color: var(--accent); opacity: 1; }
 
 
+
+/* Scrollbar hide utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
