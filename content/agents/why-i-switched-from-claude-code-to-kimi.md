@@ -36,9 +36,9 @@ The turning point came while i was about to present my fleet of agents to [Fastc
 
 I was trapped. Claude had become a dependency I couldn't shake, not a tool, a crutch. That had to change. The very next day i started researching viable options for replacing Claude Code, using Claude Code itself and the fleet of research agents i had spun up.
 
-Last 8 days of my Claude code. Cut to April 26, 2026. I pulled the plug.
+Last 8 days of my Claude code. Cut to April 25, 2026. I pulled the plug.
 
-{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/agents/why-i-switched-from-claude-code-to-kimi/claude-cancellation.png" caption="The confirmation email. April 25, 2026." width="70%">}}
+{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/agents/why-i-switched-from-claude-code-to-kimi/claude-cancellation.png" caption="The email that made it official. April 25, 2026." width="70%">}}
 
 Immense sense of helplessness passed my mind. How do i even operate now? How do i even trust another model? Will that model be able to pull off what regressed Claude Code pulled off?
 
@@ -48,7 +48,7 @@ To give you a hint: i have been whipping Kimi to do more, trying to squeeze as m
 
 ---
 
-# The "Claude-Lash": I Wasn't Alone
+# The Revolt
 
 By early 2026, a full-blown user revolt was playing out across Reddit, GitHub, Hacker News, Twitter, and LinkedIn. Developers who had evangelized Claude Code were publicly canceling subscriptions and documenting regressions with screenshots, session logs, and side-by-side diffs.
 
