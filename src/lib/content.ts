@@ -135,7 +135,47 @@ export function convertShortcodes(content: string): string {
   content = content.replace(
     /\{\{<\s*mermaid\s*>\s*\}\}([\s\S]*?)\{\{<\s*\/mermaid\s*>\s*\}\}/g,
     (_: string, inner: string) => {
-      const src = inner.trim();
+      let src = inner.trim();
+
+      // Pre-process LaTeX math in mermaid labels so they render as Unicode text
+      const latexMap: Record<string, string> = {
+        '\\nabla': '∇',
+        '\\times': '×',
+        '\\alpha': 'α',
+        '\\beta': 'β',
+        '\\gamma': 'γ',
+        '\\delta': 'δ',
+        '\\sigma': 'σ',
+        '\\lambda': 'λ',
+        '\\theta': 'θ',
+        '\\epsilon': 'ε',
+        '\\rightarrow': '→',
+        '\\leftarrow': '←',
+        '\\Rightarrow': '⇒',
+        '\\Leftrightarrow': '⇔',
+        '\\in': '∈',
+        '\\subset': '⊂',
+        '\\cup': '∪',
+        '\\cap': '∩',
+        '\\infty': '∞',
+        '\\partial': '∂',
+        '\\sum': 'Σ',
+        '\\prod': 'Π',
+        '\\int': '∫',
+        '\\cdot': '·',
+        '\\pm': '±',
+        '\\leq': '≤',
+        '\\geq': '≥',
+        '\\neq': '≠',
+        '\\approx': '≈',
+        '\\ldots': '…',
+      };
+      for (const [k, v] of Object.entries(latexMap)) {
+        src = src.replaceAll(k, v);
+      }
+      // Strip $...$ delimiters, keeping the inner math text
+      src = src.replace(/\$(.+?)\$/g, '$1');
+
       const hash = crypto.createHash('md5').update(src).digest('hex').slice(0, 10);
       const cacheDir = path.join(process.cwd(), '.mermaid-cache');
       const svgPath = path.join(cacheDir, `${hash}.svg`);
@@ -162,6 +202,8 @@ export function convertShortcodes(content: string): string {
       svg = svg.replace(/<\?xml[^?]*\?>\s*/, '');
       // Make SVG responsive
       svg = svg.replace(/<svg /, '<svg style="max-width:100%;height:auto" ');
+      // Escape $ so remark-math doesn't pick up mermaid labels as math
+      svg = svg.replace(/\$/g, '&#36;');
       return `<div class="mermaid-diagram">${svg}</div>`;
     }
   );
@@ -239,12 +281,24 @@ function parseFile(
       ? `/blog/${subsection}/${slug}`
       : `/${section}/${slug}`;
 
-    const cleanContent = convertShortcodes(content);
+    let cleanContent = convertShortcodes(content);
     const stats = readingTime(cleanContent);
 
     // Cover image: prefer frontmatter `cover`, else extract first static image
     const imgMatch = cleanContent.match(/<img[^>]+src="([^"]+\.(?:png|jpg|jpeg|webp|svg))"/i);
     const coverImage = fm.cover || (imgMatch ? imgMatch[1] : undefined);
+
+    // If cover was auto-extracted from content, strip it so it doesn't render twice
+    if (!fm.cover && coverImage) {
+      const escapedSrc = coverImage.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const figureRegex = new RegExp(`<figure[^>]*>[\\s\\S]*?<img[^>]+src="${escapedSrc}"[^/]*/?>[\\s\\S]*?</figure>\\s*`, 'i');
+      let removed = false;
+      cleanContent = cleanContent.replace(figureRegex, () => { removed = true; return ''; });
+      if (!removed) {
+        const imgRegex = new RegExp(`<img[^>]+src="${escapedSrc}"[^/]*/?>\\s*`, 'i');
+        cleanContent = cleanContent.replace(imgRegex, '');
+      }
+    }
 
     return {
       slug,
