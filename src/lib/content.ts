@@ -150,7 +150,8 @@ export function convertShortcodes(content: string): string {
         const tmpIn = path.join(cacheDir, `${hash}.mmd`);
         fs.writeFileSync(tmpIn, src);
         try {
-          execSync(`npx mmdc -i ${tmpIn} -o ${svgPath} --quiet`, {
+          const puppeteerConfig = path.join(process.cwd(), 'puppeteer-config.json');
+          execSync(`npx mmdc -i ${tmpIn} -o ${svgPath} --quiet --puppeteerConfigFile ${puppeteerConfig}`, {
             timeout: 15000,
             stdio: 'pipe',
           });
@@ -167,6 +168,13 @@ export function convertShortcodes(content: string): string {
       svg = svg.replace(/<\?xml[^?]*\?>\s*/, '');
       // Make SVG responsive
       svg = svg.replace(/<svg /, '<svg style="max-width:100%;height:auto" ');
+      // MathML inside mermaid foreignObject renders with display=block,
+      // breaking flex layout — force inline display for KaTeX math
+      svg = svg.replace(/display="block"/g, 'display="inline"');
+      svg = svg.replace(
+        /(<style>)/,
+        '$1.katex,math{display:inline!important;vertical-align:middle;}.katex{margin:0 0.15em!important;} '
+      );
       // Escape $ so remark-math doesn't pick up mermaid labels as math
       svg = svg.replace(/\$/g, '&#36;');
       return `<div class="mermaid-diagram">${svg}</div>`;
