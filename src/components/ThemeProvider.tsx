@@ -39,8 +39,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
 function applyTheme(theme: Theme) {
   const html = document.documentElement;
-  html.classList.remove('light', 'dark');
-  html.classList.add(theme);
+  if (theme === 'dark') {
+    html.classList.add('dark');
+  } else {
+    html.classList.remove('dark');
+  }
 }
 
 export function useTheme() {

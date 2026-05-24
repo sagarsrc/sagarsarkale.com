@@ -57,8 +57,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en-us" suppressHydrationWarning>
       <head>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossOrigin="anonymous" />
-        {/* Theme must run before paint to avoid flash */}
-        <Script src="/theme-init.js" strategy="beforeInteractive" />
+        {/* Theme must run before paint to avoid flash — inlined so no fetch delay */}
+        <script dangerouslySetInnerHTML={{
+          __html: `(function(){try{var t=localStorage.getItem('theme');var d=(t==='dark')||(t!=='light'&&window.matchMedia('(prefers-color-scheme: dark)').matches);if(d)document.documentElement.classList.add('dark');}catch(e){}})();`,
+        }} />
         {/* React Grab - development only */}
         {process.env.NODE_ENV === 'development' && (
           <Script src="//unpkg.com/react-grab/dist/index.global.js" crossOrigin="anonymous" strategy="beforeInteractive" />
