@@ -137,44 +137,9 @@ export function convertShortcodes(content: string): string {
     (_: string, inner: string) => {
       let src = inner.trim();
 
-      // Pre-process LaTeX math in mermaid labels so they render as Unicode text
-      const latexMap: Record<string, string> = {
-        '\\nabla': '∇',
-        '\\times': '×',
-        '\\alpha': 'α',
-        '\\beta': 'β',
-        '\\gamma': 'γ',
-        '\\delta': 'δ',
-        '\\sigma': 'σ',
-        '\\lambda': 'λ',
-        '\\theta': 'θ',
-        '\\epsilon': 'ε',
-        '\\rightarrow': '→',
-        '\\leftarrow': '←',
-        '\\Rightarrow': '⇒',
-        '\\Leftrightarrow': '⇔',
-        '\\in': '∈',
-        '\\subset': '⊂',
-        '\\cup': '∪',
-        '\\cap': '∩',
-        '\\infty': '∞',
-        '\\partial': '∂',
-        '\\sum': 'Σ',
-        '\\prod': 'Π',
-        '\\int': '∫',
-        '\\cdot': '·',
-        '\\pm': '±',
-        '\\leq': '≤',
-        '\\geq': '≥',
-        '\\neq': '≠',
-        '\\approx': '≈',
-        '\\ldots': '…',
-      };
-      for (const [k, v] of Object.entries(latexMap)) {
-        src = src.replaceAll(k, v);
-      }
-      // Strip $...$ delimiters, keeping the inner math text
-      src = src.replace(/\$(.+?)\$/g, '$1');
+      // Mermaid native math uses $$...$$ delimiters with KaTeX.
+      // Convert single $...$ to $$...$$ so mmdc renders math properly.
+      src = src.replace(/\$(.+?)\$/g, '$$$$$1$$$$');
 
       const hash = crypto.createHash('md5').update(src).digest('hex').slice(0, 10);
       const cacheDir = path.join(process.cwd(), '.mermaid-cache');
