@@ -7,7 +7,7 @@ toc: true
 autonumber: true
 readTime: true
 tags: ["Agents", "Kimi", "Pi", "Claude Code"]
-cover: "https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/agents/pi-harness-basics/2026-04-27-0112-first-parallel-subagents.jpg"
+cover: "https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/agents/pi-harness-basics/000-cover.png"
 ---
 
 This is the second part of my series on switching from Claude Code to Kimi + Pi. If you haven't read [Part 1](/agents/why-i-switched-from-claude-code-to-kimi), the tl;dr is: Claude regressed hard, I pulled the plug on April 26, and three weeks later I am convinced it was the right call.
@@ -22,7 +22,7 @@ The question wasn't "how do I parallelize?" I already knew how. The question was
 
 ---
 
-# 3 AM, April 27
+# 3 AM, April 27 2026
 
 I wrote this in my journal at 3 AM, four hours into my first Pi session:
 
@@ -116,6 +116,12 @@ Then I launched my first Pi-native fleet: 18 workers, all running simultaneously
 Claude Code has `claude -p`. Fire a prompt, get a response, done.
 
 Pi has `--mode json` and `--mode rpc`. JSONL event streams. Bi-directional protocol. Typed commands for prompt, steer, model swap, session control. You do not just fire a prompt. You control the session programmatically.
+
+**`--mode text`** — human-readable output.
+
+**`--mode json`** — JSONL event stream, every token delta as structured data.
+
+**`--mode rpc`** — bi-directional protocol, typed commands for prompt, steer, model swap, session control.
 
 This is the difference between a product and infrastructure. You embed Pi. You build on top of it. Eighteen workers, each spawning `pi --mode json -p`, all feeding into a shared status monitor. The harness was designed for this. Not bolted on later.
 
