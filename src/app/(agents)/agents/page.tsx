@@ -7,7 +7,7 @@ export const metadata = {
 };
 
 export default function AgentsPage() {
-  const posts = getAllPosts().filter((p: Post) => p.section === "agents");
+  const posts = getAllPosts().filter((p: Post) => p.section === "agents").reverse();
 
   return (
     <div className="max-w-3xl mx-auto px-5 py-12 lg:py-20">
