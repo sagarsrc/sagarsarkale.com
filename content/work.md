@@ -20,7 +20,7 @@ hideBackToTop: false
 
 # Yral
 
-{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/work/yral.png" height="50px">}}
+{{<figure src="/work/yral.png" height="50px">}}
 
 > AI Consultant
 > (Jan 2025 - Nov 2025)
@@ -68,7 +68,7 @@ hideBackToTop: false
 
 # Medpiper
 
-{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/work/medpiper.png" height="50px">}}
+{{<figure src="/work/medpiper.png" height="50px">}}
 
 > AI Consultant
 > (Jan 2024 - Jun 2024)

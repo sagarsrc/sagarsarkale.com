@@ -49,7 +49,7 @@ const workEntries: WorkEntry[] = [
     role: 'AI Consultant',
     type: 'consultant',
     period: 'Jan 2025 – Nov 2025',
-    logo: 'https://media.licdn.com/dms/image/v2/D4D0BAQGaPIad-eFGDQ/company-logo_200_200/company-logo_200_200/0/1709024239252/yral_app_logo?e=2147483647&v=beta&t=g2EBsipTII2NUhSRAN81G32GvyLOs5_D010l49R3atc',
+    logo: '/work/yral.png',
     highlights: [
       'RAG content moderation — Phi-3.5 4B, 86.8% accuracy (+26%)',
       'LLM inference optimization — 70% KV cache hit rate, 150 tok/sec',
@@ -96,7 +96,7 @@ const workEntries: WorkEntry[] = [
     role: 'AI Consultant',
     type: 'consultant',
     period: 'Jan 2024 – Jun 2024',
-    logo: 'https://media.licdn.com/dms/image/v2/C560BAQHmTHY953vBpg/company-logo_200_200/company-logo_200_200/0/1630655040749/medpiper_logo?e=2147483647&v=beta&t=9L60d9u1Uu154a9qALEEbBEZ6PAunUqHNBguq_7O1eQ',
+    logo: '/work/medpiper.png',
     highlights: [
       'Medical document digitization platform',
       'Auto-annotation system for labelling + training',
