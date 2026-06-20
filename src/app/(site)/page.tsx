@@ -113,8 +113,8 @@ export default function Home() {
           {/* Wave + social icons — desktop only */}
           <div className="w-52 shrink-0 max-md:hidden flex flex-col items-center gap-5 self-center">
             <CoverReveal
-              coverSrc="/wave-hero.png"
-              revealSrc="/images/profile-reveal.png"
+              coverSrc="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/wave-hero.png"
+              revealSrc="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/images/profile-reveal.png"
               alt="Sagar Sarkale"
             />
             <div className="flex items-center justify-between w-full [&_a]:text-[var(--fg-muted)] [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-150 hover:[&_a]:text-[var(--accent)] [&_svg]:w-[18px] [&_svg]:h-[18px]">
@@ -125,7 +125,7 @@ export default function Home() {
 
         {/* Wave strip — mobile only */}
         <div className="hidden max-md:block h-28 -mx-5 mt-10 overflow-hidden bg-[var(--surface)]" aria-hidden="true">
-          <img src="/og-image.png" alt="" className="w-full h-full object-cover object-left" loading="lazy" />
+          <img src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/og-image.png" alt="" className="w-full h-full object-cover object-left" loading="lazy" />
         </div>
       </section>
 

@@ -47,7 +47,7 @@ next-env.d.ts
 test-results/
 test-site.mjs
 
-# blog images (served from R2)
+# blog / content images (served from R2)
 public/attn/
 public/blt1/
 public/blt2/
@@ -55,6 +55,7 @@ public/kvcache/
 public/llava/
 public/lora/
 public/lstm/
+public/macbook/
 public/mcp1/
 public/mcp2/
 public/mcp3/
@@ -62,5 +63,11 @@ public/personal/
 public/pos-enc/
 public/rnns/
 public/vectordb/
+public/agents/
+public/work/
+public/your-team-has-a-secret-language/
+public/wave-hero.png
+public/og-image.png
 # .mermaid-cache is committed — mmdc needs Chromium which isn't available on Cloudflare Pages
 public/images/
+public/og/
