@@ -146,12 +146,14 @@ export default function WorkPage() {
             <div className="sticky top-16 self-start max-sm:static">
               <time className="text-xs text-[var(--fg-muted)] tabular-nums">{entry.period}</time>
               {entry.logo && (
-                <img
-                  src={entry.logo}
-                  alt=""
-                  className="w-14 h-14 rounded-xl mt-2 object-contain bg-[var(--surface)]"
-                  loading="lazy"
-                />
+                <div className="w-14 h-14 rounded-xl mt-2 flex items-center justify-center bg-[var(--surface)] p-1.5">
+                  <img
+                    src={entry.logo}
+                    alt=""
+                    className="max-w-full max-h-full object-contain"
+                    loading="lazy"
+                  />
+                </div>
               )}
             </div>
 
