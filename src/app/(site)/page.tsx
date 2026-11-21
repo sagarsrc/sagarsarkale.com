@@ -73,9 +73,8 @@ export default function Home() {
 
         <div className="landing-intro hero-rise hero-rise-2">
           <p className="landing-lead">
-            I built my own fleet of coding agents because I wanted the controls. I decide what runs in parallel,
-            what gets killed, and how much it can spend. The first night I tried Pi, I had
-            {' '}<Link href="/agents/pi-harness-basics/">eighteen workers running on it</Link>.
+            I’m usually happy to admit I have no idea how to do something. I just don’t expect that to be true for long.
+            Give me a week with a question I care about and I’ll come back with a few things I tried and an opinion you can argue with.
           </p>
           <p>I lead engineering at <a href="https://www.cmul8.com/about/">CMUL8</a>, an AI economics lab.</p>
           <p>I built <a href="https://quickcall.dev">QuickCall</a> for coding teams and <Link href="/blog/genai/making-misal">Misal</Link> for people who use AI in Marathi.</p>
