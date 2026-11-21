@@ -73,8 +73,8 @@ export default function Home() {
 
         <div className="landing-intro hero-rise hero-rise-2">
           <p className="landing-lead">
-            I love the work itself. I can spend an afternoon stuck on one small thing and still want another hour with it.
-            When I care that much about how something turns out, I’ll learn whatever it needs from me.
+            At 3 a.m., four hours into trying a new tool, I opened my journal. I still had more things I wanted to try than when I started.
+            That’s usually how I know I’ve found my kind of problem.
           </p>
           <p>I lead engineering at <a href="https://www.cmul8.com/about/">CMUL8</a>, an AI economics lab.</p>
           <p>I built <a href="https://quickcall.dev">QuickCall</a> for coding teams and <Link href="/blog/genai/making-misal">Misal</Link> for people who use AI in Marathi.</p>
