@@ -1,6 +1,9 @@
 import Link from 'next/link';
+import { getAllPosts } from '@/lib/content';
+import { formatDate } from '@/lib/utils';
+import type { Post } from '@/types/content';
 import { Section } from '@/components/Section';
-import { HeroSignalBackdrop } from '@/components/HeroSignalBackdrop';
+import { CoverReveal } from '@/components/CoverReveal';
 import { SocialIcons } from '@/components/SocialIcons';
 
 const press = [
@@ -53,14 +56,17 @@ const writingCards = [
 ];
 
 export default function Home() {
+  const blogPosts = getAllPosts()
+    .filter((p: Post) => p.section === 'blog')
+    .slice(0, 5);
+
   return (
     <div>
 
       {/* ── Hero ── */}
-      <section className="home-hero relative isolate mb-20 min-h-[31rem] overflow-hidden max-md:mb-14 max-md:min-h-0">
-        <HeroSignalBackdrop />
-        <div className="relative z-10">
-          <div className="max-w-[56ch]">
+      <section className="mb-20 max-md:mb-14">
+        <div className="flex gap-10 max-md:block">
+          <div className="flex-1 min-w-0">
             <h1 className="text-4xl font-bold tracking-tighter mb-1.5 max-md:text-3xl">
               Sagar Sarkale
             </h1>
@@ -78,7 +84,7 @@ export default function Home() {
                 <a href="https://quickcall.dev" target="_blank" rel="noopener noreferrer" className="text-[var(--fg)] font-medium no-underline border-b border-[var(--border)] hover:border-[var(--fg)] transition-colors">QuickCall</a>.
               </p>
               <p className="font-serif text-lg text-[var(--fg-secondary)] leading-[1.75] max-md:text-base">
-                Previously built India&apos;s first competitive <Link href="/blog/genai/making-misal" className="text-[var(--fg)] font-medium no-underline border-b border-[var(--border)] hover:border-[var(--fg)] transition-colors">Marathi LLM</Link>.<br />
+                Previously built India&apos;s first competitive <a href="/blog/genai/making-misal" className="text-[var(--fg)] font-medium no-underline border-b border-[var(--border)] hover:border-[var(--fg)] transition-colors">Marathi LLM</a>.<br />
                 <span className="text-[0.8125rem] text-[var(--fg-muted)] font-mono font-normal">
                   covered by {press.map((p, i) => (
                     <span key={p.name}>
@@ -94,15 +100,32 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="mt-8 flex items-center gap-7 max-md:block">
-              <a href="https://calendar.app.google/z5J1gxmUkQ3vvzjT6" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center text-[0.8125rem] font-semibold border border-[var(--border)] text-[var(--fg-secondary)] px-5 py-2.5 max-md:w-full max-md:py-3.5 rounded-md hover:border-[var(--fg)] hover:text-[var(--fg)] active:scale-[0.98] transition-all no-underline">
-                book a call &rarr;
-              </a>
-              <div className="flex items-center gap-4 max-md:mt-6 [&_a]:text-[var(--fg-muted)] [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-150 hover:[&_a]:text-[var(--accent)] max-md:[&_a]:p-2 max-md:[&_a]:-m-2 [&_svg]:w-[18px] [&_svg]:h-[18px]">
-                <SocialIcons />
-              </div>
+            <a href="https://calendar.app.google/z5J1gxmUkQ3vvzjT6" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center mt-8 text-[0.8125rem] font-semibold border border-[var(--border)] text-[var(--fg-secondary)] px-5 py-2.5 max-md:w-full max-md:py-3.5 rounded-md hover:border-[var(--fg)] hover:text-[var(--fg)] active:scale-[0.98] transition-all no-underline">
+              book a call &rarr;
+            </a>
+
+            {/* Social icons — mobile only, below CTA */}
+            <div className="hidden max-md:flex items-center gap-3 mt-6 [&_a]:text-[var(--fg-muted)] [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-150 hover:[&_a]:text-[var(--accent)] [&_a]:p-2 [&_a]:-m-2 [&_svg]:w-[18px] [&_svg]:h-[18px]">
+              <SocialIcons />
             </div>
           </div>
+
+          {/* Wave + social icons — desktop only */}
+          <div className="w-52 shrink-0 max-md:hidden flex flex-col items-center gap-5 self-center">
+            <CoverReveal
+              coverSrc="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/wave-hero.png"
+              revealSrc="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/images/profile-reveal.png"
+              alt="Sagar Sarkale"
+            />
+            <div className="flex items-center justify-between w-full [&_a]:text-[var(--fg-muted)] [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-150 hover:[&_a]:text-[var(--accent)] [&_svg]:w-[18px] [&_svg]:h-[18px]">
+              <SocialIcons />
+            </div>
+          </div>
+        </div>
+
+        {/* Wave strip — mobile only */}
+        <div className="hidden max-md:block h-28 -mx-5 mt-10 overflow-hidden bg-[var(--surface)]" aria-hidden="true">
+          <img src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/og-image.png" alt="" className="w-full h-full object-cover object-left" loading="lazy" />
         </div>
       </section>
 
