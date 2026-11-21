@@ -1,4 +1,4 @@
-/* The homepage shares its ink and margins with the site navigation. */
+/* Homepage palette and content margins. */
 body:has(.landing) {
   --bg: #f7f4eb;
   --fg: #172c4c;
@@ -19,7 +19,6 @@ body:has(.landing) {
   --border: #465263;
   --surface: #25354b;
 }
-body:has(.landing) header > div:first-child,
 body:has(.landing) footer > div,
 main > div:has(> .landing) {
   max-width: var(--landing-max);
@@ -35,7 +34,6 @@ main > div:has(> .landing) { padding-top: 0; }
   row-gap: clamp(1.4rem, 2.2vw, 2rem);
   align-items: center;
   padding-block: clamp(2rem, 4vw, 4rem) clamp(3rem, 6vw, 6rem);
-  border-top: 1px solid var(--border);
 }
 .landing-masthead { grid-area: mast; align-self: end; }
 .landing h1, .landing h2, .landing h3 { font-family: var(--font-serif); font-weight: 400; }

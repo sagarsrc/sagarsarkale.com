@@ -29,9 +29,14 @@ export function Header() {
   useEffect(() => {
     if (!menuOpen) return;
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setMenuOpen(false); };
+    const desktop = window.matchMedia('(min-width: 40rem)');
+    const closeOnDesktop = () => { if (desktop.matches) setMenuOpen(false); };
+    desktop.addEventListener('change', closeOnDesktop);
+    closeOnDesktop();
     document.addEventListener('keydown', onKey);
     document.body.style.overflow = 'hidden';
     return () => {
+      desktop.removeEventListener('change', closeOnDesktop);
       document.removeEventListener('keydown', onKey);
       document.body.style.overflow = '';
     };
