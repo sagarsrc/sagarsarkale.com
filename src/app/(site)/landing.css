@@ -59,7 +59,7 @@ main > div:has(> .landing) { padding-top: 0; }
 .landing-masthead p, .landing-status { text-transform: uppercase; letter-spacing: .085em; }
 .landing-masthead p { color: var(--fg-secondary); }
 .landing-art { grid-area: art; }
-.landing-art img { width: 100%; height: auto; object-fit: cover; }
+.landing-art img { width: 100%; height: auto; }
 .landing-intro { grid-area: intro; color: var(--fg-secondary); font-size: 1rem; line-height: 1.6; }
 .landing .landing-lead {
   color: var(--fg);
@@ -160,5 +160,4 @@ main > div:has(> .landing) { padding-top: 0; }
   .landing h1 { font-size: clamp(3.25rem, 5.7vw, 5.8rem); }
   .landing-masthead p { margin-top: .9rem; font-size: .7rem; }
   .landing-intro { align-self: start; border-top: 1px solid var(--border); padding-top: 1.45rem; }
-  .landing-art img { aspect-ratio: 1 / 1.04; object-position: 57% center; }
 }

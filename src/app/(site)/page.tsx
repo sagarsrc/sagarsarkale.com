@@ -63,9 +63,9 @@ export default function Home() {
 
         <div className="landing-art hero-rise hero-rise-2">
           <Image
-            src="/tidal-screen.webp"
-            width={1440}
-            height={960}
+            src="/indigo-curl.webp"
+            width={1080}
+            height={1080}
             preload
             alt="A breaking wave printed in coarse indigo halftone dots on ivory paper."
           />
