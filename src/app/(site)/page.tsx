@@ -115,9 +115,9 @@ export default function Home() {
             <div className="hero-rise hero-rise-4 mt-10 mb-2 flex justify-center md:hidden">
               <div className="-rotate-[0.8deg] rounded-xl bg-[var(--surface)] p-2 w-52 shadow-[0_24px_60px_-14px_rgba(3,25,50,.55),0_4px_14px_-4px_rgba(3,25,50,.35)] ring-1 ring-[var(--border)]">
                 <CoverReveal
-                  coverSrc="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/wave-hero.png"
+                  coverSrc="/swell-riso.webp"
                   revealSrc="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/images/profile-reveal.png"
-                  alt="Sagar Sarkale"
+                  alt="An indigo wave breaks into halftone dots on cream paper, captioned swell."
                 />
               </div>
             </div>
@@ -126,11 +126,11 @@ export default function Home() {
           {/* The wave plate: the artwork is the identity, framed as a print.
               Final beat of the entrance; click reveals the person behind the wave. */}
           <div className="hero-rise hero-rise-4 w-72 shrink-0 max-md:hidden flex flex-col items-center gap-7 self-center">
-            <div className="-rotate-[0.8deg] rounded-xl bg-[var(--surface)] p-2 shadow-[0_24px_60px_-14px_rgba(3,25,50,.55),0_4px_14px_-4px_rgba(3,25,50,.35)] ring-1 ring-[var(--border)]">
+            <div className="w-full -rotate-[0.8deg] rounded-xl bg-[var(--surface)] p-2 shadow-[0_24px_60px_-14px_rgba(3,25,50,.55),0_4px_14px_-4px_rgba(3,25,50,.35)] ring-1 ring-[var(--border)]">
               <CoverReveal
-                coverSrc="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/wave-hero.png"
+                coverSrc="/swell-riso.webp"
                 revealSrc="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/images/profile-reveal.png"
-                alt="Sagar Sarkale"
+                alt="An indigo wave breaks into halftone dots on cream paper, captioned swell."
               />
             </div>
             <div className="flex items-center justify-between w-full px-3 [&_a]:text-[var(--fg-muted)] [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-150 hover:[&_a]:text-[var(--accent)] [&_a]:p-2 [&_a]:-m-2 [&_svg]:w-[18px] [&_svg]:h-[18px]">
