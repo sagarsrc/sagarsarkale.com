@@ -4,7 +4,7 @@ import { formatDate } from '@/lib/utils';
 import type { Post } from '@/types/content';
 import { Section } from '@/components/Section';
 import { CoverReveal } from '@/components/CoverReveal';
-import { HeroMediaSpill, HeroSpillReveal } from '@/components/HeroMediaSpill';
+import { HeroSpillReveal } from '@/components/HeroMediaSpill';
 import { SocialIcons } from '@/components/SocialIcons';
 
 const press = [
@@ -65,9 +65,11 @@ export default function Home() {
     <div>
 
       {/* ── Hero ── */}
-      <section className="mb-20 max-md:mb-14">
-        <div className="flex gap-10 max-md:block">
-          <div className="flex-1 min-w-0">
+      <section className="mb-20 max-md:mb-14 -mt-8">
+        <HeroSpillReveal>
+        <div className="flex gap-10 max-md:block items-center">
+          <div className="relative flex-1 min-w-0 py-8 max-md:py-5 [&_*]:!text-[var(--fg)]">
+            <div aria-hidden="true" className="absolute -z-10 -inset-y-4 -left-8 -right-8 max-md:-inset-y-3 max-md:-left-3 max-md:-right-5 bg-[var(--surface)] max-md:[mask-image:none] md:[mask-image:linear-gradient(90deg,black_0%,black_98%,transparent_100%)]" />
             <h1 className="text-4xl font-bold tracking-tighter mb-1.5 max-md:text-3xl">
               Sagar Sarkale
             </h1>
@@ -113,24 +115,20 @@ export default function Home() {
 
           {/* Wave + social icons — desktop only */}
           <div className="w-52 shrink-0 max-md:hidden flex flex-col items-center gap-5 self-center">
-            <HeroSpillReveal>
               <CoverReveal
                 coverSrc="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/wave-hero.png"
                 revealSrc="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/images/profile-reveal.png"
                 alt="Sagar Sarkale"
               />
-            </HeroSpillReveal>
-            <div className="flex items-center justify-between w-full [&_a]:text-[var(--fg-muted)] [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-150 hover:[&_a]:text-[var(--accent)] [&_svg]:w-[18px] [&_svg]:h-[18px]">
+            <div className="flex items-center justify-between w-full bg-[var(--surface)] p-3 rounded-md [&_a]:text-[var(--fg-muted)] [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-150 hover:[&_a]:text-[var(--accent)] [&_svg]:w-[18px] [&_svg]:h-[18px]">
               <SocialIcons />
             </div>
           </div>
         </div>
 
-        <div className="relative hidden max-md:block h-32 mt-6 -mb-10 -mx-5" aria-hidden="true">
-          <HeroMediaSpill mobile />
-        </div>
+        </HeroSpillReveal>
         {/* Wave strip — mobile only */}
-        <div className="hidden max-md:block h-28 -mx-5 mt-10 overflow-hidden bg-[var(--surface)]" aria-hidden="true">
+        <div className="hidden max-md:block h-28 -mx-5 overflow-hidden bg-[var(--surface)]" aria-hidden="true">
           <img src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/og-image.png" alt="" className="w-full h-full object-cover object-left" loading="lazy" />
         </div>
       </section>

@@ -14,7 +14,8 @@ uniform float u_dpr, u_cell, u_time, u_progress, u_reveal, u_dark;
 uniform vec3 u_fg, u_surface, u_accent;
 out vec4 color;
 float lum(vec3 c) { return dot(c, vec3(.2126,.7152,.0722)); }
-float sampleL(vec2 p) { return lum(texture(u_image,p).rgb); }
+// Mip-filter before posterization: suppress watercolor grain, retain the huge curl.
+float sampleL(vec2 p) { return lum(textureLod(u_image,p,4.).rgb); }
 // Ordered thresholds are locked to the grid, never to the clock.
 float bayer(ivec2 p) {
   const float b[16] = float[16](0.,8.,2.,10.,12.,4.,14.,6.,3.,11.,1.,9.,15.,7.,13.,5.);
@@ -25,62 +26,64 @@ float line(vec2 p, vec2 a, vec2 b, float width) {
   return 1.-smoothstep(width,width+fwidth(d),d);
 }
 void main() {
-  vec2 px=gl_FragCoord.xy/u_dpr;
   vec2 size=u_resolution/u_dpr;
+  vec2 px=gl_FragCoord.xy/u_dpr;
   vec2 uv=px/size;
-  float lens=1.-smoothstep(0.,120.,distance(px,u_pointer));
-  // Stationary cells: pointer refines the stroke, not the grid origin.
-  vec2 cell=floor(px/u_cell), q=fract(px/u_cell)-.5;
-  vec2 sampleUV=(cell+.5)*u_cell/size;
-  // A broad landscape wave, with only a subpixel tide at rest.
+  // The image is the poster, not an opacity texture: three solid printing inks.
+  // Parallax is bounded to eight CSS pixels and never moves the halftone grid.
+  vec2 shift=clamp(u_pointer,vec2(-1.),vec2(1.))*8.;
+  vec2 flow=shift+vec2(sin(u_time*.09)*2.,cos(u_time*.07)*2.);
+  vec2 cell=floor(px/u_cell);
+  vec2 q=fract(px/u_cell)-.5;
+  vec2 sampleUV=(px+flow)/size;
   sampleUV.y=1.-sampleUV.y;
-  sampleUV+=vec2(sin(u_time*.13)*.0015,cos(u_time*.11)*.001);
-  vec3 source=texture(u_image,sampleUV).rgb;
+  // A portrait crop keeps the breaking lip large on small screens.
+  if(size.x<size.y) sampleUV.x=.20+sampleUV.x*.65;
+  vec3 source=textureLod(u_image,sampleUV,4.).rgb;
+  float light=lum(source);
+  // Posterize into five printing plates: watercolor grain merges into broad ink shapes.
+  float plate=floor(light*4.999)/4.;
+  float threshold=bayer(ivec2(cell))-.5;
+  float tone=plate+threshold*.02;
+  float deep=1.-smoothstep(.38,.47,tone);
+  float foam=smoothstep(.74,.85,tone);
+  vec3 ink=mix(vec3(.025,.20,.38),vec3(.025,.37,.46),u_dark);
+  vec3 sea=mix(vec3(.13,.53,.70),vec3(.05,.70,.78),u_dark);
+  vec3 paper=mix(vec3(.92,.95,.91),vec3(.67,.94,.91),u_dark);
+  ink=mix(ink,u_accent,.06+u_reveal*.08);
+  paper=mix(paper,u_surface,.08);
+  vec3 printed=mix(sea,ink,deep);
+  printed=mix(printed,paper,foam);
+
+  // Coarse screen-print dots sit within the broad masses, not instead of them.
+  float radius=mix(.12,.43,smoothstep(.25,.80,plate));
+  float dotInk=1.-smoothstep(radius,radius+fwidth(q.x),length(q));
+  float mid=1.-abs(plate-.55)*2.;
+  printed=mix(printed,ink,dotInk*.32*clamp(mid,0.,1.)*(1.-foam));
+
+  // Four-tap image gradient: directional marks belong only to the foam boundary.
   vec2 e=vec2(.006,.009);
-  // Eight-tap Sobel preserves the foam/curl tangent in the glyph field.
-  float tl=sampleL(sampleUV+vec2(-e.x,-e.y)), tc=sampleL(sampleUV+vec2(0.,-e.y));
-  float tr=sampleL(sampleUV+vec2(e.x,-e.y)), ml=sampleL(sampleUV-vec2(e.x,0.));
-  float mr=sampleL(sampleUV+vec2(e.x,0.)), bl=sampleL(sampleUV+vec2(-e.x,e.y));
-  float bc=sampleL(sampleUV+vec2(0.,e.y)), br=sampleL(sampleUV+e);
-  vec2 grad=vec2(tr+2.*mr+br-tl-2.*ml-bl,bl+2.*bc+br-tl-2.*tc-tr);
-  float edge=smoothstep(mix(.035,.08,u_dark),mix(.32,.65,u_dark),length(grad));
-  vec2 tangent=normalize(vec2(grad.y,grad.x)+vec2(.0001));
-  float ink=clamp((1.-lum(source))*1.45,0.,1.);
-  float level=clamp(ink+(bayer(ivec2(cell))-.5)*.18+lens*.025,0.,1.);
-  float width=mix(.045,.026,lens);
-  float dotMark=1.-smoothstep(.07,.07+fwidth(q.x),length(q));
-  float dash=line(q,vec2(-.28,0.),vec2(.28,0.),width);
-  float plus=max(dash,line(q,vec2(0.,-.29),vec2(0.,.29),width));
-  float hatch=max(line(q,vec2(-.3,-.28),vec2(.3,.28),width),line(q,vec2(-.3,.28),vec2(.3,-.28),width));
-  float glyph=mix(dotMark,dash,smoothstep(.12,.25,level));
-  glyph=mix(glyph,plus,smoothstep(.3,.45,level));
-  glyph=mix(glyph,hatch,smoothstep(.55,.75,level));
-  float contour=line(q,-tangent*.36,tangent*.36,width);
-  glyph=mix(glyph,contour,edge*mix(.97,.85,u_dark));
-  float halftone=1.-smoothstep(.31*sqrt(ink),.31*sqrt(ink)+fwidth(q.x),length(q));
-  float mark=mix(halftone,glyph,u_progress);
-  // Paper becomes transparent; only blue pigment and its contours spill.
-  float pigment=smoothstep(mix(.08,.18,u_dark),mix(.52,.65,u_dark),ink);
-  float mask=smoothstep(0.,.16,uv.x)*(1.-smoothstep(.78,1.,uv.x));
-  mask*=smoothstep(.08,.25,uv.y)*(1.-smoothstep(.82,1.,uv.y));
-  // Light paper needs saturated ocean ink; keep the established night palette.
-  vec3 blue=mix(vec3(.025,.36,.59),vec3(.30,.62,.74),u_dark);
-  blue=mix(blue,source,.18);
-  blue=mix(blue,u_accent,.14+u_reveal*.13);
-  blue=mix(blue,u_fg,.12*u_dark);
-  blue=mix(blue,u_surface,u_reveal*.08);
-  float alpha=mark*pigment*mask*(.9-u_reveal*.12);
-  color=vec4(blue*alpha,alpha);
+  vec2 g=vec2(sampleL(sampleUV+vec2(e.x,0.))-sampleL(sampleUV-vec2(e.x,0.)),
+              sampleL(sampleUV+vec2(0.,e.y))-sampleL(sampleUV-vec2(0.,e.y)));
+  vec2 tangent=normalize(vec2(g.y,g.x)+vec2(.0001));
+  float edge=smoothstep(.04,.18,length(g));
+  float hatch=line(q,-tangent*.32,tangent*.32,.04);
+  float foamDetail=edge*smoothstep(.60,.80,plate)*hatch;
+  printed=mix(printed,ink,foamDetail*.6*u_progress);
+  // One short development from ink wash to the final plate; no dissolving field.
+  printed=mix(mix(sea,paper,.3),printed,.65+.35*u_progress);
+  color=vec4(printed,1.);
 }
 `;
 
 /** The server-rendered card stays intact; capture also sees keyboard-generated clicks. */
 export function HeroSpillReveal({ children }: { children: ReactNode }) {
   const [revealed, setRevealed] = useState(false);
-  return <div className="relative w-full isolate" onClickCapture={(event) => {
+  return <div className="relative isolate min-h-[min(75vh,780px)] py-20 max-md:pt-52 max-md:pb-16" onClickCapture={(event) => {
     if ((event.target as HTMLElement).closest("button")) setRevealed(value => !value);
   }}>
     <HeroMediaSpill revealed={revealed} />
+    <HeroMediaSpill mobile revealed={revealed} />
     <div className="relative z-10">{children}</div>
   </div>;
 }
@@ -127,19 +130,19 @@ export function HeroMediaSpill({ mobile = false, revealed = false }: { mobile?: 
       const position = gl.getAttribLocation(program, "a_position");
       gl.enableVertexAttribArray(position); gl.vertexAttribPointer(position,2,gl.FLOAT,false,0,0);
       gl.bindTexture(gl.TEXTURE_2D,texture);
-      gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR);
       gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
       gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
       gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
       const uniforms = Object.fromEntries(["resolution","pointer","dpr","cell","time","progress","reveal","dark","fg","surface","accent"].map(name=>[name,gl.getUniformLocation(program,`u_${name}`)]));
       let dpr = 1;
-      const pointer = [-1000,-1000], target = [-1000,-1000];
+      const pointer = [0,0], target = [0,0];
       const draw = () => {
         gl.uniform2f(uniforms.resolution,canvas.width,canvas.height);
         gl.uniform2f(uniforms.pointer,pointer[0],pointer[1]);
-        gl.uniform1f(uniforms.dpr,dpr); gl.uniform1f(uniforms.cell,mobile ? 19 : 11);
+        gl.uniform1f(uniforms.dpr,dpr); gl.uniform1f(uniforms.cell,mobile ? 16 : 28);
         gl.uniform1f(uniforms.time,motion.matches ? 0 : elapsed);
-        gl.uniform1f(uniforms.progress,motion.matches ? 1 : 1-Math.pow(1-Math.min(elapsed/1.5,1),3));
+        gl.uniform1f(uniforms.progress,motion.matches ? 1 : 1-Math.pow(1-Math.min(elapsed/1.2,1),3));
         gl.uniform1f(uniforms.reveal,reveal);
         gl.drawArrays(gl.TRIANGLES,0,6);
       };
@@ -147,7 +150,7 @@ export function HeroMediaSpill({ mobile = false, revealed = false }: { mobile?: 
         raf = 0;
         if (dead || !visible || !loaded || motion.matches) return;
         const dt = previous ? Math.min((now-previous)/1000,.05) : 0; previous=now; elapsed+=dt;
-        const damping=1-Math.exp(-dt*7);
+        const damping=1-Math.exp(-dt*2.5);
         for(let i=0;i<2;i++) pointer[i]+=(target[i]-pointer[i])*damping;
         reveal+=(Number(revealRef.current)-reveal)*damping;
         draw(); raf=requestAnimationFrame(frame);
@@ -171,13 +174,13 @@ export function HeroMediaSpill({ mobile = false, revealed = false }: { mobile?: 
         if(loaded) draw();
       };
       const image=new Image();
-      image.onload=()=>{ if(dead)return; gl.bindTexture(gl.TEXTURE_2D,texture); gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,image); resize(); palette(); loaded=true; draw(); setReady(true); start(); };
+      image.onload=()=>{ if(dead)return; gl.bindTexture(gl.TEXTURE_2D,texture); gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,image); gl.generateMipmap(gl.TEXTURE_2D); resize(); palette(); loaded=true; draw(); setReady(true); start(); };
       image.src="/textures/wave-spill.jpg";
       const observer=new IntersectionObserver(([entry])=>{ visible=entry.isIntersecting; if(visible)start(); else { cancelAnimationFrame(raf); raf=0; previous=0; } }); observer.observe(canvas);
       const sizing=new ResizeObserver(resize); sizing.observe(canvas);
       const theme=new MutationObserver(palette); theme.observe(document.documentElement,{attributes:true,attributeFilter:["class","data-theme"]});
-      const move=(event: PointerEvent)=>{ const r=canvas.getBoundingClientRect(); target[0]=event.clientX-r.left; target[1]=r.bottom-event.clientY; };
-      const leave=()=>{ target[0]=-1000; target[1]=-1000; };
+      const move=(event: PointerEvent)=>{ const r=canvas.getBoundingClientRect(); target[0]=Math.max(-1,Math.min(1,(event.clientX-r.left)/r.width*2-1)); target[1]=Math.max(-1,Math.min(1,(r.bottom-event.clientY)/r.height*2-1)); };
+      const leave=()=>{ target[0]=0; target[1]=0; };
       const lost=()=>{ loaded=false; cancelAnimationFrame(raf); raf=0; setReady(false); };
       window.addEventListener("pointermove",move,{passive:true}); document.addEventListener("pointerleave",leave);
       canvas.addEventListener("webglcontextlost",lost);
@@ -189,9 +192,9 @@ export function HeroMediaSpill({ mobile = false, revealed = false }: { mobile?: 
     return ()=>{ dispose(); for(const query of [motion,narrow,breakpoint])query.removeEventListener("change",setup); };
   }, [mobile]);
 
-  return <div aria-hidden="true" className="pointer-events-none absolute" style={mobile ? {inset:0} : {left:0,top:-48,height:360,width:"calc(208px + max(20px, (100vw - 728px) / 2))"}}>
+  return <div aria-hidden="true" className={`pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 w-screen overflow-hidden ${mobile ? "hidden max-md:block" : "max-md:hidden"}`}>
     {/* A poster exists from SSR until the first successful GPU frame, including failures. */}
-    <img src="/textures/wave-spill.jpg" alt="" className="absolute inset-0 h-full w-full object-cover" style={{opacity:ready ? 0 : .45,maskImage:"radial-gradient(ellipse at center, black 15%, transparent 70%)"}} />
+    <img src="/textures/wave-spill.jpg" alt="" className="absolute inset-0 h-full w-full object-cover" style={{opacity:ready ? 0 : 1}} />
     <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" style={{opacity:ready ? 1 : 0}} />
   </div>;
 }
