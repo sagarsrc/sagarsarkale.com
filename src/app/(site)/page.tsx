@@ -73,8 +73,9 @@ export default function Home() {
 
         <div className="landing-intro hero-rise hero-rise-2">
           <p className="landing-lead">
-            I like being the person who has to figure it out. I run experiments in parallel,
-            build the version I’d bet on, and stay with it when it breaks in production.
+            I built my own fleet of coding agents because I wanted the controls. I decide what runs in parallel,
+            what gets killed, and how much it can spend. The first night I tried Pi, I had
+            {' '}<Link href="/agents/pi-harness-basics/">eighteen workers running on it</Link>.
           </p>
           <p>I lead engineering at <a href="https://www.cmul8.com/about/">CMUL8</a>, an AI economics lab.</p>
           <p>I built <a href="https://quickcall.dev">QuickCall</a> for coding teams and <Link href="/blog/genai/making-misal">Misal</Link> for people who use AI in Marathi.</p>
