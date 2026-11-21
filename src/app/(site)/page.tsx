@@ -115,7 +115,7 @@ export default function Home() {
             <div className="hero-rise hero-rise-4 mt-10 mb-2 flex justify-center md:hidden">
               <div className="-rotate-[0.8deg] rounded-xl bg-[var(--surface)] p-2 w-52 shadow-[0_24px_60px_-14px_rgba(3,25,50,.55),0_4px_14px_-4px_rgba(3,25,50,.35)] ring-1 ring-[var(--border)]">
                 <CoverReveal
-                  coverSrc="/indigo-wave.webp"
+                  coverSrc="/indigo-breaker.webp"
                   revealSrc="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/images/profile-reveal.png"
                   alt="Fine indigo lines curl into a wave and scatter into halftone dots on cream paper."
                 />
@@ -128,7 +128,7 @@ export default function Home() {
           <div className="hero-rise hero-rise-4 w-72 shrink-0 max-md:hidden flex flex-col items-center gap-7 self-center">
             <div className="w-full -rotate-[0.8deg] rounded-xl bg-[var(--surface)] p-2 shadow-[0_24px_60px_-14px_rgba(3,25,50,.55),0_4px_14px_-4px_rgba(3,25,50,.35)] ring-1 ring-[var(--border)]">
               <CoverReveal
-                coverSrc="/indigo-wave.webp"
+                coverSrc="/indigo-breaker.webp"
                 revealSrc="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/images/profile-reveal.png"
                 alt="Fine indigo lines curl into a wave and scatter into halftone dots on cream paper."
               />
