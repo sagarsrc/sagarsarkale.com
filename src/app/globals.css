@@ -417,6 +417,145 @@ blockquote p { margin: 0.5rem 0; }
 }
 
 /* =========================================================
+   Homepage hero signal — ASCII portrait + dither field
+   ========================================================= */
+
+.home-hero::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  inset: -2rem 36% -2rem -2rem;
+  pointer-events: none;
+  background: linear-gradient(90deg, var(--bg) 0%, var(--bg) 66%, transparent 100%);
+}
+
+.hero-signal {
+  position: absolute;
+  z-index: 0;
+  inset: -2rem -5rem 0 29%;
+  overflow: hidden;
+  pointer-events: none;
+  color: var(--accent);
+  opacity: 0.82;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 24%, #000 86%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 24%, #000 86%, transparent 100%);
+  animation: hero-signal-in 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-signal-portrait {
+  position: absolute;
+  top: 0.4rem;
+  right: -1.5rem;
+  margin: 0;
+  color: currentColor;
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 8.4px;
+  font-weight: 600;
+  line-height: 0.92;
+  letter-spacing: 0;
+  white-space: pre;
+  user-select: none;
+  opacity: 0.7;
+  filter: saturate(0.8);
+  transform: scaleX(0.94);
+  transform-origin: top right;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 9%, #000 72%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 9%, #000 72%, transparent 100%);
+}
+
+.hero-signal-dither {
+  position: absolute;
+  top: 3rem;
+  right: -1rem;
+  width: 27rem;
+  height: 28rem;
+  opacity: 0.32;
+  background-image: radial-gradient(circle, currentColor 0 0.8px, transparent 1px);
+  background-size: 5px 5px;
+  -webkit-mask-image: radial-gradient(ellipse at 55% 45%, transparent 0 22%, #000 48%, transparent 74%);
+  mask-image: radial-gradient(ellipse at 55% 45%, transparent 0 22%, #000 48%, transparent 74%);
+}
+
+.hero-signal-scanline {
+  position: absolute;
+  top: 11.5rem;
+  right: 0;
+  width: 25rem;
+  height: 1px;
+  opacity: 0.35;
+  background: linear-gradient(90deg, transparent, currentColor 28%, currentColor 74%, transparent);
+  box-shadow: 0 0 14px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+.dark .hero-signal {
+  opacity: 1;
+}
+
+.dark .hero-signal-portrait {
+  opacity: 0.42;
+}
+
+@keyframes hero-signal-in {
+  from {
+    opacity: 0.32;
+    clip-path: inset(0 0 24% 0);
+    filter: blur(1.5px);
+  }
+  to {
+    opacity: 0.82;
+    clip-path: inset(0 0 0 0);
+    filter: blur(0);
+  }
+}
+
+@media (max-width: 767px) {
+  .home-hero {
+    padding-bottom: 5rem;
+  }
+
+  .home-hero::after {
+    inset: -1rem -1rem 42% -1rem;
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg) 58%, transparent 100%);
+  }
+
+  .hero-signal {
+    inset: auto -6rem -1rem 5%;
+    height: 18rem;
+    opacity: 0.85;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 24%, #000 90%, transparent 100%);
+    mask-image: linear-gradient(180deg, transparent 0%, #000 24%, #000 90%, transparent 100%);
+  }
+
+  .hero-signal-portrait {
+    top: 0;
+    right: 0;
+    font-size: 6.5px;
+    opacity: 0.6;
+  }
+
+  .hero-signal-dither {
+    top: 0;
+    right: 0;
+    width: 22rem;
+    height: 18rem;
+    opacity: 0.28;
+  }
+
+  .hero-signal-scanline {
+    top: 8rem;
+    width: 20rem;
+    opacity: 0.24;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-signal {
+    animation: none;
+  }
+}
+
+/* =========================================================
    Cover Reveal — fade with micro-interactions
    ========================================================= */
 
