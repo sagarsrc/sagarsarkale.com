@@ -32,7 +32,7 @@ export function Footer() {
             sagar sarkale &middot; 2024–2026 &middot; powered by caffeine and occasional epiphany
           </p>
           <p className="text-xs text-[var(--fg-muted)]/70 tracking-wide mt-1.5">
-            homepage wave printed with a hand-rolled webgl dither &middot;{' '}
+            homepage horizon printed with a hand-rolled webgl dither &middot;{' '}
             <button
               type="button"
               onClick={toggle}

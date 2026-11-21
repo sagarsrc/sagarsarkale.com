@@ -4,7 +4,7 @@ import { formatDate } from '@/lib/utils';
 import type { Post } from '@/types/content';
 import { Section } from '@/components/Section';
 import { CoverReveal } from '@/components/CoverReveal';
-import { HeroSpillReveal } from '@/components/HeroMediaSpill';
+import { WaveHorizon } from '@/components/WaveHorizon';
 import { SocialIcons } from '@/components/SocialIcons';
 
 const press = [
@@ -65,13 +65,9 @@ export default function Home() {
     <div>
 
       {/* ── Hero ── */}
-      <section className="mb-20 max-md:mb-14 -mt-8">
-        <HeroSpillReveal>
-        <div className="flex gap-10 max-md:block items-center [transform:translateY(calc(var(--hero-scroll,0)*-28px))] [opacity:calc(1-min(var(--hero-scroll,0)*1.6,1))]">
-          <div className="relative flex-1 min-w-0 py-8 max-md:py-5 [&_*]:!text-[var(--fg)]">
-            {/* Reading veil: no slab edges — solid under the text, feathered out. */}
-            <div aria-hidden="true" className="absolute -z-10 -inset-y-4 -left-8 -right-24 hidden md:block" style={{background:"linear-gradient(90deg, var(--bg) 0%, color-mix(in srgb, var(--bg) 98%, transparent) 46%, color-mix(in srgb, var(--bg) 91%, transparent) 62%, color-mix(in srgb, var(--bg) 38%, transparent) 76%, transparent 90%)"}} />
-            <div aria-hidden="true" className="absolute -z-10 -inset-y-3 -left-3 -right-5 md:hidden" style={{background:"linear-gradient(90deg, var(--bg) 0%, var(--bg) 90%, transparent 100%)"}} />
+      <section className="mb-20 max-md:mb-14">
+        <div className="flex gap-14 max-md:block items-center py-14 max-md:py-8">
+          <div className="flex-1 min-w-0">
             <div className="hero-rise">
             <h1 className="text-4xl font-bold tracking-tighter mb-1.5 max-md:text-3xl">
               Sagar <em className="font-serif italic font-normal">Sarkale</em>
@@ -115,11 +111,22 @@ export default function Home() {
             <div className="hero-rise hero-rise-3 hidden max-md:flex items-center gap-3 mt-6 [&_a]:text-[var(--fg-muted)] [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-150 hover:[&_a]:text-[var(--accent)] [&_a]:p-2 [&_a]:-m-2 [&_svg]:w-[18px] [&_svg]:h-[18px]">
               <SocialIcons />
             </div>
+
+            {/* Wave plate — mobile (the artwork is the identity; it must exist here too) */}
+            <div className="hero-rise hero-rise-4 mt-10 mb-2 flex justify-center md:hidden">
+              <div className="-rotate-[0.8deg] rounded-xl bg-[var(--surface)] p-2 w-52 shadow-[0_24px_60px_-14px_rgba(3,25,50,.55),0_4px_14px_-4px_rgba(3,25,50,.35)] ring-1 ring-[var(--border)]">
+                <CoverReveal
+                  coverSrc="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/wave-hero.png"
+                  revealSrc="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/images/profile-reveal.png"
+                  alt="Sagar Sarkale"
+                />
+              </div>
+            </div>
           </div>
 
-          {/* The framed wave print — the photograph's one window in the abstract field.
-              Final beat of the entrance; click develops the person behind the wave. */}
-          <div className="hero-rise hero-rise-4 w-60 shrink-0 max-md:hidden flex flex-col items-center gap-7 self-center">
+          {/* The wave plate: the artwork is the identity, framed as a print.
+              Final beat of the entrance; click reveals the person behind the wave. */}
+          <div className="hero-rise hero-rise-4 w-72 shrink-0 max-md:hidden flex flex-col items-center gap-7 self-center">
             <div className="-rotate-[0.8deg] rounded-xl bg-[var(--surface)] p-2 shadow-[0_24px_60px_-14px_rgba(3,25,50,.55),0_4px_14px_-4px_rgba(3,25,50,.35)] ring-1 ring-[var(--border)]">
               <CoverReveal
                 coverSrc="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/wave-hero.png"
@@ -127,18 +134,13 @@ export default function Home() {
                 alt="Sagar Sarkale"
               />
             </div>
-            {/* Frosted chip: readable on any part of the field, no hard box. */}
-            <div className="flex items-center justify-between w-full rounded-full border border-[var(--border)]/60 bg-[color-mix(in_srgb,var(--surface)_58%,transparent)] px-5 py-2.5 shadow-sm backdrop-blur-md [&_a]:text-[var(--fg-secondary)] [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-150 hover:[&_a]:text-[var(--accent)] [&_a]:p-1.5 [&_a]:-m-1.5 [&_svg]:w-[18px] [&_svg]:h-[18px]">
+            <div className="flex items-center justify-between w-full px-3 [&_a]:text-[var(--fg-muted)] [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-150 hover:[&_a]:text-[var(--accent)] [&_a]:p-2 [&_a]:-m-2 [&_svg]:w-[18px] [&_svg]:h-[18px]">
               <SocialIcons />
             </div>
           </div>
         </div>
-
-        </HeroSpillReveal>
-        {/* Wave strip — mobile only */}
-        <div className="hidden max-md:block h-28 -mx-5 overflow-hidden bg-[var(--surface)]" aria-hidden="true">
-          <img src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/og-image.png" alt="" className="w-full h-full object-cover object-left" loading="lazy" />
-        </div>
+        {/* One living line: the wave's silhouette, drawn as a dithered horizon. */}
+        <WaveHorizon />
       </section>
 
       {/* ── What I Built ── */}
