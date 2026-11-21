@@ -182,6 +182,31 @@ img { display: block; max-width: 100%; }
   transform-origin: left;
 }
 
+.theme-toggle-icon {
+  grid-area: 1 / 1;
+  transition: opacity .2s ease, transform .2s ease;
+}
+
+.theme-toggle-icon--moon {
+  opacity: 1;
+  transform: rotate(0) scale(1);
+}
+
+.theme-toggle-icon--sun {
+  opacity: 0;
+  transform: rotate(-45deg) scale(.75);
+}
+
+.dark .theme-toggle-icon--moon {
+  opacity: 0;
+  transform: rotate(45deg) scale(.75);
+}
+
+.dark .theme-toggle-icon--sun {
+  opacity: 1;
+  transform: rotate(0) scale(1);
+}
+
 /* =========================================================
    Section label (still used on work page)
    ========================================================= */
