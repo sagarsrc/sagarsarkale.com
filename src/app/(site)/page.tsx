@@ -4,6 +4,7 @@ import { formatDate } from '@/lib/utils';
 import type { Post } from '@/types/content';
 import { Section } from '@/components/Section';
 import { CoverReveal } from '@/components/CoverReveal';
+import { HeroMediaSpill, HeroSpillReveal } from '@/components/HeroMediaSpill';
 import { SocialIcons } from '@/components/SocialIcons';
 
 const press = [
@@ -112,17 +113,22 @@ export default function Home() {
 
           {/* Wave + social icons — desktop only */}
           <div className="w-52 shrink-0 max-md:hidden flex flex-col items-center gap-5 self-center">
-            <CoverReveal
-              coverSrc="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/wave-hero.png"
-              revealSrc="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/images/profile-reveal.png"
-              alt="Sagar Sarkale"
-            />
+            <HeroSpillReveal>
+              <CoverReveal
+                coverSrc="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/wave-hero.png"
+                revealSrc="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/images/profile-reveal.png"
+                alt="Sagar Sarkale"
+              />
+            </HeroSpillReveal>
             <div className="flex items-center justify-between w-full [&_a]:text-[var(--fg-muted)] [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-150 hover:[&_a]:text-[var(--accent)] [&_svg]:w-[18px] [&_svg]:h-[18px]">
               <SocialIcons />
             </div>
           </div>
         </div>
 
+        <div className="relative hidden max-md:block h-32 mt-6 -mb-10 -mx-5" aria-hidden="true">
+          <HeroMediaSpill mobile />
+        </div>
         {/* Wave strip — mobile only */}
         <div className="hidden max-md:block h-28 -mx-5 mt-10 overflow-hidden bg-[var(--surface)]" aria-hidden="true">
           <img src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/og-image.png" alt="" className="w-full h-full object-cover object-left" loading="lazy" />
