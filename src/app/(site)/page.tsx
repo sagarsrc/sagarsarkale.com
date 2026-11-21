@@ -73,8 +73,8 @@ export default function Home() {
 
         <div className="landing-intro hero-rise hero-rise-2">
           <p className="landing-lead">
-            Once I can picture how something ought to work, I want to see it through.
-            I like figuring out the little details, especially the ones that make someone else’s day a bit easier.
+            I take it personally when I say I’ll get something done. I might try three different ways to get there,
+            and I’ll happily admit when my first idea was wrong. But if I’ve put my hand up for it, it’s mine.
           </p>
           <p>I lead engineering at <a href="https://www.cmul8.com/about/">CMUL8</a>, an AI economics lab.</p>
           <p>I built <a href="https://quickcall.dev">QuickCall</a> for coding teams and <Link href="/blog/genai/making-misal">Misal</Link> for people who use AI in Marathi.</p>
