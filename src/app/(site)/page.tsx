@@ -73,8 +73,8 @@ export default function Home() {
 
         <div className="landing-intro hero-rise hero-rise-2">
           <p className="landing-lead">
-            I’m usually happy to admit I have no idea how to do something. I just don’t expect that to be true for long.
-            Give me a week with a question I care about and I’ll come back with a few things I tried and an opinion you can argue with.
+            I love the work itself. I can spend an afternoon stuck on one small thing and still want another hour with it.
+            When I care that much about how something turns out, I’ll learn whatever it needs from me.
           </p>
           <p>I lead engineering at <a href="https://www.cmul8.com/about/">CMUL8</a>, an AI economics lab.</p>
           <p>I built <a href="https://quickcall.dev">QuickCall</a> for coding teams and <Link href="/blog/genai/making-misal">Misal</Link> for people who use AI in Marathi.</p>
