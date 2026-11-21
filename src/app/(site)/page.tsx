@@ -56,12 +56,12 @@ export default function Home() {
   return (
     <div className="landing">
       <section className="landing-hero">
-        <div className="landing-masthead hero-rise">
+        <div className="landing-masthead">
           <h1>Sagar <em>Sarkale</em></h1>
           <p>ai founder &middot; consultant &middot; engineer</p>
         </div>
 
-        <div className="landing-art hero-rise hero-rise-2">
+        <div className="landing-art">
           <Image
             src="/indigo-curl.webp"
             width={1080}
@@ -71,7 +71,7 @@ export default function Home() {
           />
         </div>
 
-        <div className="landing-intro hero-rise hero-rise-2">
+        <div className="landing-intro">
           <p className="landing-lead">
             Curiosity gets me started, and conviction keeps me going. I dig into the details, follow every thread,
             and see the work through.
