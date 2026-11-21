@@ -11,19 +11,22 @@ precision highp float;
 uniform sampler2D u_image;
 uniform vec2 u_resolution, u_pointer, u_lens;
 uniform float u_dpr, u_cell, u_time, u_progress, u_reveal, u_dark, u_scroll;
-uniform vec3 u_fg, u_surface, u_accent;
+uniform vec3 u_fg, u_surface, u_bg, u_accent;
 out vec4 color;
 float lum(vec3 c) { return dot(c, vec3(.2126,.7152,.0722)); }
-// Mip-filter before posterization: suppress watercolor grain, retain the huge curl.
-float sampleL(vec2 p) { return lum(textureLod(u_image,p,4.).rgb); }
-// Ordered thresholds are locked to the grid, never to the clock.
-float bayer(ivec2 p) {
-  const float b[16] = float[16](0.,8.,2.,10.,12.,4.,14.,6.,3.,11.,1.,9.,15.,7.,13.,5.);
-  return (b[(p.y & 3)*4+(p.x & 3)]+.5)/16.;
-}
-float line(vec2 p, vec2 a, vec2 b, float width) {
-  vec2 v=b-a; float d=length(p-a-v*clamp(dot(p-a,v)/dot(v,v),0.,1.));
-  return 1.-smoothstep(width,width+fwidth(d),d);
+// 8x8 Bayer screen: thresholds are locked to the grid, never to the clock.
+float bayer8(ivec2 p) {
+  ivec2 m=p&7;
+  const float B[64]=float[64](
+     0.,32., 8.,40., 2.,34.,10.,42.,
+    48.,16.,56.,24.,50.,18.,58.,26.,
+    12.,44., 4.,36.,14.,46., 6.,38.,
+    60.,28.,52.,20.,62.,30.,54.,22.,
+     3.,35.,11.,43., 1.,33., 9.,41.,
+    51.,19.,59.,27.,49.,17.,57.,25.,
+    15.,47., 7.,39.,13.,45., 5.,37.,
+    63.,31.,55.,23.,61.,29.,53.,21.);
+  return (B[m.y*8+m.x]+.5)/64.;
 }
 void main() {
   vec2 size=u_resolution/u_dpr;
@@ -42,37 +45,23 @@ void main() {
   sampleUV=.5+centered/mix(1.,1.12,u_scroll)+vec2(0.,u_scroll*.045);
   // A portrait crop keeps the breaking lip large on small screens.
   if(size.x<size.y) sampleUV.x=.20+sampleUV.x*.65;
-  vec3 source=textureLod(u_image,sampleUV,4.).rgb;
+  // A light mip keeps watercolor grain down but preserves the curl's gradients.
+  vec3 source=textureLod(u_image,sampleUV,2.).rgb;
   float light=lum(source);
-  // Posterize into five printing plates: watercolor grain merges into broad ink shapes.
-  float plate=floor(light*4.999)/4.;
-  float threshold=bayer(ivec2(cell))-.5;
-  float tone=plate+threshold*.02;
-  float deep=1.-smoothstep(.38,.47,tone);
-  float foam=smoothstep(.74,.85,tone);
-  vec3 ink=mix(vec3(.025,.20,.38),vec3(.025,.37,.46),u_dark);
-  vec3 sea=mix(vec3(.13,.53,.70),vec3(.05,.70,.78),u_dark);
-  vec3 paper=mix(vec3(.92,.95,.91),vec3(.67,.94,.91),u_dark);
-  ink=mix(ink,u_accent,.06+u_reveal*.08);
-  paper=mix(paper,u_surface,.08);
-  vec3 printed=mix(sea,ink,deep);
-  printed=mix(printed,paper,foam);
-
-  // Coarse screen-print dots sit within the broad masses, not instead of them.
-  float radius=mix(.12,.43,smoothstep(.25,.80,plate));
-  float dotInk=1.-smoothstep(radius,radius+fwidth(q.x),length(q));
-  float mid=1.-abs(plate-.55)*2.;
-  printed=mix(printed,ink,dotInk*.32*clamp(mid,0.,1.)*(1.-foam));
-
-  // Four-tap image gradient: directional marks belong only to the foam boundary.
-  vec2 e=vec2(.006,.009);
-  vec2 g=vec2(sampleL(sampleUV+vec2(e.x,0.))-sampleL(sampleUV-vec2(e.x,0.)),
-              sampleL(sampleUV+vec2(0.,e.y))-sampleL(sampleUV-vec2(0.,e.y)));
-  vec2 tangent=normalize(vec2(g.y,g.x)+vec2(.0001));
-  float edge=smoothstep(.04,.18,length(g));
-  float hatch=line(q,-tangent*.32,tangent*.32,.04);
-  float foamDetail=edge*smoothstep(.60,.80,plate)*hatch;
-  printed=mix(printed,ink,foamDetail*.6*u_progress);
+  // Continuous-tone ordered dither: ink coverage is dithered through the 8x8
+  // Bayer screen and expressed as DOT SIZE on paper. Tone lives in the dots,
+  // so the navy-to-foam gradients survive inside every mass at any width —
+  // newspaper halftone, not posterized shapes.
+  float density=1.-light;
+  float dd=density+(bayer8(ivec2(cell))-.5)*.8;
+  float radius=clamp(dd,0.,1.)*.47;
+  float mark=1.-smoothstep(radius,radius+fwidth(length(q))+.02,length(q));
+  // Ink is the wave's own blue: deep navy in the curl, sea blue in the wash.
+  vec3 inkDeep=mix(vec3(.03,.17,.34),vec3(.02,.33,.43),u_dark);
+  vec3 seaBlue=mix(vec3(.14,.49,.66),vec3(.05,.65,.74),u_dark);
+  vec3 dotColor=mix(inkDeep,seaBlue,smoothstep(.12,.85,light));
+  dotColor=mix(dotColor,u_accent,.07+u_reveal*.08);
+  vec3 printed=mix(u_bg,dotColor,mark);
   // The develop lens: pointing dissolves the print back into the photograph.
   // Revealing the face behind the wave: the print remembers it is a photograph.
   // The develop lens widens and the whole sheet partially resolves, reversibly.
@@ -85,8 +74,8 @@ void main() {
   // Static print grain: paper tooth, no shimmer.
   float grain=fract(sin(dot(px,vec2(12.9898,78.233)))*43758.5453)-.5;
   printed+=grain*.022;
-  // The sheet develops: blank paper with a ghost of the sea resolves into plates.
-  printed=mix(mix(paper,sea,.14),printed,.25+.75*u_progress);
+  // The sheet develops: blank paper with a ghost of the sea resolves into dots.
+  printed=mix(mix(u_bg,seaBlue,.14),printed,.25+.75*u_progress);
   color=vec4(printed,1.);
 }
 `;
@@ -171,8 +160,8 @@ export function HeroMediaSpill({ mobile = false, revealed = false }: { mobile?: 
       gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
       gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
       gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
-      const uniforms = Object.fromEntries(["resolution","pointer","lens","dpr","cell","time","progress","reveal","dark","scroll","fg","surface","accent"].map(name=>[name,gl.getUniformLocation(program,`u_${name}`)]));
-      let dpr = 1;
+      const uniforms = Object.fromEntries(["resolution","pointer","lens","dpr","cell","time","progress","reveal","dark","scroll","fg","surface","bg","accent"].map(name=>[name,gl.getUniformLocation(program,`u_${name}`)]));
+      let dpr = 1, cellSize = 28;
       const pointer = [0,0], target = [0,0];
       const lens = [-1000,-1000], lensTarget = [-1000,-1000];
       let scroll = 0, scrollTarget = 0;
@@ -180,7 +169,7 @@ export function HeroMediaSpill({ mobile = false, revealed = false }: { mobile?: 
         gl.uniform2f(uniforms.resolution,canvas.width,canvas.height);
         gl.uniform2f(uniforms.pointer,pointer[0],pointer[1]);
         gl.uniform2f(uniforms.lens,lens[0],lens[1]);
-        gl.uniform1f(uniforms.dpr,dpr); gl.uniform1f(uniforms.cell,mobile ? 16 : 28);
+        gl.uniform1f(uniforms.dpr,dpr); gl.uniform1f(uniforms.cell,cellSize);
         gl.uniform1f(uniforms.time,motion.matches ? 0 : elapsed);
         gl.uniform1f(uniforms.progress,motion.matches ? 1 : 1-Math.pow(1-Math.min(elapsed/1.2,1),3));
         gl.uniform1f(uniforms.reveal,reveal);
@@ -211,12 +200,14 @@ export function HeroMediaSpill({ mobile = false, revealed = false }: { mobile?: 
         const rect=canvas.getBoundingClientRect();
         dpr=Math.min(devicePixelRatio,mobile ? 1.5 : 2);
         canvas.width=Math.max(1,Math.round(rect.width*dpr)); canvas.height=Math.max(1,Math.round(rect.height*dpr));
+        // Dot density feels constant across widths: ~7.6px cells at 1440, cap 14.
+        cellSize=mobile ? 15 : Math.min(14,Math.max(7,rect.width/190));
         gl.viewport(0,0,canvas.width,canvas.height);
         if(loaded) draw();
       };
       const palette = () => {
         const style=getComputedStyle(document.documentElement);
-        for(const name of ["fg","surface","accent"]) {
+        for(const name of ["fg","surface","bg","accent"]) {
           const value=style.getPropertyValue(`--${name}`).trim().replace("#","");
           const hex=value.length===3 ? value.split("").map(char=>char+char).join("") : value;
           gl.uniform3f(uniforms[name],parseInt(hex.slice(0,2),16)/255,parseInt(hex.slice(2,4),16)/255,parseInt(hex.slice(4,6),16)/255);

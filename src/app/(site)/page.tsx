@@ -69,7 +69,9 @@ export default function Home() {
         <HeroSpillReveal>
         <div className="flex gap-10 max-md:block items-center [transform:translateY(calc(var(--hero-scroll,0)*-28px))] [opacity:calc(1-min(var(--hero-scroll,0)*1.6,1))]">
           <div className="relative flex-1 min-w-0 py-8 max-md:py-5 [&_*]:!text-[var(--fg)]">
-            <div aria-hidden="true" className="absolute -z-10 -inset-y-4 -left-8 -right-8 max-md:-inset-y-3 max-md:-left-3 max-md:-right-5 bg-[var(--surface)] max-md:[mask-image:none] md:[mask-image:linear-gradient(90deg,black_0%,black_98%,transparent_100%)]" />
+            {/* Reading veil: no slab edges — solid under the text, feathered out. */}
+            <div aria-hidden="true" className="absolute -z-10 -inset-y-4 -left-8 -right-24 hidden md:block" style={{background:"linear-gradient(90deg, var(--bg) 0%, color-mix(in srgb, var(--bg) 98%, transparent) 46%, color-mix(in srgb, var(--bg) 91%, transparent) 62%, color-mix(in srgb, var(--bg) 38%, transparent) 76%, transparent 90%)"}} />
+            <div aria-hidden="true" className="absolute -z-10 -inset-y-3 -left-3 -right-5 md:hidden" style={{background:"linear-gradient(90deg, var(--bg) 0%, var(--bg) 90%, transparent 100%)"}} />
             <div className="hero-rise">
             <h1 className="text-4xl font-bold tracking-tighter mb-1.5 max-md:text-3xl">
               Sagar <em className="font-serif italic font-normal">Sarkale</em>
@@ -125,8 +127,8 @@ export default function Home() {
                 alt="Sagar Sarkale"
               />
             </div>
-            {/* Ghosted over the field, no box: paper-colored halo keeps marks legible. */}
-            <div className="flex items-center justify-between w-full px-2 [&_a]:text-[var(--fg-muted)] [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-150 hover:[&_a]:text-[var(--accent)] [&_a]:p-2 [&_a]:-m-2 [&_a]:[text-shadow:0_0_10px_var(--bg),0_0_3px_var(--bg)] [&_svg]:w-[18px] [&_svg]:h-[18px]">
+            {/* Frosted chip: readable on any part of the field, no hard box. */}
+            <div className="flex items-center justify-between w-full rounded-full border border-[var(--border)]/60 bg-[color-mix(in_srgb,var(--surface)_58%,transparent)] px-5 py-2.5 shadow-sm backdrop-blur-md [&_a]:text-[var(--fg-secondary)] [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-150 hover:[&_a]:text-[var(--accent)] [&_a]:p-1.5 [&_a]:-m-1.5 [&_svg]:w-[18px] [&_svg]:h-[18px]">
               <SocialIcons />
             </div>
           </div>
