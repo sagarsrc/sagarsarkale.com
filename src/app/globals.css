@@ -139,6 +139,50 @@ img { display: block; max-width: 100%; }
 ::selection { background: color-mix(in srgb, var(--accent) 30%, transparent); }
 
 /* =========================================================
+   Site header
+   ========================================================= */
+
+.site-header {
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background-color .2s ease, border-color .2s ease;
+}
+
+.site-header--scrolled {
+  background: var(--bg);
+  border-bottom-color: var(--fg);
+}
+
+.site-header-inner {
+  height: 3.5rem;
+  transition: height .2s ease;
+}
+
+.site-header--scrolled .site-header-inner { height: 3rem; }
+
+.site-nav-link { position: relative; }
+
+.site-nav-link::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform .2s ease;
+}
+
+.site-nav-link:hover::after,
+.site-nav-link:focus-visible::after,
+.site-nav-link--active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* =========================================================
    Section label (still used on work page)
    ========================================================= */
 
