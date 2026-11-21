@@ -73,8 +73,8 @@ export default function Home() {
 
         <div className="landing-intro hero-rise hero-rise-2">
           <p className="landing-lead">
-            I’m stubborn about what I want to make and pretty ruthless about what it doesn’t need.
-            My favorite part is handing it to someone and getting to shut up while they use it.
+            Once I can picture how something ought to work, I want to see it through.
+            I like figuring out the little details, especially the ones that make someone else’s day a bit easier.
           </p>
           <p>I lead engineering at <a href="https://www.cmul8.com/about/">CMUL8</a>, an AI economics lab.</p>
           <p>I built <a href="https://quickcall.dev">QuickCall</a> for coding teams and <Link href="/blog/genai/making-misal">Misal</Link> for people who use AI in Marathi.</p>
