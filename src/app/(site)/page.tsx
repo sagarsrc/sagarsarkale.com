@@ -73,8 +73,8 @@ export default function Home() {
 
         <div className="landing-intro hero-rise hero-rise-2">
           <p className="landing-lead">
-            I take it personally when I say I’ll get something done. I might try three different ways to get there,
-            and I’ll happily admit when my first idea was wrong. But if I’ve put my hand up for it, it’s mine.
+            Curiosity gets me started, and conviction keeps me going. I dig into the details, follow every thread,
+            and see the work through.
           </p>
           <p>I lead engineering at <a href="https://www.cmul8.com/about/">CMUL8</a>, an AI economics lab.</p>
           <p>I built <a href="https://quickcall.dev">QuickCall</a> for coding teams and <Link href="/blog/genai/making-misal">Misal</Link> for people who use AI in Marathi.</p>
