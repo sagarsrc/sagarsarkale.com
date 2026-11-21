@@ -1,46 +1,10 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-
 export function Footer() {
-  // Motion agency (leo.here-inspired): visitor can still the hero field.
-  const [paused, setPaused] = useState(false);
-
-  useEffect(() => {
-    const stored = localStorage.getItem('motion-preference');
-    if (stored === 'paused') {
-      setPaused(true);
-      document.documentElement.dataset.motion = 'paused';
-    }
-  }, []);
-
-  const toggle = () => {
-    setPaused((value) => {
-      const next = !value;
-      if (next) document.documentElement.dataset.motion = 'paused';
-      else delete document.documentElement.dataset.motion;
-      localStorage.setItem('motion-preference', next ? 'paused' : 'live');
-      return next;
-    });
-  };
-
   return (
     <footer className="border-t border-[var(--border)] mt-16">
       <div className="mx-auto max-w-3xl px-5">
         <div className="pt-8 pb-4 text-center">
           <p className="text-xs text-[var(--fg-muted)] tracking-wide">
             sagar sarkale &middot; 2024–2026 &middot; powered by caffeine and occasional epiphany
-          </p>
-          <p className="text-xs text-[var(--fg-muted)]/70 tracking-wide mt-1.5">
-            homepage horizon printed with a hand-rolled webgl dither &middot;{' '}
-            <button
-              type="button"
-              onClick={toggle}
-              className="bg-transparent border-0 p-0 text-[var(--fg-muted)] hover:text-[var(--accent)] transition-colors duration-150 cursor-pointer underline decoration-[var(--border)] underline-offset-2"
-              aria-pressed={paused}
-            >
-              {paused ? 'resume the wave' : 'still the wave'}
-            </button>
           </p>
         </div>
         <div className="pb-8 flex justify-center gap-6 [&_a]:text-[var(--fg-muted)] [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-150 hover:[&_a]:text-[var(--accent)] [&_svg]:w-4 [&_svg]:h-4">

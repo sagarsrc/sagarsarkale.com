@@ -4,7 +4,6 @@ import { formatDate } from '@/lib/utils';
 import type { Post } from '@/types/content';
 import { Section } from '@/components/Section';
 import { CoverReveal } from '@/components/CoverReveal';
-import { WaveHorizon } from '@/components/WaveHorizon';
 import { SocialIcons } from '@/components/SocialIcons';
 
 const press = [
@@ -139,8 +138,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-        {/* One living line: the wave's silhouette, drawn as a dithered horizon. */}
-        <WaveHorizon />
       </section>
 
       {/* ── What I Built ── */}
