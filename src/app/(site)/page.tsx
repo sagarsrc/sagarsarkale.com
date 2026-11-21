@@ -73,11 +73,11 @@ export default function Home() {
 
         <div className="landing-intro hero-rise hero-rise-2">
           <p className="landing-lead">
-            I&apos;ve trained LLMs from scratch, built agentic systems that ship,
-            and optimized inference pipelines that run in production — served and supported 20M+ user base.
+            I like being the person who has to figure it out. I run experiments in parallel,
+            build the version I’d bet on, and stay with it when it breaks in production.
           </p>
-          <p>Currently building <a href="https://quickcall.dev" target="_blank" rel="noopener noreferrer">QuickCall</a>.</p>
-          <p>Previously built India&apos;s first competitive <Link href="/blog/genai/making-misal">Marathi LLM</Link>.</p>
+          <p>I lead engineering at <a href="https://www.cmul8.com/about/">CMUL8</a>, an AI economics lab.</p>
+          <p>I built <a href="https://quickcall.dev">QuickCall</a> for coding teams and <Link href="/blog/genai/making-misal">Misal</Link> for people who use AI in Marathi.</p>
           <p className="landing-press">
             covered by {press.map((item, index) => (
               <span key={item.name}>
