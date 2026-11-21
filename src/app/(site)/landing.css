@@ -148,3 +148,24 @@ main > div:has(> .landing) { padding-top: 0; }
   .landing-client p { grid-column: 1 / -1; grid-row: 2; }
   .landing-section { gap: 1.5rem; }
 }
+@media (min-width: 851px) {
+  .landing-hero {
+    grid-template-columns: minmax(0, 1.06fr) minmax(0, 1fr);
+    grid-template-areas: "art mast" "art intro";
+    align-content: center;
+    column-gap: clamp(3rem, 5vw, 5rem);
+    row-gap: 1.5rem;
+    padding-block: clamp(3rem, 5vw, 5rem);
+  }
+  .landing-masthead {
+    align-self: end;
+    display: block;
+    border: 0;
+    padding: 0;
+  }
+  .landing h1 { font-size: clamp(3.25rem, 5.7vw, 5.8rem); }
+  .landing-masthead p { margin-top: .9rem; font-size: .7rem; }
+  .landing-intro { align-self: start; border-top: 1px solid var(--border); padding-top: 1.45rem; }
+  .landing-art .cover-reveal-inner { aspect-ratio: 1 / 1.04; }
+  .landing-art .cover-reveal-cover { object-position: 57% center; }
+}
