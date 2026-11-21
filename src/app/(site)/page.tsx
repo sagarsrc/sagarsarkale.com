@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import './landing.css';
-import { CoverReveal } from '@/components/CoverReveal';
+import Image from 'next/image';
 import { SocialIcons } from '@/components/SocialIcons';
 
 const press = [
@@ -62,9 +62,11 @@ export default function Home() {
         </div>
 
         <div className="landing-art hero-rise hero-rise-2">
-          <CoverReveal
-            coverSrc="/tidal-screen.webp"
-            revealSrc="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/images/profile-reveal.png"
+          <Image
+            src="/tidal-screen.webp"
+            width={1440}
+            height={960}
+            preload
             alt="A breaking wave printed in coarse indigo halftone dots on ivory paper."
           />
         </div>

@@ -59,13 +59,7 @@ main > div:has(> .landing) { padding-top: 0; }
 .landing-masthead p, .landing-status { text-transform: uppercase; letter-spacing: .085em; }
 .landing-masthead p { color: var(--fg-secondary); }
 .landing-art { grid-area: art; }
-.landing-art .cover-reveal-inner { aspect-ratio: 3 / 2; border-radius: 0; }
-.landing-art .cover-reveal-wrapper:hover { transform: none; filter: none; }
-.landing-art .cover-reveal-cover { transition: opacity .45s ease, transform .6s ease; }
-@media (hover: hover) {
-  .landing-art .cover-reveal-wrapper:hover .cover-reveal-cover { transform: scale(1.018); }
-}
-.landing-art .cover-reveal-profile { transform: none; object-position: center 35%; }
+.landing-art img { width: 100%; height: auto; object-fit: cover; }
 .landing-intro { grid-area: intro; color: var(--fg-secondary); font-size: 1rem; line-height: 1.6; }
 .landing .landing-lead {
   color: var(--fg);
@@ -166,6 +160,5 @@ main > div:has(> .landing) { padding-top: 0; }
   .landing h1 { font-size: clamp(3.25rem, 5.7vw, 5.8rem); }
   .landing-masthead p { margin-top: .9rem; font-size: .7rem; }
   .landing-intro { align-self: start; border-top: 1px solid var(--border); padding-top: 1.45rem; }
-  .landing-art .cover-reveal-inner { aspect-ratio: 1 / 1.04; }
-  .landing-art .cover-reveal-cover { object-position: 57% center; }
+  .landing-art img { aspect-ratio: 1 / 1.04; object-position: 57% center; }
 }
