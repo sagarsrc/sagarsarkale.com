@@ -67,11 +67,12 @@ export default function Home() {
       {/* ── Hero ── */}
       <section className="mb-20 max-md:mb-14 -mt-8">
         <HeroSpillReveal>
-        <div className="flex gap-10 max-md:block items-center">
+        <div className="flex gap-10 max-md:block items-center [transform:translateY(calc(var(--hero-scroll,0)*-28px))] [opacity:calc(1-min(var(--hero-scroll,0)*1.6,1))]">
           <div className="relative flex-1 min-w-0 py-8 max-md:py-5 [&_*]:!text-[var(--fg)]">
             <div aria-hidden="true" className="absolute -z-10 -inset-y-4 -left-8 -right-8 max-md:-inset-y-3 max-md:-left-3 max-md:-right-5 bg-[var(--surface)] max-md:[mask-image:none] md:[mask-image:linear-gradient(90deg,black_0%,black_98%,transparent_100%)]" />
+            <div className="hero-rise">
             <h1 className="text-4xl font-bold tracking-tighter mb-1.5 max-md:text-3xl">
-              Sagar Sarkale
+              Sagar <em className="font-serif italic font-normal">Sarkale</em>
             </h1>
             <p className="text-[0.8125rem] text-[var(--fg-muted)] font-mono tracking-wide uppercase mb-10">
               ai founder &middot; consultant &middot; engineer
@@ -102,25 +103,30 @@ export default function Home() {
                 </span>
               </p>
             </div>
+            </div>
 
-            <a href="https://calendar.app.google/z5J1gxmUkQ3vvzjT6" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center mt-8 text-[0.8125rem] font-semibold border border-[var(--border)] text-[var(--fg-secondary)] px-5 py-2.5 max-md:w-full max-md:py-3.5 rounded-md hover:border-[var(--fg)] hover:text-[var(--fg)] active:scale-[0.98] transition-all no-underline">
+            <a href="https://calendar.app.google/z5J1gxmUkQ3vvzjT6" target="_blank" rel="noopener noreferrer" className="hero-rise hero-rise-2 inline-flex items-center justify-center mt-8 text-[0.8125rem] font-semibold border border-[var(--border)] text-[var(--fg-secondary)] px-5 py-2.5 max-md:w-full max-md:py-3.5 rounded-md hover:border-[var(--fg)] hover:text-[var(--fg)] active:scale-[0.98] transition-all no-underline">
               book a call &rarr;
             </a>
 
             {/* Social icons — mobile only, below CTA */}
-            <div className="hidden max-md:flex items-center gap-3 mt-6 [&_a]:text-[var(--fg-muted)] [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-150 hover:[&_a]:text-[var(--accent)] [&_a]:p-2 [&_a]:-m-2 [&_svg]:w-[18px] [&_svg]:h-[18px]">
+            <div className="hero-rise hero-rise-3 hidden max-md:flex items-center gap-3 mt-6 [&_a]:text-[var(--fg-muted)] [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-150 hover:[&_a]:text-[var(--accent)] [&_a]:p-2 [&_a]:-m-2 [&_svg]:w-[18px] [&_svg]:h-[18px]">
               <SocialIcons />
             </div>
           </div>
 
-          {/* Wave + social icons — desktop only */}
-          <div className="w-52 shrink-0 max-md:hidden flex flex-col items-center gap-5 self-center">
+          {/* The framed wave print — the photograph's one window in the abstract field.
+              Final beat of the entrance; click develops the person behind the wave. */}
+          <div className="hero-rise hero-rise-4 w-60 shrink-0 max-md:hidden flex flex-col items-center gap-7 self-center">
+            <div className="-rotate-[0.8deg] rounded-xl bg-[var(--surface)] p-2 shadow-[0_24px_60px_-14px_rgba(3,25,50,.55),0_4px_14px_-4px_rgba(3,25,50,.35)] ring-1 ring-[var(--border)]">
               <CoverReveal
                 coverSrc="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/wave-hero.png"
                 revealSrc="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/images/profile-reveal.png"
                 alt="Sagar Sarkale"
               />
-            <div className="flex items-center justify-between w-full bg-[var(--surface)] p-3 rounded-md [&_a]:text-[var(--fg-muted)] [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-150 hover:[&_a]:text-[var(--accent)] [&_svg]:w-[18px] [&_svg]:h-[18px]">
+            </div>
+            {/* Ghosted over the field, no box: paper-colored halo keeps marks legible. */}
+            <div className="flex items-center justify-between w-full px-2 [&_a]:text-[var(--fg-muted)] [&_a]:no-underline [&_a]:transition-colors [&_a]:duration-150 hover:[&_a]:text-[var(--accent)] [&_a]:p-2 [&_a]:-m-2 [&_a]:[text-shadow:0_0_10px_var(--bg),0_0_3px_var(--bg)] [&_svg]:w-[18px] [&_svg]:h-[18px]">
               <SocialIcons />
             </div>
           </div>

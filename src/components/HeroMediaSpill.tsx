@@ -9,8 +9,8 @@ void main() { gl_Position = vec4(a_position, 0., 1.); }
 const fragment = `#version 300 es
 precision highp float;
 uniform sampler2D u_image;
-uniform vec2 u_resolution, u_pointer;
-uniform float u_dpr, u_cell, u_time, u_progress, u_reveal, u_dark;
+uniform vec2 u_resolution, u_pointer, u_lens;
+uniform float u_dpr, u_cell, u_time, u_progress, u_reveal, u_dark, u_scroll;
 uniform vec3 u_fg, u_surface, u_accent;
 out vec4 color;
 float lum(vec3 c) { return dot(c, vec3(.2126,.7152,.0722)); }
@@ -37,6 +37,9 @@ void main() {
   vec2 q=fract(px/u_cell)-.5;
   vec2 sampleUV=(px+flow)/size;
   sampleUV.y=1.-sampleUV.y;
+  // Ken Burns: the print slowly enlarges as the hero scrolls away.
+  vec2 centered=sampleUV-.5;
+  sampleUV=.5+centered/mix(1.,1.12,u_scroll)+vec2(0.,u_scroll*.045);
   // A portrait crop keeps the breaking lip large on small screens.
   if(size.x<size.y) sampleUV.x=.20+sampleUV.x*.65;
   vec3 source=textureLod(u_image,sampleUV,4.).rgb;
@@ -70,8 +73,20 @@ void main() {
   float hatch=line(q,-tangent*.32,tangent*.32,.04);
   float foamDetail=edge*smoothstep(.60,.80,plate)*hatch;
   printed=mix(printed,ink,foamDetail*.6*u_progress);
-  // One short development from ink wash to the final plate; no dissolving field.
-  printed=mix(mix(sea,paper,.3),printed,.65+.35*u_progress);
+  // The develop lens: pointing dissolves the print back into the photograph.
+  // Revealing the face behind the wave: the print remembers it is a photograph.
+  // The develop lens widens and the whole sheet partially resolves, reversibly.
+  float develop=1.-smoothstep(60.,150.+u_reveal*min(size.x,size.y)*.55,distance(px,u_lens));
+  if(develop>.001||u_reveal>.001) {
+    vec3 photo=textureLod(u_image,sampleUV,0.).rgb;
+    printed=mix(printed,photo,develop*(.85+u_reveal*.15));
+    printed=mix(printed,photo,u_reveal*.16);
+  }
+  // Static print grain: paper tooth, no shimmer.
+  float grain=fract(sin(dot(px,vec2(12.9898,78.233)))*43758.5453)-.5;
+  printed+=grain*.022;
+  // The sheet develops: blank paper with a ghost of the sea resolves into plates.
+  printed=mix(mix(paper,sea,.14),printed,.25+.75*u_progress);
   color=vec4(printed,1.);
 }
 `;
@@ -79,11 +94,33 @@ void main() {
 /** The server-rendered card stays intact; capture also sees keyboard-generated clicks. */
 export function HeroSpillReveal({ children }: { children: ReactNode }) {
   const [revealed, setRevealed] = useState(false);
-  return <div className="relative isolate min-h-[min(75vh,780px)] py-20 max-md:pt-52 max-md:pb-16" onClickCapture={(event) => {
+  const wrapRef = useRef<HTMLDivElement>(null);
+  // Scroll choreography: --hero-scroll drives content drift/fade in page.tsx and
+  // the field's counter-zoom in the shader. Damped in the canvas RAF loop.
+  useEffect(() => {
+    const wrap = wrapRef.current;
+    if (!wrap || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const rect = wrap.getBoundingClientRect();
+      const progress = Math.min(Math.max(-rect.top / (rect.height * 0.7), 0), 1);
+      wrap.style.setProperty("--hero-scroll", progress.toFixed(3));
+    };
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => { window.removeEventListener("scroll", onScroll); cancelAnimationFrame(raf); };
+  }, []);
+  return <div ref={wrapRef} className="relative isolate min-h-[min(75vh,780px)] py-20 max-md:pt-52 max-md:pb-16" onClickCapture={(event) => {
     if ((event.target as HTMLElement).closest("button")) setRevealed(value => !value);
   }}>
     <HeroMediaSpill revealed={revealed} />
     <HeroMediaSpill mobile revealed={revealed} />
+    {/* Ghost of the name's meaning: the wave is the subject, the word is its root. */}
+    <span aria-hidden="true" className="pointer-events-none absolute z-[5] right-[1%] top-[4%] font-serif italic select-none leading-none max-md:hidden" style={{fontSize:"clamp(96px,17vw,250px)",color:"var(--fg)",opacity:.09,mixBlendMode:"overlay"}}>sāgara</span>
+    {/* The print dissolves into the page instead of ending at a hard edge. */}
+    <div aria-hidden="true" className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none z-[6]" style={{background:"linear-gradient(to bottom, transparent, var(--bg))"}} />
     <div className="relative z-10">{children}</div>
   </div>;
 }
@@ -134,25 +171,39 @@ export function HeroMediaSpill({ mobile = false, revealed = false }: { mobile?: 
       gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
       gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
       gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
-      const uniforms = Object.fromEntries(["resolution","pointer","dpr","cell","time","progress","reveal","dark","fg","surface","accent"].map(name=>[name,gl.getUniformLocation(program,`u_${name}`)]));
+      const uniforms = Object.fromEntries(["resolution","pointer","lens","dpr","cell","time","progress","reveal","dark","scroll","fg","surface","accent"].map(name=>[name,gl.getUniformLocation(program,`u_${name}`)]));
       let dpr = 1;
       const pointer = [0,0], target = [0,0];
+      const lens = [-1000,-1000], lensTarget = [-1000,-1000];
+      let scroll = 0, scrollTarget = 0;
       const draw = () => {
         gl.uniform2f(uniforms.resolution,canvas.width,canvas.height);
         gl.uniform2f(uniforms.pointer,pointer[0],pointer[1]);
+        gl.uniform2f(uniforms.lens,lens[0],lens[1]);
         gl.uniform1f(uniforms.dpr,dpr); gl.uniform1f(uniforms.cell,mobile ? 16 : 28);
         gl.uniform1f(uniforms.time,motion.matches ? 0 : elapsed);
         gl.uniform1f(uniforms.progress,motion.matches ? 1 : 1-Math.pow(1-Math.min(elapsed/1.2,1),3));
         gl.uniform1f(uniforms.reveal,reveal);
+        gl.uniform1f(uniforms.scroll,scroll);
         gl.drawArrays(gl.TRIANGLES,0,6);
       };
       const frame = (now: number) => {
         raf = 0;
         if (dead || !visible || !loaded || motion.matches) return;
-        const dt = previous ? Math.min((now-previous)/1000,.05) : 0; previous=now; elapsed+=dt;
-        const damping=1-Math.exp(-dt*2.5);
-        for(let i=0;i<2;i++) pointer[i]+=(target[i]-pointer[i])*damping;
-        reveal+=(Number(revealRef.current)-reveal)*damping;
+        const dt = previous ? Math.min((now-previous)/1000,.05) : 0; previous=now;
+        // Visitor motion control (footer "still the wave"): freeze the drift,
+        // pointer and lens in place; the last frame keeps rendering.
+        const frozen = document.documentElement.dataset.motion === 'paused';
+        if (!frozen) {
+          elapsed+=dt;
+          const heroRect=canvas.getBoundingClientRect();
+          scrollTarget=Math.min(Math.max(-heroRect.top/(heroRect.height*0.7),0),1);
+          const damping=1-Math.exp(-dt*2.5);
+          for(let i=0;i<2;i++) pointer[i]+=(target[i]-pointer[i])*damping;
+          reveal+=(Number(revealRef.current)-reveal)*damping;
+          scroll+=(scrollTarget-scroll)*(1-Math.exp(-dt*6));
+          for(let i=0;i<2;i++) lens[i]+=(lensTarget[i]-lens[i])*(1-Math.exp(-dt*10));
+        }
         draw(); raf=requestAnimationFrame(frame);
       };
       const start = () => { if (loaded && visible && !motion.matches && !raf) { previous=0; raf=requestAnimationFrame(frame); } };
@@ -179,8 +230,8 @@ export function HeroMediaSpill({ mobile = false, revealed = false }: { mobile?: 
       const observer=new IntersectionObserver(([entry])=>{ visible=entry.isIntersecting; if(visible)start(); else { cancelAnimationFrame(raf); raf=0; previous=0; } }); observer.observe(canvas);
       const sizing=new ResizeObserver(resize); sizing.observe(canvas);
       const theme=new MutationObserver(palette); theme.observe(document.documentElement,{attributes:true,attributeFilter:["class","data-theme"]});
-      const move=(event: PointerEvent)=>{ const r=canvas.getBoundingClientRect(); target[0]=Math.max(-1,Math.min(1,(event.clientX-r.left)/r.width*2-1)); target[1]=Math.max(-1,Math.min(1,(r.bottom-event.clientY)/r.height*2-1)); };
-      const leave=()=>{ target[0]=0; target[1]=0; };
+      const move=(event: PointerEvent)=>{ const r=canvas.getBoundingClientRect(); target[0]=Math.max(-1,Math.min(1,(event.clientX-r.left)/r.width*2-1)); target[1]=Math.max(-1,Math.min(1,(r.bottom-event.clientY)/r.height*2-1)); lensTarget[0]=event.clientX-r.left; lensTarget[1]=r.bottom-event.clientY; };
+      const leave=()=>{ target[0]=0; target[1]=0; lensTarget[0]=-1000; lensTarget[1]=-1000; };
       const lost=()=>{ loaded=false; cancelAnimationFrame(raf); raf=0; setReady(false); };
       window.addEventListener("pointermove",move,{passive:true}); document.addEventListener("pointerleave",leave);
       canvas.addEventListener("webglcontextlost",lost);

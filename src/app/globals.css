@@ -554,3 +554,18 @@ h4:hover .heading-anchor { opacity: 0.5; }
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* ── Hero entrance choreography (experiment 001, v3) ── */
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+.hero-rise {
+  opacity: 0;
+  animation: hero-rise 0.7s cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
+}
+.hero-rise-1 { animation-delay: 0.15s; }
+.hero-rise-2 { animation-delay: 0.3s; }
+.hero-rise-3 { animation-delay: 0.45s; }
+/* The framed wave print closes the entrance: text rises, then the artwork lands. */
+.hero-rise-4 { animation-delay: 0.65s; }

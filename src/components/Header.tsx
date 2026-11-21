@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ThemeToggle } from './ThemeToggle';
 import { ReadingProgress } from './ReadingProgress';
+import { AmbientLine } from './AmbientLine';
 
 const NAV_LINKS = [
   { name: 'agents.md', url: '/agents', highlight: true },
@@ -39,6 +40,7 @@ export function Header() {
 
           {/* Desktop */}
           <nav className="hidden sm:flex items-center gap-5 text-[0.8125rem] [&_a]:no-underline hover:[&_a]:text-[var(--accent)]">
+            <AmbientLine />
             {NAV_LINKS.map(link => {
               const isActive = pathname === link.url || pathname.startsWith(link.url + '/');
               return (
