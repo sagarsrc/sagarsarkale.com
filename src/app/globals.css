@@ -462,7 +462,6 @@ blockquote p { margin: 0.5rem 0; }
   transform-origin: top right;
   -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 9%, #000 72%, transparent 100%);
   mask-image: linear-gradient(180deg, transparent 0%, #000 9%, #000 72%, transparent 100%);
-  animation: hero-ascii-signal 7s steps(1, end) infinite;
 }
 
 .hero-signal-dither {
@@ -476,21 +475,17 @@ blockquote p { margin: 0.5rem 0; }
   background-size: 5px 5px;
   -webkit-mask-image: radial-gradient(ellipse at 55% 45%, transparent 0 22%, #000 48%, transparent 74%);
   mask-image: radial-gradient(ellipse at 55% 45%, transparent 0 22%, #000 48%, transparent 74%);
-  animation: hero-dither-drift 10s linear infinite;
 }
 
 .hero-signal-scanline {
   position: absolute;
-  --scan-distance: 24rem;
-  top: 1rem;
+  top: 11.5rem;
   right: 0;
   width: 25rem;
   height: 1px;
-  opacity: 0;
+  opacity: 0.35;
   background: linear-gradient(90deg, transparent, currentColor 28%, currentColor 74%, transparent);
   box-shadow: 0 0 14px color-mix(in srgb, var(--accent) 35%, transparent);
-  animation: hero-scan 5.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-  will-change: transform, opacity;
 }
 
 .dark .hero-signal {
@@ -511,54 +506,6 @@ blockquote p { margin: 0.5rem 0; }
     opacity: 0.82;
     clip-path: inset(0 0 0 0);
     filter: blur(0);
-  }
-}
-
-@keyframes hero-scan {
-  0%, 12% {
-    opacity: 0;
-    transform: translateY(0);
-  }
-  18% {
-    opacity: 0.62;
-  }
-  62% {
-    opacity: 0.4;
-    transform: translateY(var(--scan-distance));
-  }
-  68%, 100% {
-    opacity: 0;
-    transform: translateY(var(--scan-distance));
-  }
-}
-
-@keyframes hero-dither-drift {
-  0%, 100% {
-    background-position: 0 0;
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    background-position: 10px 5px;
-    transform: translate3d(-5px, 3px, 0);
-  }
-}
-
-@keyframes hero-ascii-signal {
-  0%, 44%, 48%, 100% {
-    transform: scaleX(0.94) translateX(0);
-    filter: saturate(0.8);
-  }
-  45% {
-    transform: scaleX(0.94) translateX(-3px);
-    filter: saturate(1.25) brightness(1.15);
-  }
-  46% {
-    transform: scaleX(0.94) translateX(2px);
-    filter: saturate(0.65);
-  }
-  47% {
-    transform: scaleX(0.94) translateX(-1px);
-    filter: saturate(1.1) brightness(1.08);
   }
 }
 
@@ -596,17 +543,14 @@ blockquote p { margin: 0.5rem 0; }
   }
 
   .hero-signal-scanline {
-    --scan-distance: 15rem;
-    top: 0;
+    top: 8rem;
     width: 20rem;
+    opacity: 0.24;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-signal,
-  .hero-signal-portrait,
-  .hero-signal-dither,
-  .hero-signal-scanline {
+  .hero-signal {
     animation: none;
   }
 }
