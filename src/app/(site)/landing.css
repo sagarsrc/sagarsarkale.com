@@ -624,3 +624,10 @@ body:has(.landing) .main-content { padding-top: 0; }
   /* Sized so each sentence fits one line on phones. */
   .mast-quote blockquote p { font-size: clamp(1.35rem, 6.2vw, 2.4rem); line-height: 1.14; }
 }
+
+/* ---------- Card stops ----------
+   Zero-height markers in normal flow mark where each card starts, because
+   sticky sheets report their stuck position instead. */
+/* Card-by-card movement is driven in ScrollStage; markers only mark positions. */
+.snap-point { height: 0; }
+.landing-intro > .snap-point { position: absolute; top: 0; left: 0; }

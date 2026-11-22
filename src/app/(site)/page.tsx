@@ -98,6 +98,7 @@ export default function Home() {
 
   return (
     <div className="landing">
+      <div className="snap-point" aria-hidden="true" />
       <ScrollStage />
       <WaveOpening>
         <section className="landing-hero">
@@ -131,6 +132,7 @@ export default function Home() {
           </a>
         </section>
         <ScrollVar className="landing-intro" id="introduction" start={0.95} end={0.75}>
+          <div className="snap-point" aria-hidden="true" />
           <p className="landing-label">(01) Introduction</p>
           <p className="landing-lead">
             <span><Ink tokens={leadA} offset={0} total={total} /></span>{' '}
@@ -155,6 +157,7 @@ export default function Home() {
         </ScrollVar>
       </WaveOpening>
 
+      <div className="snap-point" aria-hidden="true" />
       <section className="landing-proof stack" aria-labelledby="proof-title">
         <Reveal className="proof-head">
           <p className="landing-label">(02) By the numbers</p>
@@ -169,6 +172,7 @@ export default function Home() {
         ))}
       </section>
 
+      <div className="snap-point" aria-hidden="true" />
       <section id="what-i-built" className="landing-built stack">
         <Reveal className="built-head">
           <p className="landing-label">(03) Selected work</p>
@@ -205,6 +209,7 @@ export default function Home() {
         </div>
       </section>
 
+      <div className="snap-point" aria-hidden="true" />
       <section className="landing-section stack">
         <Reveal className="section-head">
           <p className="landing-label">(04) Consulting</p>
@@ -232,6 +237,7 @@ export default function Home() {
         </div>
       </section>
 
+      <div className="snap-point" aria-hidden="true" />
       <section className="landing-section stack">
         <Reveal className="section-head">
           <p className="landing-label">(05) Writing</p>
@@ -260,6 +266,7 @@ export default function Home() {
         </div>
       </section>
 
+      <div className="snap-point" aria-hidden="true" />
       <section className="landing-close" id="contact">
         <HalftoneField variant="tide" />
         <div className="close-inner">
