@@ -178,14 +178,16 @@ export default function Home() {
         <div className="landing-projects">
           {highlights.map((h, i) => (
             <article key={h.label}>
-              <Reveal className="project-visual">
-                <ProjectVisual project={h.print} />
-              </Reveal>
-              <Reveal className="project-copy" delay={120}>
+              <Reveal className="project-intro" delay={120}>
                 <span className="project-num">0{i + 1} · {h.period}</span>
                 <h3>{h.label}</h3>
                 <p className="landing-role">{h.role}</p>
                 <p className="project-desc">{h.desc}</p>
+              </Reveal>
+              <Reveal className="project-visual">
+                <ProjectVisual project={h.print} />
+              </Reveal>
+              <Reveal className="project-more" delay={200}>
                 <dl className="project-facts">
                   {h.facts.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}
                 </dl>
