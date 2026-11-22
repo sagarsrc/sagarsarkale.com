@@ -80,8 +80,10 @@ void main(){
   float r = aStat.x * aDyn.z;
   // Crest dots breathe and now and then blink out, each on its own beat.
   float crest = step(0.05, aStat.y) * step(aStat.y, 0.7) * (1.0 - smoothstep(uRes.y * 0.45, uRes.y * 0.62, aHome.y)) * uMotion;
-  float beat = 0.5 + 0.5 * sin(uTime * (1.4 + 2.6 * aStat.z) + aStat.z * 43.0);
-  float blink = smoothstep(0.0, 0.12, fract(uTime * (0.22 + 0.25 * aStat.z) + aStat.z * 17.0));
+  // Slow swell (6-18s per cycle); only some dots blink, each about every 10-25s.
+  float beat = 0.5 + 0.5 * sin(uTime * (0.35 + 0.65 * aStat.z) + aStat.z * 43.0);
+  float blinker = step(0.6, fract(aStat.z * 7.31));
+  float blink = mix(1.0, smoothstep(0.0, 0.03, fract(uTime * (0.04 + 0.06 * aStat.z) + aStat.z * 17.0)), blinker);
   r *= mix(1.0, (0.4 + 1.05 * beat * beat) * blink, crest);
   vR = r;
   vTone = aStat.y;
