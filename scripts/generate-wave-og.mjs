@@ -5,7 +5,8 @@
 //   design/og/github-social-preview.png  1280x640  GitHub repository social preview
 //   public/social/square.jpg             600x600   crest only, for square thumbnails
 //                                        (WhatsApp, iMessage, Telegram small previews)
-// Text stays inside a 40pt safe border so no platform crop cuts it. Site images are
+// Text stays inside a 40pt safe border and inside the centred square, so the
+// small square thumbnails Slack and chat apps crop from the middle show the whole quote. Site images are
 // written as JPEG under 300KB, the size above which WhatsApp drops link previews.
 import { mkdir, readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
@@ -49,16 +50,16 @@ const page = (w, h) => `<!doctype html><html><head><meta charset="utf-8"><style>
 * { margin: 0; box-sizing: border-box; }
 html, body { width: ${w}px; height: ${h}px; overflow: hidden; background: #f6e5c4; }
 .card { position: relative; width: 100%; height: 100%; }
-.wave { position: absolute; top: ${-h * 0.18}px; right: ${-w * 0.07}px; width: ${h * 1.42}px; height: ${h * 1.42}px; }
+.wave { position: absolute; top: ${-h * 0.18}px; right: ${-w * 0.16}px; width: ${h * 1.42}px; height: ${h * 1.42}px; }
 .wave svg { width: 100%; height: 100%; display: block; }
 /* Feather the artwork's left edge so it melts into the shade instead of cutting off. */
 .wave { -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 22%); mask-image: linear-gradient(90deg, transparent 0%, #000 22%); }
 .shade { position: absolute; inset: 0;
-  background: linear-gradient(90deg, #0b203cf2 0%, #0b203cd9 30%, #0b203c55 52%, transparent 66%),
+  background: linear-gradient(90deg, #0b203cf2 0%, #0b203ce6 45%, #0b203c66 66%, transparent 78%),
               linear-gradient(to top, #0b203ccc, transparent 45%); }
-.copy { position: absolute; left: ${Math.round(w * 0.07)}px; bottom: ${Math.round(h * 0.13)}px; color: #fff8e7;  }
+.copy { position: absolute; left: ${Math.round((w - h) / 2 + h * 0.06)}px; bottom: ${Math.round(h * 0.13)}px; color: #fff8e7;  }
 .copy { width: max-content; }
-.q { font: 300 ${Math.round(h * 0.092)}px/1.08 Literata; letter-spacing: -0.04em; }
+.q { font: 300 ${Math.round(h * 0.074)}px/1.1 Literata; letter-spacing: -0.04em; }
 .q em { font-style: italic; }
 .sig { margin-top: ${Math.round(h * 0.035)}px; text-align: right; font: italic 300 ${Math.round(h * 0.046)}px/1 Literata; letter-spacing: -0.015em; }
 .sig span { font-style: normal; color: #fff8e799; margin-right: .35em; }
