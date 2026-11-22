@@ -13,14 +13,20 @@ import { useEffect } from 'react';
  * - A sliding sheet has rounded top corners that flatten as it docks (--arrive),
  *   so no corner wedge of the section underneath shows once it is in place.
  * - `[data-parallax]` elements drift against the scroll by their factor.
- * - Each wheel, trackpad, swipe or arrow-key gesture glides to the next card
- *   (`.snap-point` markers); cards taller than the screen advance a screen at a
- *   time, then stop where their bottom meets the screen.
+ * - On fine-pointer devices (mouse/trackpad), each wheel or arrow-key gesture
+ *   glides to the next card (`.snap-point` markers); cards taller than the
+ *   screen advance a screen at a time, then stop where their bottom meets the
+ *   screen. On touch devices the pager stays off: phones keep native momentum
+ *   scrolling and never rest at awkward mid-card positions.
  * Reduced motion keeps native scrolling, the stacking, and drops the movement.
  */
 export function ScrollStage() {
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // The card pager only makes sense with a wheel/trackpad/keyboard. With touch
+    // it hijacks momentum scrolling and can only land on computed stops, which
+    // reads as broken on phones — so coarse pointers get plain native scroll.
+    const pager = window.matchMedia('(pointer: fine)').matches && !reduced;
     const header = document.querySelector('header');
     const headerH = () => (header ? header.getBoundingClientRect().height : 0);
 
@@ -206,10 +212,12 @@ export function ScrollStage() {
       e.preventDefault();
       if (!swiped && Math.abs(dy) > 36) { swiped = true; if (ready()) advance(dy > 0); }
     };
-    window.addEventListener('wheel', onWheel, { passive: false });
-    window.addEventListener('touchstart', onTouchStart, { passive: true });
-    window.addEventListener('touchmove', onTouchMove, { passive: false });
-    window.addEventListener('keydown', onKey);
+    if (pager) {
+      window.addEventListener('wheel', onWheel, { passive: false });
+      window.addEventListener('touchstart', onTouchStart, { passive: true });
+      window.addEventListener('touchmove', onTouchMove, { passive: false });
+      window.addEventListener('keydown', onKey);
+    }
 
 
     measure();
@@ -223,11 +231,11 @@ export function ScrollStage() {
       cancelAnimationFrame(frame);
       ro.disconnect();
       window.removeEventListener('resize', measure);
+      panels().forEach((el) => { el.style.top = ''; });
       window.removeEventListener('wheel', onWheel);
       window.removeEventListener('touchstart', onTouchStart);
       window.removeEventListener('touchmove', onTouchMove);
       window.removeEventListener('keydown', onKey);
-      panels().forEach((el) => { el.style.top = ''; });
     };
   }, []);
 
