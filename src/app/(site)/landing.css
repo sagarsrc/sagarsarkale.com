@@ -524,7 +524,8 @@ body:has(.landing) .main-content { padding-top: 0; }
   overflow: hidden;
   display: grid;
   align-items: end;
-  min-height: min(88svh, 56rem);
+  /* A full screen under the header, so the last card docks like the others on any window height. */
+  min-height: calc(100svh - 3rem);
   background: #0d2341;
   color: var(--cream);
 }
