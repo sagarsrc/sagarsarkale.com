@@ -600,6 +600,12 @@ body:has(.landing) .main-content { padding-top: 0; }
 .landing li { margin-left: 0; }
 @media (max-width: 700px) {
   .landing-close::after { background: linear-gradient(to top, #0b1e38f7 35%, #0b1e3899 70%, #0b1e3833); }
+  /* Balance the full-screen card: center the block instead of anchoring it
+     to the bottom, and give the serif room to breathe. */
+  .landing-close { align-items: center; }
+  .landing-close h2 { line-height: 1.12; letter-spacing: -.04em; }
+  .close-sub { margin-top: 2rem; }
+  .close-actions { margin-top: 3rem; }
 }
 
 /* ---------- Stacked sections ----------

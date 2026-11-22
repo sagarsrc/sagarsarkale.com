@@ -271,7 +271,7 @@ export default function Home() {
         <HalftoneField variant="tide" />
         <div className="close-inner">
           <p className="landing-label">(06) Contact</p>
-          <h2>Bring me the <em>uncharted waters</em>.</h2>
+          <h2>Point me to <em>uncharted waters</em>.</h2>
           <p className="close-sub">Agents that forget, models that don’t speak your language, evals nobody has built yet. Each of these, I’ve built through. The next one’s yours.</p>
           <div className="close-actions">
             <a className="landing-cta is-light" href={CALL} target="_blank" rel="noopener noreferrer">book a call <Arrow /></a>
