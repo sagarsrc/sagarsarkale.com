@@ -37,11 +37,19 @@ export const metadata: Metadata = {
     description: 'Every disruption begins as a problem someone refused to leave unsolved. Founder of QuickCall and Misal, building with agents and language models.',
     images: [
       {
-        url: '/social/home.png',
+        url: '/social/home.jpg',
         width: 1200,
         height: 630,
-        type: 'image/png',
+        type: 'image/jpeg',
         alt: 'Sagar Sarkale over a breaking indigo halftone wave: every disruption begins as a problem someone refused to leave unsolved.',
+      },
+      // Square crest for apps that show a square thumbnail instead of a card.
+      {
+        url: '/social/square.jpg',
+        width: 600,
+        height: 600,
+        type: 'image/jpeg',
+        alt: 'The crest of a breaking indigo halftone wave.',
       },
     ],
   },
@@ -49,7 +57,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Sagar Sarkale',
     description: 'Every disruption begins as a problem someone refused to leave unsolved.',
-    images: [{ url: '/social/home.png', alt: 'Sagar Sarkale over a breaking indigo halftone wave.' }],
+    images: [{ url: '/social/home.jpg', alt: 'Sagar Sarkale over a breaking indigo halftone wave.' }],
     creator: '@sagar_sarkale',
   },
 };
