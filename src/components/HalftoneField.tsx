@@ -79,10 +79,10 @@ void main(){
   p.x += f * (aStat.z - 0.5) * 60.0 * uDpr;
   float r = aStat.x * aDyn.z;
   // Crest dots breathe and now and then blink out, each on its own beat.
-  float crest = step(0.05, aStat.y) * step(aStat.y, 0.55) * step(aHome.y, uRes.y * 0.6) * uMotion;
-  float beat = 0.5 + 0.5 * sin(uTime * (1.2 + 2.2 * aStat.z) + aStat.z * 43.0);
-  float blink = smoothstep(0.0, 0.06, fract(uTime * (0.18 + 0.2 * aStat.z) + aStat.z * 17.0));
-  r *= mix(1.0, (0.6 + 0.75 * beat * beat) * blink, crest);
+  float crest = step(0.05, aStat.y) * step(aStat.y, 0.7) * (1.0 - smoothstep(uRes.y * 0.45, uRes.y * 0.62, aHome.y)) * uMotion;
+  float beat = 0.5 + 0.5 * sin(uTime * (1.4 + 2.6 * aStat.z) + aStat.z * 43.0);
+  float blink = smoothstep(0.0, 0.12, fract(uTime * (0.22 + 0.25 * aStat.z) + aStat.z * 17.0));
+  r *= mix(1.0, (0.4 + 1.05 * beat * beat) * blink, crest);
   vR = r;
   vTone = aStat.y;
   vAlpha = aDyn.w * (1.0 - smoothstep(0.15, 0.7, f));
@@ -376,14 +376,15 @@ export function HalftoneField({ variant, className }: { variant: Variant; classN
         sprayDebt += cfg.spray * dt;
         while (sprayDebt >= 1) {
           sprayDebt -= 1;
-          const i = spray[(Math.random() * spray.length) | 0];
+          const pool = crestDots.length ? crestDots : spray;
+          const i = pool[(Math.random() * pool.length) | 0];
           if (mode[i] === 0) loosen(i, (-10 - Math.random() * 30) * dpr, (Math.random() * 15) * dpr);
         }
       }
-      const g = 1100 * dpr;
+      const g = 650 * dpr;
       for (let j = 0; j < m; j++) {
         pAge[j] += dt;
-        const life = pAge[j] / 1.25;
+        const life = pAge[j] / 1.8;
         if (life >= 1) {
           // Swap-remove the finished droplet.
           m--;
@@ -503,7 +504,7 @@ export function HalftoneField({ variant, className }: { variant: Variant; classN
       const dy = Math.abs(window.scrollY - lastScroll);
       lastScroll = window.scrollY;
       if (visible && crestDots.length && !reduced.matches) {
-        shed += Math.min(dy, 200) * 1.2;
+        shed += Math.min(dy, 200) * 3;
         while (shed >= 1) {
           shed -= 1;
           const i = crestDots[(Math.random() * crestDots.length) | 0];
