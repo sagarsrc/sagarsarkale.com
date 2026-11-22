@@ -56,18 +56,20 @@ html, body { width: ${w}px; height: ${h}px; overflow: hidden; background: #f6e5c
 .shade { position: absolute; inset: 0;
   background: linear-gradient(90deg, #0b203cf2 0%, #0b203cd9 30%, #0b203c55 52%, transparent 66%),
               linear-gradient(to top, #0b203ccc, transparent 45%); }
-.copy { position: absolute; left: ${Math.round(w * 0.07)}px; bottom: ${Math.round(h * 0.13)}px; color: #fff8e7; max-width: ${Math.round(w * 0.56)}px; }
-h1 { font: 300 ${Math.round(h * 0.155)}px/1 Literata; letter-spacing: -0.045em; }
-h1 em { font-style: italic; }
-p { margin-top: ${Math.round(h * 0.04)}px; font: 300 ${Math.round(h * 0.046)}px/1.32 Literata; letter-spacing: -0.015em; color: #fff8e7e0; }
+.copy { position: absolute; left: ${Math.round(w * 0.07)}px; bottom: ${Math.round(h * 0.13)}px; color: #fff8e7;  }
+.copy { width: max-content; }
+.q { font: 300 ${Math.round(h * 0.092)}px/1.08 Literata; letter-spacing: -0.04em; }
+.q em { font-style: italic; }
+.sig { margin-top: ${Math.round(h * 0.035)}px; text-align: right; font: italic 300 ${Math.round(h * 0.046)}px/1 Literata; letter-spacing: -0.015em; }
+.sig span { font-style: normal; color: #fff8e799; margin-right: .35em; }
 .foot { position: absolute; left: ${Math.round(w * 0.07)}px; top: ${Math.round(h * 0.11)}px; font: 400 ${Math.round(h * 0.026)}px/1 Mono; letter-spacing: .12em; text-transform: uppercase; color: #fff8e7b3; }
 </style></head><body><div class="card">
 <div class="wave">${waveSvg}</div>
 <div class="shade"></div>
 <div class="foot">sagarsarkale.com</div>
 <div class="copy">
-  <h1>Sagar <em>Sarkale</em></h1>
-  <p>Every disruption begins as a problem<br>someone refused to leave unsolved.</p>
+  <p class="q">You can’t stop the wave.<br>But you can build the <em>ship</em>.</p>
+  <p class="sig"><span>—</span> Sagar Sarkale</p>
 </div>
 </div></body></html>`;
 

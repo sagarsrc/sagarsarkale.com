@@ -33,15 +33,15 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://sagarsarkale.com',
     siteName: 'Sagar Sarkale',
-    title: 'Sagar Sarkale',
-    description: 'Every disruption begins as a problem someone refused to leave unsolved. Founder of QuickCall and Misal, building with agents and language models.',
+    title: 'Sagar Sarkale — You can’t stop the wave',
+    description: 'The wave is coming either way. Be the one steering through it.',
     images: [
       {
         url: '/social/home.jpg',
         width: 1200,
         height: 630,
         type: 'image/jpeg',
-        alt: 'Sagar Sarkale over a breaking indigo halftone wave: every disruption begins as a problem someone refused to leave unsolved.',
+        alt: 'A breaking indigo halftone wave with the words: You can’t stop the wave. But you can build the ship. — Sagar Sarkale',
       },
       // Square crest for apps that show a square thumbnail instead of a card.
       {
@@ -55,8 +55,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Sagar Sarkale',
-    description: 'Every disruption begins as a problem someone refused to leave unsolved.',
+    title: 'Sagar Sarkale — You can’t stop the wave',
+    description: 'The wave is coming either way. Be the one steering through it.',
     images: [{ url: '/social/home.jpg', alt: 'Sagar Sarkale over a breaking indigo halftone wave.' }],
     creator: '@sagar_sarkale',
   },

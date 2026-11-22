@@ -30,7 +30,7 @@ const highlights = [
     label: 'quickcall.dev',
     role: 'Founder',
     period: '2025 – present',
-    desc: 'Compounding memory for agentic engineering teams. It captures what ships and loads what matters, so one developer’s fix becomes every agent’s habit.',
+    desc: 'Compounding memory for agentic engineering teams. It remembers what your team builds and hands the next agent what matters, so one developer’s fix becomes every agent’s habit.',
     facts: [['Works in', 'Claude Code · Cursor · Codex · Gemini CLI'], ['So far', '10M+ messages processed · closed beta']],
     href: 'https://quickcall.dev',
     linkLabel: 'quickcall.dev',
@@ -263,7 +263,7 @@ export default function Home() {
         <div className="close-inner">
           <p className="landing-label">(06) Contact</p>
           <h2>Bring me the <em>hard</em> part.</h2>
-          <p className="close-sub">Agents that forget, models that don’t speak your language, evals nobody has built yet. I’ve shipped my way through all three.</p>
+          <p className="close-sub">Agents that forget, models that don’t speak your language, evals nobody has built yet. I’ve built my way through all three.</p>
           <div className="close-actions">
             <a className="landing-cta is-light" href={CALL} target="_blank" rel="noopener noreferrer">book a call <Arrow /></a>
             <a className="close-mail" href="mailto:sagar@quickcall.dev">sagar@quickcall.dev</a>
