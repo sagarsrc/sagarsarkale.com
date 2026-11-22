@@ -60,23 +60,19 @@ test('a trackpad flick with a long momentum tail moves one card, and arrow keys 
 test.describe('phone', () => {
   test.use({ isMobile: true, hasTouch: true, viewport: { width: 390, height: 844 } });
 
-  test('one swipe moves exactly one card on the homepage', async ({ page }) => {
+  // Touch devices keep native momentum scrolling; the card pager is mouse,
+  // trackpad and keyboard only (see ScrollStage).
+  test('a swipe scrolls natively on the homepage, without card paging', async ({ page }) => {
     await page.goto(site);
     await page.evaluate(() => document.fonts.ready);
-    const [, intro, proof] = await cardTops(page);
     const cdp = await page.context().newCDPSession(page);
-    const swipe = async () => {
-      await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: 200, y: 600 }] });
-      for (let k = 1; k <= 8; k++) await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: 200, y: 600 - k * 40 }] });
-      await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
-    };
-    // The card's top lands just under the header (48-57px, depending on its state).
-    const gap = (top: number) => page.evaluate(t => t - scrollY, top);
-    const landed = async (top: number) => { const g = await gap(top); return g > 40 && g < 64; };
-    await swipe();
-    await expect.poll(() => landed(intro), { timeout: 3000 }).toBe(true);
-    await page.waitForTimeout(500);
-    await swipe();
-    await expect.poll(() => landed(proof), { timeout: 3000 }).toBe(true);
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: 200, y: 600 }] });
+    for (let k = 1; k <= 8; k++) await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: 200, y: 600 - k * 40 }] });
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+    await page.waitForTimeout(1200);
+    const y = await page.evaluate(() => scrollY);
+    const intro = await page.evaluate(() => document.querySelectorAll('.snap-point')[1].getBoundingClientRect().top + scrollY);
+    expect(y).toBeGreaterThan(100);
+    expect(Math.abs(y + 56 - intro)).toBeGreaterThan(40);
   });
 });
