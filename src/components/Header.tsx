@@ -82,7 +82,7 @@ export function Header() {
             <button
               onClick={() => setMenuOpen(true)}
               aria-label="Open menu"
-              className="p-2 -mr-2 text-[var(--fg)]"
+              className="grid size-11 place-items-center text-[var(--fg)]"
               style={{ background: 'none', border: 'none' }}
             >
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">

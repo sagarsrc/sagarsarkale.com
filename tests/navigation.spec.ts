@@ -27,3 +27,28 @@ test('switching to desktop closes the mobile menu and restores scrolling', async
   await page.setViewportSize({ width: 390, height: 844 });
   await expect(page.getByRole('button', { name: 'Close menu' })).toHaveCount(0);
 });
+
+test.describe('mobile header during scrolling', () => {
+  test.use({ isMobile: true, hasTouch: true, viewport: { width: 390, height: 844 } });
+
+  test('keeps the menu inset and fully tappable as the viewport changes', async ({ page }) => {
+    await page.goto(site);
+    const menu = page.getByRole('button', { name: 'Open menu' });
+    const header = page.locator('header');
+    for (const [scroll, height] of [[0, 844], [18, 844], [120, 904], [30, 844]]) {
+      await page.setViewportSize({ width: 390, height });
+      await page.evaluate(y => window.scrollTo({ top: y, behavior: 'instant' }), scroll);
+      await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(scroll);
+      await expect(header).toHaveCSS('height', '56px');
+      const bar = (await header.boundingBox())!;
+      const button = (await menu.boundingBox())!;
+      expect(bar.y).toBe(0);
+      expect(button.y).toBeGreaterThanOrEqual(0);
+      expect(button.y + button.height).toBeLessThanOrEqual(bar.height);
+      expect(button.height).toBeGreaterThanOrEqual(44);
+      expect(390 - button.x - button.width).toBeGreaterThanOrEqual(20);
+    }
+    await menu.tap();
+    await expect(page.getByRole('button', { name: 'Close menu' })).toBeVisible();
+  });
+});

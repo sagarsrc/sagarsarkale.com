@@ -160,6 +160,24 @@ img { display: block; max-width: 100%; }
 
 .site-header--scrolled .site-header-inner { height: 3rem; }
 
+@media (width < 40rem) {
+  .site-header {
+    position: fixed;
+    inset-inline: 0;
+    background: var(--bg);
+    height: calc(3.5rem + env(safe-area-inset-top));
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .site-header .site-header-inner {
+    height: 100%;
+    padding-left: max(1.25rem, env(safe-area-inset-left));
+    padding-right: max(1.25rem, env(safe-area-inset-right));
+  }
+
+  .main-content { padding-top: calc(3.5rem + env(safe-area-inset-top)); }
+}
+
 .site-nav-link { position: relative; }
 
 .site-nav-link::after {
