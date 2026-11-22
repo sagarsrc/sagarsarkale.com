@@ -16,6 +16,7 @@ export function WaveOpening({ children }: { children: ReactNode }) {
         node.style.removeProperty('--travel');
         return;
       }
+      // COUPLING: .42 / .55 must match landing.css .landing-intro margin-top (42svh / 55svh).
       const distance = Math.max(1, node.clientWidth < 700 ? innerHeight * .42 : innerHeight * .55);
       const progress = Math.min(1, Math.max(0, -node.getBoundingClientRect().top / distance));
       node.style.setProperty('--travel', progress.toFixed(4));

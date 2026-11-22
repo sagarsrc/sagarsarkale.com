@@ -226,6 +226,7 @@ body:has(.landing) .main-content { padding-top: 0; }
   .landing-bio { border-top: 1px solid var(--border); padding-top: 1.4rem; }
 }
 @media (prefers-reduced-motion: no-preference) and (min-height: 431px) {
+  /* COUPLING: 55svh / 42svh must match the travel distances in WaveOpening.tsx (0.55 / 0.42). */
   .landing-intro { margin-top: 55svh; }
   .landing-art img { transform: scale(calc(1 + .18 * var(--travel))); transform-origin: 68% 45%; }
   .landing-masthead { transform: translateY(calc(-14svh * var(--travel))); }
@@ -433,7 +434,7 @@ body:has(.landing) .main-content { padding-top: 0; }
     transition-delay: calc(400ms + var(--n) * 260ms);
   }
   .project-visual.is-armed.is-in .pv-chips span { transition-delay: calc(400ms + var(--n) * 45ms); }
-  .project-visual.is-armed.is-in .pv-chips:not(.is-many) span { transition-delay: calc(1300ms + var(--n) * 50ms); }
+  .project-visual.is-armed.is-in .pv-chips:not(.is-many) span { transition-delay: calc(700ms + var(--n) * 60ms); }
   .project-visual.is-armed { transform: translateY(40px) scale(.97); opacity: 0; }
   .project-visual.is-armed.is-in { transform: none; opacity: 1; transition: transform 1.2s var(--ease-out), opacity .9s var(--ease-out); }
 }
@@ -628,7 +629,8 @@ body:has(.landing) .main-content { padding-top: 0; }
 .landing-close { position: relative; z-index: 1; }
 
 @media (max-width: 700px) {
-  /* Sized so each sentence fits one line on phones. */
+  /* Sized so each sentence fits one line on phones. Fragile: tuned to the current
+     masthead copy length — revisit if the quote changes. */
   .mast-quote blockquote p { font-size: clamp(1.35rem, 6.2vw, 2.4rem); line-height: 1.14; }
 }
 
@@ -645,4 +647,8 @@ body:has(.landing) .main-content { padding-top: 0; }
 /* Fast flicks on phones: shorter, capped stagger so rows never trail the screen. */
 @media (prefers-reduced-motion: no-preference) and (max-width: 700px) {
   .reveal.is-armed.is-in { transition-duration: .5s, .6s; transition-delay: min(var(--d, 0ms), 120ms); }
+  /* Fast flicks: card content must be essentially complete within ~1s of entering view. */
+  .project-visual.is-armed.is-in .pv-lines li { transition-delay: calc(150ms + var(--n) * 110ms); }
+  .project-visual.is-armed.is-in .pv-chips span { transition-delay: calc(200ms + var(--n) * 30ms); }
+  .project-visual.is-armed.is-in .pv-chips:not(.is-many) span { transition-delay: calc(400ms + var(--n) * 40ms); }
 }

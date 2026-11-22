@@ -50,7 +50,7 @@ function MisalTokens() {
       <div className="pv-row">
         <span className="pv-label">Misal tokenizer <b>{sentence.length}</b></span>
         <div className="pv-chips" lang="mr">
-          {sentence.map((w, i) => <span key={w} style={{ '--n': i * 3 + 8 } as React.CSSProperties}>{w}</span>)}
+          {sentence.map((w, i) => <span key={w} style={{ '--n': i } as React.CSSProperties}>{w}</span>)}
         </div>
       </div>
       <figcaption>Illustrative split. Stock Llama spent 3–5× more tokens on Marathi.</figcaption>

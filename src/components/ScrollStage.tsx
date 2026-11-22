@@ -88,6 +88,7 @@ export function ScrollStage() {
     const stops = () => {
       const vh = window.innerHeight;
       // The header shrinks by half a rem (8px) once scrolled; aim for that height.
+      // COUPLING: 8px = globals.css .site-header-inner 3.5rem -> .site-header--scrolled 3rem.
       const pad = header?.classList.contains('site-header--scrolled') ? headerH() : headerH() - 8;
       const max = document.documentElement.scrollHeight - vh;
       const marks = Array.from(document.querySelectorAll<HTMLElement>('.snap-point'))
@@ -175,7 +176,7 @@ export function ScrollStage() {
       if (reduced || e.altKey || e.ctrlKey || e.metaKey || e.defaultPrevented) return;
       const t = e.target as HTMLElement | null;
       if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
-      if (document.querySelector('.fixed.inset-0')) return; // mobile menu open
+      if (document.querySelector('.fixed.inset-0')) return; // mobile menu open (coupled to Header.tsx overlay classes)
       const down = ['ArrowDown', 'PageDown'].includes(e.key) || (e.key === ' ' && !e.shiftKey);
       const up = ['ArrowUp', 'PageUp'].includes(e.key) || (e.key === ' ' && e.shiftKey);
       if (!down && !up && e.key !== 'Home' && e.key !== 'End') return;
