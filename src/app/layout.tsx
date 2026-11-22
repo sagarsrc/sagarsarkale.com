@@ -34,21 +34,22 @@ export const metadata: Metadata = {
     url: 'https://sagarsarkale.com',
     siteName: 'Sagar Sarkale',
     title: 'Sagar Sarkale',
-    description: 'Building language models, retrieval systems, and AI products. Creator of Misal (Marathi LLM) and QuickCall.dev.',
+    description: 'Every disruption begins as a problem someone refused to leave unsolved. Founder of QuickCall and Misal, building with agents and language models.',
     images: [
       {
-        url: 'https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/og-image.png',
+        url: '/social/home.png',
         width: 1200,
         height: 630,
-        alt: 'Sagar Sarkale',
+        type: 'image/png',
+        alt: 'Sagar Sarkale over a breaking indigo halftone wave: every disruption begins as a problem someone refused to leave unsolved.',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Sagar Sarkale',
-    description: 'Building language models, retrieval systems, and AI products.',
-    images: ['https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/og-image.png'],
+    description: 'Every disruption begins as a problem someone refused to leave unsolved.',
+    images: [{ url: '/social/home.png', alt: 'Sagar Sarkale over a breaking indigo halftone wave.' }],
     creator: '@sagar_sarkale',
   },
 };
