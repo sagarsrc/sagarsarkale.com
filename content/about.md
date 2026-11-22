@@ -10,14 +10,16 @@ showTags: false
 hideBackToTop: true
 ---
 
-QuickCall started because I was tired of typing status updates. The work was already there in the repo. While writing about MCP, I built an agent that could read the issues and send the update for me. I threw that version away. I kept coming back to a different question. When a developer finally figures out how to get an agent to do something right, how does the next person on the team find out?
+Two things about me: I get hooked easily, and I finish what hooks me.
 
-I like owning that whole stretch of work. I can start with something that annoys me, run several experiments at once, and kill my favorite when another works better. I’m also the person you can call when the thing I shipped breaks on your machine.
+Most of what I build starts as irritation. Status updates that repeat what's already in the repo. A tokenizer that shreds Marathi words into meaningless pieces. An agent that forgets everything the moment the session ends. I don't file these under "someone should fix this" — I start poking at them the same evening, and I keep at them longer than is reasonable.
 
-These days I lead engineering at CMUL8. In one experiment, giving an agent Python made it *worse* at Connect Four. I kept the model and tools fixed and changed one paragraph telling it how to search for a move. That flipped the result. I wrote up all five experiments in [The Blame Game](https://www.cmul8.com/research/the-blame-game/).
+My method is unglamorous. I run several small experiments at once, write down what actually happened, and kill my favorite the moment another one works better. At CMUL8 I once gave an agent Python and watched it get *worse* at Connect Four — then changed a single paragraph telling it how to search, and the result flipped. I find failures like that more instructive than most successes, so I publish the write-ups either way: [The Blame Game](https://www.cmul8.com/research/the-blame-game/).
 
-Before that, I wanted to see how good a Marathi language model could be. Llama’s tokenizer split Marathi words into too many pieces, so I built a tokenizer for the language, trained Misal, and released the models and evaluations. You can follow the decisions in [Making Misal](/blog/genai/making-misal).
+I also own what I ship. If something I built breaks on your machine, I'm the person who picks up.
 
-I keep the technical write-ups in [the blog](/blog) and the more personal stuff in [random](/random).
+Writing is how I think. The technical deep-dives live in [the blog](/blog); [random](/random) is where I figure out what I actually believe. If you want to know what kind of person I am, reading something I wrote beats anything I could claim here.
+
+Right now I lead engineering at CMUL8 and build [QuickCall](https://quickcall.dev). If you'd rather talk than read, [book a call](https://calendar.app.google/z5J1gxmUkQ3vvzjT6).
 
 — Sagar
