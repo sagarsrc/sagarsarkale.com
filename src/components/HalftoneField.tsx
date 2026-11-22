@@ -10,7 +10,9 @@ import { useEffect, useRef } from 'react';
  * matches the traced artwork. Every dot is its own particle:
  * - the pointer knocks dots loose; a copy falls under gravity and fades while
  *   the dot re-inks in place, so the print never looks erased,
- * - spray dots keep dropping off the crest while the page is idle,
+ * - spray dots keep dropping off the crest while the page is idle, and
+ *   scrolling shakes loose a shower of them from all along the crest,
+ * - crest dots twinkle: each swells, shrinks and briefly blinks out on its own beat,
  * - scrolling lets the wave go, dot by dot, and reverses on the way back up.
  * Without WebGL2 the server-rendered fallback underneath stays visible.
  */
@@ -71,10 +73,16 @@ void main(){
   // A slow swell passes through the water; deep ink barely moves.
   p.y += sin(aHome.x / uDpr * 0.006 - uTime * 0.9 + aHome.y / uDpr * 0.002) * 1.6 * uDpr * uMotion * aStat.y;
   // Scrolling lets dots go one by one; they drop and drift.
-  float f = max(0.0, uTravel * 1.35 - aStat.z * 0.9);
+  // The first part of the scroll only showers spray off the crest; the body lets go after.
+  float f = max(0.0, (uTravel - 0.3) * 1.9 - aStat.z * 0.9);
   p.y += f * f * uRes.y * 0.9;
   p.x += f * (aStat.z - 0.5) * 60.0 * uDpr;
   float r = aStat.x * aDyn.z;
+  // Crest dots breathe and now and then blink out, each on its own beat.
+  float crest = step(0.05, aStat.y) * step(aStat.y, 0.55) * step(aHome.y, uRes.y * 0.6) * uMotion;
+  float beat = 0.5 + 0.5 * sin(uTime * (1.2 + 2.2 * aStat.z) + aStat.z * 43.0);
+  float blink = smoothstep(0.0, 0.06, fract(uTime * (0.18 + 0.2 * aStat.z) + aStat.z * 17.0));
+  r *= mix(1.0, (0.6 + 0.75 * beat * beat) * blink, crest);
   vR = r;
   vTone = aStat.y;
   vAlpha = aDyn.w * (1.0 - smoothstep(0.15, 0.7, f));
@@ -234,6 +242,7 @@ export function HalftoneField({ variant, className }: { variant: Variant; classN
     let mode = new Uint8Array(0);       // 0 resting, 2 re-inking
     let active: number[] = [];
     let spray: number[] = [];
+    let crestDots: number[] = [];
     let buckets = new Map<number, number[]>();
     let bucketSize = 40;
     let visible = false;
@@ -286,6 +295,7 @@ export function HalftoneField({ variant, className }: { variant: Variant; classN
       mode = new Uint8Array(n);
       active = [];
       spray = [];
+      crestDots = [];
       m = 0;
       buckets = new Map();
       bucketSize = 44 * dpr;
@@ -299,6 +309,8 @@ export function HalftoneField({ variant, className }: { variant: Variant; classN
         // Light foam in the upper part of the wave sheds spray.
         const t = stat[i * 3 + 1];
         if (t > 0.05 && t < 0.5 && y < h * 0.55) spray.push(i);
+        // Mid-tone crest dots: dark enough to read when they fall on a scroll.
+        if (t > 0.3 && t < 0.8 && y < h * 0.5) crestDots.push(i);
       }
       gl.bindBuffer(gl.ARRAY_BUFFER, homeBuf);
       gl.bufferData(gl.ARRAY_BUFFER, home, gl.STATIC_DRAW);
@@ -484,7 +496,23 @@ export function HalftoneField({ variant, className }: { variant: Variant; classN
       visible = entry.isIntersecting;
       if (visible) kick();
     }, { rootMargin: '80px' });
-    const onScroll = () => { if (opening) kick(); };
+    // Scrolling shakes spray loose from all along the crest, more for a faster scroll.
+    let lastScroll = window.scrollY;
+    let shed = 0;
+    const onScroll = () => {
+      const dy = Math.abs(window.scrollY - lastScroll);
+      lastScroll = window.scrollY;
+      if (visible && crestDots.length && !reduced.matches) {
+        shed += Math.min(dy, 200) * 1.2;
+        while (shed >= 1) {
+          shed -= 1;
+          const i = crestDots[(Math.random() * crestDots.length) | 0];
+          if (mode[i] === 0) loosen(i, (Math.random() - 0.5) * 60 * dpr, (Math.random() * 40) * dpr);
+        }
+        lastInput = performance.now();
+      }
+      kick();
+    };
 
     const img = new Image();
     img.decoding = 'async';
