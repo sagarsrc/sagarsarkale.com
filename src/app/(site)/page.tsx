@@ -110,18 +110,16 @@ export default function Home() {
             />
             <HalftoneField variant="wave" />
           </div>
-          <div className="landing-thesis">
-            <p>Hard problems look like walls until you learn to read them as&nbsp;<em>waves</em>.</p>
-            <a href="#contact">Bring me the hard part <Arrow /></a>
-          </div>
           <div className="landing-masthead">
+            <p className="landing-roles">
+              <span>AI Founder</span> <span>Consultant</span> <span>Engineer</span>
+            </p>
             <h1>
               <span className="mast-line"><span>Sagar</span></span>{' '}
               <span className="mast-line"><em>Sarkale</em></span>
             </h1>
-            <p className="landing-roles">
-              <span>AI Founder</span> <span>Consultant</span> <span>Engineer</span>
-            </p>
+            <p className="mast-thesis">Stay with a hard problem long enough and it starts to <em>explain itself</em>.</p>
+            <a className="mast-cta" href="#contact">Bring me the hard part <Arrow /></a>
           </div>
           <a className="landing-next" href="#introduction" aria-label="Read the introduction">
             <svg width="20" height="24" viewBox="0 0 20 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">

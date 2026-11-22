@@ -66,39 +66,30 @@ body:has(.landing) .site-header--intro { transform: translateY(-105%); }
 body:has(.landing) .site-header--intro:focus-within { transform: none; }
 body:has(.landing) .main-content { padding-top: 0; }
 
-/* Opening thought, top left over the paper. */
-.landing-thesis {
-  position: absolute;
-  z-index: 1;
-  top: clamp(4.5rem, 13svh, 9rem);
-  left: var(--page-edge);
-  color: var(--navy);
-  pointer-events: none;
-}
-.landing-thesis p {
-  max-width: 17ch;
-  font: 400 clamp(1.55rem, 2.5vw, 2.6rem)/1.18 var(--font-serif);
-  letter-spacing: -.035em;
+/* Name, thought and call to action read as one block, bottom left. */
+.landing-masthead .mast-thesis {
+  max-width: 38ch;
+  margin-top: clamp(1rem, 1.6vw, 1.5rem);
+  font: 400 clamp(1.15rem, 1.55vw, 1.6rem)/1.35 var(--font-serif);
+  letter-spacing: -.02em;
+  color: #fff8e7e6;
   text-wrap: balance;
 }
-.landing-thesis em { color: #2f5f9a; }
-.landing-thesis a {
+.mast-thesis em { color: #b9d2f2; }
+.mast-cta {
   display: inline-flex;
   align-items: center;
   gap: .45rem;
-  margin-top: 1.1rem;
-  padding-bottom: .25rem;
-  border-bottom: 1px solid currentColor;
-  font: italic 400 clamp(1.1rem, 1.35vw, 1.35rem)/1.2 var(--font-serif);
-  letter-spacing: -.01em;
-  color: var(--navy);
+  margin-top: clamp(1.1rem, 1.8vw, 1.6rem);
+  padding-bottom: .2rem;
+  border-bottom: 1px solid #fff8e7aa;
+  font: italic 400 clamp(1.05rem, 1.2vw, 1.25rem)/1.2 var(--font-serif);
+  color: #fff8e7;
   pointer-events: auto;
+  transition: border-color .25s;
 }
-.landing .landing-thesis a { text-decoration: none; }
-@media (max-width: 700px) {
-  .landing-thesis { top: 1.5rem; max-width: calc(100% - 5.5rem); }
-  .landing-thesis p { font-size: 1.45rem; }
-}
+.mast-cta:hover { border-color: #fff8e7; }
+
 
 /* ---------- Opening ---------- */
 .landing-opening { isolation: isolate; --travel: 0; }
@@ -116,7 +107,7 @@ body:has(.landing) .main-content { padding-top: 0; }
 .landing-masthead { position: relative; z-index: 1; pointer-events: none; }
 .landing h1 {
   color: inherit;
-  font-size: clamp(4.2rem, 10vw, 10.5rem);
+  font-size: clamp(3.4rem, 7.2vw, 7.4rem);
   line-height: 1.08;
   letter-spacing: -.048em;
   word-spacing: .07em;
@@ -127,8 +118,8 @@ body:has(.landing) .main-content { padding-top: 0; }
   display: flex;
   gap: .55em 1.1em;
   flex-wrap: wrap;
-  margin-top: clamp(1.35rem, 2.3vw, 2.5rem);
-  font: 600 clamp(.78rem, 1vw, .94rem)/1.6 var(--font-mono);
+  margin-bottom: clamp(.6rem, 1vw, 1rem);
+  font: 600 clamp(.72rem, .85vw, .85rem)/1.6 var(--font-mono);
   text-transform: uppercase;
   letter-spacing: .085em;
   color: #fff8e7;
@@ -225,12 +216,11 @@ body:has(.landing) .main-content { padding-top: 0; }
   .landing-art img { transform: scale(calc(1 + .18 * var(--travel))); transform-origin: 68% 45%; }
   .landing-masthead { transform: translateY(calc(-14svh * var(--travel))); }
   .landing-masthead h1 { opacity: calc(1 - .65 * var(--travel)); }
-  .landing-thesis { opacity: calc(1 - 2.2 * var(--travel)); }
   @media (max-width: 700px) { .landing-intro { margin-top: 42svh; } }
 }
 
 /* ---------- Links and buttons ---------- */
-.landing a:not(.social-icon-link,.landing-cta,.pill,.post-list a,.topic-chips a,.landing-next,.close-mail,.landing-thesis a) {
+.landing a:not(.social-icon-link,.landing-cta,.pill,.post-list a,.topic-chips a,.landing-next,.close-mail,.mast-cta) {
   text-decoration: underline;
   text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
   text-underline-offset: .22em;
@@ -569,9 +559,9 @@ body:has(.landing) .main-content { padding-top: 0; }
 @media (prefers-reduced-motion: no-preference) {
   .mast-line > * { animation: mast-rise 1.1s var(--ease-out) both; }
   .mast-line + .mast-line > * { animation-delay: .12s; }
-  .landing-roles { animation: fade-up 1s var(--ease-out) .35s both; }
-  .landing-thesis > * { animation: fade-up 1.2s var(--ease-out) .5s both; }
-  .landing-thesis > a { animation-delay: .8s; }
+  .landing-roles { animation: fade-up 1s var(--ease-out) .1s both; }
+  .mast-thesis { animation: fade-up 1.1s var(--ease-out) .45s both; }
+  .mast-cta { animation: fade-up 1.1s var(--ease-out) .65s both; }
 }
 @keyframes mast-rise { from { transform: translateY(105%); } to { transform: none; } }
 @keyframes fade-up { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
