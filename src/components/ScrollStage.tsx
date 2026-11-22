@@ -1,12 +1,11 @@
 'use client';
 
 import { useEffect } from 'react';
-import Lenis from 'lenis';
-import 'lenis/dist/lenis.css';
 
 /**
  * Homepage scroll choreography.
- * - Smooth, eased wheel scrolling (Lenis); touch keeps native scrolling.
+ * - Native scrolling (as Apple's sites do): effects follow the scroll position
+ *   every frame instead of easing the scroll itself, so nothing lags the hand.
  * - `.stack` sections stick under the header and the next one slides over.
  *   A section taller than the screen scrolls through first, then sticks.
  * - The covered section sinks back under a darkening shade. It is not scaled:
@@ -22,11 +21,6 @@ export function ScrollStage() {
     const header = document.querySelector('header');
     const headerH = () => (header ? header.getBoundingClientRect().height : 0);
 
-    const lenis = reduced ? null : new Lenis({
-      duration: 1.15,
-      easing: (t) => 1 - Math.pow(1 - t, 4),
-      anchors: { offset: -56 },
-    });
 
     let frame = 0;
     let tops: number[] = [];
@@ -75,8 +69,7 @@ export function ScrollStage() {
     };
 
     let lastHeader = -1;
-    const tick = (time: number) => {
-      lenis?.raf(time);
+    const tick = () => {
       const hh = headerH();
       if (hh !== lastHeader) { lastHeader = hh; measure(); }
       update();
@@ -94,7 +87,6 @@ export function ScrollStage() {
       cancelAnimationFrame(frame);
       ro.disconnect();
       window.removeEventListener('resize', measure);
-      lenis?.destroy();
       panels().forEach((el) => { el.style.top = ''; });
     };
   }, []);

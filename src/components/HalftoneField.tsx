@@ -13,7 +13,6 @@ import { useEffect, useRef } from 'react';
  * - spray dots keep dropping off the crest while the page is idle, and
  *   scrolling shakes loose a shower of them from all along the crest,
  * - crest dots twinkle: each swells, shrinks and briefly blinks out on its own beat,
- * - scrolling lets the wave go, dot by dot, and reverses on the way back up.
  * Without WebGL2 the server-rendered fallback underneath stays visible.
  */
 
@@ -62,7 +61,6 @@ in vec3 aStat;     // radius (device px), tone 0..1, random 0..1
 in vec4 aDyn;      // offset x, offset y, scale, alpha
 uniform vec2 uRes;
 uniform float uTime;
-uniform float uTravel;
 uniform float uMotion;
 uniform float uDpr;
 out float vR;
@@ -73,10 +71,7 @@ void main(){
   // A slow swell passes through the water; deep ink barely moves.
   p.y += sin(aHome.x / uDpr * 0.006 - uTime * 0.9 + aHome.y / uDpr * 0.002) * 1.6 * uDpr * uMotion * aStat.y;
   // Scrolling lets dots go one by one; they drop and drift.
-  // The first part of the scroll only showers spray off the crest; the body lets go after.
-  float f = max(0.0, (uTravel - 0.3) * 1.9 - aStat.z * 0.9);
-  p.y += f * f * uRes.y * 0.9;
-  p.x += f * (aStat.z - 0.5) * 60.0 * uDpr;
+  // The wave body holds its shape while scrolling; only crest spray falls (see onScroll).
   float r = aStat.x * aDyn.z;
   // Crest dots breathe and now and then blink out, each on its own beat.
   float crest = step(0.05, aStat.y) * step(aStat.y, 0.7) * (1.0 - smoothstep(uRes.y * 0.45, uRes.y * 0.62, aHome.y)) * uMotion;
@@ -87,7 +82,7 @@ void main(){
   r *= mix(1.0, (0.4 + 1.05 * beat * beat) * blink, crest);
   vR = r;
   vTone = aStat.y;
-  vAlpha = aDyn.w * (1.0 - smoothstep(0.15, 0.7, f));
+  vAlpha = aDyn.w;
   gl_PointSize = r * 2.0 + 2.0;
   vec2 clip = p / uRes * 2.0 - 1.0;
   gl_Position = vec4(clip.x, -clip.y, 0.0, 1.0);
@@ -185,7 +180,7 @@ export function HalftoneField({ variant, className }: { variant: Variant; classN
     gl.useProgram(prog);
     const U = {
       res: gl.getUniformLocation(prog, 'uRes'), time: gl.getUniformLocation(prog, 'uTime'),
-      travel: gl.getUniformLocation(prog, 'uTravel'), motion: gl.getUniformLocation(prog, 'uMotion'),
+      motion: gl.getUniformLocation(prog, 'uMotion'),
       dpr: gl.getUniformLocation(prog, 'uDpr'), ramp: gl.getUniformLocation(prog, 'uRamp'),
     };
     gl.uniform3fv(U.ramp, cfg.ramp.flatMap(rgb));
@@ -230,7 +225,6 @@ export function HalftoneField({ variant, className }: { variant: Variant; classN
     }
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const opening = cfg.travel ? (canvas.closest('.landing-opening') as HTMLElement | null) : null;
 
     let sample: ((u: number, v: number) => number) | null = null;
     let w = 1;
@@ -438,12 +432,10 @@ export function HalftoneField({ variant, className }: { variant: Variant; classN
         gl.bindBuffer(gl.ARRAY_BUFFER, pDynBuf);
         gl.bufferSubData(gl.ARRAY_BUFFER, 0, pDyn, 0, m * 4);
       }
-      const travel = opening && !still ? Math.min(1, Math.max(0, parseFloat(opening.style.getPropertyValue('--travel')) || 0)) : 0;
       gl.clearColor(paper[0], paper[1], paper[2], 1);
       gl.clear(gl.COLOR_BUFFER_BIT);
       gl.uniform2f(U.res, w, h);
       gl.uniform1f(U.time, still ? 0 : (now - start) / 1000);
-      gl.uniform1f(U.travel, travel);
       gl.uniform1f(U.motion, still ? 0 : 1);
       gl.uniform1f(U.dpr, dpr);
       gl.bindVertexArray(vao);
