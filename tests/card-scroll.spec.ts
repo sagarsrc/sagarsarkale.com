@@ -38,12 +38,23 @@ test('a trackpad flick with a long momentum tail moves one card, and arrow keys 
   await expect.poll(() => page.evaluate(() => scrollY), { timeout: 3000 }).toBeCloseTo(intro - 48, -1);
   await page.waitForTimeout(400);
   expect(await page.evaluate(() => scrollY)).toBeCloseTo(intro - 48, -1);
+  // Each move is debounced: the next one waits for the glide to land plus a 300ms cooldown.
+  await page.waitForTimeout(400);
   await page.keyboard.press('ArrowDown');
   await expect.poll(() => page.evaluate(() => scrollY), { timeout: 3000 }).toBeCloseTo(proof - 48, -1);
+  await page.waitForTimeout(400);
   await page.keyboard.press('ArrowUp');
   await expect.poll(() => page.evaluate(() => scrollY), { timeout: 3000 }).toBeCloseTo(intro - 48, -1);
+  await page.waitForTimeout(400);
   await page.keyboard.press('Home');
   await expect.poll(() => page.evaluate(() => scrollY), { timeout: 3000 }).toBe(0);
+  // Holding a key never races through cards.
+  await page.waitForTimeout(400);
+  await page.keyboard.down('ArrowDown');
+  await page.waitForTimeout(1200);
+  await page.keyboard.up('ArrowDown');
+  await page.waitForTimeout(800);
+  expect(await page.evaluate(() => scrollY)).toBeCloseTo(intro - 48, -1);
 });
 
 test.describe('phone', () => {

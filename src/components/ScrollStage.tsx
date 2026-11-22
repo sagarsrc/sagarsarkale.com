@@ -81,6 +81,10 @@ export function ScrollStage() {
 
     // ----- One gesture, one card -----
     let animating = false;
+    let settledAt = -1e9;
+    // Debounce: no new move until the glide has landed and a short cooldown has passed.
+    const COOLDOWN = 300;
+    const ready = () => !animating && performance.now() - settledAt > COOLDOWN;
     const stops = () => {
       const vh = window.innerHeight;
       // The header shrinks by half a rem (8px) once scrolled; aim for that height.
@@ -121,6 +125,7 @@ export function ScrollStage() {
       const near = stops().reduce((best, v) => (Math.abs(v - y) < Math.abs(best - y) ? v : best), y);
       if (Math.abs(near - y) > 1 && Math.abs(near - y) < 120) window.scrollTo({ top: near, behavior: 'instant' });
       animating = false;
+      settledAt = performance.now();
     };
     const glide = (to: number) => {
       glideFrom = window.scrollY;
@@ -130,12 +135,10 @@ export function ScrollStage() {
       if (!animating) { animating = true; requestAnimationFrame(stepGlide); }
     };
     const advance = (down: boolean) => {
-      // Mid-glide, step on from the card we are heading to, not from where we are.
-      const y = animating ? glideTo : window.scrollY;
+      const y = window.scrollY;
       const list = stops();
       const target = down ? list.find((v) => v > y + 4) : [...list].reverse().find((v) => v < y - 4);
       if (target !== undefined) glide(target);
-      else if (!animating) glide(down ? list[list.length - 1] : 0);
     };
     const jump = (to: 'start' | 'end') => {
       const list = stops();
@@ -143,13 +146,12 @@ export function ScrollStage() {
     };
 
     // Wheel and trackpad. A trackpad flick arrives as a burst of small events
-    // followed by a decaying momentum tail. One burst = one card:
+    // followed by a momentum tail that can wobble. One burst = one card:
     // - nothing happens until the gesture shows intent (30px of travel),
-    // - the rest of that burst and its momentum are absorbed,
-    // - a fresh flick (events resume after a pause, or the delta jumps back up
-    //   while momentum is decaying) counts as a new gesture, even mid-glide.
+    // - the rest of the burst and all its momentum are absorbed,
+    // - a new move needs a real pause in the events (a fresh gesture) and the
+    //   previous glide to have landed plus a cooldown, so a swipe never races.
     let lastWheel = 0;
-    let floor = Infinity; // smallest delta seen since this burst triggered
     let acc = 0;
     let used = false;
     const onWheel = (e: WheelEvent) => {
@@ -157,17 +159,15 @@ export function ScrollStage() {
       e.preventDefault();
       const now = performance.now();
       const dy = e.deltaMode === 1 ? e.deltaY * 16 : e.deltaMode === 2 ? e.deltaY * window.innerHeight : e.deltaY;
-      const mag = Math.abs(dy);
       const gap = now - lastWheel;
       lastWheel = now;
-      // Momentum only decays; a delta climbing well above the lowest point
-      // since the last trigger is a new flick.
-      const fresh = gap > 180 || (used && mag > 14 && mag > floor * 2.2) || (acc !== 0 && Math.sign(dy) !== Math.sign(acc));
-      if (fresh) { used = false; acc = 0; floor = Infinity; }
-      if (used) floor = Math.min(floor, mag);
+      const fresh = gap > 180 || (!used && acc !== 0 && Math.sign(dy) !== Math.sign(acc));
+      if (fresh) { used = false; acc = 0; }
+      // Anything arriving mid-glide or in the cooldown spends this gesture.
+      if (!ready()) { used = true; return; }
       if (used) return;
       acc += dy;
-      if (Math.abs(acc) >= 30) { used = true; advance(acc > 0); }
+      if (Math.abs(acc) >= 30) { used = true; acc = 0; advance(dy > 0); }
     };
 
     // Keyboard: arrows, Page Up/Down and Space step a card; Home/End jump.
@@ -178,8 +178,11 @@ export function ScrollStage() {
       if (document.querySelector('.fixed.inset-0')) return; // mobile menu open
       const down = ['ArrowDown', 'PageDown'].includes(e.key) || (e.key === ' ' && !e.shiftKey);
       const up = ['ArrowUp', 'PageUp'].includes(e.key) || (e.key === ' ' && e.shiftKey);
-      if (down || up) { e.preventDefault(); advance(down); }
-      else if (e.key === 'Home' || e.key === 'End') { e.preventDefault(); jump(e.key === 'Home' ? 'start' : 'end'); }
+      if (!down && !up && e.key !== 'Home' && e.key !== 'End') return;
+      e.preventDefault();
+      if (e.repeat || !ready()) return; // holding a key or pressing mid-glide never races
+      if (down || up) advance(down);
+      else jump(e.key === 'Home' ? 'start' : 'end');
     };
 
     // Touch: a vertical swipe moves one card; native scrolling is held so the
@@ -200,7 +203,7 @@ export function ScrollStage() {
       const dx = touchX - e.touches[0].clientX;
       if (Math.abs(dy) < Math.abs(dx)) return;
       e.preventDefault();
-      if (!swiped && Math.abs(dy) > 36) { swiped = true; advance(dy > 0); }
+      if (!swiped && Math.abs(dy) > 36) { swiped = true; if (ready()) advance(dy > 0); }
     };
     window.addEventListener('wheel', onWheel, { passive: false });
     window.addEventListener('touchstart', onTouchStart, { passive: true });
