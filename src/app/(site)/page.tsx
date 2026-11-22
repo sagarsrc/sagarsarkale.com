@@ -113,12 +113,16 @@ export default function Home() {
             <HalftoneField variant="wave" />
           </div>
           <div className="landing-masthead">
-            <h1>
-              <span className="mast-line"><span>Sagar</span></span>{' '}
-              <span className="mast-line"><em>Sarkale</em></span>
-            </h1>
-            <p className="mast-thesis"><span>Every disruption begins as a problem</span> <span>someone refused to leave unsolved.</span></p>
-            <a className="mast-cta" href="#contact">Bring me the hard part <Arrow /></a>
+            <figure className="mast-quote">
+              <blockquote>
+                <p>
+                  <span className="mast-line"><span>You can’t stop the wave.</span></span>
+                  <span className="mast-line"><span>But you can build the <em>ship</em>.</span></span>
+                </p>
+              </blockquote>
+              <figcaption><span className="mast-dash" aria-hidden="true">—</span><h1>Sagar Sarkale</h1></figcaption>
+            </figure>
+            <a className="mast-cta" href="#contact">Let me build one for you <Arrow /></a>
           </div>
           <a className="landing-next" href="#introduction" aria-label="Read the introduction">
             <svg width="20" height="24" viewBox="0 0 20 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
