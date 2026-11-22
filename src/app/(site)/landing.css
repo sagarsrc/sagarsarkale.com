@@ -407,13 +407,11 @@ body:has(.landing) .main-content { padding-top: 0; }
 
 /* ---------- Consulting and writing ---------- */
 .landing-section {
-  margin-inline: var(--page-edge);
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 2.1fr);
   gap: 2rem clamp(2rem, 5vw, 5rem);
-  padding-top: clamp(2.5rem, 5vw, 4rem);
-  margin-top: clamp(4rem, 9vw, 8rem);
-  border-top: 1px solid var(--fg);
+  padding: clamp(4.5rem, 9vw, 8rem) var(--page-edge) clamp(5rem, 10vw, 9rem);
+  background: var(--bg);
 }
 .section-head > p:not(.landing-label) { margin-top: 1rem; max-width: 30ch; color: var(--fg-secondary); line-height: 1.6; }
 .client-list, .post-list { border-top: 1px solid var(--border); }
@@ -493,7 +491,6 @@ body:has(.landing) .main-content { padding-top: 0; }
   display: grid;
   align-items: end;
   min-height: min(88svh, 56rem);
-  margin-top: clamp(5rem, 11vw, 10rem);
   background: #0d2341;
   color: var(--cream);
 }
@@ -566,3 +563,30 @@ body:has(.landing) .main-content { padding-top: 0; }
   .landing-close::after { background: linear-gradient(to top, #0b1e38f7 35%, #0b1e3899 70%, #0b1e3833); }
 }
 .mast-thesis span { display: block; }
+
+/* ---------- Stacked sections ----------
+   Each .stack sticks under the header (top is set by ScrollStage) and the next
+   section slides over it like a fresh sheet; the covered one is shaded. */
+.stack {
+  position: sticky;
+  isolation: isolate;
+  will-change: transform;
+}
+.stack::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background: #07152a;
+  opacity: calc(var(--cover, 0) * .3);
+}
+.stack + .stack, .stack + .landing-close {
+  border-radius: clamp(1rem, 2.5vw, 2rem) clamp(1rem, 2.5vw, 2rem) 0 0;
+  box-shadow: 0 -24px 60px -28px #07152a55;
+}
+.landing-proof { border-radius: clamp(1rem, 2.5vw, 2rem) clamp(1rem, 2.5vw, 2rem) 0 0; box-shadow: 0 -24px 60px -28px #07152a40; }
+.landing-close { position: relative; z-index: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .stack { will-change: auto; }
+}

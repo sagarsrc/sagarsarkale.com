@@ -7,6 +7,7 @@ import Link from 'next/link';
 import './landing.css';
 import Image from 'next/image';
 import { SocialIcons } from '@/components/SocialIcons';
+import { ScrollStage } from '@/components/ScrollStage';
 
 const CALL = 'https://calendar.app.google/z5J1gxmUkQ3vvzjT6';
 
@@ -97,6 +98,7 @@ export default function Home() {
 
   return (
     <div className="landing">
+      <ScrollStage />
       <WaveOpening>
         <section className="landing-hero">
           <div className="landing-art">
@@ -115,7 +117,7 @@ export default function Home() {
               <span className="mast-line"><span>Sagar</span></span>{' '}
               <span className="mast-line"><em>Sarkale</em></span>
             </h1>
-            <p className="mast-thesis"><span>Clarity isn’t found.</span> <span>It’s earned, one thread at a time.</span></p>
+            <p className="mast-thesis"><span>Disruption never announces itself.</span> <span>It gathers quietly, then breaks.</span></p>
             <a className="mast-cta" href="#contact">Bring me the hard part <Arrow /></a>
           </div>
           <a className="landing-next" href="#introduction" aria-label="Read the introduction">
@@ -149,7 +151,7 @@ export default function Home() {
         </ScrollVar>
       </WaveOpening>
 
-      <section className="landing-proof" aria-labelledby="proof-title">
+      <section className="landing-proof stack" aria-labelledby="proof-title">
         <Reveal className="proof-head">
           <p className="landing-label">(02) By the numbers</p>
           <h2 id="proof-title">The work, in numbers.</h2>
@@ -163,7 +165,7 @@ export default function Home() {
         ))}
       </section>
 
-      <section id="what-i-built" className="landing-built">
+      <section id="what-i-built" className="landing-built stack">
         <Reveal className="built-head">
           <p className="landing-label">(03) Selected work</p>
           <h2>What I Built</h2>
@@ -197,7 +199,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="landing-section">
+      <section className="landing-section stack">
         <Reveal className="section-head">
           <p className="landing-label">(04) Consulting</p>
           <h2>Consulting</h2>
@@ -224,7 +226,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="landing-section">
+      <section className="landing-section stack">
         <Reveal className="section-head">
           <p className="landing-label">(05) Writing</p>
           <h2>Writing</h2>

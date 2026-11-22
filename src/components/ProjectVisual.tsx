@@ -14,7 +14,7 @@ function QuickCallTerminal() {
     { cls: 'opt', text: 'Use Decimal for currency math' },
   ];
   return (
-    <figure className="pv pv-term" aria-label="QuickCall surfacing team context inside a Claude Code session">
+    <figure data-parallax="-0.07" className="pv pv-term" aria-label="QuickCall surfacing team context inside a Claude Code session">
       <div className="pv-bar">
         <span /><span /><span />
         <em>~/billing-engine — claude code</em>
@@ -38,7 +38,7 @@ function MisalTokens() {
   const seg = new Intl.Segmenter('mr', { granularity: 'grapheme' });
   const bytes = sentence.flatMap((w) => Array.from(seg.segment(w), (g) => g.segment));
   return (
-    <figure className="pv pv-tok" aria-label="The same Marathi sentence split by a byte-level tokenizer and by Misal's tokenizer">
+    <figure data-parallax="-0.07" className="pv pv-tok" aria-label="The same Marathi sentence split by a byte-level tokenizer and by Misal's tokenizer">
       <p className="pv-sentence" lang="mr">मला मिसळ खूप आवडते</p>
       <p className="pv-gloss">“I really love misal.”</p>
       <div className="pv-row">

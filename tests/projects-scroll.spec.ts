@@ -3,26 +3,25 @@ import { expect, test } from '@playwright/test';
 const site = process.env.TEST_SITE_URL ?? 'http://localhost:3002';
 
 for (const width of [390, 1440]) {
-  test(`the project section scrolls with the page instead of pinning at ${width}px`, async ({ page }) => {
+  test(`sections stack: What I Built holds while Consulting slides over it at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.goto(site);
     await page.evaluate(() => document.fonts.ready);
-    const section = page.locator('#what-i-built');
-    const title = section.locator('h2');
-    const quickcall = section.getByRole('heading', { name: 'quickcall.dev' });
-    const misal = section.getByRole('heading', { name: /misal/ });
-
-    await title.evaluate(el => el.scrollIntoView({ behavior: 'instant', block: 'start' }));
-    const before = (await title.boundingBox())!.y;
-    await page.mouse.wheel(0, 400);
-    await page.waitForTimeout(200);
-    expect((await title.boundingBox())!.y).toBeLessThan(before - 300);
-
-    await quickcall.scrollIntoViewIfNeeded();
-    await expect(quickcall).toBeInViewport();
-    await misal.scrollIntoViewIfNeeded();
-    await expect(misal).toBeInViewport();
-    await expect(section.locator('.landing-status')).toHaveCount(0);
+    const built = page.locator('#what-i-built');
+    const next = page.locator('.landing-section').first();
+    await expect(built.getByRole('heading', { name: 'quickcall.dev' })).toHaveCount(1);
+    await expect(built.locator('.landing-status')).toHaveCount(0);
+    const jumpTo = (y: number) => page.evaluate(top => window.scrollTo({ top, behavior: 'instant' }), y);
+    const nextStart = await next.evaluate(el => el.getBoundingClientRect().top + scrollY);
+    await jumpTo(nextStart - 700);
+    await page.waitForTimeout(150);
+    const stuck = (await built.boundingBox())!.y;
+    const nextTop = (await next.boundingBox())!.y;
+    await jumpTo(nextStart - 300);
+    await page.waitForTimeout(150);
+    // It shrinks a little as it is covered, but does not travel with the 400px scroll.
+    expect(Math.abs((await built.boundingBox())!.y - stuck)).toBeLessThan(80);
+    expect((await next.boundingBox())!.y).toBeLessThan(nextTop - 300);
   });
 }
 
