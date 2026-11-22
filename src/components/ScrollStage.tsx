@@ -13,7 +13,7 @@ import { useEffect } from 'react';
  * - A sliding sheet has rounded top corners that flatten as it docks (--arrive),
  *   so no corner wedge of the section underneath shows once it is in place.
  * - `[data-parallax]` elements drift against the scroll by their factor.
- * - Each wheel, trackpad or swipe gesture glides to the next card
+ * - Each wheel, trackpad, swipe or arrow-key gesture glides to the next card
  *   (`.snap-point` markers); cards taller than the screen advance a screen at a
  *   time, then stop where their bottom meets the screen.
  * Reduced motion keeps native scrolling, the stacking, and drops the movement.
@@ -81,7 +81,6 @@ export function ScrollStage() {
 
     // ----- One gesture, one card -----
     let animating = false;
-    let lockUntil = 0;
     const stops = () => {
       const vh = window.innerHeight;
       // The header shrinks by half a rem (8px) once scrolled; aim for that height.
@@ -107,40 +106,82 @@ export function ScrollStage() {
       out.sort((a, b) => a - b);
       return out.filter((y, i, a) => y <= max && (i === 0 || y - a[i - 1] > 4));
     };
+    // One glide at a time; a new intent mid-glide retargets it from where it is.
+    let glideTo = 0;
+    let glideFrom = 0;
+    let glideT0 = 0;
+    let glideDur = 0;
+    const ease = (t: number) => 1 - Math.pow(1 - t, 3); // quick start, soft landing
+    const stepGlide = (now: number) => {
+      const k = Math.min(1, (now - glideT0) / glideDur);
+      window.scrollTo({ top: glideFrom + (glideTo - glideFrom) * ease(k), behavior: 'instant' });
+      if (k < 1) { requestAnimationFrame(stepGlide); return; }
+      // Layout can shift a little as the opening moves; settle on the true stop.
+      const y = window.scrollY;
+      const near = stops().reduce((best, v) => (Math.abs(v - y) < Math.abs(best - y) ? v : best), y);
+      if (Math.abs(near - y) > 1 && Math.abs(near - y) < 120) window.scrollTo({ top: near, behavior: 'instant' });
+      animating = false;
+    };
     const glide = (to: number) => {
-      const from = window.scrollY;
-      const dist = to - from;
-      const dur = Math.min(1000, 520 + Math.abs(dist) * 0.25);
-      const t0 = performance.now();
-      animating = true;
-      const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-      const stepGlide = (now: number) => {
-        const k = Math.min(1, (now - t0) / dur);
-        window.scrollTo({ top: from + dist * ease(k), behavior: 'instant' });
-        if (k < 1) { requestAnimationFrame(stepGlide); return; }
-        // Layout can shift a little as the opening moves; settle on the true stop.
-        const y = window.scrollY;
-        const near = stops().reduce((best, v) => (Math.abs(v - y) < Math.abs(best - y) ? v : best), y);
-        if (Math.abs(near - y) > 1 && Math.abs(near - y) < 120) window.scrollTo({ top: near, behavior: 'instant' });
-        animating = false;
-        lockUntil = performance.now() + 380;
-      };
-      requestAnimationFrame(stepGlide);
+      glideFrom = window.scrollY;
+      glideTo = to;
+      glideT0 = performance.now();
+      glideDur = Math.min(800, 420 + Math.abs(to - glideFrom) * 0.18);
+      if (!animating) { animating = true; requestAnimationFrame(stepGlide); }
     };
     const advance = (down: boolean) => {
-      const y = window.scrollY;
+      // Mid-glide, step on from the card we are heading to, not from where we are.
+      const y = animating ? glideTo : window.scrollY;
       const list = stops();
-      const target = down ? list.find((s) => s > y + 4) : [...list].reverse().find((s) => s < y - 4);
+      const target = down ? list.find((v) => v > y + 4) : [...list].reverse().find((v) => v < y - 4);
       if (target !== undefined) glide(target);
+      else if (!animating) glide(down ? list[list.length - 1] : 0);
     };
-    const busy = () => animating || performance.now() < lockUntil;
+    const jump = (to: 'start' | 'end') => {
+      const list = stops();
+      glide(to === 'start' ? 0 : list[list.length - 1]);
+    };
+
+    // Wheel and trackpad. A trackpad flick arrives as a burst of small events
+    // followed by a decaying momentum tail. One burst = one card:
+    // - nothing happens until the gesture shows intent (30px of travel),
+    // - the rest of that burst and its momentum are absorbed,
+    // - a fresh flick (events resume after a pause, or the delta jumps back up
+    //   while momentum is decaying) counts as a new gesture, even mid-glide.
+    let lastWheel = 0;
+    let floor = Infinity; // smallest delta seen since this burst triggered
+    let acc = 0;
+    let used = false;
     const onWheel = (e: WheelEvent) => {
       if (reduced || e.ctrlKey || Math.abs(e.deltaY) < Math.abs(e.deltaX)) return;
       e.preventDefault();
-      // Swallow the rest of the gesture (trackpad momentum) while gliding.
-      if (busy()) { lockUntil = Math.max(lockUntil, performance.now() + 120); return; }
-      if (Math.abs(e.deltaY) >= 3) advance(e.deltaY > 0);
+      const now = performance.now();
+      const dy = e.deltaMode === 1 ? e.deltaY * 16 : e.deltaMode === 2 ? e.deltaY * window.innerHeight : e.deltaY;
+      const mag = Math.abs(dy);
+      const gap = now - lastWheel;
+      lastWheel = now;
+      // Momentum only decays; a delta climbing well above the lowest point
+      // since the last trigger is a new flick.
+      const fresh = gap > 180 || (used && mag > 14 && mag > floor * 2.2) || (acc !== 0 && Math.sign(dy) !== Math.sign(acc));
+      if (fresh) { used = false; acc = 0; floor = Infinity; }
+      if (used) floor = Math.min(floor, mag);
+      if (used) return;
+      acc += dy;
+      if (Math.abs(acc) >= 30) { used = true; advance(acc > 0); }
     };
+
+    // Keyboard: arrows, Page Up/Down and Space step a card; Home/End jump.
+    const onKey = (e: KeyboardEvent) => {
+      if (reduced || e.altKey || e.ctrlKey || e.metaKey || e.defaultPrevented) return;
+      const t = e.target as HTMLElement | null;
+      if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+      if (document.querySelector('.fixed.inset-0')) return; // mobile menu open
+      const down = ['ArrowDown', 'PageDown'].includes(e.key) || (e.key === ' ' && !e.shiftKey);
+      const up = ['ArrowUp', 'PageUp'].includes(e.key) || (e.key === ' ' && e.shiftKey);
+      if (down || up) { e.preventDefault(); advance(down); }
+      else if (e.key === 'Home' || e.key === 'End') { e.preventDefault(); jump(e.key === 'Home' ? 'start' : 'end'); }
+    };
+
     // Touch: a vertical swipe moves one card; native scrolling is held so the
     // page never rests between cards. Horizontal swipes and pinches pass through.
     let touchY = 0;
@@ -159,11 +200,12 @@ export function ScrollStage() {
       const dx = touchX - e.touches[0].clientX;
       if (Math.abs(dy) < Math.abs(dx)) return;
       e.preventDefault();
-      if (!swiped && !busy() && Math.abs(dy) > 36) { swiped = true; advance(dy > 0); }
+      if (!swiped && Math.abs(dy) > 36) { swiped = true; advance(dy > 0); }
     };
     window.addEventListener('wheel', onWheel, { passive: false });
     window.addEventListener('touchstart', onTouchStart, { passive: true });
     window.addEventListener('touchmove', onTouchMove, { passive: false });
+    window.addEventListener('keydown', onKey);
 
 
     measure();
@@ -180,6 +222,7 @@ export function ScrollStage() {
       window.removeEventListener('wheel', onWheel);
       window.removeEventListener('touchstart', onTouchStart);
       window.removeEventListener('touchmove', onTouchMove);
+      window.removeEventListener('keydown', onKey);
       panels().forEach((el) => { el.style.top = ''; });
     };
   }, []);

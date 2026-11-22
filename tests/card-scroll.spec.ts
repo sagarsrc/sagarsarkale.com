@@ -21,6 +21,31 @@ test('one wheel gesture moves exactly one card on the homepage', async ({ page }
   await expect.poll(() => page.evaluate(() => scrollY), { timeout: 3000 }).toBeCloseTo(intro - 48, -1);
 });
 
+test('a trackpad flick with a long momentum tail moves one card, and arrow keys step cards', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto(site);
+  await page.evaluate(() => document.fonts.ready);
+  const [, intro, proof] = await cardTops(page);
+  const cdp = await page.context().newCDPSession(page);
+  const wheel = (dy: number) => cdp.send('Input.dispatchMouseEvent', { type: 'mouseWheel', x: 700, y: 450, deltaX: 0, deltaY: dy });
+  // A tiny accidental touch does nothing.
+  for (let i = 0; i < 4; i++) await wheel(3);
+  await page.waitForTimeout(600);
+  expect(await page.evaluate(() => scrollY)).toBe(0);
+  // Burst then ~1.5s of decaying momentum: exactly one card.
+  for (let i = 1; i <= 8; i++) { await wheel(5 * i); await page.waitForTimeout(16); }
+  for (let i = 0; i < 90; i++) { await wheel(Math.max(1, 40 * 0.95 ** i)); await page.waitForTimeout(16); }
+  await expect.poll(() => page.evaluate(() => scrollY), { timeout: 3000 }).toBeCloseTo(intro - 48, -1);
+  await page.waitForTimeout(400);
+  expect(await page.evaluate(() => scrollY)).toBeCloseTo(intro - 48, -1);
+  await page.keyboard.press('ArrowDown');
+  await expect.poll(() => page.evaluate(() => scrollY), { timeout: 3000 }).toBeCloseTo(proof - 48, -1);
+  await page.keyboard.press('ArrowUp');
+  await expect.poll(() => page.evaluate(() => scrollY), { timeout: 3000 }).toBeCloseTo(intro - 48, -1);
+  await page.keyboard.press('Home');
+  await expect.poll(() => page.evaluate(() => scrollY), { timeout: 3000 }).toBe(0);
+});
+
 test.describe('phone', () => {
   test.use({ isMobile: true, hasTouch: true, viewport: { width: 390, height: 844 } });
 
