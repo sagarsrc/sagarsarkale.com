@@ -117,7 +117,7 @@ export default function Home() {
               <span className="mast-line"><span>Sagar</span></span>{' '}
               <span className="mast-line"><em>Sarkale</em></span>
             </h1>
-            <p className="mast-thesis"><span>Disruption never announces itself.</span> <span>It gathers quietly, then breaks.</span></p>
+            <p className="mast-thesis"><span>Every disruption begins as a problem</span> <span>someone refused to leave unsolved.</span></p>
             <a className="mast-cta" href="#contact">Bring me the hard part <Arrow /></a>
           </div>
           <a className="landing-next" href="#introduction" aria-label="Read the introduction">
