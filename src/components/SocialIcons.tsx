@@ -50,14 +50,11 @@ const links: LinkItem[] = [
   },
 ];
 
-const DOUBLE_CLICK_MS = 350;
 const LONG_PRESS_MS = 500;
 const MOVE_THRESHOLD = 10;
 
 export function SocialIcons() {
   const [copiedLabel, setCopiedLabel] = useState<string | null>(null);
-  const lastClickRef = useRef<{ label: string; time: number } | null>(null);
-  const navTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Mobile long-press state
   const touchTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -81,34 +78,7 @@ export function SocialIcons() {
     }
   }, [showCopied]);
 
-  // Desktop: double-click detection
-  const handleClick = useCallback(
-    async (href: string, label: string, e: React.MouseEvent) => {
-      e.preventDefault();
-
-      const now = Date.now();
-      const last = lastClickRef.current;
-
-      if (navTimeoutRef.current) {
-        clearTimeout(navTimeoutRef.current);
-        navTimeoutRef.current = null;
-      }
-
-      if (last && last.label === label && now - last.time < DOUBLE_CLICK_MS) {
-        lastClickRef.current = null;
-        await copyToClipboard(href, label);
-      } else {
-        lastClickRef.current = { label, time: now };
-        navTimeoutRef.current = setTimeout(() => {
-          window.open(href, "_blank", "noopener,noreferrer");
-          lastClickRef.current = null;
-        }, DOUBLE_CLICK_MS);
-      }
-    },
-    [copyToClipboard]
-  );
-
-  // Mobile: long-press detection
+  // Long-press copies instead of navigating (touch only).
   const handleTouchStart = useCallback(
     (href: string, label: string, e: React.TouchEvent) => {
       const touch = e.touches[0];
@@ -136,28 +106,16 @@ export function SocialIcons() {
     }
   }, []);
 
-  const handleTouchEnd = useCallback(
-    (href: string, e: React.TouchEvent) => {
-      if (touchTimerRef.current) {
-        clearTimeout(touchTimerRef.current);
-        touchTimerRef.current = null;
-      }
-
-      // If it was a long press, prevent navigation
-      if (isLongPressRef.current) {
-        e.preventDefault();
-        isLongPressRef.current = false;
-        return;
-      }
-
-      // Normal tap → navigate
-      window.open(href, "_blank", "noopener,noreferrer");
-    },
-    []
-  );
-
-  const handleContextMenu = useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
+  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (touchTimerRef.current) {
+      clearTimeout(touchTimerRef.current);
+      touchTimerRef.current = null;
+    }
+    // A long press already copied; stop the navigation it would trigger.
+    if (isLongPressRef.current) {
+      e.preventDefault();
+      isLongPressRef.current = false;
+    }
   }, []);
 
   return (
@@ -166,11 +124,11 @@ export function SocialIcons() {
         <a
           key={link.label}
           href={link.href}
-          onClick={(e) => handleClick(link.href, link.label, e)}
+          target="_blank"
+          rel="noopener noreferrer"
           onTouchStart={(e) => handleTouchStart(link.href, link.label, e)}
           onTouchMove={handleTouchMove}
-          onTouchEnd={(e) => handleTouchEnd(link.href, e)}
-          onContextMenu={handleContextMenu}
+          onTouchEnd={handleTouchEnd}
           aria-label={link.label}
           className={`social-icon-link ${copiedLabel === link.label ? "is-copied" : ""}`}
           title={link.label}
