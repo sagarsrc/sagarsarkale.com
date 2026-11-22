@@ -99,3 +99,5 @@ Output is `out/` (configured in `next.config.ts`). Deployed via GitHub Actions â
 | Styling | `src/app/globals.css` |
 | Mermaid rendering | `src/lib/content.ts` (convertShortcodes), `docs/rca-mermaid-diagram-rendering.md` |
 | New post | Add `.md` to `content/blog/{subsection}/` |
+
+For every user-facing UI change, check the rendered result with Playwright at phone and desktop widths. For scrolling changes, exercise the interaction and inspect screenshots at intermediate positions.

@@ -1,3 +1,5 @@
+import { ProjectPrint } from '@/components/ProjectPrint';
+import { WaveOpening } from '@/components/WaveOpening';
 import Link from 'next/link';
 import './landing.css';
 import Image from 'next/image';
@@ -11,6 +13,7 @@ const press = [
 
 const highlights = [
   {
+    print: 'quickcall' as const,
     label: 'quickcall.dev',
     role: 'Founder',
     period: '2025 – present',
@@ -20,6 +23,7 @@ const highlights = [
     current: true,
   },
   {
+    print: 'misal' as const,
     label: 'misal — marathi llm',
     role: 'Founder, smallstep.ai',
     period: '2023 – 2024',
@@ -28,7 +32,7 @@ const highlights = [
     linkLabel: 'smallstep.ai',
     extraLinks: [
       { href: 'https://huggingface.co/smallstepai', label: 'huggingface' },
-      { href: '/blog', label: 'deep dive' },
+      { href: '/blog/genai/making-misal', label: 'deep dive' },
     ],
     current: false,
   },
@@ -55,49 +59,62 @@ const writingCards = [
 export default function Home() {
   return (
     <div className="landing">
-      <section className="landing-hero">
-        <div className="landing-masthead">
-          <h1>Sagar <em>Sarkale</em></h1>
-          <p>ai founder &middot; consultant &middot; engineer</p>
-        </div>
+      <WaveOpening>
+        <section className="landing-hero">
+          <div className="landing-masthead">
+            <h1>Sagar <em>Sarkale</em></h1>
+            <p className="landing-roles">
+              <span>AI Founder</span> <span>Consultant</span> <span>Engineer</span>
+            </p>
+          </div>
 
-        <div className="landing-art">
-          <Image
-            src="/indigo-curl.webp"
-            width={1080}
-            height={1080}
-            preload
-            alt="A breaking wave printed in coarse indigo halftone dots on ivory paper."
-          />
-        </div>
-
-        <div className="landing-intro">
+          <div className="landing-art">
+            <Image
+              src="/indigo-curl.webp"
+              width={1080}
+              height={1080}
+              preload
+              alt="A breaking wave printed in coarse indigo halftone dots on ivory paper."
+            />
+          </div>
+          <a className="landing-next" href="#introduction" aria-label="Read the introduction">
+            <svg width="20" height="24" viewBox="0 0 20 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+              <path d="M10 3v17m-7-7 7 7 7-7" />
+            </svg>
+          </a>
+        </section>
+        <div className="landing-intro" id="introduction">
           <p className="landing-lead">
-            Curiosity gets me started, and conviction keeps me going. I dig into the details, follow every thread,
-            and see the work through.
+            <span>Curiosity gets me started, and <em>conviction</em> keeps me going.</span>{' '}
+            <span>I dig into the details, follow every thread, and see the work through.</span>
           </p>
-          <p>I lead engineering at <a href="https://www.cmul8.com/about/">CMUL8</a>, an AI economics lab.</p>
-          <p>I built <a href="https://quickcall.dev">QuickCall</a> for coding teams and <Link href="/blog/genai/making-misal">Misal</Link> for people who use AI in Marathi.</p>
-          <p className="landing-press">
-            covered by {press.map((item, index) => (
-              <span key={item.name}>
-                {index > 0 && (index === press.length - 1 ? ' & ' : ', ')}
-                <a href={item.href} target="_blank" rel="noopener noreferrer">{item.name}</a>
-              </span>
-            ))}
-          </p>
-          <div className="landing-actions">
-            <a className="landing-cta" href="https://calendar.app.google/z5J1gxmUkQ3vvzjT6" target="_blank" rel="noopener noreferrer">book a call &rarr;</a>
-            <div className="landing-social"><SocialIcons /></div>
+          <div className="landing-bio">
+            <p>I lead engineering at <a href="https://www.cmul8.com/about/">CMUL8</a>, an AI economics lab.</p>
+            <p>I built <a href="https://quickcall.dev">QuickCall</a> for coding teams and <Link href="/blog/genai/making-misal">Misal</Link> for people who use AI in Marathi.</p>
+            <p className="landing-press">
+              covered by {press.map((item, index) => (
+                <span key={item.name}>
+                  {index > 0 && (index === press.length - 1 ? ' & ' : ', ')}
+                  <a href={item.href} target="_blank" rel="noopener noreferrer">{item.name}</a>
+                </span>
+              ))}
+            </p>
+            <div className="landing-actions">
+              <a className="landing-cta" href="https://calendar.app.google/z5J1gxmUkQ3vvzjT6" target="_blank" rel="noopener noreferrer">book a call &rarr;</a>
+              <div className="landing-social"><SocialIcons /></div>
+            </div>
           </div>
         </div>
-      </section>
+      </WaveOpening>
 
-      <section className="landing-built">
-        <h2>What I Built</h2>
+      <section id="what-i-built" className="landing-built">
+        <div className="landing-built-stage">
+          <h2>What I Built</h2>
+        </div>
         <div className="landing-projects">
           {highlights.map((h) => (
             <article key={h.label}>
+              <ProjectPrint project={h.print} />
               <h3>{h.label}</h3>
               <span className="landing-status">{h.current ? 'current' : 'shipped ' + h.period}</span>
               <p className="landing-role">{h.role}</p>

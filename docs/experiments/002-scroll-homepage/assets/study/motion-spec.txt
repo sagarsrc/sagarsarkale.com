@@ -1,0 +1,5 @@
+Audience: engineers and founders exploring Sagar's work. Direction: tidal, editorial, precise.
+Use original wave, Literata name, ivory #f7f4eb and project navy #102c50. Keep the existing content in its current reading order.
+Opening: hold one viewport below the navbar. Reveal name with a 560ms rise of 14px. Scroll control has a 48px target and a native fragment to the intro. Use native vertical scrolling and reduced-motion flow.
+Intro: group each clause of the first sentence; align the bio to the reading grid. Work: full-height blue stage, two independently illustrated projects, short entry motion driven by viewport intersection. Pulse-free controls, static reduced-motion fallback.
+Test tap targets, anchor navigation, both project transitions, no overflow at phone and desktop sizes. Compare screenshots during the transitions.
