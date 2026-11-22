@@ -100,6 +100,7 @@ export default function Home() {
       <WaveOpening>
         <section className="landing-hero">
           <div className="landing-art">
+            <noscript><style>{'.landing-art img{opacity:1}'}</style></noscript>
             <Image
               src="/indigo-curl.webp"
               width={1080}
@@ -109,10 +110,10 @@ export default function Home() {
             />
             <HalftoneField variant="wave" />
           </div>
-          <p className="landing-hint" aria-hidden="true">
-            <span className="hint-fine">move through the water · click to make a wave</span>
-            <span className="hint-touch">tap the water</span>
-          </p>
+          <div className="landing-thesis">
+            <p>Hard problems look like walls until you learn to read them as&nbsp;<em>waves</em>.</p>
+            <a href="#contact">Bring me the hard part <Arrow /></a>
+          </div>
           <div className="landing-masthead">
             <h1>
               <span className="mast-line"><span>Sagar</span></span>{' '}
@@ -256,7 +257,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="landing-close">
+      <section className="landing-close" id="contact">
         <HalftoneField variant="tide" />
         <div className="close-inner">
           <p className="landing-label">(06) Contact</p>

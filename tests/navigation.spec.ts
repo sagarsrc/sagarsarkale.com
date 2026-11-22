@@ -5,6 +5,7 @@ const site = process.env.TEST_SITE_URL ?? 'http://localhost:3002';
 test('desktop navigation stays aligned when navigating from Home to Blog', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto(site);
+  await page.evaluate(() => window.scrollTo({ top: 600, behavior: 'instant' }));
   const home = page.locator('header').getByRole('link', { name: 'sagar sarkale' });
   const blog = page.locator('header nav').getByRole('link', { name: 'blog' });
   const homeX = (await home.boundingBox())!.x;
@@ -17,7 +18,7 @@ test('desktop navigation stays aligned when navigating from Home to Blog', async
 
 test('switching to desktop closes the mobile menu and restores scrolling', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto(site);
+  await page.goto(new URL('/blog/', site).href);
   await page.getByRole('button', { name: 'Open menu' }).click();
   await expect(page.getByRole('button', { name: 'Close menu' })).toBeVisible();
   await page.setViewportSize({ width: 1024, height: 844 });
@@ -32,7 +33,7 @@ test.describe('mobile header during scrolling', () => {
   test.use({ isMobile: true, hasTouch: true, viewport: { width: 390, height: 844 } });
 
   test('keeps the menu inset and fully tappable as the viewport changes', async ({ page }) => {
-    await page.goto(site);
+    await page.goto(new URL('/blog/', site).href);
     const menu = page.getByRole('button', { name: 'Open menu' });
     const header = page.locator('header');
     for (const [scroll, height] of [[0, 844], [18, 844], [120, 904], [30, 844]]) {
@@ -52,3 +53,16 @@ test.describe('mobile header during scrolling', () => {
     await expect(page.getByRole('button', { name: 'Close menu' })).toBeVisible();
   });
 });
+
+for (const width of [390, 1440]) {
+  test(`the homepage header waits until the hero has been seen at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 844 });
+    await page.goto(site);
+    const header = page.locator('header');
+    await expect.poll(async () => (await header.boundingBox())!.y + (await header.boundingBox())!.height).toBeLessThanOrEqual(1);
+    await page.evaluate(() => window.scrollTo({ top: 400, behavior: 'instant' }));
+    await expect.poll(async () => (await header.boundingBox())!.y).toBe(0);
+    await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
+    await expect.poll(async () => (await header.boundingBox())!.y).toBeLessThan(-40);
+  });
+}

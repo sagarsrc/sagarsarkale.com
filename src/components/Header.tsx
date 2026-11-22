@@ -18,13 +18,22 @@ export function Header() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [intro, setIntro] = useState(pathname === '/');
 
   useEffect(() => {
-    const updateHeader = () => setScrolled(window.scrollY > 16);
+    // On the homepage the header waits off-screen until the visitor has seen the hero.
+    const updateHeader = () => {
+      setScrolled(window.scrollY > 16);
+      setIntro(pathname === '/' && window.scrollY < window.innerHeight * 0.3);
+    };
     updateHeader();
     window.addEventListener('scroll', updateHeader, { passive: true });
-    return () => window.removeEventListener('scroll', updateHeader);
-  }, []);
+    window.addEventListener('resize', updateHeader);
+    return () => {
+      window.removeEventListener('scroll', updateHeader);
+      window.removeEventListener('resize', updateHeader);
+    };
+  }, [pathname]);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -44,7 +53,7 @@ export function Header() {
 
   return (
     <>
-      <header className={`site-header sticky top-0 z-50 ${scrolled ? 'site-header--scrolled' : ''}`}>
+      <header className={`site-header sticky top-0 z-50 ${scrolled ? 'site-header--scrolled' : ''} ${intro && !menuOpen ? 'site-header--intro' : ''}`}>
         <div className="site-header-inner mx-auto max-w-3xl px-5 flex justify-between items-center gap-4">
           <div className="text-[0.8125rem] font-semibold lowercase tracking-tight shrink-0 pb-0.5">
             <Link href="/">sagar sarkale</Link>
