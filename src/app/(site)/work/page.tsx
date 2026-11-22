@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata = {
-  title: "Work — Sagar Sarkale",
+  title: "Work",
 };
 
 function RoleLabel({ role, type }: { role: string; type: string }) {

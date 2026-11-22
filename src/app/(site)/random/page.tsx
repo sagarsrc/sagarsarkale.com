@@ -5,7 +5,7 @@ import { formatDate } from "@/lib/utils";
 import type { Post } from "@/types/content";
 
 export const metadata = {
-  title: "Random — Sagar Sarkale",
+  title: "Random",
 };
 
 export default function RandomPage() {

@@ -3,7 +3,7 @@ import { getAllPosts } from "@/lib/content";
 import type { Post } from "@/types/content";
 
 export const metadata = {
-  title: "AGENTS.md — Sagar Sarkale",
+  title: "AGENTS.md",
 };
 
 export default function AgentsPage() {

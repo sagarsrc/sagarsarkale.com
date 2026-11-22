@@ -114,15 +114,15 @@ export default function Home() {
             <HalftoneField variant="wave" />
           </div>
           <div className="landing-masthead">
-            <figure className="mast-quote">
+            <div className="mast-quote">
               <blockquote>
                 <p>
                   <span className="mast-line"><span>You can’t stop the wave.</span></span>
                   <span className="mast-line"><span>But you can build the <em>ship</em>.</span></span>
                 </p>
               </blockquote>
-              <figcaption><span className="mast-dash" aria-hidden="true">—</span><h1>Sagar Sarkale</h1></figcaption>
-            </figure>
+              <div className="mast-sign"><span className="mast-dash" aria-hidden="true">—</span><h1>Sagar Sarkale</h1></div>
+            </div>
             <a className="mast-cta" href="#contact">Let’s build one for you</a>
           </div>
           <a className="landing-next" href="#introduction" aria-label="Read the introduction">

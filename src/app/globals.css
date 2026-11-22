@@ -38,7 +38,7 @@
 
 @font-face {
   font-family: 'Monaspace';
-  src: url('/fonts/Monaspace/MonaspaceArgon-Regular.woff') format('woff');
+  src: url('/fonts/Monaspace/MonaspaceArgon-Regular.woff2') format('woff2'), url('/fonts/Monaspace/MonaspaceArgon-Regular.woff') format('woff');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -46,7 +46,7 @@
 
 @font-face {
   font-family: 'Monaspace';
-  src: url('/fonts/Monaspace/MonaspaceArgon-SemiBold.woff') format('woff');
+  src: url('/fonts/Monaspace/MonaspaceArgon-SemiBold.woff2') format('woff2'), url('/fonts/Monaspace/MonaspaceArgon-SemiBold.woff') format('woff');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -70,7 +70,7 @@
   --bg: #fafafa;
   --fg: #1a1a1e;
   --fg-secondary: #52525b;
-  --fg-muted: #a1a1aa;
+  --fg-muted: #71717a;
   --accent: #0d7490;
   --border: #e4e4e7;
   --surface: #ffffff;
@@ -109,7 +109,14 @@ html {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  *, ::after, ::before { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+  /* Stop movement, keep brief fades so state changes stay perceptible. */
+  *, ::after, ::before {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-property: opacity, color, background-color, border-color, text-decoration-color, fill, stroke !important;
+    transition-duration: 150ms !important;
+    transition-delay: 0s !important;
+  }
 }
 
 body {

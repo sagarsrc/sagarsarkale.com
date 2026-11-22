@@ -4,7 +4,7 @@ import { BlogList } from "@/components/BlogList";
 import type { Post } from "@/types/content";
 
 export const metadata = {
-  title: "Blog — Sagar Sarkale",
+  title: "Blog",
 };
 
 export default function BlogPage() {

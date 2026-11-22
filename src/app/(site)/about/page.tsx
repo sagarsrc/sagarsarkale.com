@@ -4,7 +4,7 @@ import { MDXRenderer } from "@/components/MDXRenderer";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata = {
-  title: "About — Sagar Sarkale",
+  title: "About",
 };
 
 export default function AboutPage() {
