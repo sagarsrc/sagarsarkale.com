@@ -1,14 +1,26 @@
-import { ProjectPrint } from '@/components/ProjectPrint';
+import { ProjectVisual } from '@/components/ProjectVisual';
 import { WaveOpening } from '@/components/WaveOpening';
+import { HalftoneField } from '@/components/HalftoneField';
+import { CountUp, Reveal, ScrollVar } from '@/components/Motion';
+import { getBlogPosts, getPostsByTag } from '@/lib/content';
 import Link from 'next/link';
 import './landing.css';
 import Image from 'next/image';
 import { SocialIcons } from '@/components/SocialIcons';
 
+const CALL = 'https://calendar.app.google/z5J1gxmUkQ3vvzjT6';
+
 const press = [
   { name: 'YourStory', href: 'https://yourstory.com/2024/05/for-the-love-of-misal-smallstepai-is-building-an-llm-for-marathi' },
   { name: 'Moneycontrol', href: 'https://www.moneycontrol.com/news/technology/bootstrapped-ai-startup-smallstep-serves-up-misal-a-marathi-llm-12693311.html' },
   { name: 'ARB Podcast', href: 'https://www.youtube.com/watch?v=YHVFgb0RTVg' },
+];
+
+const proof = [
+  { value: 100, suffix: 'K', label: 'agent sessions QuickCall has read, so the next one starts smarter' },
+  { value: 1.3, decimals: 1, suffix: 'B', label: 'tokens of engineering conversation turned into team memory' },
+  { value: 2, suffix: 'B+', label: 'Marathi tokens behind Misal, India’s first competitive Marathi LLM' },
+  { value: 22, suffix: '', label: 'Indian languages measured on one leaderboard for People+AI' },
 ];
 
 const highlights = [
@@ -17,57 +29,76 @@ const highlights = [
     label: 'quickcall.dev',
     role: 'Founder',
     period: '2025 – present',
-    desc: 'contextual memory for agentic engineering teams — captures what ships, loads what matters. used across Claude Code, Cursor, Codex, Gemini CLI.',
+    desc: 'Compounding memory for agentic engineering teams. It captures what ships and loads what matters, so one developer’s fix becomes every agent’s habit.',
+    facts: [['Works in', 'Claude Code · Cursor · Codex · Gemini CLI'], ['So far', '10M+ messages processed · closed beta']],
     href: 'https://quickcall.dev',
     linkLabel: 'quickcall.dev',
-    current: true,
+    extraLinks: [{ href: '/blog/genai/what-is-mcp-part2', label: 'build notes' }],
   },
   {
     print: 'misal' as const,
     label: 'misal — marathi llm',
     role: 'Founder, smallstep.ai',
     period: '2023 – 2024',
-    desc: 'india\'s first competitive marathi llm. 7B & 1B params trained on 2B+ tokens. custom tokenizer that fixed llama\'s 3-5x inefficiency. beat gpt-3.5 on reading comprehension. open-sourced everything.',
+    desc: 'India’s first competitive Marathi LLM. A custom tokenizer fixed Llama’s 3–5× inefficiency on Marathi, and the model beat GPT-3.5 on reading comprehension. Everything was open-sourced.',
+    facts: [['Models', '7B and 1B parameters'], ['Trained on', '2B+ tokens']],
     href: 'https://smallstep.ai',
     linkLabel: 'smallstep.ai',
     extraLinks: [
       { href: 'https://huggingface.co/smallstepai', label: 'huggingface' },
       { href: '/blog/genai/making-misal', label: 'deep dive' },
     ],
-    current: false,
   },
 ];
 
 const consulting = [
-  { company: 'Yral', impact: 'RAG moderation +26% accuracy, 150 tok/sec inference, real-time recs at scale', period: '2025' },
-  { company: 'People+AI', impact: 'designed india\'s first standardized LLM leaderboard across 22 languages', period: '2024' },
-  { company: 'Medpiper', impact: '10x medical document processing (10 min → 1 min)', period: '2024' },
+  { company: 'Yral', metric: '+26%', impact: 'RAG moderation accuracy, 150 tok/sec inference and real-time recommendations at scale.', period: '2025' },
+  { company: 'People+AI', metric: '22', impact: 'Designed India’s first standardized LLM leaderboard across 22 languages.', period: '2024' },
+  { company: 'Medpiper', metric: '10×', impact: 'Medical document processing cut from ten minutes to one.', period: '2024' },
 ];
 
 const prior = [
-  { company: 'Tekion', role: 'Data Scientist', impact: 'document AI — Mask-RCNN table extraction at scale', period: '2022–23' },
-  { company: 'Pratilipi', role: 'Data Scientist', impact: '2x reads growth, 20% follow increase from recs', period: '2020–22' },
+  { company: 'Tekion', role: 'Data Scientist', impact: 'Document AI with Mask-RCNN table extraction at scale', period: '2022–23' },
+  { company: 'Pratilipi', role: 'Data Scientist', impact: '2× reads growth and 20% more follows from recommendations', period: '2020–22' },
 ];
 
-const writingCards = [
-  { tag: 'Foundations', title: 'Foundations', desc: 'RNNs → LSTMs → Transformers. the learning-from-scratch track.', count: 3 },
-  { tag: 'Transformers', title: 'Transformers', desc: 'attention, position encoding, KV caching, BLT, multimodal.', count: 6 },
-  { tag: 'MCP', title: 'MCP', desc: 'model context protocol — primitives to elicitation. 3-part series.', count: 3 },
-  { tag: 'DeepDive', title: 'Deep Dives', desc: 'long-form breakdowns — vectorDB, LoRA, BLT, KV caching.', count: 9 },
-];
+const topics = ['Foundations', 'Transformers', 'MCP', 'DeepDive'];
+
+type Token = string | { em: string };
+const leadA: Token[] = ['Curiosity', 'gets', 'me', 'started,', 'and', { em: 'conviction' }, 'keeps', 'me', 'going.'];
+const leadB: Token[] = 'I dig into the details, follow every thread, and see the work through.'.split(' ');
+
+function Ink({ tokens, offset, total }: { tokens: Token[]; offset: number; total: number }) {
+  return tokens.map((t, i) => {
+    const style = { '--i': (offset + i) / total } as React.CSSProperties;
+    return (
+      <span key={i} className="ink" style={style}>
+        {typeof t === 'string' ? t : <em>{t.em}</em>}{i < tokens.length - 1 ? ' ' : ''}
+      </span>
+    );
+  });
+}
+
+function formatDate(d?: string) {
+  if (!d) return '';
+  return new Date(d + 'T00:00:00Z').toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' });
+}
+
+const Arrow = () => (
+  <svg className="arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+    <path d="M4 14 14 4M6 4h8v8" />
+  </svg>
+);
 
 export default function Home() {
+  const posts = getBlogPosts().slice(0, 5);
+  const topicCounts = topics.map((t) => ({ tag: t, count: getPostsByTag(t).length }));
+  const total = leadA.length + leadB.length;
+
   return (
     <div className="landing">
       <WaveOpening>
         <section className="landing-hero">
-          <div className="landing-masthead">
-            <h1>Sagar <em>Sarkale</em></h1>
-            <p className="landing-roles">
-              <span>AI Founder</span> <span>Consultant</span> <span>Engineer</span>
-            </p>
-          </div>
-
           <div className="landing-art">
             <Image
               src="/indigo-curl.webp"
@@ -76,6 +107,20 @@ export default function Home() {
               preload
               alt="A breaking wave printed in coarse indigo halftone dots on ivory paper."
             />
+            <HalftoneField variant="wave" />
+          </div>
+          <p className="landing-hint" aria-hidden="true">
+            <span className="hint-fine">move through the water · click to make a wave</span>
+            <span className="hint-touch">tap the water</span>
+          </p>
+          <div className="landing-masthead">
+            <h1>
+              <span className="mast-line"><span>Sagar</span></span>{' '}
+              <span className="mast-line"><em>Sarkale</em></span>
+            </h1>
+            <p className="landing-roles">
+              <span>AI Founder</span> <span>Consultant</span> <span>Engineer</span>
+            </p>
           </div>
           <a className="landing-next" href="#introduction" aria-label="Read the introduction">
             <svg width="20" height="24" viewBox="0 0 20 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
@@ -83,10 +128,11 @@ export default function Home() {
             </svg>
           </a>
         </section>
-        <div className="landing-intro" id="introduction">
+        <ScrollVar className="landing-intro" id="introduction" start={0.95} end={0.75}>
+          <p className="landing-label">(01) Introduction</p>
           <p className="landing-lead">
-            <span>Curiosity gets me started, and <em>conviction</em> keeps me going.</span>{' '}
-            <span>I dig into the details, follow every thread, and see the work through.</span>
+            <span><Ink tokens={leadA} offset={0} total={total} /></span>{' '}
+            <span><Ink tokens={leadB} offset={leadA.length} total={total} /></span>
           </p>
           <div className="landing-bio">
             <p>I lead engineering at <a href="https://www.cmul8.com/about/">CMUL8</a>, an AI economics lab.</p>
@@ -100,65 +146,126 @@ export default function Home() {
               ))}
             </p>
             <div className="landing-actions">
-              <a className="landing-cta" href="https://calendar.app.google/z5J1gxmUkQ3vvzjT6" target="_blank" rel="noopener noreferrer">book a call &rarr;</a>
+              <a className="landing-cta" href={CALL} target="_blank" rel="noopener noreferrer">book a call <Arrow /></a>
               <div className="landing-social"><SocialIcons /></div>
             </div>
           </div>
-        </div>
+        </ScrollVar>
       </WaveOpening>
 
+      <section className="landing-proof" aria-labelledby="proof-title">
+        <Reveal className="proof-head">
+          <p className="landing-label">(02) By the numbers</p>
+          <h2 id="proof-title">The work, in numbers.</h2>
+        </Reveal>
+        {proof.map((p, i) => (
+          <Reveal key={p.label} className="proof-item" delay={i * 90}>
+            <strong><CountUp value={p.value} decimals={p.decimals} suffix={p.suffix} /></strong>
+            <span className="proof-bar" aria-hidden="true" />
+            <p>{p.label}</p>
+          </Reveal>
+        ))}
+      </section>
+
       <section id="what-i-built" className="landing-built">
-        <div className="landing-built-stage">
+        <Reveal className="built-head">
+          <p className="landing-label">(03) Selected work</p>
           <h2>What I Built</h2>
-        </div>
+          <p>Two products, each started from a problem I kept running into.</p>
+        </Reveal>
         <div className="landing-projects">
-          {highlights.map((h) => (
+          {highlights.map((h, i) => (
             <article key={h.label}>
-              <ProjectPrint project={h.print} />
-              <h3>{h.label}</h3>
-              <span className="landing-status">{h.current ? 'current' : 'shipped ' + h.period}</span>
-              <p className="landing-role">{h.role}</p>
-              <p>{h.desc}</p>
-              <div className="landing-project-links">
-                <a href={h.href} target="_blank" rel="noopener noreferrer">{h.linkLabel}</a>
-                {h.extraLinks?.map((link) => link.href.startsWith('/') ? (
-                  <Link key={link.label} href={link.href}>{link.label}</Link>
-                ) : (
-                  <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer">{link.label}</a>
-                ))}
-              </div>
+              <Reveal className="project-visual">
+                <ProjectVisual project={h.print} />
+              </Reveal>
+              <Reveal className="project-copy" delay={120}>
+                <span className="project-num">0{i + 1} · {h.period}</span>
+                <h3>{h.label}</h3>
+                <p className="landing-role">{h.role}</p>
+                <p className="project-desc">{h.desc}</p>
+                <dl className="project-facts">
+                  {h.facts.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}
+                </dl>
+                <div className="landing-project-links">
+                  <a className="pill" href={h.href} target="_blank" rel="noopener noreferrer">{h.linkLabel} <Arrow /></a>
+                  {h.extraLinks?.map((link) => link.href.startsWith('/') ? (
+                    <Link key={link.label} href={link.href}>{link.label}</Link>
+                  ) : (
+                    <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer">{link.label}</a>
+                  ))}
+                </div>
+              </Reveal>
             </article>
           ))}
         </div>
       </section>
 
       <section className="landing-section">
-        <h2>Consulting</h2>
-        <div>
-          {consulting.map((c) => (
-            <div className="landing-client" key={c.company}>
-              <strong>{c.company}</strong><p>{c.impact}</p><span>{c.period}</span>
-            </div>
+        <Reveal className="section-head">
+          <p className="landing-label">(04) Consulting</p>
+          <h2>Consulting</h2>
+          <p>Hands-on engagements on retrieval, inference and evaluation, measured by what changed.</p>
+        </Reveal>
+        <div className="client-list">
+          {consulting.map((c, i) => (
+            <Reveal className="landing-client" key={c.company} delay={i * 80}>
+              <span className="client-period">{c.period}</span>
+              <strong>{c.company}</strong>
+              <p>{c.impact}</p>
+              <span className="client-metric">{c.metric}</span>
+            </Reveal>
           ))}
-          <div className="landing-history">
-            {prior.map((p) => <span key={p.company}>{p.company} ({p.period})</span>)}
-            <span>&middot;</span><Link href="/work">full history</Link>
-          </div>
+          <Reveal className="landing-history">
+            <span className="history-label">Before consulting</span>
+            <ul>
+              {prior.map((p) => (
+                <li key={p.company}><b>{p.company}</b> {p.role}, {p.period}. {p.impact}.</li>
+              ))}
+            </ul>
+            <Link href="/work">full history <Arrow /></Link>
+          </Reveal>
         </div>
       </section>
 
       <section className="landing-section">
-        <h2>Writing</h2>
-        <div>
-          <div className="landing-topics">
-            {writingCards.map((card) => (
-              <Link key={card.tag} href={`/tags/${card.tag}`}>
-                <h3>#{card.title}</h3><span>{card.count} posts</span>
-                <p>{card.desc}</p>
-              </Link>
+        <Reveal className="section-head">
+          <p className="landing-label">(05) Writing</p>
+          <h2>Writing</h2>
+          <p>Field notes from the build: tokenizers, attention, MCP, and what broke along the way.</p>
+          <div className="topic-chips">
+            {topicCounts.map((t) => (
+              <Link key={t.tag} href={`/tags/${t.tag}`}>#{t.tag}<sup>{t.count}</sup></Link>
             ))}
           </div>
-          <Link className="landing-all" href="/blog">all posts &rarr;</Link>
+        </Reveal>
+        <div>
+          <ul className="post-list">
+            {posts.map((post, i) => (
+              <Reveal as="li" key={post.path} delay={i * 60}>
+                <Link href={post.path}>
+                  <time dateTime={post.frontmatter.date}>{formatDate(post.frontmatter.date)}</time>
+                  <span className="post-title">{post.frontmatter.title}</span>
+                  <span className="post-meta">{post.readingTime}</span>
+                  <Arrow />
+                </Link>
+              </Reveal>
+            ))}
+          </ul>
+          <Link className="landing-all" href="/blog">all posts <Arrow /></Link>
+        </div>
+      </section>
+
+      <section className="landing-close">
+        <HalftoneField variant="tide" />
+        <div className="close-inner">
+          <p className="landing-label">(06) Contact</p>
+          <h2>Bring me the <em>hard</em> part.</h2>
+          <p className="close-sub">Agents that forget, models that don’t speak your language, evals nobody has built yet. I’ve shipped my way through all three.</p>
+          <div className="close-actions">
+            <a className="landing-cta is-light" href={CALL} target="_blank" rel="noopener noreferrer">book a call <Arrow /></a>
+            <a className="close-mail" href="mailto:sagar@quickcall.dev">sagar@quickcall.dev</a>
+          </div>
         </div>
       </section>
     </div>
