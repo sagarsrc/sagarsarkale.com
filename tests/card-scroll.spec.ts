@@ -36,12 +36,11 @@ test.describe('phone', () => {
     };
     // The card's top lands just under the header (48-57px, depending on its state).
     const gap = (top: number) => page.evaluate(t => t - scrollY, top);
+    const landed = async (top: number) => { const g = await gap(top); return g > 40 && g < 64; };
     await swipe();
-    await expect.poll(() => gap(intro), { timeout: 3000 }).toBeGreaterThan(40);
-    expect(await gap(intro)).toBeLessThan(64);
+    await expect.poll(() => landed(intro), { timeout: 3000 }).toBe(true);
     await page.waitForTimeout(500);
     await swipe();
-    await expect.poll(() => gap(proof), { timeout: 3000 }).toBeGreaterThan(40);
-    expect(await gap(proof)).toBeLessThan(64);
+    await expect.poll(() => landed(proof), { timeout: 3000 }).toBe(true);
   });
 });
