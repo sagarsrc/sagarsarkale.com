@@ -74,7 +74,7 @@ body:has(.landing) .main-content { padding-top: 0; }
 .landing-masthead .mast-cta { display: flex; width: fit-content; }
 
 .mast-quote blockquote p {
-  font: 400 clamp(2.6rem, 5.6vw, 6rem)/1.06 var(--font-serif);
+  font: 400 clamp(2.4rem, 4.6vw, 5rem)/1.08 var(--font-serif);
   letter-spacing: -.045em;
   color: #fff8e7;
 }

@@ -122,7 +122,7 @@ export default function Home() {
               </blockquote>
               <figcaption><span className="mast-dash" aria-hidden="true">—</span><h1>Sagar Sarkale</h1></figcaption>
             </figure>
-            <a className="mast-cta" href="#contact">Let me build one for you <Arrow /></a>
+            <a className="mast-cta" href="#contact">Let’s build one for you</a>
           </div>
           <a className="landing-next" href="#introduction" aria-label="Read the introduction">
             <svg width="20" height="24" viewBox="0 0 20 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
