@@ -9,7 +9,10 @@ import 'lenis/dist/lenis.css';
  * - Smooth, eased wheel scrolling (Lenis); touch keeps native scrolling.
  * - `.stack` sections stick under the header and the next one slides over.
  *   A section taller than the screen scrolls through first, then sticks.
- * - The covered section sinks back: it shrinks slightly and a shade darkens it.
+ * - The covered section sinks back under a darkening shade. It is not scaled:
+ *   shrinking it would expose the section behind it as strips along its edges.
+ * - A sliding sheet has rounded top corners that flatten as it docks (--arrive),
+ *   so no corner wedge of the section underneath shows once it is in place.
  * - `[data-parallax]` elements drift against the scroll by their factor.
  * Reduced motion keeps native scrolling, the stacking, and drops the movement.
  */
@@ -44,17 +47,21 @@ export function ScrollStage() {
       const h = headerH();
       const list = panels();
       list.forEach((el, i) => {
+        // 0 while the sheet slides up, 1 once it docks: corners flatten as it lands.
+        const dock = el.getBoundingClientRect().top - (tops[i] ?? h);
+        const arrive = Math.min(1, Math.max(0, 1 - dock / (vh * 0.35)));
+        el.style.setProperty('--arrive', arrive.toFixed(3));
         const next = list[i + 1] ?? (el.nextElementSibling as HTMLElement | null);
         if (!next) return;
         const nextTop = next.getBoundingClientRect().top;
         const k = Math.min(1, Math.max(0, 1 - (nextTop - h) / Math.max(1, vh - h)));
         el.style.setProperty('--cover', k.toFixed(3));
-        if (!reduced) {
-          const top = tops[i] ?? 0;
-          el.style.transformOrigin = `50% ${Math.round(-top + vh * 0.4)}px`;
-          el.style.transform = k > 0 ? `scale(${(1 - 0.06 * k).toFixed(4)})` : '';
-        }
       });
+      const close = document.querySelector<HTMLElement>('.landing-close');
+      if (close) {
+        const dock = close.getBoundingClientRect().top - h;
+        close.style.setProperty('--arrive', Math.min(1, Math.max(0, 1 - dock / (vh * 0.35))).toFixed(3));
+      }
       if (!reduced) {
         document.querySelectorAll<HTMLElement>('[data-parallax]').forEach((el) => {
           // Measure the untransformed parent so the offset never feeds back on itself.
@@ -88,7 +95,7 @@ export function ScrollStage() {
       ro.disconnect();
       window.removeEventListener('resize', measure);
       lenis?.destroy();
-      panels().forEach((el) => { el.style.transform = ''; el.style.top = ''; });
+      panels().forEach((el) => { el.style.top = ''; });
     };
   }, []);
 

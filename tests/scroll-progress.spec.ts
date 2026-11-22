@@ -22,6 +22,9 @@ for (const width of [390, 1440]) {
         await expect.poll(async () => (await cover.boundingBox())!.y).toBeCloseTo(pinnedTop, 0);
         await expect.poll(() => wave.evaluate(image => new DOMMatrix(getComputedStyle(image).transform).a)).toBeGreaterThan(1.15);
         await expect(page.locator('.landing-intro')).toBeInViewport();
+        // The homepage tells a scroll story; it shows no reading progress.
+        await expect(bar).toHaveCount(0);
+        continue;
       }
       for (const percent of [0, 50, 100, 25, 0]) {
         await page.evaluate(value => {

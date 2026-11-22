@@ -63,6 +63,7 @@ body:has(.landing) .site-header {
   transition: transform .5s var(--ease-out), background-color .2s ease, border-color .2s ease;
 }
 body:has(.landing) .site-header--intro { transform: translateY(-105%); }
+body:has(.landing) .site-header--scrolled { border-bottom-color: var(--border); }
 body:has(.landing) .site-header--intro:focus-within { transform: none; }
 body:has(.landing) .main-content { padding-top: 0; }
 
@@ -570,8 +571,10 @@ body:has(.landing) .main-content { padding-top: 0; }
 .stack {
   position: sticky;
   isolation: isolate;
-  will-change: transform;
+  /* At least a screen tall, so each sheet docks fully before the next one arrives. */
+  min-height: calc(100svh - 3rem);
 }
+.landing-proof { align-content: center; }
 .stack::after {
   content: '';
   position: absolute;
@@ -581,12 +584,10 @@ body:has(.landing) .main-content { padding-top: 0; }
   background: #07152a;
   opacity: calc(var(--cover, 0) * .3);
 }
-.stack + .stack, .stack + .landing-close {
-  border-radius: clamp(1rem, 2.5vw, 2rem) clamp(1rem, 2.5vw, 2rem) 0 0;
-  box-shadow: 0 -24px 60px -28px #07152a55;
+/* Rounded while sliding in, square once docked under the header. */
+.stack, .landing-close {
+  --corner: calc(clamp(1rem, 2.5vw, 2rem) * (1 - var(--arrive, 0)));
+  border-radius: var(--corner) var(--corner) 0 0;
+  box-shadow: 0 -24px 60px -28px rgb(7 21 42 / calc(.35 * (1 - var(--arrive, 0))));
 }
-.landing-proof { border-radius: clamp(1rem, 2.5vw, 2rem) clamp(1rem, 2.5vw, 2rem) 0 0; box-shadow: 0 -24px 60px -28px #07152a40; }
 .landing-close { position: relative; z-index: 1; }
-@media (prefers-reduced-motion: reduce) {
-  .stack { will-change: auto; }
-}

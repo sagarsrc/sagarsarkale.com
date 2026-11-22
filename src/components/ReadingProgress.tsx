@@ -28,6 +28,9 @@ export function ReadingProgress() {
     };
   }, [pathname]);
 
+  // The homepage is a scroll story, not an article; it has no reading progress.
+  if (pathname === '/') return null;
+
   return (
     <div
       className="absolute inset-x-0 bottom-0 h-[2px] pointer-events-none"
