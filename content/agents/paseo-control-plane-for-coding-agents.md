@@ -32,9 +32,12 @@ That changed the question from **“How do I SSH into my agents?”** to **“Wh
 
 [Paseo](https://paseo.sh) looked like the missing layer: a desktop and phone control plane for projects, agents, files, terminals, diffs, worktrees, and multiple harnesses—without replacing the harnesses themselves.
 
+That also makes delegated work easier to follow. When an agent splits a research task across subagents, I can check their activity from my phone alongside the main conversation. The first screenshot below shows three subagents working on separate research tracks in the same session.
+
 And on the phone, it looked like this:
 
 {{<gallery caption="Paseo on my phone: multiple hosts, multiple harnesses, real sessions, and usage status in one place. Tap any screenshot to open it full size.">}}
+{{<gallery-item src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/agents/paseo-control-plane-for-coding-agents/07-subagents.webp" alt="Paseo on a phone showing a research conversation and three subagents" caption="Follow subagent activity alongside the main conversation from my phone.">}}
 {{<gallery-item src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/agents/paseo-control-plane-for-coding-agents/03-switch-hosts.webp" alt="Paseo host selector on a phone" caption="Switch between my Mac and remote agent host.">}}
 {{<gallery-item src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/agents/paseo-control-plane-for-coding-agents/05-providers.webp" alt="Paseo provider list on a phone" caption="Pi, Claude Code, Codex, and other providers in one control plane.">}}
 {{<gallery-item src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/agents/paseo-control-plane-for-coding-agents/01-launch-session.webp" alt="Starting a Pi session with Kimi from a phone" caption="Launch Pi with a non-GPT model directly from the phone.">}}
