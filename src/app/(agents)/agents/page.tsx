@@ -41,7 +41,7 @@ export default function AgentsPage() {
           I am going all-in on agentic coding. This is where I document what works, what breaks, and where the real productivity gains are.
         </p>
         <p className="text-sm text-[var(--fg-muted)] leading-relaxed max-w-xl">
-          Covering Pi, Kimi, and whatever agent shows up next. Workflow integrations, prompt patterns, failure modes, skills, and honest opinions. Sharing learnings as I go.
+          Coding agents, models, harnesses, and the tools around them. Workflow integrations, prompt patterns, failure modes, skills, and honest opinions. Sharing learnings as I go.
         </p>
       </section>
 

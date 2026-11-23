@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 
 const MIN_ZOOM = 1;
 const MAX_ZOOM = 3;
-const ZOOM_STEP = 0.5;
+const ZOOM_STEP = 0.25;
 
 export function DiagramZoom() {
   const dialogRef = useRef<HTMLDialogElement>(null);

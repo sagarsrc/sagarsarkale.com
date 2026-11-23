@@ -413,7 +413,7 @@ The UI errors were downstream symptoms of a dead connection.
 
 # The Wrong Fix: `0.0.0.0`
 
-I changed the daemon to:
+To confirm the listener mismatch, I temporarily changed the daemon to:
 
 ```json
 "listen": "0.0.0.0:6767"
@@ -659,13 +659,13 @@ Operating it became easier.
 
 That is the value.
 
-# Why It Fits Pi
+# More Freedom Over How I Work
 
-Pi already gives me the flexibility I want: models, extensions, RPC, session trees, custom tools, and control over the harness.
+What drew me to Pi was the freedom to choose my models, extend the tools, and shape the harness around how I work.
 
-What Pi does not try to be is a complete cross-device development workspace.
+Paseo gives me that same freedom at the workspace level. I can use Pi, Claude Code, or Codex, run sessions on my Mac or a remote machine, and pick up the work from my laptop or phone.
 
-Paseo fills that gap without replacing Pi.
+I can try a different harness without giving up the workspace, or change devices without rebuilding my workflow. The model, harness, machine, and client become choices I can make separately.
 
 ```text
 Pi owns how the agent works.
