@@ -1,261 +1,420 @@
 ---
-title: "Paseo Is the Control Plane Around Your Coding Agents"
+title: "Paseo Put My Coding Agents on My Phone"
 date: "2026-11-23"
-summary: "Claude Code, Codex, Pi, and OpenCode keep their own harnesses. Paseo gives them one workspace across desktop, web, and phone."
-description: "How Paseo works, what it feels like to use, how it connects to Claude Code, Codex, Pi, and other agent harnesses, and a safe way to try it."
+summary: "I connected Paseo across my MacBook, remote agent box, and phone with Tailscale. It was great once I stopped trusting the error messages."
+description: "My Paseo and Tailscale setup, the daemon binding failures and stale desktop connection that broke it, and why Paseo is now the control plane around my coding agents."
 toc: true
-readTime: true
 autonumber: true
-math: false
+readTime: true
 tags: ["Agents", "Pi", "Claude Code"]
-showTags: true
-hideBackToTop: false
 mermaid: true
-cover: "https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/agents/paseo-control-plane-for-coding-agents/000-cover.png"
 ---
 
-I started looking at Paseo because I wanted a better way to use coding agents running on a remote machine. I already had Pi on an Ubuntu VM. The missing part was not another model. It was a workspace I could open from a laptop or phone without reducing everything to a terminal.
+I already had the agents.
 
-My first question was embarrassingly simple:
+Pi on my remote box. Claude Code and Codex on my MacBook. Tailscale connecting everything. SSH and tmux when I needed to jump in and control the machine directly.
 
-> Is Paseo just a container around Codex or Claude Code?
+What I did not have was one decent place to operate all of it.
 
-No. That mental model is wrong in a useful way.
+I wanted to start an agent from my laptop, leave the desk, check it from my phone, answer a question, inspect the diff, and continue without reconstructing the session from terminal panes.
 
-Paseo is a **control plane and development workspace around coding-agent harnesses**. Claude Code stays Claude Code. Codex stays Codex. Pi stays Pi. Paseo gives them one interface for projects, worktrees, terminals, files, diffs, browser panes, and remote access.
+Then I found [Paseo](https://paseo.sh).
 
-That distinction explains almost everything else.
+It looked almost exactly like the missing layer. Desktop app. Native phone app. Projects. Agents. Files. Terminals. Diffs. Worktrees. Multiple harnesses behind one interface.
 
-# Model, Harness, and Control Plane
+I installed it expecting a five-minute Tailscale configuration.
 
-These three things are easy to collapse into one word: "agent." They are not the same.
+An hour later the daemon was crash-looping, the desktop thought its own project was not editable, the phone worked while the Mac app did not, and the fix that made everything connect also exposed the daemon on every network interface.
 
-- **Model:** the LLM doing inference, such as a Claude or GPT model.
-- **Harness:** the agent loop around the model. It owns prompts, tools, permissions, compaction, sessions, and provider-specific behavior.
-- **Control plane:** the layer that starts, routes, observes, and organizes harnesses.
+Great tool. Very educational setup.
 
-Paseo is mainly the third layer.
+# What Paseo Actually Is
 
-{{<mermaid>}}
-graph LR
-    User[Desktop, Web, or Phone] --> Paseo[Paseo client]
-    Paseo --> Daemon[Paseo daemon]
-    Daemon --> Adapter{Provider adapter}
-    Adapter --> Claude[Claude Code]
-    Adapter --> Codex[Codex CLI]
-    Adapter --> Pi[Pi]
-    Adapter --> OpenCode[OpenCode]
-    Claude --> Models1[Claude models]
-    Codex --> Models2[OpenAI models]
-    Pi --> Models3[Multi-provider models]
-    OpenCode --> Models4[Multi-provider models]
-{{</mermaid>}}
+My first question was whether Paseo was some kind of container around Codex.
 
-When I select Claude in Paseo, the path is roughly:
+It is not.
+
+Paseo is a control plane around coding-agent harnesses. The actual harness still runs underneath.
 
 ```text
-Paseo → Claude provider → Claude Agent SDK → Claude Code → Claude model
+Paseo → Pi provider → pi --mode rpc → model selected in Pi
 ```
 
-When I select Codex:
+```text
+Paseo → Claude provider → Claude Code → Claude model
+```
 
 ```text
 Paseo → Codex provider → codex app-server → OpenAI model
 ```
 
-When I select Pi:
+Pi stays Pi. Claude Code stays Claude Code. Codex stays Codex.
+
+The harness still owns the prompts, tools, permissions, compaction, sessions, and model behavior. Paseo owns the workspace around them: projects, clients, terminals, files, diffs, worktrees, and remote access.
+
+That separation is why I like it.
+
+I already invested heavily in Pi. I did not want another application pretending to support Pi while quietly replacing everything useful about it. Paseo talks to the installed Pi process through RPC. Pi still does the work. Paseo gives me a much better place to see and manage that work.
+
+# My Setup
+
+I have two machines doing different jobs:
+
+- **MacBook Pro** — daily driver and local projects
+- **Remote VPS** — always-on box for long-running agents
+
+My phone, laptop, and VPS are all inside the same Tailscale network. I am not publishing the real hostnames, IPs, credentials, or access configuration. They do not help anyone understand the setup.
+
+The useful shape looks like this:
+
+{{<mermaid>}}
+graph LR
+    Phone[Phone] --> Tailnet[Tailscale private network]
+    Mac[MacBook Pro] --> Tailnet
+    Tailnet --> MacDaemon[Paseo on Mac]
+    Tailnet --> VPSDaemon[Paseo on remote VPS]
+    MacDaemon --> LocalAgents[Pi / Claude Code / Codex]
+    VPSDaemon --> RemoteAgents[Pi and remote agents]
+    LocalAgents --> LocalRepos[Local projects and worktrees]
+    RemoteAgents --> RemoteRepos[Remote projects and worktrees]
+{{</mermaid>}}
+
+No public Paseo port. No port forwarding. Devices reach each daemon through its Tailscale address.
+
+That was the plan anyway.
+
+# Problem 1: The Daemon Would Not Start
+
+I changed Paseo's `listen` value to the machine's Tailscale IP and restarted the daemon.
+
+It immediately died.
 
 ```text
-Paseo → Pi provider → pi --mode rpc → selected model
+Error: Daemon failed to start (exit 1).
+Error: Invalid listen string: 100.x.y.z
 ```
 
-The same Claude model can sometimes be called through Pi or OpenCode. That does **not** turn those harnesses into Claude Code. The model may be the same. Tool behavior, permissions, prompts, session format, and compaction still come from the selected harness.
+The IP was valid. Tailscale was healthy. The address existed on the machine.
 
-# What Paseo Actually Adds
+I restarted again. Same crash. The remote box had the same failure.
 
-Paseo runs a daemon on the machine where the code and agent CLIs live. Desktop, mobile, web, and CLI clients connect to that daemon.
+The useful clue was not in the docs or the UI. It was in Paseo's bundled server code.
 
-The daemon gives different harnesses a shared operational surface:
+Electron applications package their JavaScript inside `app.asar`, but the source is still searchable. I used `grep -a`, found `parseListenString`, and read what it accepted.
 
-- projects connected to repositories;
-- isolated Git worktrees for parallel tasks;
-- multiple agent sessions in one workspace;
-- files, terminals, diffs, pull requests, and browser panes;
-- provider-specific model, mode, and thinking controls;
-- session import and resume where the provider supports it;
-- agent-to-agent handoffs and orchestration;
-- remote access from iOS, Android, desktop, web, or CLI.
+The parser supports:
 
-It is closer to **an IDE plus process supervisor plus remote control plane** than a container.
+1. local sockets and named pipes;
+2. a numeric port, which binds on loopback;
+3. `host:port` for TCP.
 
-Paseo can itself run in Docker, but Docker is optional. A normal host installation starts agent CLIs as subprocesses with the permissions of the daemon user. That means Paseo is not a sandbox by default.
+A bare IP is not valid.
 
-# What It Looks Like to Use
+My configuration was effectively:
 
-The mobile app is not only a chat window. It exposes projects, agents, files, terminal sessions, and review surfaces connected to the same daemon.
+```json
+{
+  "listen": "100.x.y.z"
+}
+```
 
-{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/agents/paseo-control-plane-for-coding-agents/001-projects.png" width="520" caption="Project and agent navigation in the Android app. Official Paseo store screenshot.">}}
+It needed a port:
 
-A session still feels like the selected harness. Paseo renders the conversation and streams tool activity, while the underlying provider performs the turn.
+```json
+{
+  "listen": "100.x.y.z:6767"
+}
+```
 
-{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/agents/paseo-control-plane-for-coding-agents/002-chat.png" width="520" caption="An active coding-agent conversation on Android. Official Paseo store screenshot.">}}
+One colon. Daemon healthy.
 
-The useful part is what happens after the agent writes code. I can inspect the diff from the same workspace instead of switching to a separate terminal or Git client.
+The error message showed the rejected value but not the accepted format. I spent time questioning the IP when the real problem was syntax.
 
-{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/agents/paseo-control-plane-for-coding-agents/003-review.png" width="520" caption="Mobile diff review inside Paseo. Official Paseo store screenshot.">}}
+**Lesson:** if a parser rejects a value that looks valid, read the parser. The code often explains the contract better than the error.
 
-# Which Harnesses Does It Use?
+# Problem 2: Phone Worked, Desktop Failed
 
-Paseo does not force every provider through Codex. Current source has separate adapters for the major harnesses.
+After fixing the bind string, the daemon was healthy.
 
-| Paseo provider | Harness that actually runs | Integration |
+The CLI listed my agents. The phone opened a chat and loaded its full history. The desktop app showed:
+
+> Could not load history
+
+Then:
+
+> This project isn't editable on this host.
+
+The project was a directory on that exact MacBook.
+
+That message sent me toward filesystem permissions. Wrong direction.
+
+The project was editable. The desktop could not reach the daemon, so it could not verify the project. Everything after the failed connection was a secondary symptom presented as a different problem.
+
+I compared the clients in the daemon's WebSocket logs:
+
+| Client | Address | Result |
 |---|---|---|
-| Claude | Claude Code | Anthropic Claude Agent SDK plus installed Claude Code executable |
-| Codex | OpenAI Codex CLI | Official `codex app-server` interface |
-| OpenCode | OpenCode | OpenCode server and API |
-| Pi | Pi | Installed `pi` process in RPC mode |
-| Oh My Pi | OMP | Installed `omp` process in RPC UI mode |
-| GitHub Copilot | Copilot CLI | Agent Client Protocol |
-| Gemini CLI, Cursor, Kimi, Qwen, and others | Their own CLIs | Generic or specialized Agent Client Protocol adapters |
-| Antigravity | `agy` CLI | Bundled provider plugin using ACP |
-| Muse Code | Muse runtime | Bundled provider plugin using MSP |
+| Phone | Tailscale address | Connected, history loaded |
+| CLI | Current daemon config | Connected |
+| Desktop | `localhost:6767` | Never reconnected |
 
-This design matters because subscriptions, authentication, skills, MCP servers, configuration, and native session behavior stay attached to the underlying harness.
+The desktop had cached the old loopback address.
 
-# A Turn, Step by Step
+Before the config change, Paseo listened on localhost. After the change, it listened only on the Tailscale IP. Nothing was listening on `127.0.0.1:6767` anymore.
 
-Suppose I open the Android client and ask a Pi session to fix a test.
+The desktop was not failing to load history. It was failing to connect at all.
 
-1. The client sends my instruction to the Paseo daemon.
-2. The daemon identifies the project, worktree, session, and Pi provider.
-3. The Pi adapter starts or resumes the installed `pi` process in RPC mode.
-4. Pi calls its configured model and executes its own tools.
-5. Pi writes the native conversation to its own session storage.
-6. Paseo maps Pi events into its shared timeline.
-7. The client renders messages, tool activity, changed files, and diffs.
-8. I can review the result, send a follow-up, open a terminal, or hand work to another agent.
+The daemon logs could not show that failure because the TCP connection never reached the daemon. A refused connection leaves no server-side client record.
 
-Paseo coordinates the experience. It does not become Pi internally.
-
-# How I Would Set It Up
-
-There are two practical installation shapes.
-
-## Option 1: Desktop machine
-
-Use this when the repositories and agent CLIs already live on a laptop or workstation.
-
-1. Install and authenticate at least one supported agent CLI.
-2. Download the Paseo desktop app.
-3. Open a repository as a project.
-4. Choose a provider and model.
-5. Start one disposable task in a separate worktree.
-6. Pair the phone from the host settings if remote access is needed.
-
-The desktop app starts the local daemon automatically.
-
-## Option 2: Headless server or VM
-
-Use this when agents run on a remote Linux machine.
-
-First install and authenticate the harnesses on that machine. Example:
+The useful test was much simpler:
 
 ```bash
-# Paseo server CLI
-npm install -g @getpaseo/cli
-
-# Start the daemon
-paseo
+nc -z 127.0.0.1 6767
 ```
 
-Then choose a connection path:
+Refused.
 
-- Paseo's end-to-end encrypted relay for device pairing;
-- direct TCP through Tailscale or another VPN;
-- a carefully configured private network route.
+**Lesson:** failed connections can be invisible to server logs. Test from the exact address the client uses.
 
-For direct network binding, add Paseo password authentication. Authentication controls who can connect. It does not encrypt plain HTTP by itself, and it does not reduce the authority of the agent process after connection.
+# The Fix That Worked and Was Still Wrong
 
-# A Safe First Trial
+I changed the daemon to:
 
-I would not begin by importing the most important active project and launching five agents.
+```json
+{
+  "listen": "0.0.0.0:6767"
+}
+```
 
-I would use this sequence:
+Desktop reconnected instantly. Phone worked. CLI worked. History returned.
 
-1. **Install one provider only.** Keep plugins and optional services out of the first test.
-2. **Create a scratch Git repository.** Nothing important should depend on the first session.
-3. **Start one disposable native session.** Record the selected model, mode, and working directory.
-4. **Resume it through Paseo.** Compare transcript, tools, files, model controls, and cancellation.
-5. **Resume it again in the native harness.** Confirm that Paseo did not trap the conversation.
-6. **Test one worktree.** Make a small change, inspect its diff, commit it, then remove the worktree.
-7. **Add private phone access.** Only after local session fidelity works.
-8. **Test failure paths.** Close the client, release an idle runtime, restart the daemon, reboot the host, and resume again.
-9. **Test teardown.** Remove Paseo and confirm that Git files, harness configuration, credentials, and native sessions remain usable.
+Ship it?
 
-The source of truth should remain the repository and the native provider session wherever possible. Paseo metadata should be replaceable.
+No.
 
-# How This Helps Us
+`0.0.0.0` means every interface. On a laptop behind NAT that is sloppy. On a VPS with a public interface it can mean placing the daemon directly on the internet.
 
-The biggest gain is not "more AI." It is lower operational friction around AI work.
+I was using Tailscale specifically to avoid that.
 
-## One workspace without one mandatory harness
+This is one of the easiest infrastructure mistakes to make: confuse **the symptom disappeared** with **the system is correct**.
 
-A team can use Claude Code for one task, Codex for another, and Pi or OpenCode for a third. Paseo gives all of them the same project, worktree, terminal, diff, and review surface.
+My acceptance criterion was not "all clients connect." It was:
 
-## Remote supervision becomes practical
+> All intended clients connect through the private network, and no unintended interface accepts the daemon port.
 
-Long agent turns do not require sitting in front of the host machine. I can start work at a desk, inspect progress from a phone, answer a permission request, review a diff, and send a correction.
+`0.0.0.0` failed that test.
 
-## Parallel work gets safer
+# The Correct Network Fix
 
-Each task can run in its own Git worktree instead of several agents editing the same checkout. The isolation is Git-level rather than magical, but it removes a common source of accidental collisions.
+A machine can connect to its own Tailscale IP.
 
-## Handoffs become explicit
+The desktop did not need localhost. It could use the same private address as the phone.
 
-Paseo can launch and coordinate agents across providers. Planning can happen in one harness and implementation in another without pretending the two harnesses are identical.
+I restored the daemon to its Tailscale-only listener:
 
-## Review stays close to execution
+```json
+{
+  "listen": "100.x.y.z:6767"
+}
+```
 
-Chat, files, terminal output, and diffs stay in one workspace. Less context is lost between "the agent says it finished" and "I verified what changed."
+Then I removed the desktop's stale host bookmark and added it again as a direct connection using the Tailscale address.
 
-# What It Does Not Solve
+Final network state:
 
-Paseo does not remove the risks of autonomous coding agents.
+```text
+127.0.0.1:6767       → refused
+LAN/public interface → refused
+Tailscale IP:6767     → healthy
+```
 
-- It is not a sandbox unless I add container or OS isolation.
-- An agent generally has the authority of the daemon's OS user.
-- Provider permission behavior still differs.
-- Plugins run trusted code on the daemon and clients.
-- A private network route limits entry; it does not make unsafe tool execution safe.
-- Session import does not prove perfect round-trip fidelity. That needs testing per provider and version.
-- More parallel agents can create more review load, not less.
+Phone, CLI, and direct desktop connection could now reach the intended daemon without widening the listener.
 
-The control plane makes powerful processes easier to operate. That increases the need for scoped credentials, isolated worktrees, backups, review, and a clean rollback path.
+I repeated the same posture on the remote box: bind to its own Tailscale address, not `0.0.0.0`.
 
-# My Current Take
+# Problem 3: Desktop Sync Was Still Flaky
 
-Paseo finally clicked for me when I stopped asking which model it contained.
+Networking was correct. The desktop app still occasionally sat on *Reconnecting*. History and workspace state drifted from what the CLI and phone showed.
 
-It contains no universal replacement for Claude Code, Codex, Pi, or OpenCode. It lets those harnesses remain themselves while giving me one place to operate them.
+This was not another Tailscale problem.
 
-That is useful for my setup: code and agents on a remote VM, a laptop when I am at a desk, and Android when I only need to supervise, answer, or review. The smallest useful test is not a migration. It is one scratch repository, one provider, one session, and one round trip back to the native harness.
+Paseo Desktop has two ways to use a daemon:
 
-If that works, Paseo can grow from a remote viewer into the workspace around the agents. If it does not, the repository and native sessions should still be there.
+- manage its bundled internal daemon;
+- connect to an external daemon as a remote host.
 
-# Evidence Note
+I had made the desktop connect to a same-machine standalone daemon as if it were remote. That added several failure points: a cached address, manual daemon restarts, and possible version drift between desktop and daemon.
 
-This post is based on current Paseo documentation and source inspection. I verified the provider architecture in source. I have not yet completed the end-to-end VM, Android, restart, and teardown trial described above. Product screenshots come from the official Apache-2.0 Paseo repository.
+The final fix was to let Paseo Desktop use its bundled daemon for same-machine work.
+
+That path keeps the application and daemon lifecycle together. The standalone daemons remain useful for CLI, phone, and genuinely remote machines over Tailscale. The desktop does not need manual plumbing to talk to a daemon living beside it.
+
+Settings changed. Reconnecting stopped. History and workspace state stayed in sync.
+
+**Lesson:** same-machine client plus same-machine daemon should use the managed path. Direct connections are for remote hosts.
+
+# The Setup I Ended Up Keeping
+
+After all of that, the setup is straightforward:
+
+{{<mermaid>}}
+graph TB
+    subgraph MacBook
+        Desktop[Paseo Desktop]
+        Internal[Bundled managed daemon]
+        LocalHarnesses[Local agent harnesses]
+        Desktop --> Internal --> LocalHarnesses
+    end
+
+    subgraph RemoteHost[Remote VPS]
+        RemoteDaemon[Standalone Paseo daemon]
+        RemoteHarnesses[Remote agent harnesses]
+        RemoteDaemon --> RemoteHarnesses
+    end
+
+    Phone[Phone app] --> Tailnet[Tailscale]
+    Tailnet --> RemoteDaemon
+    MacCLI[CLI / direct remote access] --> Tailnet
+{{</mermaid>}}
+
+The exact config values are private. The design is not:
+
+- bundled daemon for the same-machine desktop workflow;
+- standalone daemon for remote hosts;
+- Tailscale-only listeners for remote access;
+- no `0.0.0.0` shortcut;
+- SSH kept as the break-glass path.
+
+Once that was in place, Paseo stopped being a networking project and became the tool I wanted to use.
+
+# What It Is Like to Use
+
+Before Paseo, remote agents meant SSH, tmux, and remembering where everything lived.
+
+That workflow still works. I still use it when I need complete control of the machine.
+
+Paseo changes the default view from **processes on a server** to **work happening inside a project**.
+
+I get:
+
+- active agents across harnesses;
+- conversations and tool activity;
+- project files;
+- terminals;
+- Git worktrees;
+- diffs after agent changes;
+- the same remote host from laptop and phone.
+
+The model did not become smarter. The harness did not become more capable.
+
+Operating it became easier.
+
+That is the value.
+
+# Why This Fits Pi So Well
+
+Pi already gives me the flexibility I want: models, extensions, RPC, session trees, custom tools, and control over the harness.
+
+What Pi intentionally does not try to be is a full cross-device development workspace.
+
+Paseo fills that gap without replacing Pi.
+
+```text
+Pi owns how the agent works.
+Paseo owns where I operate the work.
+Tailscale owns how I reach the machine privately.
+Git owns the code.
+```
+
+Clean boundaries.
+
+If you want the Pi side in detail, I wrote about it in [Inside the Pi Harness](/agents/pi-harness-basics).
+
+# The Multi-Harness Part
+
+Paseo is not only a Pi dashboard.
+
+Its source contains separate integrations for Claude Code, Codex, OpenCode, Pi, Oh My Pi, Copilot, and other agents. ACP-compatible CLIs can use the generic provider path.
+
+That means I can choose a harness per task without changing the workspace around it.
+
+Maybe I want Pi for flexibility. Claude Code for a task that works well there. Codex for implementation. A remote harness on the VPS for work that should continue after I close the laptop.
+
+Paseo keeps the operational surface consistent while each harness remains itself.
+
+That is much more useful than pretending all agents are interchangeable.
+
+# What I Would Do Differently
+
+## 1. Read the parser first
+
+`Invalid listen string` made me inspect the IP. The failure was the missing port. The accepted format was visible in the bundled code.
+
+## 2. Identify clients before trusting UI errors
+
+"Could not load history" and "project isn't editable" were connection failures wearing different clothes.
+
+Client ID, user agent, origin, and remote address told the real story.
+
+## 3. Test refused connections from the client side
+
+A connection that never reaches the daemon cannot appear in daemon logs.
+
+Use `nc`, `curl`, or an equivalent probe against the exact address the client is attempting.
+
+## 4. Define exposure before fixing connectivity
+
+`0.0.0.0` made everything work and violated the security design.
+
+Choose Tailscale-only first. Make clients fit that decision.
+
+## 5. Expect every client to cache something
+
+The daemon read the new config. The CLI read it. The desktop kept its old bookmark.
+
+One address change can require updates in several layers.
+
+## 6. Prefer managed local components
+
+If the desktop app ships and manages its own daemon, let it. Manual same-machine connections add failure modes without adding value.
+
+# Security Notes
+
+Tailscale controls how I reach Paseo. It does not sandbox the agents.
+
+The harness still runs with the permissions of its process on the machine. Plugins are trusted code. A private listener reduces exposure but does not make unsafe tools safe.
+
+My baseline remains:
+
+- non-root users;
+- scoped credentials;
+- Tailscale-only remote listeners;
+- Git worktrees for parallel tasks;
+- diff review before merge;
+- no untrusted plugins;
+- SSH available for diagnosis and rollback.
+
+# My Take
+
+Paseo is a great tool.
+
+The setup was not five minutes. Some of that was my config. Some of it was stale client state. Some of it was error messages describing the last visible symptom instead of the first broken connection.
+
+Once fixed, it became exactly what I wanted: a proper workspace around agents already running on my machines.
+
+Pi still does the work. Claude Code and Codex remain their own harnesses. Tailscale keeps remote access private. Git keeps the code authoritative. Paseo ties the experience together across desktop and phone.
+
+I do not need screenshots from a product repository to sell that. The fact that I can leave my desk, open my phone, inspect the same agent work, and continue is the whole point.
+
+Symptoms lie. Connection tables do not.
 
 # References
 
 - [Paseo repository](https://github.com/getpaseo/paseo)
 - [Paseo provider overview](https://paseo.sh/docs/providers)
-- [Supported providers](https://paseo.sh/docs/supported-providers)
 - [Paseo connectivity guide](https://paseo.sh/docs/connectivity)
-- [Paseo security architecture](https://paseo.sh/docs/security)
-- [Provider registry source](https://github.com/getpaseo/paseo/blob/main/packages/server/src/server/agent/provider-registry.ts)
-- [Claude provider source](https://github.com/getpaseo/paseo/blob/main/packages/server/src/server/agent/providers/claude/agent.ts)
-- [Provider implementation notes](https://github.com/getpaseo/paseo/blob/main/docs/providers.md)
+- [Paseo security documentation](https://paseo.sh/docs/security)
+- [Inside the Pi Harness](/agents/pi-harness-basics)
 
 ---
 
