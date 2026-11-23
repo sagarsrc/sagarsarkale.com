@@ -14,7 +14,7 @@ export function DiagramZoom() {
   const [title, setTitle] = useState('Diagram preview');
 
   useEffect(() => {
-    const diagrams = Array.from(document.querySelectorAll<HTMLElement>('.mermaid-diagram, .diagram-zoom-source'));
+    const diagrams = Array.from(document.querySelectorAll<HTMLElement>('.mermaid-diagram, .diagram-zoom-source, .phone-gallery-item'));
 
     const openDiagram = (diagram: HTMLElement) => {
       const dialog = dialogRef.current;
@@ -27,7 +27,7 @@ export function DiagramZoom() {
       preview.removeAttribute('width');
       preview.removeAttribute('height');
       if (preview instanceof HTMLImageElement) preview.draggable = false;
-      const caption = diagram.querySelector('figcaption')?.textContent?.trim();
+      const caption = diagram.querySelector('figcaption, .phone-gallery-item-caption')?.textContent?.trim();
       const alt = media instanceof HTMLImageElement ? media.alt : '';
       const shortCaption = caption?.split('.')[0];
       setTitle(shortCaption || alt || 'Diagram preview');
@@ -40,10 +40,13 @@ export function DiagramZoom() {
     const cleanups = diagrams.map((diagram) => {
       diagram.setAttribute('role', 'button');
       diagram.setAttribute('tabindex', '0');
-      diagram.setAttribute('aria-label', 'Open diagram at larger size');
-      diagram.setAttribute('title', 'Open diagram at larger size');
+      diagram.setAttribute('aria-label', 'Open visual at larger size');
+      diagram.setAttribute('title', 'Open visual at larger size');
 
-      const onClick = () => openDiagram(diagram);
+      const onClick = (event: MouseEvent) => {
+        event.preventDefault();
+        openDiagram(diagram);
+      };
       const onKeyDown = (event: KeyboardEvent) => {
         if (event.key === 'Enter' || event.key === ' ') {
           event.preventDefault();
