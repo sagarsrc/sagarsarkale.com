@@ -10,9 +10,15 @@ tags: ["Agents", "Pi", "Claude Code"]
 mermaid: true
 ---
 
-I had already found one good way to code from my phone.
+Before Paseo, my coding agents were easy to reach and annoying to find.
 
-I ran Pi on a remote machine, reached it through Tailscale, opened the session in Termius, and kept everything alive with tmux. It was not glamorous, but it worked. I could start a task at my desk, leave, reconnect from my phone, and continue from the same terminal.
+On my phone, I would open Termius, log in to the remote machine, run `tmux ls`, remember which session contained the task, attach to it, and choose the right window. Then I would repeat the same ritual on my Mac for local work.
+
+Every session was available. Nothing was in one view.
+
+The setup itself was solid: Pi on a remote machine, Tailscale connecting my devices, Termius as the phone terminal, and tmux keeping work alive when I disconnected. I could start a task at my desk, leave, reconnect from my phone, and continue from the same process.
+
+What I had was remote access. What I wanted was a workspace.
 
 Then I tried Codex through the ChatGPT app.
 
@@ -632,11 +638,11 @@ If a provider is installed but unavailable:
 
 # What Paseo Changed for Me
 
-Before Paseo, remote agents meant SSH, tmux, and remembering where each task lived.
+The terminal ritual from the introduction has not disappeared. It became the fallback instead of the default.
 
-That workflow still exists. SSH remains my break-glass path.
+Now I open Paseo and see my local and remote projects, active sessions, agents, conversations, and usage in one place. I choose the work, not the machine and terminal window that happen to contain it.
 
-Paseo changes the default view from **processes on a server** to **work happening inside a project**.
+SSH and tmux remain my break-glass path. Paseo changes the default view from **processes scattered across machines** to **work organized by project**.
 
 I get:
 
