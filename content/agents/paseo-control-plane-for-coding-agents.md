@@ -86,7 +86,7 @@ The harness owns prompts, tools, permissions, compaction, sessions, and model be
 
 That separation is why this setup works for me. I already invested heavily in Pi. Paseo gives Pi a better cross-device workspace without replacing the parts I care about.
 
-{{<diagram src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/agents/paseo-control-plane-for-coding-agents/diagrams/one-agent-turn.svg" alt="One coding agent turn through Paseo, a provider adapter, a native harness, and a selected model" caption="One agent turn, with authority kept in the right layer. Paseo coordinates the workspace; the native harness owns agent behavior and sessions; Git owns code history. Tap to expand.">}}
+{{<diagram src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/agents/paseo-control-plane-for-coding-agents/diagrams/one-agent-turn-compact.svg" alt="One coding agent turn through Paseo, a provider adapter, a native harness, and a selected model" caption="One agent turn, with authority kept in the right layer. Paseo coordinates the workspace; the native harness owns agent behavior and sessions; Git owns code history. Tap to expand.">}}
 
 # Step 1: Install Tailscale Everywhere
 

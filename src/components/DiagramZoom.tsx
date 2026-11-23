@@ -9,6 +9,7 @@ const ZOOM_STEP = 0.5;
 export function DiagramZoom() {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
+  const panRef = useRef<{ pointerId: number; x: number; y: number; left: number; top: number } | null>(null);
   const [zoom, setZoom] = useState(MIN_ZOOM);
   const [title, setTitle] = useState('Diagram preview');
 
@@ -25,9 +26,11 @@ export function DiagramZoom() {
       preview.classList.add('diagram-zoom-media');
       preview.removeAttribute('width');
       preview.removeAttribute('height');
+      if (preview instanceof HTMLImageElement) preview.draggable = false;
       const caption = diagram.querySelector('figcaption')?.textContent?.trim();
       const alt = media instanceof HTMLImageElement ? media.alt : '';
-      setTitle(caption || alt || 'Diagram preview');
+      const shortCaption = caption?.split('.')[0];
+      setTitle(shortCaption || alt || 'Diagram preview');
       stage.replaceChildren(preview);
       stage.scrollTo({ top: 0, left: 0 });
       setZoom(MIN_ZOOM);
@@ -60,7 +63,20 @@ export function DiagramZoom() {
   }, []);
 
   useEffect(() => {
-    stageRef.current?.style.setProperty('--diagram-zoom', String(zoom));
+    const stage = stageRef.current;
+    if (!stage) return;
+    stage.style.setProperty('--diagram-zoom', String(zoom));
+    stage.dataset.zoomed = zoom > MIN_ZOOM ? 'true' : 'false';
+    requestAnimationFrame(() => {
+      if (zoom === MIN_ZOOM) {
+        stage.scrollTo({ top: 0, left: 0 });
+        return;
+      }
+      stage.scrollTo({
+        left: Math.max(0, (stage.scrollWidth - stage.clientWidth) / 2),
+        top: Math.max(0, (stage.scrollHeight - stage.clientHeight) / 2),
+      });
+    });
   }, [zoom]);
 
   const close = () => dialogRef.current?.close();
@@ -75,6 +91,7 @@ export function DiagramZoom() {
       }}
       onClose={() => {
         stageRef.current?.replaceChildren();
+        panRef.current = null;
         setZoom(MIN_ZOOM);
       }}
     >
@@ -101,7 +118,40 @@ export function DiagramZoom() {
           <button type="button" onClick={close} aria-label="Close diagram preview">×</button>
         </div>
       </div>
-      <div ref={stageRef} className="diagram-zoom-stage" />
+      <div
+        ref={stageRef}
+        className="diagram-zoom-stage"
+        onPointerDown={(event) => {
+          if (zoom <= MIN_ZOOM) return;
+          const stage = event.currentTarget;
+          panRef.current = {
+            pointerId: event.pointerId,
+            x: event.clientX,
+            y: event.clientY,
+            left: stage.scrollLeft,
+            top: stage.scrollTop,
+          };
+          stage.dataset.dragging = 'true';
+          stage.setPointerCapture(event.pointerId);
+        }}
+        onPointerMove={(event) => {
+          const pan = panRef.current;
+          if (!pan || pan.pointerId !== event.pointerId) return;
+          const stage = event.currentTarget;
+          stage.scrollLeft = pan.left - (event.clientX - pan.x);
+          stage.scrollTop = pan.top - (event.clientY - pan.y);
+        }}
+        onPointerUp={(event) => {
+          if (panRef.current?.pointerId !== event.pointerId) return;
+          panRef.current = null;
+          delete event.currentTarget.dataset.dragging;
+          event.currentTarget.releasePointerCapture(event.pointerId);
+        }}
+        onPointerCancel={(event) => {
+          panRef.current = null;
+          delete event.currentTarget.dataset.dragging;
+        }}
+      />
     </dialog>
   );
 }
