@@ -597,10 +597,12 @@ blockquote p { margin: 0.5rem 0; }
    ========================================================= */
 
 .mermaid-diagram {
+  position: relative;
   margin: 1.5rem 0;
   padding: 1rem 0;
   text-align: center;
   overflow-x: auto;
+  cursor: zoom-in;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -608,6 +610,125 @@ blockquote p { margin: 0.5rem 0; }
   max-width: 100%;
   height: auto;
   display: inline-block;
+  pointer-events: none;
+}
+
+.mermaid-diagram[role="button"]:focus-visible {
+  border-radius: 0.5rem;
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.diagram-zoom-dialog {
+  width: min(94vw, 76rem);
+  max-width: none;
+  max-height: 94vh;
+  padding: 0;
+  overflow: hidden;
+  color: var(--fg);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  box-shadow: 0 1.5rem 5rem rgb(0 0 0 / 0.3);
+}
+
+.diagram-zoom-dialog::backdrop {
+  background: rgb(0 0 0 / 0.68);
+  backdrop-filter: blur(3px);
+}
+
+.diagram-zoom-toolbar {
+  display: flex;
+  min-height: 3.5rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--code-background);
+  border-bottom: 1px solid var(--border);
+}
+
+.diagram-zoom-title {
+  min-width: 0;
+  overflow: hidden;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.diagram-zoom-actions {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.diagram-zoom-actions button {
+  display: inline-flex;
+  width: 2.25rem;
+  height: 2.25rem;
+  align-items: center;
+  justify-content: center;
+  color: var(--fg);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.diagram-zoom-actions button:hover:not(:disabled) {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.diagram-zoom-actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.35;
+}
+
+.diagram-zoom-actions span {
+  min-width: 3.5rem;
+  color: var(--fg-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-align: center;
+}
+
+.diagram-zoom-stage {
+  --diagram-zoom: 1;
+  min-height: min(34rem, 72vh);
+  max-height: calc(94vh - 3.5rem);
+  overflow: auto;
+  padding: clamp(1rem, 4vw, 2.5rem);
+  background: var(--surface);
+  overscroll-behavior: contain;
+}
+
+.diagram-zoom-stage .diagram-zoom-media {
+  display: block;
+  width: calc(var(--diagram-zoom) * 100%) !important;
+  max-width: none !important;
+  height: auto !important;
+  margin: auto;
+}
+
+@media (width < 40rem) {
+  .diagram-zoom-dialog {
+    width: calc(100vw - 1rem);
+    max-height: calc(100vh - 1rem);
+  }
+
+  .diagram-zoom-title { display: none; }
+  .diagram-zoom-toolbar { justify-content: flex-end; }
+  .diagram-zoom-stage {
+    min-height: 65vh;
+    max-height: calc(100vh - 4.5rem);
+    padding: 0.75rem;
+  }
 }
 
 /* =========================================================

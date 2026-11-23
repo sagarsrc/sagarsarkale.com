@@ -8,6 +8,7 @@ import rehypeRaw from 'rehype-raw';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrettyCode from 'rehype-pretty-code';
 import { CopyCodeButton } from './CopyCodeButton';
+import { DiagramZoom } from './DiagramZoom';
 
 interface Props {
   content: string;
@@ -58,6 +59,7 @@ export function MDXRenderer({ content, autonumber }: Props) {
         }}
       />
       <CopyCodeButton />
+      <DiagramZoom />
     </div>
   );
 }
