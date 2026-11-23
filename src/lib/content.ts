@@ -45,6 +45,15 @@ export function convertShortcodes(content: string): string {
     }
   );
 
+  // {{< diagram src="..." alt="..." caption="..." >}}
+  content = content.replace(/\{\{<\s*diagram\s+([^>]*?)>\s*\}\}/g, (_: string, attrs: string) => {
+    const src = attrs.match(/src="([^"]+)"/)?.[1] || '';
+    const alt = attrs.match(/alt="([^"]+)"/)?.[1] || '';
+    const caption = attrs.match(/caption="([^"]+)"/)?.[1] || '';
+    if (!src) return '';
+    return `<figure class="architecture-diagram diagram-zoom-source"><img src="${src}" alt="${alt}" loading="lazy" decoding="async" />${caption ? `<figcaption>${caption}</figcaption>` : ''}</figure>\n\n`;
+  });
+
   // {{< figure src="..." width="..." height="..." caption="..." >}}
   // Also handles {{<figure ...>}} (no spaces)
   content = content.replace(/\{\{<\s*figure\s+([^>]*?)>\s*\}\}/g, (_: string, attrs: string) => {
@@ -52,6 +61,7 @@ export function convertShortcodes(content: string): string {
     const widthMatch = attrs.match(/width="([^"]+)"/);
     const heightMatch = attrs.match(/height="([^"]+)"/);
     const captionMatch = attrs.match(/caption="([^"]+)"/);
+    const coverMatch = attrs.match(/cover="([^"]+)"/);
     const src = srcMatch ? srcMatch[1] : '';
     const styles: string[] = [];
     if (widthMatch) styles.push(`width:${widthMatch[1]};max-width:100%`);
@@ -59,7 +69,8 @@ export function convertShortcodes(content: string): string {
     const styleAttr = styles.length ? ` style="${styles.join(';')}"` : '';
     const alt = captionMatch ? captionMatch[1] : '';
     const caption = captionMatch ? `<figcaption>${captionMatch[1]}</figcaption>` : '';
-    return `<figure style="display:flex;flex-direction:column;align-items:center"><img src="${src}" alt="${alt}"${styleAttr} />${caption}</figure>\n\n`;
+    const noCoverAttr = coverMatch?.[1] === 'false' ? ' data-no-cover="true"' : '';
+    return `<figure${noCoverAttr} style="display:flex;flex-direction:column;align-items:center"><img src="${src}" alt="${alt}"${styleAttr} />${caption}</figure>\n\n`;
   });
 
   // {{< customfont font="..." weight="..." size="..." >}} ... {{< /customfont >}}
@@ -281,10 +292,10 @@ function parseFile(
 
     // Cover image: prefer frontmatter `cover`, else extract first standalone static image.
     // Gallery images belong in article flow and must not become or remove the post cover.
-    const coverCandidateContent = cleanContent.replace(
-      /<figure class="phone-gallery-figure">[\s\S]*?<\/figure>/gi,
-      ''
-    );
+    const coverCandidateContent = cleanContent
+      .replace(/<figure class="phone-gallery-figure">[\s\S]*?<\/figure>/gi, '')
+      .replace(/<figure class="architecture-diagram diagram-zoom-source">[\s\S]*?<\/figure>/gi, '')
+      .replace(/<figure data-no-cover="true"[\s\S]*?<\/figure>/gi, '');
     const imgMatch = coverCandidateContent.match(/<img[^>]+src="([^"]+\.(?:png|jpg|jpeg|webp|svg))"/i);
     const coverImage = fm.cover || (imgMatch ? imgMatch[1] : undefined);
 

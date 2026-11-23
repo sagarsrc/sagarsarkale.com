@@ -54,17 +54,7 @@ My phone, MacBook, and VPS are inside the same Tailscale network.
 
 I am not publishing real hostnames, Tailscale IPs, credentials, or private configuration values. Replace the examples with values from your own tailnet.
 
-{{<mermaid>}}
-graph LR
-    Phone[Phone] --> Tailnet[Tailscale private network]
-    Mac[MacBook Pro] --> Tailnet
-    Tailnet --> LocalPaseo[Paseo on Mac]
-    Tailnet --> RemotePaseo[Paseo on VPS]
-    LocalPaseo --> LocalAgents[Pi / Claude Code / Codex]
-    RemotePaseo --> RemoteAgents[Pi and remote agents]
-    LocalAgents --> LocalRepos[Local projects and worktrees]
-    RemoteAgents --> RemoteRepos[Remote projects and worktrees]
-{{</mermaid>}}
+{{<diagram src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/agents/paseo-control-plane-for-coding-agents/diagrams/private-multi-host.svg" alt="Paseo architecture across a MacBook and VPS connected through Tailscale" caption="Paseo across private hosts. Tailscale provides reachability; each host keeps its own daemon, harnesses, repositories, and sessions. Tap to expand.">}}
 
 The important design decision is simple:
 
@@ -95,6 +85,8 @@ Pi stays Pi. Claude Code stays Claude Code. Codex stays Codex.
 The harness owns prompts, tools, permissions, compaction, sessions, and model behavior. Paseo owns the workspace around them: projects, clients, terminals, files, diffs, worktrees, and remote access.
 
 That separation is why this setup works for me. I already invested heavily in Pi. Paseo gives Pi a better cross-device workspace without replacing the parts I care about.
+
+{{<diagram src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/agents/paseo-control-plane-for-coding-agents/diagrams/one-agent-turn.svg" alt="One coding agent turn through Paseo, a provider adapter, a native harness, and a selected model" caption="One agent turn, with authority kept in the right layer. Paseo coordinates the workspace; the native harness owns agent behavior and sessions; Git owns code history. Tap to expand.">}}
 
 # Step 1: Install Tailscale Everywhere
 
@@ -198,7 +190,20 @@ If your package manager installs `paseo` outside the daemon's normal `PATH`, use
 
 The desktop app can manage its own bundled daemon on the same machine. I recommend using that managed path for local Mac projects instead of treating the same-machine daemon as an external remote host.
 
-Use standalone daemons for genuinely remote machines.
+One Mac setting turned out to be essential: the desktop app must attach to the daemon and Paseo home that contain your local sessions.
+
+Open the Mac host in Paseo, go to **Overview**, and verify:
+
+- daemon status is **running**;
+- **Manage built-in daemon** is enabled;
+- the bottom of the page says **Attached to an existing daemon**;
+- the attached Paseo home is the one you expect. In my case, it was `/Users/sagar/.paseo`.
+
+{{<diagram src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/agents/paseo-control-plane-for-coding-agents/macbook-attached-daemon.png" alt="Paseo Desktop Overview showing the Mac app attached to its existing local daemon" caption="The Mac desktop attached to its local Paseo daemon and existing Paseo home. Tap to expand.">}}
+
+This was easy to miss because remote access still worked. I could see sessions and messages from my phone while the local Mac app looked empty. The phone was connected to the working daemon; the desktop app was not attached to the same local state.
+
+For same-machine work, attach the desktop app to its own managed daemon. Use standalone daemons for genuinely remote machines.
 
 # Step 4: Bind the Remote Daemon to Its Tailscale Address
 
@@ -445,20 +450,22 @@ I used the same posture on the remote host.
 
 The network was now correct. The desktop still got stuck on *Reconnecting*. Workspace state and history drifted from what the CLI and phone showed.
 
+The funniest symptom was that I could see the messages on my phone but not in Paseo on the Mac that was running them.
+
 The desktop supports two daemon paths:
 
 - bundled daemon managed by the desktop app;
 - external daemon connected as a remote host.
 
-I was using the external path for a daemon on the same machine. That added cached addresses, manual restarts, and possible version drift for no benefit.
+I was using the external path for a daemon on the same machine. That added cached addresses, manual restarts, and possible version drift for no benefit. More importantly, the desktop was not attached to the same local Paseo home.
 
-I switched the Mac desktop back to its bundled managed daemon.
+I switched the Mac desktop back to its bundled managed daemon and confirmed **Attached to an existing daemon** pointed at `/Users/sagar/.paseo`.
 
-Sync issues disappeared.
+The missing local messages appeared and sync issues disappeared.
 
-The standalone daemon remains the right model for remote machines and direct Tailscale clients. The local desktop should manage its own local daemon.
+The standalone daemon remains the right model for remote machines and direct Tailscale clients. The local desktop should manage—and attach to—its own local daemon.
 
-**Lesson:** use the managed path for same-machine components. Use direct connections for actual remote hosts.
+**Lesson:** use the managed path for same-machine components, and verify the attached Paseo home. Use direct connections for actual remote hosts.
 
 # Problem 4: Claude and Codex Were Installed but Unavailable
 
@@ -621,20 +628,7 @@ If a provider is installed but unavailable:
 5. Reload Paseo.
 6. Rerun the diagnostic until it reports the expected path and version.
 
-{{<mermaid>}}
-flowchart TD
-    A[Client error] --> B{Is daemon running?}
-    B -- No --> C[Inspect daemon log]
-    C --> D[Start daemon]
-    B -- Yes --> E{Is expected address listening?}
-    E -- No --> F[Check listen host and port]
-    E -- Yes --> G{Does client use same address?}
-    G -- No --> H[Remove stale bookmark and reconnect]
-    G -- Yes --> I{Provider ready?}
-    I -- No --> J[Run provider diagnostic]
-    J --> K[Compare PATH, executable, and version]
-    I -- Yes --> L[Retry disposable turn]
-{{</mermaid>}}
+{{<diagram src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/agents/paseo-control-plane-for-coding-agents/diagrams/failure-isolation.svg" alt="Paseo failure isolation path from client connectivity through daemon, provider, harness, and process lifetime" caption="Diagnose the failed layer instead of changing everything at once. SSH remains the recovery path; neither Paseo nor Tailscale is an agent sandbox. Tap to expand.">}}
 
 # What Paseo Changed for Me
 

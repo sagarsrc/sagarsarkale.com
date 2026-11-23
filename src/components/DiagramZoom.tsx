@@ -10,20 +10,24 @@ export function DiagramZoom() {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const [zoom, setZoom] = useState(MIN_ZOOM);
+  const [title, setTitle] = useState('Diagram preview');
 
   useEffect(() => {
-    const diagrams = Array.from(document.querySelectorAll<HTMLElement>('.mermaid-diagram'));
+    const diagrams = Array.from(document.querySelectorAll<HTMLElement>('.mermaid-diagram, .diagram-zoom-source'));
 
     const openDiagram = (diagram: HTMLElement) => {
       const dialog = dialogRef.current;
       const stage = stageRef.current;
-      const svg = diagram.querySelector('svg');
-      if (!dialog || !stage || !svg) return;
+      const media = diagram.querySelector('svg, img');
+      if (!dialog || !stage || !media) return;
 
-      const preview = svg.cloneNode(true) as SVGElement;
+      const preview = media.cloneNode(true) as SVGElement | HTMLImageElement;
       preview.classList.add('diagram-zoom-media');
       preview.removeAttribute('width');
       preview.removeAttribute('height');
+      const caption = diagram.querySelector('figcaption')?.textContent?.trim();
+      const alt = media instanceof HTMLImageElement ? media.alt : '';
+      setTitle(caption || alt || 'Diagram preview');
       stage.replaceChildren(preview);
       stage.scrollTo({ top: 0, left: 0 });
       setZoom(MIN_ZOOM);
@@ -75,7 +79,7 @@ export function DiagramZoom() {
       }}
     >
       <div className="diagram-zoom-toolbar">
-        <p id="diagram-zoom-title" className="diagram-zoom-title">Diagram preview</p>
+        <p id="diagram-zoom-title" className="diagram-zoom-title">{title}</p>
         <div className="diagram-zoom-actions">
           <button
             type="button"

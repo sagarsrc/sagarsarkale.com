@@ -613,7 +613,23 @@ blockquote p { margin: 0.5rem 0; }
   pointer-events: none;
 }
 
-.mermaid-diagram[role="button"]:focus-visible {
+.architecture-diagram {
+  margin: 2rem 0;
+  cursor: zoom-in;
+}
+
+.architecture-diagram img {
+  width: 100%;
+  height: auto;
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: 0.65rem;
+  background: #fff;
+  pointer-events: none;
+}
+
+.mermaid-diagram[role="button"]:focus-visible,
+.architecture-diagram[role="button"]:focus-visible {
   border-radius: 0.5rem;
   outline: 2px solid var(--accent);
   outline-offset: 4px;

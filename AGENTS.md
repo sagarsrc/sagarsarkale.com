@@ -49,6 +49,7 @@ Tags: stick to existing ones (`Foundations`, `Transformers`, `MCP`, `DeepDive`, 
 
 - `{{<figure src="..." width="..." caption="...">}}`
 - `{{<gallery caption="...">}}...{{</gallery>}}` with `{{<gallery-item src="..." alt="..." caption="...">}}` — horizontally scrollable phone screenshot gallery
+- `{{<diagram src="..." alt="..." caption="...">}}` — zoomable architecture diagram image
 - `{{<mermaid>}}...{{</mermaid>}}` — renders to SVG at build time via `mmdc`
 - `{{<details title="...">}}...{{</details>}}`
 - `{{<author>}}` — author byline
