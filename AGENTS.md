@@ -48,6 +48,7 @@ Tags: stick to existing ones (`Foundations`, `Transformers`, `MCP`, `DeepDive`, 
 `src/lib/content.ts::convertShortcodes()` handles these at build time:
 
 - `{{<figure src="..." width="..." caption="...">}}`
+- `{{<gallery caption="...">}}...{{</gallery>}}` with `{{<gallery-item src="..." alt="..." caption="...">}}` — horizontally scrollable phone screenshot gallery
 - `{{<mermaid>}}...{{</mermaid>}}` — renders to SVG at build time via `mmdc`
 - `{{<details title="...">}}...{{</details>}}`
 - `{{<author>}}` — author byline

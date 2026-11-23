@@ -23,6 +23,28 @@ const SECTIONS: ContentSection[] = [
 ];
 
 export function convertShortcodes(content: string): string {
+  // {{< gallery caption="..." >}} {{< gallery-item src="..." alt="..." caption="..." >}} {{< /gallery >}}
+  content = content.replace(
+    /\{\{<\s*gallery(?:\s+([^>]*?))?>\s*\}\}([\s\S]*?)\{\{<\s*\/gallery\s*>\s*\}\}/g,
+    (_: string, attrs: string = '', inner: string) => {
+      const galleryCaptionMatch = attrs.match(/caption="([^"]+)"/);
+      const items = Array.from(inner.matchAll(/\{\{<\s*gallery-item\s+([^>]*?)>\s*\}\}/g)).map((match) => {
+        const itemAttrs = match[1];
+        const src = itemAttrs.match(/src="([^"]+)"/)?.[1] || '';
+        const alt = itemAttrs.match(/alt="([^"]+)"/)?.[1] || '';
+        const caption = itemAttrs.match(/caption="([^"]+)"/)?.[1] || '';
+        if (!src) return '';
+        return `<a class="phone-gallery-item" href="${src}" target="_blank" rel="noopener noreferrer"><span class="phone-gallery-image"><img src="${src}" alt="${alt}" loading="lazy" decoding="async" /></span>${caption ? `<span class="phone-gallery-item-caption">${caption}</span>` : ''}</a>`;
+      }).join('');
+
+      if (!items) return '';
+      const caption = galleryCaptionMatch
+        ? `<figcaption>${galleryCaptionMatch[1]}</figcaption>`
+        : '';
+      return `<figure class="phone-gallery-figure"><div class="phone-gallery" role="group" aria-label="Phone screenshot gallery">${items}</div>${caption}</figure>\n\n`;
+    }
+  );
+
   // {{< figure src="..." width="..." height="..." caption="..." >}}
   // Also handles {{<figure ...>}} (no spaces)
   content = content.replace(/\{\{<\s*figure\s+([^>]*?)>\s*\}\}/g, (_: string, attrs: string) => {
@@ -257,8 +279,13 @@ function parseFile(
     let cleanContent = convertShortcodes(content);
     const stats = readingTime(cleanContent);
 
-    // Cover image: prefer frontmatter `cover`, else extract first static image
-    const imgMatch = cleanContent.match(/<img[^>]+src="([^"]+\.(?:png|jpg|jpeg|webp|svg))"/i);
+    // Cover image: prefer frontmatter `cover`, else extract first standalone static image.
+    // Gallery images belong in article flow and must not become or remove the post cover.
+    const coverCandidateContent = cleanContent.replace(
+      /<figure class="phone-gallery-figure">[\s\S]*?<\/figure>/gi,
+      ''
+    );
+    const imgMatch = coverCandidateContent.match(/<img[^>]+src="([^"]+\.(?:png|jpg|jpeg|webp|svg))"/i);
     const coverImage = fm.cover || (imgMatch ? imgMatch[1] : undefined);
 
     // If cover was auto-extracted from content, strip it so it doesn't render twice

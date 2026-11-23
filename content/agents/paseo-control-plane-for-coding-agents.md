@@ -10,17 +10,34 @@ tags: ["Agents", "Pi", "Claude Code"]
 mermaid: true
 ---
 
-I already had the agents.
+I had already found one good way to code from my phone.
 
-Pi on a remote box. Claude Code and Codex on my MacBook. Tailscale connecting my devices. SSH and tmux whenever I needed complete control.
+I ran Pi on a remote machine, reached it through Tailscale, opened the session in Termius, and kept everything alive with tmux. It was not glamorous, but it worked. I could start a task at my desk, leave, reconnect from my phone, and continue from the same terminal.
 
-What I did not have was one decent place to operate all of it.
+Then I tried Codex through the ChatGPT app.
 
-I wanted to start an agent from my laptop, leave the desk, check it from my phone, answer a question, inspect the diff, and continue without reconstructing the session from terminal panes.
+That was a different experience. Codex could work against a cloud VM, my Mac, or a sandbox, while the phone app gave me a much friendlier way to check progress and keep work moving. No tiny terminal panes. No remembering which tmux session contained which task. Using a coding agent from my phone finally felt natural.
 
-[Paseo](https://paseo.sh) looked like the missing layer. Desktop app. Native phone app. Projects. Agents. Files. Terminals. Diffs. Worktrees. Multiple harnesses behind one interface.
+It was awesome, but it also made the limitation obvious: that experience was built around GPT models.
 
-It is a great tool.
+I wanted the same freedom with Pi, Claude Code, Codex, and whatever harness or model I wanted to try next. I did not want to choose between broad model access in a terminal and a polished phone experience locked to one ecosystem.
+
+That changed the question from **“How do I SSH into my agents?”** to **“What can sit above all of them?”**
+
+[Paseo](https://paseo.sh) looked like the missing layer: a desktop and phone control plane for projects, agents, files, terminals, diffs, worktrees, and multiple harnesses—without replacing the harnesses themselves.
+
+And on the phone, it looked like this:
+
+{{<gallery caption="Paseo on my phone: multiple hosts, multiple harnesses, real sessions, and usage status in one place. Tap any screenshot to open it full size.">}}
+{{<gallery-item src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/agents/paseo-control-plane-for-coding-agents/03-switch-hosts.webp" alt="Paseo host selector on a phone" caption="Switch between my Mac and remote agent host.">}}
+{{<gallery-item src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/agents/paseo-control-plane-for-coding-agents/05-providers.webp" alt="Paseo provider list on a phone" caption="Pi, Claude Code, Codex, and other providers in one control plane.">}}
+{{<gallery-item src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/agents/paseo-control-plane-for-coding-agents/01-launch-session.webp" alt="Starting a Pi session with Kimi from a phone" caption="Launch Pi with a non-GPT model directly from the phone.">}}
+{{<gallery-item src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/agents/paseo-control-plane-for-coding-agents/02-agent-session.webp" alt="Coding agent session running on a phone" caption="Read output and continue a real coding session away from the desk.">}}
+{{<gallery-item src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/agents/paseo-control-plane-for-coding-agents/04-usage.webp" alt="Claude and Codex usage status in Paseo" caption="See provider usage without opening several dashboards.">}}
+{{<gallery-item src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/agents/paseo-control-plane-for-coding-agents/06-workspaces.webp" alt="Paseo workspaces across local and remote hosts" caption="Projects and active sessions across both machines.">}}
+{{</gallery>}}
+
+Paseo is a great tool.
 
 Getting it onto my Tailscale network was not the five-minute setup I expected.
 
