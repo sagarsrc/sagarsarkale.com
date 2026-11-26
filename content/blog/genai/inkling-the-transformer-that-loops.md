@@ -50,7 +50,7 @@ $$s_{r+1} = R_\theta(s_r), \qquad r = 0, \ldots, K-1$$
 
 The **same** $\theta$ at every step. Store one block, apply it $K$ times, get $K$ times the effective depth.
 
-{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/inkling/03-loop-anatomy.png" caption="Three distinct layers vs one block visited three times" width="80%" height="auto">}}
+{{<diagram src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/inkling/03-loop-anatomy.png" alt="Three distinct layers vs one block visited three times" caption="Three distinct layers vs one block visited three times">}}
 
 Now the part that matters, and where most explanations go wrong:
 
@@ -80,7 +80,7 @@ Prelude encodes, core iterates, coda speaks. Simple skeleton — but the wiring 
 
 Here is the complete path of a single token. Take a breath, look at the diagram, and then we walk it visit by visit.
 
-{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/inkling/04-inkling-cutaway.png" caption="Inkling 2 Mini: 24 stored layers, 48 layer-applications per token" width="90%" height="auto">}}
+{{<diagram src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/inkling/04-inkling-cutaway.png" alt="Inkling 2 Mini: 24 stored layers, 48 layer-applications per token" caption="Inkling 2 Mini: 24 stored layers, 48 layer-applications per token">}}
 
 ## The map
 
@@ -124,7 +124,7 @@ The gates reportedly start closed and open during training — the model literal
 
 Here is where "shared weights" stops sounding free. Two things re-run fresh on every visit:
 
-{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/inkling/05-shared-vs-fresh.png" caption="Shared across visits vs fresh per visit" width="80%" height="auto">}}
+{{<diagram src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/inkling/05-shared-vs-fresh.png" alt="Shared across visits vs fresh per visit" caption="Shared across visits vs fresh per visit">}}
 
 1. **Routing.** The MoE router re-decides expert assignment on every visit. A token can consult different experts on visit #2 than it did on visit #1 — same weights, different path through them.
 2. **Cache state.** Each logical layer-application keeps its **own KV cache and convolution state** — 48 logical cache slots, not 24. Shared weights do **not** mean shared memory. At long context, Inkling's weight savings do not translate into proportional KV savings.
@@ -135,7 +135,7 @@ Here is where "shared weights" stops sounding free. Two things re-run fresh on e
 
 This needs its own section, because the internet got it wrong within hours of release.
 
-{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/inkling/06-version-matrix.png" caption="Only one Inkling loops" width="80%" height="auto">}}
+{{<diagram src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/inkling/06-version-matrix.png" alt="Only one Inkling loops" caption="Only one Inkling loops">}}
 
 | Model | Loops? | Architecture |
 |---|---|---|
@@ -154,7 +154,7 @@ Everything above is mechanism — source-verified in the public config and the T
 
 **More visits help — then stop helping.** The varloop checkpoint is the cleanest evidence, because the *same weights* run at different depths:
 
-{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/inkling/07-passes-vs-capability.png" caption="Vendor-reported: capability vs number of visits" width="80%" height="auto">}}
+{{<diagram src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/inkling/07-passes-vs-capability.png" alt="Vendor-reported: capability vs number of visits" caption="Vendor-reported: capability vs number of visits">}}
 
 - Reasoning, agentic and long-context tasks improve sharply from 1 → 3 visits.
 - At 4–5 visits, gains flatten, wobble, or regress.
@@ -182,7 +182,7 @@ Let us be the adults in the room, because the headlines will not be.
 
 Here is the whole post in one picture:
 
-{{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/inkling/08-summary.png" caption="Loop transformers in one view" width="70%" height="auto">}}
+{{<diagram src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/inkling/08-summary.png" alt="Loop transformers in one view" caption="Loop transformers in one view">}}
 
 And in one paragraph: RNNs looped one cell over **time**, and we loved them until the serial dependency became unbearable. Transformers unrolled the loop, gave every layer its own weights, and parallelized everything. Inkling loops one block over **depth** — restarting from a saved snapshot, passing gated notes between visits, re-routing experts every time — and gets 48 layers of thinking out of 24 layers of storage. Recurrence never died. It just moved to a dimension where 3 steps of serial dependency is a price worth paying.
 

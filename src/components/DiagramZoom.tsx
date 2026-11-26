@@ -9,12 +9,17 @@ const ZOOM_STEP = 0.25;
 export function DiagramZoom() {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
+  const galleryItemsRef = useRef<HTMLElement[]>([]);
+  const openVisualRef = useRef<(visual: HTMLElement) => void>(() => undefined);
   const panRef = useRef<{ pointerId: number; x: number; y: number; left: number; top: number } | null>(null);
   const [zoom, setZoom] = useState(MIN_ZOOM);
   const [title, setTitle] = useState('Diagram preview');
+  const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
 
   useEffect(() => {
     const diagrams = Array.from(document.querySelectorAll<HTMLElement>('.mermaid-diagram, .diagram-zoom-source, .phone-gallery-item'));
+    const galleryItems = Array.from(document.querySelectorAll<HTMLElement>('.phone-gallery-item'));
+    galleryItemsRef.current = galleryItems;
 
     const openDiagram = (diagram: HTMLElement) => {
       const dialog = dialogRef.current;
@@ -31,11 +36,14 @@ export function DiagramZoom() {
       const alt = media instanceof HTMLImageElement ? media.alt : '';
       const shortCaption = caption?.split('.')[0];
       setTitle(shortCaption || alt || 'Diagram preview');
+      const index = galleryItems.indexOf(diagram);
+      setGalleryIndex(index >= 0 ? index : null);
       stage.replaceChildren(preview);
       stage.scrollTo({ top: 0, left: 0 });
       setZoom(MIN_ZOOM);
-      dialog.showModal();
+      if (!dialog.open) dialog.showModal();
     };
+    openVisualRef.current = openDiagram;
 
     const cleanups = diagrams.map((diagram) => {
       diagram.setAttribute('role', 'button');
@@ -62,7 +70,11 @@ export function DiagramZoom() {
       };
     });
 
-    return () => cleanups.forEach((cleanup) => cleanup());
+    return () => {
+      cleanups.forEach((cleanup) => cleanup());
+      galleryItemsRef.current = [];
+      openVisualRef.current = () => undefined;
+    };
   }, []);
 
   useEffect(() => {
@@ -83,6 +95,10 @@ export function DiagramZoom() {
   }, [zoom]);
 
   const close = () => dialogRef.current?.close();
+  const openGalleryItem = (index: number) => {
+    const item = galleryItemsRef.current[index];
+    if (item) openVisualRef.current(item);
+  };
 
   return (
     <dialog
@@ -92,15 +108,47 @@ export function DiagramZoom() {
       onClick={(event) => {
         if (event.target === event.currentTarget) close();
       }}
+      onKeyDown={(event) => {
+        if (galleryIndex === null) return;
+        if (event.key === 'ArrowLeft' && galleryIndex > 0) {
+          event.preventDefault();
+          openGalleryItem(galleryIndex - 1);
+        }
+        if (event.key === 'ArrowRight' && galleryIndex < galleryItemsRef.current.length - 1) {
+          event.preventDefault();
+          openGalleryItem(galleryIndex + 1);
+        }
+      }}
       onClose={() => {
         stageRef.current?.replaceChildren();
         panRef.current = null;
+        setGalleryIndex(null);
         setZoom(MIN_ZOOM);
       }}
     >
       <div className="diagram-zoom-toolbar">
         <p id="diagram-zoom-title" className="diagram-zoom-title">{title}</p>
         <div className="diagram-zoom-actions">
+          {galleryIndex !== null && (
+            <>
+              <button
+                type="button"
+                onClick={() => openGalleryItem(galleryIndex - 1)}
+                disabled={galleryIndex <= 0}
+                aria-label="Previous image"
+              >
+                ←
+              </button>
+              <button
+                type="button"
+                onClick={() => openGalleryItem(galleryIndex + 1)}
+                disabled={galleryIndex >= galleryItemsRef.current.length - 1}
+                aria-label="Next image"
+              >
+                →
+              </button>
+            </>
+          )}
           <button
             type="button"
             onClick={() => setZoom((value) => Math.max(MIN_ZOOM, value - ZOOM_STEP))}
