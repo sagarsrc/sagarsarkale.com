@@ -38,7 +38,7 @@ Every "our model is smarter now" announcement is spending on one or more of thes
 
 # The loop, precisely
 
-Time for the primitive of this post (like "The Gate" was for LSTMs). Everything else is decoration on top of this one idea.
+Time for the primitive of this post. Everything else is decoration on top of this one idea.
 
 An ordinary transformer stack computes:
 
@@ -56,7 +56,7 @@ Now the part that matters, and where most explanations go wrong:
 
 > This is recurrence over **depth**, not over **time**. In an RNN, token $t$ waited for token $t-1$; that is why training could not parallelize. In a loop transformer, all tokens still move through the block **in parallel**. What is serial is the loop itself: visit $r+1$ needs the state produced by visit $r$. The old RNN bottleneck did not disappear. It moved to a different dimension and got much shorter (3 steps, not 10,000).
 
-If you remember one line from my RNN blog, *"it is the same cell we see at every timestep"*, replace "timestep" with "visit" and you already understand loop transformers. The rest of this post is how Inkling wires it.
+The RNN idea was one cell, reused at every timestep. Replace "timestep" with "visit" and you already understand loop transformers. The rest of this post is how Inkling wires it.
 
 # Some notations before we begin
 
