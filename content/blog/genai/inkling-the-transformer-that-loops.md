@@ -24,7 +24,7 @@ Personally, the small `Nx` in the transformer diagram always bugged me. "Just re
 
 # Three ways to spend compute
 
-Before the architecture, let us build the intuition. If you are a lab (or a leadership team) deciding how to make a model better, you are really choosing between three budgets:
+Before the architecture, let us build the intuition. Making a model better really means choosing between three budgets:
 
 {{<figure src="https://pub-9f767bb50303496e94b0f84838fbefc0.r2.dev/inkling/02-three-compute-budgets.png" caption="Three budgets for making models better" width="80%" height="auto">}}
 
