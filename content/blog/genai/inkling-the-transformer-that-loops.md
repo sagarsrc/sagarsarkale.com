@@ -20,7 +20,7 @@ On **20 November 2026**, Thinking Machines Lab shipped **Inkling 2 Mini**, and t
 
 Personally, the small `Nx` in the transformer diagram always bugged me. "Just repeat this block N times" — sure, but why does each repetition need its **own** weights? What if the same block could look at its own work and take another pass? That is exactly what Inkling does, and in this blog we will open it up piece by piece.
 
-> 💡 **Too long; won't read:** Inkling 2 Mini stores 24 layers but executes 48 layer-applications per token — a 12-layer "core" block reused 3 times. Same weights, fresh state, learned notes passed between visits. It thinks twice (well, thrice) before it speaks.
+> Inkling 2 Mini stores 24 layers but executes 48 layer-applications per token — a 12-layer "core" block reused 3 times. Same weights, fresh state, learned notes passed between visits. It thinks twice (well, thrice) before it speaks.
 
 # Three ways to spend compute
 
@@ -34,7 +34,7 @@ Before the architecture, let us build the intuition. If you are a lab (or a lead
 
 Every "our model is smarter now" announcement is spending on one or more of these axes. They are not interchangeable: capacity buys knowledge, depth buys manipulation, visible reasoning buys inspectability. Keep this triangle in mind — everything Inkling does is a bet on axis #2.
 
-> 💡 **Leadership takeaway:** when a vendor says "smaller model, same performance", always ask *which budget was held fixed*. Stored weights, inference FLOPs, latency and quality are four different numbers.
+> When a vendor says "smaller model, same performance", always ask *which budget was held fixed*. Stored weights, inference FLOPs, latency and quality are four different numbers.
 
 # The loop, precisely
 
@@ -54,7 +54,7 @@ The **same** $\theta$ at every step. Store one block, apply it $K$ times, get $K
 
 Now the part that matters, and where most explanations go wrong:
 
-> 💡 This is recurrence over **depth**, not over **time**. In an RNN, token $t$ waited for token $t-1$ — that is why training could not parallelize. In a loop transformer, all tokens still move through the block **in parallel**. What is serial is the loop itself: visit $r+1$ needs the state produced by visit $r$. The old RNN bottleneck did not disappear — it moved to a different dimension and got much shorter (3 steps, not 10,000).
+> This is recurrence over **depth**, not over **time**. In an RNN, token $t$ waited for token $t-1$ — that is why training could not parallelize. In a loop transformer, all tokens still move through the block **in parallel**. What is serial is the loop itself: visit $r+1$ needs the state produced by visit $r$. The old RNN bottleneck did not disappear — it moved to a different dimension and got much shorter (3 steps, not 10,000).
 
 If you remember one line from my RNN blog — *"it is the same cell we see at every timestep"* — replace "timestep" with "visit" and you already understand loop transformers. The rest of this post is how Inkling wires it.
 
@@ -104,7 +104,7 @@ In a naive loop design, $s_1$ would feed straight back in. Inkling does somethin
 
 ## The restart
 
-> 💡 **The surprise:** visits #2 and #3 do **not** continue from the previous visit's output. They **restart from the saved state $e$** — the post-prelude snapshot — and receive the previous visit's work only as *messages*.
+> Here is the surprise: visits #2 and #3 do **not** continue from the previous visit's output. They **restart from the saved state $e$** — the post-prelude snapshot — and receive the previous visit's work only as *messages*.
 
 Think of it like re-attempting a problem from the original question each time, while keeping your previous attempt's margin notes — not continuing to scribble on top of the old attempt. This keeps every visit anchored to the actual problem and prevents errors from compounding through chained states.
 
@@ -129,7 +129,7 @@ Here is where "shared weights" stops sounding free. Two things re-run fresh on e
 1. **Routing.** The MoE router re-decides expert assignment on every visit. A token can consult different experts on visit #2 than it did on visit #1 — same weights, different path through them.
 2. **Cache state.** Each logical layer-application keeps its **own KV cache and convolution state** — 48 logical cache slots, not 24. Shared weights do **not** mean shared memory. At long context, Inkling's weight savings do not translate into proportional KV savings.
 
-> 💡 **Leadership takeaway:** "26B model" is the *storage* number. It still executes 48 layer-applications and keeps 48 layers' worth of cache per token. Compute, latency and memory bandwidth did not shrink by 3×. Only the weights did.
+> "26B model" is the *storage* number. It still executes 48 layer-applications and keeps 48 layers' worth of cache per token. Compute, latency and memory bandwidth did not shrink by 3×. Only the weights did.
 
 # Wait — which Inkling loops?
 
@@ -139,10 +139,10 @@ This needs its own section, because the internet got it wrong within hours of re
 
 | Model | Loops? | Architecture |
 |---|---|---|
-| Original Inkling | ❌ No | 66-layer conventional sparse MoE, 975B total / 41B active |
-| Inkling 2 Small | ❌ No | 48-layer conventional MoE, 594B / 17B |
-| **Inkling 2 Mini** | ✅ **Yes, ×3 fixed** | 24 layers → 48 applications, 26.4B / 3.4B |
-| `TML-d24-varloop-research` | ✅ **×1–5, caller's choice** | Same topology, trained across depths |
+| Original Inkling | No | 66-layer conventional sparse MoE, 975B total / 41B active |
+| Inkling 2 Small | No | 48-layer conventional MoE, 594B / 17B |
+| **Inkling 2 Mini** | **Yes, ×3 fixed** | 24 layers → 48 applications, 26.4B / 3.4B |
+| `TML-d24-varloop-research` | **×1–5, caller's choice** | Same topology, trained across depths |
 
 The first two are ordinary, if very good, transformers. The Mini is the looped one. And that last row is the quiet gem: an open research checkpoint where **you** pick the number of visits at inference time. It was trained with passes sampled 1:2:6:2:1 (so it saw 3 most often), and it turns "how many times should the model think about this?" into a runtime dial.
 
@@ -162,7 +162,7 @@ Everything above is mechanism — source-verified in the public config and the T
 
 **Loops eat chain-of-thought.** At matched accuracy, mean reasoning tokens went **3,703 → 1,731 → 1,661** at 1, 3 and 5 visits. The "thinking" migrates from visible tokens into hidden iterations. On a no-CoT task suite, the effective task horizon stretched from 16 to 37 "human-seconds" between 1 and 3 visits.
 
-> 💡 **Leadership takeaway:** same accuracy with ~half the visible reasoning tokens means cheaper and faster agents. But it also means the model's reasoning is no longer written down anywhere you can read it. More on that in a moment.
+> Same accuracy with ~half the visible reasoning tokens means cheaper and faster agents. But it also means the model's reasoning is no longer written down anywhere you can read it. More on that in a moment.
 
 # What the hype hides
 
