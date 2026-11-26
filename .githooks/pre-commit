@@ -1,0 +1,37 @@
+#!/bin/sh
+# Pre-commit: block em dashes and emojis in staged markdown content.
+# Enable with: git config core.hooksPath .githooks
+
+set -u
+
+files=$(git diff --cached --name-only --diff-filter=ACM | grep -E '^content/.*\.md$' || true)
+[ -z "$files" ] && exit 0
+
+fail=0
+
+for f in $files; do
+  # Only scan ADDED lines of the staged diff
+  added=$(git diff --cached -U0 -- "$f" | grep '^+' | grep -v '^+++' || true)
+  [ -z "$added" ] && continue
+
+  if printf '%s\n' "$added" | grep -qP '\x{2014}'; then
+    echo "✗ em dash (—) in $f:"
+    printf '%s\n' "$added" | grep -nP '\x{2014}' | head -5 | sed 's/^/    /'
+    fail=1
+  fi
+
+  if printf '%s\n' "$added" | grep -qP '[\x{1F000}-\x{1FAFF}\x{2600}-\x{26FF}\x{2700}-\x{27BF}\x{2B00}-\x{2BFF}\x{FE0F}]'; then
+    echo "✗ emoji in $f:"
+    printf '%s\n' "$added" | grep -nP '[\x{1F000}-\x{1FAFF}\x{2600}-\x{26FF}\x{2700}-\x{27BF}\x{2B00}-\x{2BFF}\x{FE0F}]' | head -5 | sed 's/^/    /'
+    fail=1
+  fi
+done
+
+if [ "$fail" -ne 0 ]; then
+  echo ""
+  echo "Commit blocked: em dashes and emojis are not allowed in content/."
+  echo "Use colons, commas, or periods instead of —. Use Yes/No instead of ✅/❌."
+  exit 1
+fi
+
+exit 0
