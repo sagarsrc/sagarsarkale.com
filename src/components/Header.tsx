@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ThemeToggle } from './ThemeToggle';
 import { ReadingProgress } from './ReadingProgress';
+import { siteConfig } from '@/config/site';
 
 const NAV_LINKS = [
   { name: 'agents.md', url: '/agents', highlight: true },
@@ -18,13 +19,18 @@ export function Header() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [intro, setIntro] = useState(pathname === '/');
+  const [intro, setIntro] = useState(
+    !siteConfig.header.alwaysVisible && pathname === '/',
+  );
 
   useEffect(() => {
-    // On the homepage the header waits off-screen until the visitor has seen the hero.
     const updateHeader = () => {
       setScrolled(window.scrollY > 16);
-      setIntro(pathname === '/' && window.scrollY < window.innerHeight * 0.3);
+      setIntro(
+        !siteConfig.header.alwaysVisible
+          && pathname === '/'
+          && window.scrollY < window.innerHeight * 0.3,
+      );
     };
     updateHeader();
     window.addEventListener('scroll', updateHeader, { passive: true });
